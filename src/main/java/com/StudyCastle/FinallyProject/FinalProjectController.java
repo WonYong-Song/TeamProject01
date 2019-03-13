@@ -104,6 +104,13 @@ public class FinalProjectController {
 	
 	return "01Main/registA";
 	}	
+	
+	//일반회원마이페이지
+	@RequestMapping("catle/memberMyPage.do")
+	public String memberMyPage() {
+		
+		return "01Main/memberMyPage";
+	}
 }
 
 
