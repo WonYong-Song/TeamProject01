@@ -84,11 +84,11 @@ height: 100%;
 				</tr>
 				<tr>
 					<td>아이디 : &nbsp;&nbsp;${dto.memberId }</td>
-					<td>이메일 : &nbsp;&nbsp;${dto.emailId }@{dto.emailDomain}</td>
+					<td>이메일 : &nbsp;&nbsp;${dto.emailId }@${dto.emailDomain}</td>
 				</tr>
 				<tr>
-					<td>휴대전화번호: &nbsp;&nbsp;{dto.phoneNumber}</td>
-					<td>관심사: &nbsp;&nbsp;{dto.interest}</td>
+					<td>휴대전화번호: &nbsp;&nbsp;${dto.phoneNumber}</td>
+					<td>관심사: &nbsp;&nbsp;${dto.interest}</td>
 				</tr>
 				<tr>
 					<td colspan="2" bgcolor="#ffffff" height="50px;"><p style="text-align: right">
