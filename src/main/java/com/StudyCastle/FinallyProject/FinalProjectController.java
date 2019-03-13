@@ -42,11 +42,11 @@ public class FinalProjectController {
 	}*/
 	//회원가입 창 바로가기
 	@RequestMapping("/catle/regist.do")
-	public ModelAndView registStep2() {
-		
+	public ModelAndView registStep2(HttpServletRequest req) {
+		String group = req.getParameter("registGroup");
 		ModelAndView mv = new ModelAndView(); 
-		if(mv!=null)
-			mv.setViewName("01Main/registA");
+		if(group.equals("A"))
+			mv.setViewName("01Main/ServiceTerm");
 		
 		else {
 			mv.setViewName("01Main/registP");
@@ -91,6 +91,19 @@ public class FinalProjectController {
 	
 	return "01Main/registFinish";
 	}
+	//결제 완료창 띄우기
+	@RequestMapping("/catle/paymentAction.do")
+	public String paymentAction() {
+	
+	return "01Main/paymentFinish";
+	}
+	
+	//결제 완료창 띄우기
+	@RequestMapping("/catle/registA.do")
+	public String registA() {
+	
+	return "01Main/registA";
+	}	
 }
 
 

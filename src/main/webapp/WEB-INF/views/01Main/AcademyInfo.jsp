@@ -230,7 +230,7 @@
 		<tr id="info08">
 			<td style="vertical-align: middle;height:auto;padding: 30px;">수강신청</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;"colspan="2">
-				<form action="payment.do" method="post">
+				<form action="paymentAction.do" method="post">
 				<table class="table">
 					<colgroup>
 						<col width="25%"/>
@@ -253,7 +253,7 @@
 					<hr class="my-4">
 				</table>
 				</form>
-				<form action="payment.do" method="post">
+				<form action="paymentAction.do" method="post">
 				<table class="table">
 					<colgroup>
 						<col width="25%"/>
