@@ -48,8 +48,7 @@
   <title>Grayscale - Start Bootstrap Theme</title>
   
   <!-- Bootstrap core CSS -->
-  <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./resources/bs3.3.7/css/bootstrap.css" />	
+  <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">	
   <!-- Custom fonts for this template -->
   <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
@@ -159,14 +158,14 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/FinallyProject/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="/FinallyProject/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/FinallyProject/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for this template -->
-  <script src="js/grayscale.min.js"></script>
+  <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
 
 </body>
 </html>

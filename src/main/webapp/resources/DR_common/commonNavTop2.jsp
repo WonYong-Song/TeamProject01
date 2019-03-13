@@ -26,7 +26,7 @@
             <a class="nav-link js-scroll-trigger" href="regist.do" style="font-size:1.2em;">회원정보수정</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="regist.do" style="font-size:1.2em;">마이페이지</a>
+            <a class="nav-link js-scroll-trigger" href="memberMyPage.do" style="font-size:1.2em;">마이페이지</a>
           </li>
         </ul>
         

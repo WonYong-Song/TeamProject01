@@ -49,7 +49,6 @@
   
   <!-- Bootstrap core CSS -->
   <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./resources/bs3.3.7/css/bootstrap.css" />	
   <!-- Custom fonts for this template -->
   <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
@@ -435,13 +434,14 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/FinallyProject/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="/FinallyProject/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/FinallyProject/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for this template -->
+<<<<<<< HEAD
   <script src="js/grayscale.min.js"></script>
   
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ec06b0333644bd4771e72d23ed5395f&libraries=services"></script>
@@ -483,6 +483,9 @@ geocoder.addressSearch('서울특별시 노원구 하계동 256', function(resul
     } 
 });    
 </script>
+=======
+  <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
+>>>>>>> refs/remotes/origin/master
 
 </body>
 </html>
