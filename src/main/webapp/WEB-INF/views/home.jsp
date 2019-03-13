@@ -1,21 +1,31 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page session="false" %>
 <html>
 <head>
-<meta charset="UTF-8">
-	<title>Home</title>
-<link rel="stylesheet" href="/FinallyProject/resources/bs3.3.7/css/bootstrap.css" />	
-</head>
+<title>Home</title>
+<link rel="stylesheet" href="./resources/bs3.3.7/css/bootstrap.css" />	
 </head>
 <body>
-	<h2 style="font-color:red;">홈!</h2>
+<div class="container">
+	<h2>PROJECT START</h2>
+
+ 	<li>
+		<a href="catle/helloCastle.do">
+			GO TO MAIN
+		</a>
+	</li>
+ 
 	
-	<table class="table table-bordered">
-		<tr>
-			<td>hahahaha</td>
-		</tr>
-	</table>
+	
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</div>
 </body>
 </html>
+
+
+
+
+
