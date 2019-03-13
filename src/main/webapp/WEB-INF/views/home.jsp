@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 	<title>Home</title>
 <link rel="stylesheet" 
-	href="./resources/bs3.3.7/css/bootstrap.css" />	
+	href="/TeamProject01/resources/bs3.3.7/css/bootstrap.css" />	
 </head>
 </head>
 <body>
