@@ -356,7 +356,6 @@ function choiceInput(frm, elem) {
    }
 }  
 </script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 function postOpen()
 {
@@ -378,7 +377,7 @@ function postOpen()
 </head>
 <body>
   
-<form name="registFrm" action="../DataRoom/MemberRegist" method="post" onsubmit="return registFrmCheck();">
+<form name="registFrm" action="./registFinish.do" method="post" onsubmit="return registFrmCheck();">
    <input type="hidden" name="overFlag" value="0" />
    <table width ="1000" 
       style="border-spacing:20px; width:900px;margin-left: 9%">
@@ -477,18 +476,19 @@ function postOpen()
          <img src="../images/가입하기.png" style="width:72px; height:20px;"/>
       </button> -->
    </p>
-</form>
+
 <br><br>
 	<table>
 	<tr>
 		<td style="font-size: 1em;vertical-align: middle;">
-			<a href="registFinish.do" ><button type = "button"  class="btn_order" style="margin:10px;width:auto;height:auto; ">
-				가입하기</button></a>
+			<button type = "submit"  class="btn_order" style="margin:10px;width:auto;height:auto; ">
+				가입하기</button>
 	  		<a href="registGroup.do"><button type = "button"  class="btn_cancel1" style="margin:10px;width:auto;height:auto;">
 	  			취소하기</button></a>
 		</td>
 	</tr>
 	</table>
+	</form>
     </center>
   </body>
 </html>
