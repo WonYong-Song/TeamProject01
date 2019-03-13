@@ -105,26 +105,25 @@
 		<tr id="info02">
 			<td style="vertical-align: middle">캐슬명</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-			위드유 성인 피아노</td>
+			${dto.acaName }</td>
 
 		</tr>
 		<tr id="info03">
 			<td style="vertical-align: middle">캐슬번호</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-				010-4925-5869</td>
+				${dto.acaHPNumber }</td>
 
 		</tr>
 		<tr id="info04">
+
 			<td style="vertical-align: middle">캐슬위치</td>
-			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-			서울시 강남구 논현동 묻지마로 묻지마건물3층</td>
+			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">${dto.acaAddress }&nbsp;${dto.acaDetailAddress }</td>
+
 		</tr>
 		<tr id="info05">
-			<td style="vertical-align: middle">캐슬 소개</td>
-			<td colspan="2" style="height:auto;padding: 30px;text-align: left">
-				저희 성인들이 두루모여 여가시간을 즐기며 친목을 도모할수 있도록 만들어진 밴드형
-				피아노 학원입니다. 학원 로비에는 작은 카페가 있어 커피를 드시며 소통하실수 있고 쾌적한
-				개인연습실이 구비되어 있습니다. 성인들만의 피아노 교습소 위드유 많이 이용해주세요.</td>
+			<td style="vertical-align: middle">학원소개</td>
+			<td colspan="2" style="height:auto;padding: 30px;text-align: left"></td>
+		</td>
 		</tr>
 		<tr id="info06">
 			<td style="vertical-align: middle;height:auto;padding: 30px;">강사진</td>
@@ -474,7 +473,7 @@ geocoder.addressSearch('서울특별시 노원구 하계동 256', function(resul
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">kosmo</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.acaName }</div>'
         });
         infowindow.open(map, marker);
 

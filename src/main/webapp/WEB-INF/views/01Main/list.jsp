@@ -97,10 +97,12 @@ height: 100%;
 -->
 	 
   <!-- Contact Section -->
+  <c:forEach items="${acaList }" var="row">
   <section class="contact-section bg-black">
     <div class="container" >
       <div class="row">
         <div class="col-md-12 " style="margin-bottom: -45px;">
+         
          <a href="academyInfo.do" target="_blank">
           <div class="card py-4 h-60" style="width:900px;height:167px; margin-left: 10%;">
           	<div style="padding: 0px 6px 0px 6px">
@@ -121,13 +123,13 @@ height: 100%;
              </tr>
              <tr>
              	<td>캐슬 이름</td>
-             	<td>위드유 성인 피아노 학원</td>
+             	<td>${row.acaName }</td>
              	<td>캐슬 평점</td>
              	<td>★★★★★</td>
              </tr>
              <tr>
              	<td>캐슬 주소</td>
-             	<td colspan="3">서울특별시 노원구 상계로 518-2 3층</td>
+             	<td colspan="3">${row.acaAddress }&nbsp;${row.acaDetailAddress }</td>
              </tr>
              </table>
              </div>
@@ -137,6 +139,7 @@ height: 100%;
       </div>
     </div>
   </section>
+   </c:forEach>
    <section class="contact-section bg-black">
     <div class="container" >
       <div class="row">
@@ -171,6 +174,7 @@ height: 100%;
         </div>
       </div>
   </section>
+
    <section class="contact-section bg-black">
     <div class="container" >
       <div class="row">
