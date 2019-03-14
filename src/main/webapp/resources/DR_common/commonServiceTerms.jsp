@@ -16,7 +16,27 @@
    
   </head>
 
-  <body> 
+  <body>
+  	<script>
+  	function regitValidate(f){
+  		if(f.termsagree[0].checked==false){
+  			alert("이용약관에 동의해주세요.");
+  			f.termsagree[0].focus();
+  			return false;
+  		}
+  		else if(f.termsagree[1].checked==false){
+  			alert("개인정보 수입 및 이용에 동의해주세요.");
+  			f.termsagree[1].focus();
+  			return false;
+  		}
+  		else if(f.registGroup[0].checked==false){
+  			alert("회원종류를 선택해주세요.")
+  			f.registGroup[0].focus();
+  			return false;
+  		}
+  	}
+  	</script>
+  	<form action="regist.do" onsubmit="return regitValidate(this);"> 
     <center>
   <table width=960px align=center>
     <tr>
@@ -51,7 +71,7 @@
            </tr>
            <tr>
              <td align=center>
-               <textarea name="tos" rows=15 cols=100>
+               <textarea rows=15 cols=100>
 제1조(목적)
  이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
  서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
@@ -279,7 +299,7 @@
             </tr>
             <tr>
               <td>
-                <input type="checkbox">이용약관에 동의합니다.<br><br><br><br>
+                <input type="checkbox" name="termsagree">이용약관에 동의합니다.<br><br><br><br>
               </td>
             </tr>
             <tr>
@@ -291,7 +311,7 @@
            </tr>
            <tr>
              <td align=center>
-               <textarea name="tos" rows=15 cols=100>
+               <textarea rows=15 cols=100>
 수집하는 개인정보의 항목
 회사는 회원가입, 상담, 서비스 신청 및 제공 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 - 이름, 이메일, 주소, 연락처, 핸드폰 번호, 아이디, 비밀번호, 닉네임, 팩스번호, 홈페이지 주소 또한 서비스 이용과정이나 사업
@@ -395,7 +415,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
             </tr>
             <tr>
               <td>
-                <input type="checkbox">개인정보 수집 및 이용에 대한 안내에 동의합니다.
+                <input type="checkbox" name="termsagree">개인정보 수집 및 이용에 대한 안내에 동의합니다.
               </td>
             </tr>
           </table>
@@ -404,7 +424,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
     </tr>
     <tr>
 	    <td class="text-center" style="margin-top: 5%;height: 80px;vertical-align: bottom">
-	    	<form action="regist.do">
+	    	
 	    	<br /><br />
 			<input type="radio" class="radio1" name="registGroup" value="P" id="groupP" /><label for="groupP" >개인회원</label> 
 			&nbsp;&nbsp; 
@@ -412,7 +432,7 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 			<br /><br /><br />
 			<button type = "submit"  class="btn_order" style="margin:10px;">회 원 가 입</button></a>
   			<a href="main.do"> <button type = "button"  class="btn_cancel1" style="margin:10px;">취 소 하 기</button></a>
-  			</form>
+  			
 		</td>
 	</tr>
 </table>
@@ -421,5 +441,6 @@ NICE신용평가정보㈜(이하 “대행사”)가 “대행사”에서 제�
 
 
     </center>
+    </form>
   </body>
 </html>

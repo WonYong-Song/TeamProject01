@@ -45,8 +45,6 @@
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
 	
-	
-	
 	<!-- Mybatis를 사용하기 위한 빈생성 -->
 	<beans:bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">

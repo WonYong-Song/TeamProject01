@@ -68,6 +68,9 @@
 
 
 
+
+
+
 <!-- 학원 정보 등록 페이지  s -->
 <section id="mainImage" class="about-section text-center" style="padding-bottom:5%;background-image: url('../resources/img/bg-signup.jpg');">
 <div  class="container "style="background-color: white;margin-top: 0px;border-radius:5px;height:auto;padding-bottom: 30px;width:auto;">
@@ -102,26 +105,25 @@
 		<tr id="info02">
 			<td style="vertical-align: middle">캐슬명</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-			위드유 성인 피아노</td>
+			${dto.acaName }</td>
 
 		</tr>
 		<tr id="info03">
 			<td style="vertical-align: middle">캐슬번호</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-				010-4925-5869</td>
+				${dto.acaHPNumber }</td>
 
 		</tr>
 		<tr id="info04">
+
 			<td style="vertical-align: middle">캐슬위치</td>
-			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-			서울시 강남구 논현동 묻지마로 묻지마건물3층</td>
+			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">${dto.acaAddress }&nbsp;${dto.acaDetailAddress }</td>
+
 		</tr>
 		<tr id="info05">
-			<td style="vertical-align: middle">캐슬 소개</td>
-			<td colspan="2" style="height:auto;padding: 30px;text-align: left">
-				저희 성인들이 두루모여 여가시간을 즐기며 친목을 도모할수 있도록 만들어진 밴드형
-				피아노 학원입니다. 학원 로비에는 작은 카페가 있어 커피를 드시며 소통하실수 있고 쾌적한
-				개인연습실이 구비되어 있습니다. 성인들만의 피아노 교습소 위드유 많이 이용해주세요.</td>
+			<td style="vertical-align: middle">학원소개</td>
+			<td colspan="2" style="height:auto;padding: 30px;text-align: left"></td>
+		</td>
 		</tr>
 		<tr id="info06">
 			<td style="vertical-align: middle;height:auto;padding: 30px;">강사진</td>
@@ -218,10 +220,7 @@
 		<tr id="info07">
 			<td style="vertical-align: middle">오시는길</td>
 			<td colspan="2" style="height:auto;padding: 30px;text-align: left">
-				<div class="container border" style="width: 500px;height: 300px;" >
-					지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도
-					지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도
-				</div>
+				<div id="map" style="width:100%;height:350px;"></div>
 			</td>
 		</tr>
 		<!-- 오시는길 -->
@@ -441,7 +440,51 @@
   <script src="/FinallyProject/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for this template -->
+<<<<<<< HEAD
+  <script src="js/grayscale.min.js"></script>
+  
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ec06b0333644bd4771e72d23ed5395f&libraries=services"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표입니다!!adasd
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('서울특별시 노원구 하계동 256', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+
+        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.acaName }</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
+=======
   <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
+>>>>>>> refs/remotes/origin/master
 
 </body>
 </html>
