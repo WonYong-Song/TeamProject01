@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html>
 <html >
   <head>
@@ -213,13 +214,13 @@ strong{
 }
 
 </style>
-<script type="text/javascript">
+<script>
 function registFrmCheck()
 {   
    var fn = document.registFrm;
    
    var frmArray = ["user_id", "user_pw1", "user_pw2", "user_name", "email_id","email_domain",
-               "mobile1","mobile2","mobile3","user_brand"];
+               "mobile1","mobile2","mobile3","user_brand[0]"];
    var txtArray = ["아이디", "패스워드", "패스워드확인", "이름", "이메일", "이메일도메인",
                "휴대전화번호1","휴대전화번호2","휴대전화번호3","관심분야"];
    
@@ -236,13 +237,12 @@ function registFrmCheck()
             return false;
          }         
       }
+      
       else if(eval("fn."+frmArray[i]+".type")=="radio" || eval("fn."+frmArray[i]+".type")=="checkbox")
       {
-         //alert(frmArray[i]+"라디오박스");   
+         //alert(frmArray[i]+"체크박스");   
          var isRadio = false;
          var radioTxt = frmArray[i].substring(0,frmArray[i].length-3);
-         var isGender = false;
-         
          
          for(var j=0 ; j<eval("fn."+radioTxt+".length") ; j++)
          {
@@ -260,7 +260,7 @@ function registFrmCheck()
    }
    //아이디 중복확인을 마쳐야 회원가입을 할수있다.
    if(fn.overFlag.value=="0"){
-      alert("아이디 중복확인을 해주세요.")
+      alert("아이디 중복확인을 해주세요.");
       return false;
    }
    
@@ -298,44 +298,6 @@ function isNumber(param){
    }
    return true;
 }
-//아이디 중복체크하기
-function id_overlapping(fn)
-{
-   var iForm = fn.user_id;
-   
-   //공백제거
-   trimAll(iForm);
-   //아이디 입력후 중복확인 누를수 있음
-   if(iForm.value.length==0) {
-   /* 위 조건은 fn.user_id.value=="" 과 동일함 */
-      alert('아이디를 기입하신다음 중복확인을 누르세요.') ;
-      iForm.focus();
-      return ;
-   } 
-   //아이디는 8자이상
-   if(8 > iForm.value.length)
-   {
-      alert('아이디는 8자이상이어야 합니다.');
-      iForm.value='';
-      iForm.focus();
-      return ;
-   }
-   //숫자로 시작할수 없음 : kosmo31(허용됨), 31kosmo(허용안됨)
-   if(isNumber(iForm.value.substring(0,1))==true){
-      alert("아이디는 숫자로 시작할수 없습니다.");
-      iForm.value='';
-      iForm.focus();
-      return ;
-   }      
-   //숫자,영소문자 조합만 가능함.
-   var result = LowerDigitCheck(iForm);
-   if(result==false) return ;
-
-   /* 아이디중복확인 팝업창을 띄워줌 : 
-      user_id에 입력한 값을 get방식으로 받음 */
-   window.open ('IdOverlap.jsp?user_id=' + iForm.value, 'IDWin', 'width=580, height=270, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no');
-   
-}
 //이메일 셀렉트 선택하면 도메인부분에 입력하기
 function choiceInput(frm, elem) { 
    for(var i=0; i<elem.length;i++) { 
@@ -352,44 +314,44 @@ function choiceInput(frm, elem) {
 }  
 </script>
 <script>
-function postOpen()
-{
-    new daum.Postcode({
-        oncomplete: function(data) {
-         
-           var f = document.registFrm;
-           f.zipcode.value = data.zonecode;
-           f.address1.value = data.address;
-           
-           f.sido.value = data.sido;
-           f.gugun.value = data.sigungu;
-           
-           f.address2.focus();
-        }
-    }).open();
-}
-</script>
-<script>
 $(function(){
 	$('#user_id').keyup(function(){
-		$.ajax({
-			url:"../catle/NormalMemberIdCheck.do",
-			dataType : "json",
-			type:"get",
-			contentType : "text/html;charset:utf-8",
-			data : {
-				
-				user_id : $('#user_id').val()
-			},
-			success : function(d){
-				$('#overFlag').val()=d.result
-				
-			},
-			//요청실패시 콜백메소드
-			error : function(e){
-				alert("오류발생"+e.status+":"+e.statusText);
-			}
-		});
+		if(document.registFrm.user_id.value.length==0){
+			$('#display').html(' ');
+			$('#overFlag').val(0);
+		}
+		else{
+			$.ajax({
+				url:"../catle/NormalMemberIdCheck.do",
+				dataType : "json",
+				type:"get",
+				contentType : "text/html;charset:utf-8",
+				data : {
+					
+					user_id : $('#user_id').val()
+				},
+				success : function(d){
+					var msg = ""
+					if(d.result==0){
+						$('#overFlag').val(1);
+						msg += "<font color ='green' size='1'>";
+						msg += d.msg;
+						msg += "</font>";
+					}
+					else{
+						$('#overFlag').val(0);
+						msg += "<font color ='red' size='1'>";
+						msg += d.msg;
+						msg += "</font>";
+					}
+					$('#display').html(msg);
+				},
+				//요청실패시 콜백메소드
+				error : function(e){
+					alert("오류발생"+e.status+":"+e.statusText);
+				}
+			});
+		}
 	});
 });
 </script>
@@ -407,8 +369,9 @@ $(function(){
          <td id="Column">아이디</td>
          <td>
             <input type="text" id="user_id" name="user_id" value="" style="width:150px; height:25px;"/>
-            <input type="image" src="../images/아이디.png" width ="120" align="center" onclick="id_overlapping(this.form);"/>
             <font color ="gray" size="1">아이디 형식에 맞춰주세요(영문,숫자 조합4문자 이상)</font>
+            <br />
+            <p id="display"></p>
          </td>
       </tr>
       <tr>
@@ -455,7 +418,7 @@ $(function(){
          </td>
       </tr>
    </table>
-   <table width="800" height="200" style="border-spacing:20px;"  >
+   <table width="800" height="200" style="border-spacing:20px;" >
       <colgroup>
          <col width="16%" />
          <col width="28%" />
@@ -463,35 +426,44 @@ $(function(){
          <col width="28%" />
          <!-- *로 대체해도됨 -->
       </colgroup>   
-
-
       
+      <tr>
+      	<td rowspan="3" id="Column">관심분야</td>
+      	<td>
+      		<input type="checkbox" id="exercise"name="user_brand" value="운동"/><label for="exercise">운동</label>
+        </td>
+      	<td>
+      		<input type="checkbox" id="music" name="user_brand" value="음악"/>
+            <label for="music">음악</label>
+      	</td>
+      	<td>
+      		<input type="checkbox" id="art" name="user_brand" value="미술"/>
+            <label for="art">미술</label>
+      	</td>
       </tr>
-      <tr >
-         <td id="Column">관심분야</td>
-         <td>
-            <input type="checkbox" name="user_brand" value="운동"/>
-            운동<br />
-            <input type="checkbox" name="user_brand" value="음악"/>
-            음악<br />
-            
-            <input type="checkbox" name="user_brand" value="미술"/>
-            미술<br /><br />
-         </td>
-         <td >   
-            <input type="checkbox" name="user_brand" value="국어"/>
-               국어<br />
-            <input type="checkbox" name="user_brand" value="영어"/>
-               영어<br /><br /><br />
-            <br />
-         </td>
-         <td>
-            <input type="checkbox" name="user_brand" value="수학"/>
-               수학<br />
-            <input type="checkbox" name="user_part" value="기타"/>
-               기타<input type="text" name="user_part_txt" value=""id="extra" style="width:180px;height:30px">
-         </td>
+      <tr>
+      	<td>
+      		<input type="checkbox" id="kor" name="user_brand" value="국어"/>
+            <label for="kor">국어</label>
+      	</td>
+      	<td>
+      		<input type="checkbox" id="eng" name="user_brand" value="영어"/>
+            <label for="eng">영어</label>
+      	</td>
+      	<td>
+      		<input type="checkbox" id="math" name="user_brand" value="수학"/>
+            <label for="math">수학</label>
+      	</td>
       </tr>
+      <tr>
+      	<td colspan="3">
+      		<input type="checkbox" id="etc" name="user_brand" value="기타" />
+            <label for="etc">기타</label>
+      	</td>
+      </tr>
+      
+      
+      
    </table>
    <p style="margin-top: 20px;margin-bottom: 20px;"> 
 

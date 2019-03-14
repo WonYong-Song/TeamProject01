@@ -20,13 +20,12 @@ public class NormalMemberIDCheckController {
 	@Autowired
 	SqlSession sqlSession;
 	
-	
+	//일반회원 아이디 중복여부 확인(Ajax사용)
 	@RequestMapping(value="/catle/NormalMemberIdCheck.do",method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, Object> check(HttpServletRequest req){
 		
 		String user_id = req.getParameter("user_id");
-		System.out.println(user_id);
 		
 		int result = sqlSession.getMapper(NormalMemberLoginCheckImpl.class).loginCheck(user_id);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -37,8 +36,6 @@ public class NormalMemberIDCheckController {
 		else {
 			map.put("msg", "사용중인 아이디가 있습니다.");
 		}
-		
-		System.out.println("map="+map.get("msg"));
 		
 		return map;
 	}
