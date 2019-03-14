@@ -13,7 +13,7 @@
 
     <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-   
+	<script src="../resources/jquery/jquery-3.3.1.min.js"></script>   
   </head>
 
   <body> 
@@ -218,15 +218,10 @@ function registFrmCheck()
 {   
    var fn = document.registFrm;
    
-   var frmArray = ["user_id", "user_pw1", "user_pw2", "user_name", "gender[0]",
-               "birthday",   "birthLS[0]","email_id","email_domain","email_yn[0]",
-               "mobile1","mobile2","mobile3","sms_yn[0]","phone1","phone2","phone3",
-               "zipcode","address1","address2","job","user_brand[0]","user_part[0]",/* "user_part_txt" */];
-   var txtArray = ["아이디", "패스워드", "패스워드확인", "이름", "성별", 
-               "생년월일", "양력/음력", "이메일", "이메일도메인", "이메일수신확인",
-               "휴대전화번호1","휴대전화번호2","휴대전화번호3","휴대전화수신확인",
-               "전화번호1","전화번호2","전화번호3","우편번호","주소1","상세주소","직업",
-               "관심브랜드","관심분야"];
+   var frmArray = ["user_id", "user_pw1", "user_pw2", "user_name", "email_id","email_domain",
+               "mobile1","mobile2","mobile3","user_brand"];
+   var txtArray = ["아이디", "패스워드", "패스워드확인", "이름", "이메일", "이메일도메인",
+               "휴대전화번호1","휴대전화번호2","휴대전화번호3","관심분야"];
    
    for(var i=0 ; i<frmArray.length ; i++)
    {
@@ -374,11 +369,35 @@ function postOpen()
     }).open();
 }
 </script>
+<script>
+$(function(){
+	$('#user_id').keyup(function(){
+		$.ajax({
+			url:"../catle/NormalMemberIdCheck.do",
+			dataType : "json",
+			type:"get",
+			contentType : "text/html;charset:utf-8",
+			data : {
+				
+				user_id : $('#user_id').val()
+			},
+			success : function(d){
+				$('#overFlag').val()=d.result
+				
+			},
+			//요청실패시 콜백메소드
+			error : function(e){
+				alert("오류발생"+e.status+":"+e.statusText);
+			}
+		});
+	});
+});
+</script>
 </head>
 <body>
   
 <form name="registFrm" action="./registFinish.do" method="post" onsubmit="return registFrmCheck();">
-   <input type="hidden" name="overFlag" value="0" />
+   <input type="hid-den" id="overFlag" name="overFlag" value="0" />
    <table width ="1000" 
       style="border-spacing:20px; width:900px;margin-left: 9%">
       <tr>
@@ -387,7 +406,7 @@ function postOpen()
       <tr >
          <td id="Column">아이디</td>
          <td>
-            <input type="text" name="user_id" value="" style="width:150px; height:25px;"/>
+            <input type="text" id="user_id" name="user_id" value="" style="width:150px; height:25px;"/>
             <input type="image" src="../images/아이디.png" width ="120" align="center" onclick="id_overlapping(this.form);"/>
             <font color ="gray" size="1">아이디 형식에 맞춰주세요(영문,숫자 조합4문자 이상)</font>
          </td>
@@ -406,6 +425,10 @@ function postOpen()
          </td>
       </tr>
       <tr>
+      	<td id="Column">이름</td>
+		<td><input type="text" name="user_name" value="" style="width:150px; height:25px;"/></td>
+      </tr>
+      <tr>
          <td id="Column">이메일</td>
          <td >
             <input type="text" name="email_id" style="width:150px; height:25px;" value="" /> @ 
@@ -418,6 +441,7 @@ function postOpen()
                <option value="yahoo.com">야후</option>
                <option value="direct_input">-직접입력-</option>
             </select>
+         </td>
       </tr>
       <tr>
          <td id="Column">휴대전화</td>

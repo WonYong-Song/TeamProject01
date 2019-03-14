@@ -20,43 +20,98 @@
   <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link href="../resources/css/acaregiedit.css" rel="stylesheet">
   	
   <!-- Custom styles for this template -->
   <link href="../resources/css/grayscale.min.css" rel="stylesheet">
-  
-</head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 <style>
+    #vtab {
+        margin: auto;
+        width: 100%;
+    }
+    #vtab > ul > li {
+    	font-size : 20px;
+    	padding-top : 25px; 
+        width: 150px;
+        height: 80px;
+        list-style-type: none;
+        display: block;
+        text-align: center;
+        border: 1px solid #fff;
+        position: relative;
+        border-right: none;
+        opacity: .3;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+    }
+    #vtab > ul > li.selected {
+        opacity: 1;
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+        filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+        border: 1px solid #ddd;
+        border-right: none;
+        z-index: 10;
+        background-color: #EEEEEE !important;
+        position: relative;
+    }
+    #vtab > ul {
+        float: left;
+        width: 110px;
+        text-align: left;
+        display: block;
+        margin: auto 0;
+        padding: 0;
+        position: relative;
+    }
+    #vtab > div {
+        margin-left: 150px;
+        border: 1px solid #ddd;
+        height: 100%;         
+        padding: 12px;
+        position: relative;
+        z-index: 9;
+        -moz-border-radius: 20px;
+    }
+</style>  
+<script>
+$(function() {
+     var $items = $('#vtab>ul>li');
+     $items.click (function() {
+         $items.removeClass('selected');
+         $(this).addClass('selected');
 
-/* 모달창 */
-.modal {
-text-align: center;
-padding: 0!important;
+         var index = $items.index($(this));
+         $('#vtab>div').hide().eq(index).show();
+     }).eq(0).click ();
+ });
+  
+/* 사진업로드 버튼 추가 ajax */   
+$(function(){
+ 
+ var maxAppend = 1; //버튼누른 횟수 저장
+    // 사진추가 버튼 클릭시
+    $("#addTrBtn").click(function(){
+   	 if(maxAppend>=6) return;
+        // tr 의 최대번호 구하기
+        var lastTrNo = $("#example tr:last").attr("class").replace("imgUp", "");
 
-}
+        var newTr = $("#example tr:eq(1)").clone();
+        newTr.removeClass();
+        newTr.find("td:eq(0)").attr("rowspan", "1");
+        newTr.addClass("imgUp"+(parseInt(lastTrNo)+1));
+        $("#example").append(newTr);
 
-.modal:before {
-content: '';
-display: inline-block;
-height: 100%;
-vertical-align: middle;
-margin-right: -4px;
-}
-
-.modal-dialog {
-display: inline-block;
-text-align: left;
-vertical-align: middle; 
-
-}
-/* 이미지 크기 고정 */
-.selector img{
-position: absolute; top:0; left: 0;
-width: 100%;
-height: 100%;
-}
-</style>
-
+        maxAppend++; 
+    });
+    var maxRemove= 1; //버튼누른 횟수 저장
+    $("#trRemove").live("click", function() {
+ 	   if(maxRemove>=6) return;
+  	    $(this).parent().parent().remove();
+  	    maxRemove++;
+ 	  });
+});
+</script>
+</head>
 
 <body id="page-top">
  <!-- Nav Bar -->
@@ -75,7 +130,7 @@ height: 100%;
         <div>
 		<!-- 학원사진등록  -->
 		<form name="fileFrm" method="post" action="acaRegistAction.do" enctype="multipart/form-data" >
-			<table class="table" style="width:100%;" id="example">
+			<table class="table" style="width:100%; background-color: #EEEEEE;" id="example">
 			<thead>
 				<tr> 
 					<th colspan="4" style="font-size: 1.5em;"> - 학원사진등록 </th>
@@ -90,8 +145,8 @@ height: 100%;
 							<input type="file" name="introPhoto" />
 						</td>
 						<td>
-							<button class="btn btn-primary" type="button" id="addTrBtn">추가</button>
-							<button class="btn btn-danger" type="button" id="trRemove">삭제</button>
+							<button type="button" id="addTrBtn">추가</button>
+							<button type="button" id="trRemove">삭제</button>
 						</td>
 					</tr>
 				</c:when>
@@ -106,8 +161,8 @@ height: 100%;
 							<input type="file" name="introPhoto" value="${row.introPhoto }"/>
 						</td>
 						<td>
-							<button class="btn btn-primary" type="button" id="addTrBtn">추가</button>
-							<button class="btn btn-danger" type="button" id="trRemove">삭제</button>
+							<button type="button" id="addTrBtn">추가</button>
+							<button type="button" id="trRemove">삭제</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -117,7 +172,7 @@ height: 100%;
 			</table>
 
 			<!-- 학원 간략 프로필 등록  -->
-			<table class="table" style="width:100%;">
+			<table class="table" style="width:100%; background-color: #EEEEEE;">
 				<tr><th colspan="4" style="font-size: 1.5em;"> - 학원프로필(간략) </th></tr>
 				<tr style="padding: 10px;">
 					<th>학원명:</th>
@@ -138,9 +193,21 @@ height: 100%;
 							<input type="text" name="AcaHPNumber" placeholder="학원대표전화번호" value="${dto.acaHPNumber }"/>
 						</td>
 					</tr>
+					<tr>
+						<th>학원분류</th>
+						<td>
+							<c:if test="${!empty categorytList}" >
+							  <select name="categoryBox" id="categoryBox" style="width:80px;">					
+							     <c:forEach var="categorytList" items="${categorytList }" >			
+							        <option value="${categorytList.MainCategory  }">${categorytList.MainCategory }</option>
+							     </c:forEach>
+							  </select>
+							</c:if>
+						</td>
+					</tr>
 				</table>
 				
-				<table class="table table-bordered" style="width:100%;">
+				<table class="table table-bordered" style="width:100%; background-color: #EEEEEE;">
 				<tr><th style="font-size: 1.5em;"> - 학원소개 </th></tr>
 				<tr style="padding: 10px;">
 					<td>
@@ -148,7 +215,7 @@ height: 100%;
 						</td>
 					</tr>
 			</table>
-				 <p style="text-align: right"><button type="submit" class="btn btn-success">확인</button></p>
+				 <p style="text-align: right"><button type="submit" >확인</button></p>
 		</form>
    		</div>
         <!-- 강사진 수정  -->
@@ -168,7 +235,7 @@ height: 100%;
 				<c:otherwise>
 					<c:forEach items="${lists }" var="row" varStatus="loop">
 					<div>
-						<table class="table" style="max-width: 600px; margin: 30px;">
+						<table class="table" style="max-width: 600px; margin: 30px; background-color: #EEEEEE;">
 							<tr>
 								<th>강사이미지</th>
 								<td>
@@ -190,11 +257,11 @@ height: 100%;
 								<td><input type="text" name="subject" placeholder="과목명, 과목명 ..." value="${dto.subject }"></td>
 							</tr>
 							<tr>
-								<td style="text-align: right;" colspan="2"><button type="button" class="btn btn-warning" onclick="teaEditValidate(this);">수정</button>
-								<button type="button" class="btn btn-danger">삭제</button></td>
+								<td style="text-align: right;" colspan="2"><button type="button"  onclick="teaEditValidate(this);">수정</button>
+								<button type="button" >삭제</button></td>
 							</tr>
 						</table>
-						<p style="text-align: right"><button type="submit" class="btn btn-success">확인</button></p>
+						<p style="text-align: right"><button type="submit" >확인</button></p>
 					</div>
 					</c:forEach>
 				</c:otherwise>
@@ -203,7 +270,7 @@ height: 100%;
 				<!-- 강사정보추가  -->
 				<div>
 					<hr />
-					<table class="table" style="width: 600px;">
+					<table class="table" style="width: 600px; background-color: #EEEEEE;">
 						<tr><th colspan="2" style="font-size: 1.5em;">- 강사 등록</th></tr>
 						<tr>
 							<th>강사이미지</th>
@@ -226,7 +293,7 @@ height: 100%;
 							<td><input type="text" name="subject" placeholder="과목명, 과목명 ..."></td>
 						</tr>
 					</table>
-					<p style="text-align: right"><button type="button" class="btn btn-primary" id="teaRegiadd" onclick="teaRegiValidate(this);">추가</button></p>
+					<p style="text-align: right"><button type="button" id="teaRegiadd" onclick="teaRegiValidate(this);">추가</button></p>
 				</div>  
 			</form>
 		</div>
@@ -239,7 +306,7 @@ height: 100%;
 						<table>
 							<tr>
 								<td>
-									등록된 시간표가 없습니다.
+									<p style="color: #ffffff;">등록된 시간표가 없습니다.</p>
 								</td>
 							</tr>
 						</table>
@@ -247,7 +314,7 @@ height: 100%;
 					<c:otherwise>
 						<c:forEach items="${lists }" var="row" varStatus="loop">
 						<div>
-						<table class="table">
+						<table class="table" style="background-color: #EEEEEE;">
 			               <colgroup>
 			                  <col width="35%"/>
 			                  <col width="15%"/>
@@ -262,7 +329,7 @@ height: 100%;
 			                  <td>강의명 : <input type="text" name="acaClassName" value="${dto.acaClassName }"/></td>
 			                  <td>강사명: <input type="text" name="teaName" value="${dto.teaName }"/></td>
 			                  <td rowspan="2" style="text-align: center;vertical-align: middle">
-			                  <button type="button" class="btn btn-warning" id="">수정</button> </td>
+			                  <button type="button" id="">수정</button> </td>
 			               </tr>
 			               <tr>
 			                  <td>강의시간 : <br /> <input type="time" name="acaStartTime" value="${dto.acaStartTime }"/> ~ <input type="time" name="acaEndTime" value="${dto.acaEndTime }"/></td>
@@ -270,7 +337,7 @@ height: 100%;
 			                  <td>수강인원 : <input type="number" name="classFixed" value="${dto.classFixed }"/></td>
 			               </tr>
 			             </table>
-							<p style="text-align: right"><button type="submit" class="btn btn-success">확인</button></p>
+							<p style="text-align: right"><button type="submit" >확인</button></p>
 						</div>
 						</c:forEach>
 					</c:otherwise>
@@ -278,7 +345,7 @@ height: 100%;
            	</form>
          	<hr />
             <div>
-      		<table class="table">
+      		<table class="table" style="background-color: #EEEEEE;">
 	              <colgroup>
 	                  <col width="35%"/>
 	                  <col width="15%"/>
@@ -293,7 +360,7 @@ height: 100%;
                   <td>강의명 : <input type="text" name="acaClassName" /></td>
                   <td>강사명: <input type="text" name="teaName" /></td>
                   <td rowspan="2" style="text-align: center;vertical-align: middle">
-                  <button type="button" class="btn btn-primary" id="timeTab" onclick="classRegiValidate(this);">등록</button> </td>
+                  <button type="button" id="timeTab" onclick="classRegiValidate(this);">등록</button> </td>
                </tr>
                <tr>
                   <td>강의시간 : <br /> <input type="time" name="acaStartTime" /> ~ <input type="time" name="acaEndTime" /></td>
@@ -312,16 +379,8 @@ height: 100%;
     </div>
   </footer>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="/FinallyProject/resources/vendor/jquery/jquery.min.js"></script>
-  <script src="/FinallyProject/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
-  <script src="/FinallyProject/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
-
+	<!-- Custom scripts for this template -->
+  <script src="/FinallyProject/resources/js/academyRigstEdit.js"></script>
 </body>
 
 </html>

@@ -20,7 +20,10 @@
             <a class="nav-link js-scroll-trigger" href="registGroup.do">회원가입</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="updateAcademyInfo.do">학원정보등록</a>
+            <a class="nav-link js-scroll-trigger" href="acaRegister.do">학원정보등록</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="acaInfoEdit.do">학원정보수정</a>
           </li>
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="regist.do">회원정보수정</a>
@@ -28,7 +31,8 @@
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="memberMyPage.do">마이페이지</a>
           </li>
+          
         </ul>
-        
+    </div>
     </div>
   </nav>
