@@ -376,7 +376,8 @@
 			<div>
 			<%@ include file="/../resources/DR_common/commonComment.jsp" %>
 			</div>
-			<div class="row text-center" style="padding-left: 44%">
+			
+			<div class="row text-center" style="padding-left: 44%;margin:auto;">
 				<!-- 페이지번호 부분 -->
 				<ul class="pagination" style="text-align: center; ">	
 					<li><a href="#"><span class="glyphicon glyphicon-hand-left"></span><<</a></li>&nbsp;
@@ -389,9 +390,44 @@
 					<li><a href="#"><span class="glyphicon glyphicon-fast-forward"></span>></a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-hand-right"></span>>></a></li>
 				</ul>	
-			</div>	
-			</td>
-		</tr>
+			</div>
+					</td>
+			</tr>
+			<tr><td colspan="4">
+			<!-- 학원 후기 댓글 폼 -->
+			<form name="writeFrm" method="post" 
+				onsubmit="return writeValidate(this);"
+				action="<c:url value="/mybatis/writeAction.do" />" >
+				
+                <div class="media" style=" padding: 0px 30px 10px 43px;margin-bottom: 80px;">
+                  <a class="media-left" href="#" style="width:80px;height:80px;margin-top: 4%">
+                    <img src="http://lorempixel.com/40/40/people/1/" style="width:100%;height:100%;">
+                  </a>
+                  	
+                  <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
+                      <h4 class="media-heading user_name">jyh5869jyh</h4>
+                      <select name="keyField" class="form-control">			
+							<option value="1">1점</option>
+							<option value="2">2점</option>
+							<option value="3">3점</option>
+							<option value="4">4점</option>
+							<option value="5">5점</option>
+						</select>
+                    
+                    <div style="width:100%;height: 100%;">
+                    <textarea rows="10" class="form-control" name="contents"
+                    style="width:100%;height: 100%"></textarea>
+                    </div>
+                    <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+                  </div>
+                  <p class="pull-right" ><small></small></p>
+                  <button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;">
+                  후기작성</button>
+                </div>
+            </form> 
+            </td></tr>
+            <!-- 학원 후기 댓글 폼 -->	
+		
 	</table>
 		<a href="#info01"><button type = "button"  class="btn btn-info" style="margin:10px;width:auto;height:auto;vertical-align: middle;">위로가기</button></a>
 	<!-- Tab content
