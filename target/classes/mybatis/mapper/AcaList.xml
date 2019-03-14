@@ -5,9 +5,47 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="impl.AcademyListImpl">
-	<select id="AcaList" resultType="mybatis01.AcademyMemberDTO">
+	<!-- <select id="AcaList" resultType="mybatis01.AcademyMemberDTO">
 		SELECT * FROM academymember 
+	</select> -->
+	<!-- 페이저처리에 따른 게시물 가져오기. -->
+	<select id="AcaList"  resultType="mybatis01.AcademyMemberDTO" parameterType="mybatis01.ParamDTO">
+		
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				select A.*, 
+				   (select avg(acascore) from reviewWrite group by A.acaidx) AS avg
+				from academymember A inner join reviewWrite R 
+				   on A.acaidx=R.acaidx
+					<if test="!keyString.equals('') and keyString!=null">
+					WHERE ${keyField} like '%'||#{keyString}||'%'
+			   		</if> 
+					ORDER BY A.ACAIDX DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN ${start} AND ${end}
+		<!-- SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM academymember 
+				<if test="!keyString.equals('') and keyString!=null">
+					WHERE ${keyField} like '%'||#{keyString}||'%'
+			   	</if> 
+				ORDER BY ACAIDX DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN ${start} AND ${end} -->
+		
+		
 	</select>
+	
+	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
+	<select id="getTotalCountSearch" resultType="int" 
+		parameterType="mybatis01.ParamDTO">
+		SELECT COUNT(*) FROM academymember
+		<if test="!keyString.equals('') and keyString!=null">
+			WHERE ${keyField} like '%'||#{keyString}||'%'
+	   	</if>
+	</select> 
 </mapper>
 
    
