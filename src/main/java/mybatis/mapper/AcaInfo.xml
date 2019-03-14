@@ -6,7 +6,7 @@
     
 <mapper namespace="impl.AcademyInfoImpl">
 	<select id="AcaInfo" resultType="mybatis01.AcademyMemberDTO">
-		SELECT * FROM academymember where ACAIDX=2
+		SELECT * FROM academymember where ACAIDX=#{param1}
 	</select>
 </mapper>
 

@@ -15,7 +15,7 @@
 
   <!-- Bootstrap core CSS -->
   <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
- 
+  
   <!-- Custom fonts for this template -->
   <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
@@ -54,6 +54,11 @@ position: absolute; top:0; left: 0;
 width: 100%;
 height: 100%;
 }
+/* 별점 */
+.checked {
+  color: orange;
+}
+
 </style>
 
 <body id="page-top">
@@ -72,13 +77,13 @@ height: 100%;
           <form class="form-inline d-flex">
 			<div style="width:1000px;">
 			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
-				<option value="title">캐슬 이름</option>
-				<option value="name">캐슬 위치</option>
-				<option value="contents">이름+위치</option>
+				<option value="ACANAME">캐슬 이름</option>
+				<option value="ACAADDRESS" >캐슬 위치</option>
+				<!-- <option value="contents">이름+위치</option> -->
 			</select>
 
-            <input type="email" class="form-control " id="inputEmail" placeholder="캐슬정보를 입력해주세요."
-            	style="width:400px;">
+            <input type="text" name="keyString"  class="form-control" placeholder="캐슬정보를 입력해주세요"  
+            	style="width:400px;"/>
             <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
             </div>
           </form>
@@ -103,29 +108,43 @@ height: 100%;
       <div class="row">
         <div class="col-md-12 " style="margin-bottom: -45px;">
          
-         <a href="academyInfo.do" target="_blank">
-          <div class="card py-4 h-60" style="width:900px;height:167px; margin-left: 10%;">
+         <a href="academyInfo.do?acaIdx=${row.acaIdx }" target="_blank">
+          <div class="card py-4 h-60" style="width:900px;height:185px; margin-left: 10%;">
           	<div style="padding: 0px 6px 0px 6px">
              <table class="table table-bordered " style="margin-bottom: 30px; margin-top: -2%; border-top: none;">
              <colgroup>
 					<col width="120px"/>
 					<col width="60px"/>
-					<col width="120px"/>
-					<col width="60px"/>
 					<col width="100px"/>
+					<col width="60px"/>
+					<col width="120px"/>
 			</colgroup>
              <tr>
              	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px;">
              		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"
              		alt="엑스박스" /> 
              	<td>분류</td>
-             	<td colspan="3">전체>학원>예체능>피아노</td>
+             	<td colspan="3">전체>학원>${cateB }</td>
              </tr>
              <tr>
              	<td>캐슬 이름</td>
              	<td>${row.acaName }</td>
              	<td>캐슬 평점</td>
-             	<td>★★★★★</td>
+             	
+             	<td>	
+             		<% 
+             		for(int i=1;i <=1;i++){
+             		%>
+             		<span class="fa fa-star checked" ></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star checked"></span>
+					<span class="fa fa-star"></span>
+					<span class="fa fa-star"></span>
+					<% 
+             		}
+             		%>
+					&nbsp;&nbsp;${row.avg }/5.0
+             	</td>
              </tr>
              <tr>
              	<td>캐슬 주소</td>
@@ -139,94 +158,19 @@ height: 100%;
       </div>
     </div>
   </section>
+  
    </c:forEach>
-   <section class="contact-section bg-black">
+	<section class="contact-section bg-black">
     <div class="container" >
-      <div class="row">
-        <div class="col-md-12 " style="margin-bottom: -45px;">
-          <div class="card py-4 h-100 " style="width:900px; height:200px;margin-left: 10%  ">
-          	<a href="list.do" target="_blank">
-            <div class="card-body text-center">
-              <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Address</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="row " ">
+			<ul class="pagination" style="margin-left: 49%">
+				${pagingImg }
+			</ul>
       </div>
-  </section>
-   <section class="contact-section bg-black">
-    <div class="container" >
-      <div class="row">
-        <div class="col-md-12 " style="margin-bottom: -45px;">
-          <div class="card py-4 h-100 " style="width:900px; height:200px;margin-left: 10%  ">
-          	<a href="list.do" target="_blank">
-            <div class="card-body text-center">
-              <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Address</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
-
-   <section class="contact-section bg-black">
-    <div class="container" >
-      <div class="row">
-        <div class="col-md-12 " style="margin-bottom: -45px;">
-          <div class="card py-4 h-100 " style="width:900px; height:200px;margin-left: 10%  ">
-          	<a href="list.do" target="_blank">
-            <div class="card-body text-center">
-              <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Address</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
-   <section class="contact-section bg-black">
-    <div class="container" >
-      <div class="row">
-        <div class="col-md-12 " style="margin-bottom: -45px;">
-          <div class="card py-4 h-100 " style="width:900px; height:200px;margin-left: 10%  ">
-          	<a href="list.do" target="_blank">
-            <div class="card-body text-center">
-              <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Address</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
-   <section class="contact-section bg-black">
-    <div class="container" >
-      <div class="row">
-        <div class="col-md-12 " style="margin-bottom: -45px;">
-          <div class="card py-4 h-100 " style="width:900px; height:200px;margin-left: 10%  ">
-          	<a href="list.do" target="_blank">
-            <div class="card-body text-center">
-              <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Address</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-  </section>
+    </div>
+   </section>
   <!-- Footer -->
+  
   <footer class="bg-black small text-center text-white-50">
     <div class="container">
       Copyright &copy; Your Website 2019
