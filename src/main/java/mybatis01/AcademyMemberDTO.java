@@ -12,9 +12,28 @@ public class AcademyMemberDTO {
 	private String AcaDetailAddress;
 	private String AcaEmail;
 	private String AcaEmainDomain;
+	private String Avg;
 	
 	public AcademyMemberDTO() {}
 	
+	public AcademyMemberDTO(String acaIdx, String acaID, String acaPass, String acaReqName, String acaPhoneNumber,
+			String acaHPNumber, String acaName, String acaAddress, String acaDetailAddress, String acaEmail,
+			String acaEmainDomain, String avg) {
+		super();
+		AcaIdx = acaIdx;
+		AcaID = acaID;
+		AcaPass = acaPass;
+		AcaReqName = acaReqName;
+		AcaPhoneNumber = acaPhoneNumber;
+		AcaHPNumber = acaHPNumber;
+		AcaName = acaName;
+		AcaAddress = acaAddress;
+		AcaDetailAddress = acaDetailAddress;
+		AcaEmail = acaEmail;
+		AcaEmainDomain = acaEmainDomain;
+		Avg = avg;
+	}
+
 	public AcademyMemberDTO(String acaIdx, String acaID, String acaPass, String acaReqName, String acaPhoneNumber,
 			String acaHPNumber, String acaName, String acaAddress, String acaDetailAddress, String acaEmail,
 			String acaEmainDomain) {
@@ -30,6 +49,14 @@ public class AcademyMemberDTO {
 		AcaDetailAddress = acaDetailAddress;
 		AcaEmail = acaEmail;
 		AcaEmainDomain = acaEmainDomain;
+	}
+	
+	public String getAvg() {
+		return Avg;
+	}
+
+	public void setAvg(String avg) {
+		Avg = avg;
 	}
 
 	public String getAcaIdx() {
