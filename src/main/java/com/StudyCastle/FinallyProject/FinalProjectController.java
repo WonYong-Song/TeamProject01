@@ -62,27 +62,6 @@ public class FinalProjectController {
 		
 		return "01Main/Regist1";
 	}*/
-	//회원가입 창 바로가기
-	@RequestMapping("/catle/regist.do")
-	public ModelAndView registStep2(HttpServletRequest req) {
-		String group = req.getParameter("registGroup");
-		ModelAndView mv = new ModelAndView(); 
-		if(group.equals("A"))
-			mv.setViewName("01Main/ServiceTerm");
-		
-		else {
-			mv.setViewName("01Main/registP");
-		}
-		return mv;
-	}
-	//회원가입 처리 
-	@RequestMapping("/catle/registAction.do")
-	public String registAction() {
-		
-		return "01Main/RegistAction";
-	}
-/////////////////////////////////////////////////////////////////////////
-
 	//리스트로 가기
 	@RequestMapping("/catle/list.do")
 	public String list(Model model,HttpSession session, HttpServletRequest req) {
@@ -184,19 +163,9 @@ public class FinalProjectController {
 		return "01Main/AcademyInfo";
 	}
 	
-	//회원가입 분류 학원/개인
-	@RequestMapping("/catle/registGroup.do")
-	public String registGroup() {
-		
-		return "01Main/registGroup";
-	}
 	
-	//회원가입 완료 창 띄우기
-	@RequestMapping("/catle/registFinish.do")
-	public String registFinish() {
 	
-	return "01Main/registFinish";
-	}
+	
 	//결제 완료창 띄우기
 	@RequestMapping("/catle/paymentAction.do")
 	public String paymentAction() {
