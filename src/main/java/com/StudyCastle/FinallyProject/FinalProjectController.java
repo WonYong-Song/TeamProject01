@@ -1,6 +1,8 @@
 package com.StudyCastle.FinallyProject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import impl.AcademyInfoImpl;
@@ -20,6 +23,7 @@ import impl.AcademyListImpl;
 import impl.example;
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
+import mybatis01.MemberDTO;
 
 @Controller
 public class FinalProjectController {
@@ -49,6 +53,38 @@ public class FinalProjectController {
 		
 		return "01Main/Login";
 	}
+	//로그인 처리
+	@RequestMapping("/catle/LoginAction.do")
+	@ResponseBody
+	public Map<String, Object> LoginAction(HttpServletRequest req){
+		
+		//Json출력
+		Map<String, Object> memberMap = new HashMap<String, Object>();
+		
+		String id = req.getParameter("user_id");
+		String pass = req.getParameter("user_pw");
+		
+		//파라미터 객체 저장
+		MemberDTO memberDTO = new MemberDTO();
+		memberDTO.setMemberId(id);
+		memberDTO.setMemberPass(pass);
+		
+		memberDTO =
+				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(memberDTO);
+		
+		if(memberDTO==null) {
+			//로그인실패
+			memberMap.put("success", 0);
+		}
+		else {
+			//로그인 성공
+			memberMap.put("success", 1);
+			memberMap.put("memberInfo", memberDTO);
+		}
+		
+		return memberMap;
+	}
+	
 	/*//회원가입 타입 구분 바로가기
 	@RequestMapping("/catle/regist1.do")
 	public String registStep1() {

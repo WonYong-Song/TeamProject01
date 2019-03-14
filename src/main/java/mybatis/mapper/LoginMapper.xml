@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="impl.AcademyInfoImpl">
+ 
+	<!-- 회원로그인 -->
+	<select id="memberLogin" resultType="mybatis01.MemberDTO"
+		parameterType="mybatis01.MemberDTO">
+		SELECT * FROM NormalMember
+		<if test="!id.equals('') and id!=null">
+			<if test="!pass.equals('') and pass!=null">
+				where MemberId=#{id} AND MemberPass=#{pass}
+			</if>
+		</if>
+	</select>
+	
+</mapper>
