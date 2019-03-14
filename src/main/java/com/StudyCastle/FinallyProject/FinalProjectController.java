@@ -1,7 +1,12 @@
 package com.StudyCastle.FinallyProject;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,8 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import impl.AcademyInfoImpl;
+import impl.AcademyListImpl;
+import impl.example;
+import mybatis01.AcaTeacherDTO;
+import mybatis01.AcademyMemberDTO;
+
 @Controller
 public class FinalProjectController {
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
 	//헬로 케슬
 	@RequestMapping("/catle/helloCastle.do")
 	public String helloCastle() {
@@ -61,8 +76,11 @@ public class FinalProjectController {
 	}
 	//리스트로 가기
 	@RequestMapping("/catle/list.do")
-	public String list() {
-		
+	public String list(Model model,HttpSession session, HttpServletRequest req) {
+	
+	ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaList();
+	
+	model.addAttribute("acaList", acaList);
 		return "01Main/list";
 	}
 	//학원정보 등록 창 바로가기
@@ -73,8 +91,20 @@ public class FinalProjectController {
 	}
 	//학원 상세보기 바로가기
 	@RequestMapping("/catle/academyInfo.do")
-	public String academyInfo() {
-		
+	public String academyInfo(Model model,HttpSession session, 
+			HttpServletRequest req) {
+    
+	/* 학원 정보 받기 s*/
+	AcademyMemberDTO acaMemberDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo();
+	System.out.println(acaMemberDTO.getAcaAddress());
+	model.addAttribute("dto", acaMemberDTO);
+	String adress=acaMemberDTO.getAcaAddress();
+	model.addAttribute("adress",adress);
+	/* 학원 정보 받기 s*/
+	/* 강사 목록 받기*/			  
+	/*AcaTeacherDTO acaTeacherDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo();*/
+	/* 강사 목록 받기*/
+	
 		return "01Main/AcademyInfo";
 	}
 	
