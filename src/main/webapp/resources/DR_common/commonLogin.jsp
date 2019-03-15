@@ -86,7 +86,7 @@ button:hover {
 </style>
 <body>
 
-<form action="../DR_MemberRegist/LoginProcess.jsp" style="border:1px solid #ccc; border-radius: 5px;">
+<form action="LoginAction.do" style="border:1px solid #ccc; border-radius: 5px;">
 	<!-- 돌아갈 페이지를 위한 hidden -->
 	<%-- <input type="hid den" name="returnPage" value="<%=request.getParameter("returnPage")%>" /> --%>
 	<div id="Regist_form">
@@ -96,13 +96,13 @@ button:hover {
 		    <hr>
 	    </div>
 	    <div style="text-align:left;width:420px">
-	    <label for="email"><b style="text-align: left;">아이디</b></label>
+	    <label for="id"><b style="text-align: left;">아이디</b></label>
 	    </div>
-	    <input type="text" placeholder="Enter Email" name="user_id" required>
+	    <input type="text" placeholder="User ID" name="user_id" required>
 	    <div style="text-align:left;width:420px">
-	    <label for="psw"><b>비밀번호</b></label>
+	    <label for="pw"><b>비밀번호</b></label>
 	    </div>
-	    <input type="password" placeholder="Enter Password" name="user_pw" required>
+	    <input type="password" placeholder="Password" name="user_pw" required>
 	
 	   <!--  <label for="psw-repeat"><b>Repeat Password</b></label>
 	    <input type="password" placeholder="Repeat Password" name="psw-repeat" required> -->
@@ -114,7 +114,7 @@ button:hover {
 	      </div>
 	    </label>
 	    
-	    <p>회원이 아니시라면 <a href="#" style="color:dodgerblue">이곳을 눌려주세요</a>.</p>
+	    <p>회원이 아니시라면 <a href="registGroup.do" style="color:dodgerblue">이곳을 눌려주세요</a>.</p>
 		
 	    <div class="clearfix">
 	    <!--   <button type="button" class="cancelbtn" onclick="">Cancel</button> -->

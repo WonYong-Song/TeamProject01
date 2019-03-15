@@ -12,9 +12,34 @@ public class AcademyMemberDTO {
 	private String AcaDetailAddress;
 	private String AcaEmail;
 	private String AcaEmainDomain;
+	private double Avg;
+	private String RatingStar;
 	
 	public AcademyMemberDTO() {}
 	
+	
+
+	public AcademyMemberDTO(String acaIdx, String acaID, String acaPass, String acaReqName, String acaPhoneNumber,
+			String acaHPNumber, String acaName, String acaAddress, String acaDetailAddress, String acaEmail,
+			String acaEmainDomain, double avg, String ratingStar) {
+		super();
+		AcaIdx = acaIdx;
+		AcaID = acaID;
+		AcaPass = acaPass;
+		AcaReqName = acaReqName;
+		AcaPhoneNumber = acaPhoneNumber;
+		AcaHPNumber = acaHPNumber;
+		AcaName = acaName;
+		AcaAddress = acaAddress;
+		AcaDetailAddress = acaDetailAddress;
+		AcaEmail = acaEmail;
+		AcaEmainDomain = acaEmainDomain;
+		Avg = avg;
+		RatingStar = ratingStar;
+	}
+
+
+
 	public AcademyMemberDTO(String acaIdx, String acaID, String acaPass, String acaReqName, String acaPhoneNumber,
 			String acaHPNumber, String acaName, String acaAddress, String acaDetailAddress, String acaEmail,
 			String acaEmainDomain) {
@@ -29,7 +54,26 @@ public class AcademyMemberDTO {
 		AcaAddress = acaAddress;
 		AcaDetailAddress = acaDetailAddress;
 		AcaEmail = acaEmail;
-		AcaEmainDomain = acaEmainDomain;
+		AcaEmainDomain = acaEmainDomain; 
+	}
+	
+	public String getRatingStar() {
+		return RatingStar;
+	}
+
+
+	public void setRatingStar(String ratingStar) {
+		RatingStar = ratingStar;
+	}
+
+
+
+	public double getAvg() {
+		return Avg;
+	}
+
+	public void setAvg(double temp) {
+		Avg = temp;
 	}
 
 	public String getAcaIdx() {

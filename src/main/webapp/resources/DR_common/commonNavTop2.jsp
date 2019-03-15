@@ -14,13 +14,16 @@
             <a class="nav-link js-scroll-trigger" href="main.do" style="font-size:1.2em;">메인으로</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" data-toggle="modal" href="Login.do" style="cursor: pointer;font-size:1.2em;">로그인</a>
+            <a class="nav-link js-scroll-trigger" href="Login.do" style="cursor: pointer;font-size:1.2em;">로그인</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="registGroup.do" style="font-size:1.2em;">회원가입</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="updateAcademyInfo.do" style="font-size:1.2em;">학원정보등록</a>
+            <a class="nav-link js-scroll-trigger" href="acaRegister.do" style="font-size:1.2em;">학원정보등록</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="acaInfoEdit.do" style="font-size:1.2em;">학원정보수정</a>
           </li>
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="regist.do" style="font-size:1.2em;">회원정보수정</a>
@@ -29,6 +32,6 @@
             <a class="nav-link js-scroll-trigger" href="memberMyPage.do" style="font-size:1.2em;">마이페이지</a>
           </li>
         </ul>
-        
     </div>
+   </div>
   </nav>

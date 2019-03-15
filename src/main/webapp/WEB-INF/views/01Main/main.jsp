@@ -85,14 +85,13 @@
   <!-- Contact Section -->
   <section class="contact-section bg-black">
     <div class="container">
-
       <div class="row">
         <div class="col-md-4 mb-3 mb-md-0">
           <div class="card py-4 h-100">
-          	<a href="list.do" target="_blank">
+          	<a href="list.do?cateB=입시&" target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
-              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">음악</h4>
+              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">대입</h4>
               <hr class="my-4">
               <div class="small text-black-50">작곡,피아노,노래,기타 악기</div>
               </a>
@@ -102,10 +101,10 @@
 
         <div class="col-md-4 mb-3 mb-md-0">
           <div class="card py-4 h-100">
-          	<a href="list.do" target="_blank">
+          	<a href="list.do?cateB=예체능&" target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
-              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">체육</h4>
+              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">예체능</h4>
               <hr class="my-4">
               <div class="small text-black-50">태권도,합기도,유도,체대입시,기타 운동</div>
               </a>
@@ -131,43 +130,9 @@
     <section class="contact-section bg-black">
     <div class="container">
 
-      <div class="row">
+      <div class="row" style="margin-left: 41%">
 
-        <div class="col-md-4 mb-3 mb-md-0">
-          <div class="card py-4 h-100">
-            <div class="card-body text-center">
-              <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Address</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 mb-3 mb-md-0">
-          <div class="card py-4 h-100">
-            <div class="card-body text-center">
-              <i class="fas fa-envelope text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Email</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">
-                <a href="#">hello@yourdomain.com</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4 mb-3 mb-md-0">
-          <div class="card py-4 h-100">
-            <div class="card-body text-center">
-              <i class="fas fa-mobile-alt text-primary mb-2"></i>
-              <h4 class="text-uppercase m-0">Phone</h4>
-              <hr class="my-4">
-              <div class="small text-black-50">+1 (555) 902-8832</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
       <div class="social d-flex justify-content-center">
         <a href="#" class="mx-2">
