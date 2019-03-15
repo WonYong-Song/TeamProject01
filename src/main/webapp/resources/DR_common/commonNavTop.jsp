@@ -14,7 +14,7 @@
             <a class="nav-link js-scroll-trigger" href="main.do">메인으로</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" data-toggle="modal" href="Login.do" style="cursor: pointer;">로그인</a>
+            <a class="nav-link js-scroll-trigger" href="Login.do" style="cursor: pointer;">로그인</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="registGroup.do">회원가입</a>

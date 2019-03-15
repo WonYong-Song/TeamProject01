@@ -5,6 +5,7 @@ public class ReviewWriteDTO {
 	private int acaScore;
 	private String memberId;
 	private String reviewContents;
+	private String starRaiting;
 	
 	public ReviewWriteDTO() {}
 
@@ -14,6 +15,23 @@ public class ReviewWriteDTO {
 		this.acaScore = acaScore;
 		this.memberId = memberId;
 		this.reviewContents = reviewContents;
+	}
+	
+	public ReviewWriteDTO(String acaIdx, int acaScore, String memberId, String reviewContents, String starRaiting) {
+		super();
+		this.acaIdx = acaIdx;
+		this.acaScore = acaScore;
+		this.memberId = memberId;
+		this.reviewContents = reviewContents;
+		this.starRaiting = starRaiting;
+	}
+
+	public String getStarRaiting() {
+		return starRaiting;
+	}
+
+	public void setStarRaiting(String starRaiting) {
+		this.starRaiting = starRaiting;
 	}
 
 	public String getAcaIdx() {
