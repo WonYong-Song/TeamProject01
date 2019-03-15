@@ -13,21 +13,42 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="main.do">메인으로</a>
           </li>
+  
+<% if(session.getAttribute("USER_ID")==null){ %> 
+		<!-- 로그인전 -->
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" data-toggle="modal" href="Login.do" style="cursor: pointer;">로그인</a>
+
+
+           <a class="nav-link js-scroll-trigger"  href="Login.do" style="cursor: pointer;">로그인</a>
+
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="registGroup.do">회원가입</a>
           </li>
-           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="acaInfoRegiEdit.do">학원정보 등록 및 수정</a>
+
+<% }else if(session.getAttribute("USER_ID")==null){ %> 
+	   <!--기업 회원 로그인후 -->
+	   <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="acaRegister.do">학원정보등록</a>
           </li>
            <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="acaInfoEdit.do">학원정보수정</a>
+          </li>
+         <li class="nav-item">
+         	<p  class="nav-link js-scroll-trigger"><%=session.getAttribute("USER_ID")%>님</p>
+         </li>
+<% }else { %>
+	   <!--개인 회원 로그인후 -->
+		<li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="regist.do">회원정보수정</a>
           </li>
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="memberMyPage.do">마이페이지</a>
           </li>
+          <li class="nav-item">
+         	<p  class="nav-link js-scroll-trigger"><%=session.getAttribute("USER_ID")%>님</p>
+         </li>
+<% } %>         
           
         </ul>
     </div>

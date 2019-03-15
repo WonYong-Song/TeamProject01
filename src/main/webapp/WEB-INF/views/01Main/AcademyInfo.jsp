@@ -374,12 +374,13 @@
 		<tr id="info09">
 			<td style="vertical-align: middle" colspan="4">
 			<div>
+			
 			<%@ include file="/../resources/DR_common/commonComment.jsp" %>
 			</div>
 			
 			<div class="row text-center" style="padding-left: 44%;margin:auto;">
 				<!-- 페이지번호 부분 -->
-				<ul class="pagination" style="text-align: center; ">	
+				<!-- <ul class="pagination" style="text-align: center; ">	
 					<li><a href="#"><span class="glyphicon glyphicon-hand-left"></span><<</a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-fast-backward"></span><</a></li>&nbsp;
 					<li><a href="#">1</a></li>&nbsp;		
@@ -389,24 +390,43 @@
 					<li><a href="#">5</a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-fast-forward"></span>></a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-hand-right"></span>>></a></li>
-				</ul>	
+				</ul>	 -->${pagingImg }
 			</div>
 					</td>
 			</tr>
+			<script type="text/javascript">
+			function writeValidate(f)
+			{
+				if(f.acaScore.value=="별점 매기기"){
+					alert("별점을 입력해 주세요");
+					f.acaScore.focus();
+					return false;
+				}
+				if(f.reviewContents.value==""){
+					alert("내용을 입력하세요");
+					f.reviewContents.focus();
+					return false;
+				} 
+			}
+			</script>
 			<tr><td colspan="4">
 			<!-- 학원 후기 댓글 폼 -->
 			<form name="writeFrm" method="post" 
 				onsubmit="return writeValidate(this);"
-				action="<c:url value="/mybatis/writeAction.do" />" >
+				action="reviewAction.do" >
 				
                 <div class="media" style=" padding: 0px 30px 10px 43px;margin-bottom: 80px;">
+                  <input type="hidden" name="acaidx" value="${dto.acaIdx }"/>
+                  
                   <a class="media-left" href="#" style="width:80px;height:80px;margin-top: 4%">
                     <img src="http://lorempixel.com/40/40/people/1/" style="width:100%;height:100%;">
                   </a>
-                  	
+                  
                   <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
-                      <h4 class="media-heading user_name">jyh5869jyh</h4>
-                      <select name="keyField" class="form-control">			
+                      <input type="hidden" name="memberId" value="younghyun"/>
+                      <span class="media-heading user_name">younghyun</span>
+                      <select class="form-control" name="acaScore">			
+							<option value="0">별점 매기기</option>
 							<option value="1">1점</option>
 							<option value="2">2점</option>
 							<option value="3">3점</option>
@@ -415,8 +435,7 @@
 						</select>
                     
                     <div style="width:100%;height: 100%;">
-                    <textarea rows="10" class="form-control" name="contents"
-                    style="width:100%;height: 100%"></textarea>
+                    <textarea rows="10" class="form-control" style="width:100%;height: 100%" name="reviewContents"></textarea>
                     </div>
                     <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
                   </div>
@@ -426,6 +445,7 @@
                 </div>
             </form> 
             </td></tr>
+
             <!-- 학원 후기 댓글 폼 -->	
 		
 	</table>

@@ -14,9 +14,11 @@
 		SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				select A.*, 
-				   (select avg(acascore) from reviewWrite group by A.acaidx) AS avg
-				from academymember A inner join reviewWrite R 
-				   on A.acaidx=R.acaidx
+				
+				   (select avg(acascore) from reviewWrite where acaidx=A.ACAIDX group by A.acaidx) AS avg
+				
+				from academymember A  
+				  
 					<if test="!keyString.equals('') and keyString!=null">
 					WHERE ${keyField} like '%'||#{keyString}||'%'
 			   		</if> 
@@ -24,6 +26,8 @@
 			) Tb
 		)
 		WHERE rNum BETWEEN ${start} AND ${end}
+
+
 		<!-- SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM academymember 

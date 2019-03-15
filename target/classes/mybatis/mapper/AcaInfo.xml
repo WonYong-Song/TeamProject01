@@ -8,6 +8,44 @@
 	<select id="AcaInfo" resultType="mybatis01.AcademyMemberDTO">
 		SELECT * FROM academymember where ACAIDX=#{param1}
 	</select>
+	
+	<select id="review" resultType="mybatis01.ReviewWriteDTO"
+			parameterType="mybatis01.ParamDTO">
+		
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM reviewwrite 
+				<choose>
+					<when test="!keyString.equals('') and keyString!=null">
+						WHERE ${keyField} like '%'||#{keyString}||'%' and ACAIDX=${acaidx}
+				   	</when> 
+				   	<otherwise>
+				  		WHERE ACAIDX=${acaidx}		  			
+				  	</otherwise>
+			   	</choose>
+				ORDER BY ACAIDX DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN ${start} AND ${end} 
+	</select>
+	<!-- 댓글 쓰기 -->
+	<insert id="reviewWrite">
+		insert into reviewWrite(ReviewContents,AcaScore,MemberId,AcaIdx)
+		VALUES (#{param4},#{param3}, #{param2}, #{param1})
+	</insert>
+	<!-- 댓글 총갯수 찾기 -->
+	<select id="getTotalCountSearchReview" resultType="int" 
+		parameterType="mybatis01.ParamDTO">
+		SELECT COUNT(*) FROM ReviewWrite
+		<choose>
+			<when test="!keyString.equals('') and keyString!=null">
+				WHERE ${keyField} like '%'||#{keyString}||'%' and ACAIDX=${acaidx}
+		   	</when> 
+		   	<otherwise>
+		  		WHERE ACAIDX=${acaidx}	  			
+		  	</otherwise>
+	   	</choose>
+	</select> 
 </mapper>
 
    

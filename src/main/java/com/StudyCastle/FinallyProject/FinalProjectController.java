@@ -1,13 +1,19 @@
 package com.StudyCastle.FinallyProject;
 
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
 import impl.example;
-
 
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
@@ -63,30 +68,40 @@ public class FinalProjectController {
 	//로그인 처리
 	@RequestMapping("/catle/LoginAction.do")
 	@ResponseBody
-	public Map<String, Object> LoginAction(HttpServletRequest req){
+	public Map<String, Object> LoginAction(HttpServletRequest req
+			,HttpServletResponse resp, HttpSession session) throws ServletException, IOException{
 		
 		//Json출력
 		Map<String, Object> memberMap = new HashMap<String, Object>();
 		
-		String id = req.getParameter("user_id");
-		String pass = req.getParameter("user_pw");
+		String memberId = req.getParameter("memberId");
+		String memberPass = req.getParameter("memberPass");
+		
+		String acaID = req.getParameter("memberId");
+		String acaPass = req.getParameter("memberPass");
+		AcademyMemberDTO acDTO = new AcademyMemberDTO();
+		acDTO.setAcaID(acaID);
+		acDTO.setAcaPass(acaPass);
 		
 		//파라미터 객체 저장
 		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMemberId(id);
-		memberDTO.setMemberPass(pass);
+		memberDTO.setMemberId(memberId);
+		memberDTO.setMemberPass(memberPass);
+		
 		
 		memberDTO =
-				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(memberDTO);
+				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(memberDTO,acDTO);
+		
+		session.setAttribute("USER_ID", memberId);
 		
 		if(memberDTO==null) {
 			//로그인실패
-			memberMap.put("success", 0);
+			req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
 		}
 		else {
 			//로그인 성공
-			memberMap.put("success", 1);
-			memberMap.put("memberInfo", memberDTO);
+			req.getRequestDispatcher("/catle/main.do").forward(req, resp);
+			
 		}
 		
 		return memberMap;
@@ -180,6 +195,7 @@ public class FinalProjectController {
 		
 		return "01Main/updateAcademyInfo";
 	}
+/////////////////////////////////////////////////////////////////////////
 	//학원 상세보기 바로가기
 	@RequestMapping("/catle/academyInfo.do")
 	public String academyInfo(Model model,HttpSession session, 
@@ -187,6 +203,66 @@ public class FinalProjectController {
 		
 	String acaIdx=req.getParameter("acaIdx");
 	System.out.println("상세보기로 넘어갈 학원 번호="+acaIdx);
+	/* 학원 댓글 가져오기 s */
+	//검색처리
+		ParamDTO paramDTO = new ParamDTO();
+		
+		String addQueryString = "";
+		String keyField = req.getParameter("keyField");				
+		String keyString = req.getParameter("keyString");
+		if(keyString!=null){
+			addQueryString = String.format("keyField=%s"
+				+"&keyString=%s&", keyField, keyString);
+	
+			paramDTO.setKeyField(keyField);
+			paramDTO.setKeyString(keyString);
+		}
+		paramDTO.setAcaidx(acaIdx);
+	//총개시물 갯수
+	int totalRecordCount = sqlSession.getMapper(AcademyInfoImpl.class)
+			.getTotalCountSearchReview(paramDTO);
+
+	System.out.println("댓글 totalRecordCount="+totalRecordCount);
+	
+	//페이지 처리를 위한 설정값
+		int pageSize = 4;
+		int blockPage = 2;
+		
+		//전체페이지수계산하기
+		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+		
+		//시작 및 끝 rownum 구하기
+		int nowPage = req.getParameter("nowPage")==null ? 1 :
+			Integer.parseInt(req.getParameter("nowPage"));
+		int start = (nowPage-1) * pageSize + 1;
+		int end = nowPage * pageSize;
+		
+		//검색처리위한 추가부분
+		paramDTO.setStart(start);
+		paramDTO.setEnd(end);
+		
+	ArrayList<ReviewWriteDTO> reviewDTO = sqlSession.getMapper(AcademyInfoImpl.class).review(paramDTO);
+	System.out.println("11111111111111111111111111111");
+	//페이지 처리를 위한 처리부분
+			String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+					pageSize, blockPage, nowPage,
+					req.getContextPath()+"/catle/academyInfo.do?acaIdx="+acaIdx+"&"+addQueryString);
+			model.addAttribute("pagingImg", pagingImg);
+		System.out.println("22222222222222222222222222");
+	//줄바꿈처리
+	for(ReviewWriteDTO dto1 : reviewDTO)
+	{	
+		System.out.println(dto1.getReviewContents());
+		String temp =
+			dto1.getReviewContents().replace("\r\n","<br/>");
+		dto1.setReviewContents(temp);
+		String temp2 =Util.RatingUtil.ratingImg((int) dto1.getAcaScore());
+		dto1.setStarRaiting(temp2);;
+	}
+	model.addAttribute("reviewDTO", reviewDTO);
+	model.addAttribute("pagingImg", pagingImg);
+	
+	/* 학원 댓글 가져오기 e */
 	
 	/* 학원 정보 받기 s*/
 	AcademyMemberDTO acaMemberDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo(acaIdx);
@@ -201,8 +277,39 @@ public class FinalProjectController {
 	
 		return "01Main/AcademyInfo";
 	}
+/////////////////////////////////////////////////////////////////////////
+	//댓글쓰기 처리 
+	@RequestMapping("/catle/reviewAction.do")
+	public String reviewAction(Model model, HttpServletRequest req ,HttpSession session) throws UnsupportedEncodingException {
+		req.setCharacterEncoding("UTF-8");
+		String acaidx=req.getParameter("acaidx");
+		String acaScore=req.getParameter("acaScore");
+		String memberId=req.getParameter("memberId");
+		String reviewContents=req.getParameter("reviewContents");
+		
+		System.out.println("acaidx="+acaidx);
+		System.out.println("acaScore="+acaScore);
+		System.out.println("memberId="+memberId);
+		System.out.println("reviewContents="+reviewContents);
+		/*if(session.getAttribute("siteUserInfo")==null)
+		{
+			return "redirect:login.do";
+		}*/
+		//Mybatis 사용
+		/*sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+				req.getParameter("name"),req.getParameter("contents"),
+				((MemberDTO)session.getAttribute("siteUserInfo")).getMemberId());*/
+		
+		sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+				acaidx,memberId,acaScore,reviewContents);
+		 
+		
+		/*return "redirect:academyInfo.do";*/
+		return "redirect:academyInfo.do?acaIdx="+acaidx;
+		
+	}
 	
-	
+/////////////////////////////////////////////////////////////////////////	
 	
 	
 	//결제 완료창 띄우기
