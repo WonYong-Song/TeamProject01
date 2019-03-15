@@ -8,9 +8,10 @@ import mybatis01.ParamDTO;
 import mybatis01.ReviewWriteDTO;
 
 public interface AcademyInfoImpl {
-    //로그인
-	public MemberDTO memberLogin(MemberDTO memberDTO);
-    //학원정보
+
+
+	public MemberDTO memberLogin(MemberDTO memberDTO, AcademyMemberDTO acDTO);
+
 	public AcademyMemberDTO AcaInfo(String acaIdx);
 	//리뷰리스트
 	public ArrayList<ReviewWriteDTO> review(ParamDTO paramDTO);

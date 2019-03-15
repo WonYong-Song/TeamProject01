@@ -117,7 +117,7 @@
           	<a href="list.do" target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
-              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">직업교육</h4>
+              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">기타</h4>
               <hr class="my-4">
               <div class="small text-black-50">컴퓨터,바리스타,제과제빵,기타 직업교육</div>
               </a>

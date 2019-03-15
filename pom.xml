@@ -122,11 +122,11 @@
 		<!-- ####################################################### -->
 		<!-- KOSMO 의존설정 추가 -->
 		<!-- 오라클 11g 드라이버 -->
-		<!-- <dependency> 
+		<dependency> 
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0</version>
-		</dependency> -->
+		</dependency>
 		
 		<!-- SPRING JDBC를 사용하기위한 의존설정 -->
 		<dependency>

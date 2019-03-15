@@ -98,11 +98,11 @@ button:hover {
 	    <div style="text-align:left;width:420px">
 	    <label for="id"><b style="text-align: left;">아이디</b></label>
 	    </div>
-	    <input type="text" placeholder="User ID" name="user_id" required>
+	    <input type="text" placeholder="User ID" name="memberId" required>
 	    <div style="text-align:left;width:420px">
 	    <label for="pw"><b>비밀번호</b></label>
 	    </div>
-	    <input type="password" placeholder="Password" name="user_pw" required>
+	    <input type="password" placeholder="Password" name="memberPass" required>
 	
 	   <!--  <label for="psw-repeat"><b>Repeat Password</b></label>
 	    <input type="password" placeholder="Repeat Password" name="psw-repeat" required> -->

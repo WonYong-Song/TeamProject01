@@ -230,12 +230,13 @@ function registFrmCheck()
             || eval("fn."+frmArray[i]+".type")=="password" 
             || eval("fn."+frmArray[i]+".type")=="date")
       {
-
+		
          if(eval("fn."+frmArray[i]+".value")==""){
             alert(txtArray[i]+"를(을) 입력하세요");
             eval("fn."+frmArray[i]+".focus()");
             return false;
-         }         
+         }
+         
       }
       
       else if(eval("fn."+frmArray[i]+".type")=="radio" || eval("fn."+frmArray[i]+".type")=="checkbox")
@@ -264,7 +265,64 @@ function registFrmCheck()
       return false;
    }
    
+   //아이디 중복체크 및 유효성 검사
+   if(id_overlapping(fn)==false){
+		return false;   
+   }
+   
+   //패스워드 유효성 검사
+   fnCheckPassword(fn.user_id.value, fn.user_pw1.value);
+   //패스워드1,2 일치 여부 확인
+   if(fn.user_pw1.value!=fn.user_pw2.value){
+	   alert("비밀번호가 일치하지 않습니다.");
+	   fn.user_pw2.value="";
+	   fn.user_pw1.focus();
+	   return false;
+   }
+   
+   
 }
+
+//아이디 중복체크하기
+function id_overlapping(fn)
+{
+	var iForm = fn.user_id;
+	
+	//공백제거
+	trimAll(iForm);
+	//아이디 입력후 중복확인 누를수 있음
+	
+	//아이디는 8자이상
+	if(8 > iForm.value.length)
+	{
+		alert('아이디는 8자이상이어야 합니다.');
+		iForm.value='';
+		iForm.focus();
+		return false;
+	}
+	//숫자로 시작할수 없음 : kosmo31(허용됨), 31kosmo(허용안됨)
+	if(isNumber(iForm.value.substring(0,1))==true){
+		alert("아이디는 숫자로 시작할수 없습니다.");
+		iForm.value='';
+		iForm.focus();
+		return false;
+	}		
+	//숫자,영소문자 조합만 가능함.
+	var result = LowerDigitCheck(iForm);
+	if(result==false) return false;
+	
+	var chk_num = iForm.value.search(/[0-9]/g); 
+	var chk_eng = iForm.value.search(/[a-z]/ig);
+	
+	if(chk_num < 0 || chk_eng < 0){ 
+	    alert('아이디는 숫자와 영문자를 혼용하여야 합니다.'); 
+	    return false;
+	}
+	
+	return true;
+	
+}
+
 //공백제거하기
 function trimAll(str) {
    a = str.value;
@@ -275,7 +333,7 @@ function trimAll(str) {
 }
 //숫자/영문자만 포함된 문자열인지 검사
 function LowerDigitCheck(field) {
-   var valid = "abcdefghijklmnopqrstuvwxyz1234567890"
+   var valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"
    var ok = "yes";
    var temp;
    for (var i=0; i<field.value.length; i++) {
@@ -283,12 +341,13 @@ function LowerDigitCheck(field) {
       if (valid.indexOf(temp) == "-1") ok = "no";
    }
    if (ok == "no") {
-      alert("영소문자 or 숫자만 입력할 수 있습니다");
+      alert("영대소문자 or 숫자만 입력할 수 있습니다");
       field.value='';
       field.focus();
       return false;
    }
 }
+
 //아스키코드로 숫자인지 여부확인 : 숫자라면 true를 반환한다.
 function isNumber(param){      
    for(var i=0 ; i<param.length ; i++){
@@ -312,10 +371,42 @@ function choiceInput(frm, elem) {
       } 
    }
 }  
+
+//비밀번호 체크
+function fnCheckPassword(uid, upw){
+	
+	if(!/^[a-zA-Z0-9]{8,20}$/.test(upw)){ 
+	    alert('비밀번호는 숫자와 영문자 조합으로 8~12자리를 사용해야 합니다.'); 
+	    return false;
+	}
+	
+	var chk_num = upw.search(/[0-9]/g); 
+	var chk_eng = upw.search(/[a-z]/ig);
+	
+	if(chk_num < 0 || chk_eng < 0){ 
+	    alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.'); 
+	    return false;
+	}
+	
+	if(/(\w)\1\1\1/.test(upw)){
+	    alert('비밀번호에 같은 문자를 4번 이상 사용하실 수 없습니다.'); 
+	    return false;
+	}
+	
+	if(upw.search(uid)>-1){
+	    alert('ID가 포함된 비밀번호는 사용하실 수 없습니다.'); 
+	    return false;
+	}
+	return true;
+
+}
+
 </script>
 <script>
 $(function(){
 	$('#user_id').keyup(function(){
+		//아이디 공백제거
+		$('#user_id').val($('#user_id').val().replace(/ /g, ''));
 		if(document.registFrm.user_id.value.length==0){
 			$('#display').html(' ');
 			$('#overFlag').val(0);
@@ -353,6 +444,14 @@ $(function(){
 			});
 		}
 	});
+	$('#user_pw1').keyup(function(){
+		//패스워드1 공백제거
+		$('#user_pw1').val($('#user_pw1').val().replace(/ /g, ''));
+	});
+	$('#user_pw2').keyup(function(){
+		//패스워드2 공백제거
+		$('#user_pw2').val($('#user_pw2').val().replace(/ /g, ''));
+	});
 });
 </script>
 </head>
@@ -369,7 +468,7 @@ $(function(){
          <td id="Column">아이디</td>
          <td>
             <input type="text" id="user_id" name="user_id" value="" style="width:150px; height:25px;"/>
-            <font color ="gray" size="1">아이디 형식에 맞춰주세요(영문,숫자 조합4문자 이상)</font>
+            <font color ="gray" size="1">아이디 형식에 맞춰주세요(영문,숫자 조합8문자 이상)</font>
             <br />
             <p id="display"></p>
          </td>
@@ -377,14 +476,14 @@ $(function(){
       <tr>
          <td id="Column">비밀번호</td>
          <td>
-            <input type="text" name="user_pw1" value="" style="width:150px; height:25px;"/>
+            <input type="password" id="user_pw1" name="user_pw1" value="" style="width:150px; height:25px;"/>
             <font color ="gray" size="1">8~20자리의 영문, 숫자 조합(영문,숫자,특수기호 조합을 권장합니다.)</font>
          </td>
       </tr>
       <tr>
          <td id="Column">비밀번호 확인</td>
          <td>
-            <input type="text" name="user_pw2" value="" style="width:150px; height:25px;"/>
+            <input type="password" id="user_pw2" name="user_pw2" value="" style="width:150px; height:25px;"/>
          </td>
       </tr>
       <tr>

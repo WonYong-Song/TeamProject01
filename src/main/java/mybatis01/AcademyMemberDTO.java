@@ -54,13 +54,12 @@ public class AcademyMemberDTO {
 		AcaAddress = acaAddress;
 		AcaDetailAddress = acaDetailAddress;
 		AcaEmail = acaEmail;
-		AcaEmainDomain = acaEmainDomain;
+		AcaEmainDomain = acaEmainDomain; 
 	}
 	
 	public String getRatingStar() {
 		return RatingStar;
 	}
-
 
 
 	public void setRatingStar(String ratingStar) {
