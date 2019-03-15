@@ -20,10 +20,7 @@
             <a class="nav-link js-scroll-trigger" href="registGroup.do" style="font-size:1.2em;">회원가입</a>
           </li>
            <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="acaRegister.do" style="font-size:1.2em;">학원정보등록</a>
-          </li>
-           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="acaInfoEdit.do" style="font-size:1.2em;">학원정보수정</a>
+            <a class="nav-link js-scroll-trigger" href="acaInfoRegiEdit.do" style="font-size:1.2em;">학원정보 등록 및 수정</a>
           </li>
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="regist.do" style="font-size:1.2em;">회원정보수정</a>
