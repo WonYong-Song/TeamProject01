@@ -132,17 +132,13 @@ height: 100%;
              	<td>캐슬 평점</td>
              	
              	<td>	
-             		<% 
-             		for(int i=1;i <=1;i++){
-             		%>
-             		<span class="fa fa-star checked" ></span>
+             		${row.ratingStar }
+             		<!-- <span class="fa fa-star checked" ></span>
 					<span class="fa fa-star checked"></span>
 					<span class="fa fa-star checked"></span>
 					<span class="fa fa-star"></span>
-					<span class="fa fa-star"></span>
-					<% 
-             		}
-             		%>
+					<span class="fa fa-star"></span> -->
+					
 					&nbsp;&nbsp;${row.avg }/5.0
              	</td>
              </tr>

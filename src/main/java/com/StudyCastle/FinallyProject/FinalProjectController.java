@@ -169,13 +169,16 @@ public class FinalProjectController {
 			req.getContextPath()+"/catle/list.do?"+addQueryString);
 	model.addAttribute("pagingImg", pagingImg);
 	
-	/*//줄바꿈처리
+	//줄바꿈처리
 	for(AcademyMemberDTO dto : acaList)
 	{
-		String temp =
-			dto.getContents().replace("\r\n","<br/>");
-		dto.setContents(temp);
-	}*/
+		
+		String temp =Util.RatingUtil.ratingImg((int) dto.getAvg());
+				
+			System.out.println(temp);
+		dto.setRatingStar(temp);
+		dto.setAvg((int) dto.getAvg());
+	}
 	/* 별점처리를 위한 부분 s */
 	Map<String,String> checkMap = new HashMap<String,String>();
 	req.setAttribute("score", checkMap);
