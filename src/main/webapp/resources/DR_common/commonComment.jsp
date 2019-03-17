@@ -19,7 +19,7 @@
      <div class="row" >
          <div  style="width:1055px;">
            <div class="page-header" style="margin: 30px;">
-             <h1> 캐슬링 후기 <small class="pull-right"></small></h1>
+             <h1>캐슬링 후기 <small class="pull-right"></small></h1>
              <hr />
            </div> 
             <div class="comments-list">
