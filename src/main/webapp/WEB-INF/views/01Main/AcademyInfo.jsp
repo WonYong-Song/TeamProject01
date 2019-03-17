@@ -106,19 +106,19 @@
 		<tr id="info02">
 			<td style="vertical-align: middle">캐슬명</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-			${dto.acaName }</td>
+			${dto.acaname }</td>
 
 		</tr>
 		<tr id="info03">
 			<td style="vertical-align: middle">캐슬번호</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-				${dto.acaHPNumber }</td>
+				${dto.telephone1 }-${dto.telephone2 }-${dto.telephone3 }</td>
 
 		</tr>
 		<tr id="info04">
 
 			<td style="vertical-align: middle">캐슬위치</td>
-			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">${dto.acaAddress }&nbsp;${dto.acaDetailAddress }</td>
+			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">${dto.address }&nbsp;${dto.detailaddress }</td>
 
 		</tr>
 		<tr id="info05">
@@ -416,15 +416,15 @@
 				action="reviewAction.do" >
 				
                 <div class="media" style=" padding: 0px 30px 10px 43px;margin-bottom: 80px;">
-                  <input type="hidden" name="acaidx" value="${dto.acaIdx }"/>
+                  <input type="hidden" name="acaidx" value="${dto.idx }"/>
                   
                   <a class="media-left" href="#" style="width:80px;height:80px;margin-top: 4%">
                     <img src="http://lorempixel.com/40/40/people/1/" style="width:100%;height:100%;">
                   </a>
                   
                   <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
-                      <input type="hidden" name="memberId" value="younghyun"/>
-                      <span class="media-heading user_name">younghyun</span>
+                      <input type="hidden" name="memberId" value="acamember1"/>
+                      <span class="media-heading user_name">acamember1</span>
                       <select class="form-control" name="acaScore">			
 							<option value="0">별점 매기기</option>
 							<option value="1">1점</option>
@@ -432,7 +432,7 @@
 							<option value="3">3점</option>
 							<option value="4">4점</option>
 							<option value="5">5점</option>
-						</select>
+					</select>
                     
                     <div style="width:100%;height: 100%;">
                     <textarea rows="10" class="form-control" style="width:100%;height: 100%" name="reviewContents"></textarea>
@@ -530,7 +530,7 @@ geocoder.addressSearch('서울특별시 노원구 하계동 256', function(resul
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.acaName }</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.name }</div>'
         });
         infowindow.open(map, marker);
 

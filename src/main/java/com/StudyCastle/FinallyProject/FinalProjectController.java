@@ -80,8 +80,8 @@ public class FinalProjectController {
 		String acaID = req.getParameter("memberId");
 		String acaPass = req.getParameter("memberPass");
 		AcademyMemberDTO acDTO = new AcademyMemberDTO();
-		acDTO.setAcaID(acaID);
-		acDTO.setAcaPass(acaPass);
+		acDTO.setId(acaID);
+		acDTO.setPass(acaPass);
 		
 		//파라미터 객체 저장
 		MemberDTO memberDTO = new MemberDTO();
@@ -162,7 +162,7 @@ public class FinalProjectController {
 	//검색처리위한 추가부분
 	paramDTO.setStart(start);
 	paramDTO.setEnd(end);
-	
+	System.out.println("11111111111111111111111111111");
 	ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaList(paramDTO);
 	
 	//페이지 처리를 위한 처리부분
@@ -170,7 +170,7 @@ public class FinalProjectController {
 			pageSize, blockPage, nowPage,
 			req.getContextPath()+"/catle/list.do?"+addQueryString);
 	model.addAttribute("pagingImg", pagingImg);
-	
+	System.out.println("11111111111111111111111111111");
 	//줄바꿈처리
 	for(AcademyMemberDTO dto : acaList)
 	{
@@ -252,12 +252,17 @@ public class FinalProjectController {
 	//줄바꿈처리
 	for(ReviewWriteDTO dto1 : reviewDTO)
 	{	
-		System.out.println(dto1.getReviewContents());
+		System.out.println(dto1.getReviewcontents());
 		String temp =
-			dto1.getReviewContents().replace("\r\n","<br/>");
-		dto1.setReviewContents(temp);
-		String temp2 =Util.RatingUtil.ratingImg((int) dto1.getAcaScore());
+			dto1.getReviewcontents().replace("\r\n","<br/>");
+		dto1.setReviewcontents(temp);
+		String temp2 =Util.RatingUtil.ratingImg((int) dto1.getScore());
 		dto1.setStarRaiting(temp2);;
+		System.out.println("정보");
+		System.out.println(dto1.getAcaidx());
+		System.out.println(dto1.getScore());
+		System.out.println(dto1.getId());
+		System.out.println(dto1.getStarRaiting());
 	}
 	model.addAttribute("reviewDTO", reviewDTO);
 	model.addAttribute("pagingImg", pagingImg);
@@ -266,9 +271,9 @@ public class FinalProjectController {
 	
 	/* 학원 정보 받기 s*/
 	AcademyMemberDTO acaMemberDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo(acaIdx);
-	System.out.println(acaMemberDTO.getAcaAddress());
+	System.out.println(acaMemberDTO.getAddress());
 	model.addAttribute("dto", acaMemberDTO);
-	String adress=acaMemberDTO.getAcaAddress();
+	String adress=acaMemberDTO.getAddress();
 	model.addAttribute("adress",adress);
 	/* 학원 정보 받기 s*/
 	/* 강사 목록 받기*/			  

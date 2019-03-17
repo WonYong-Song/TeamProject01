@@ -32,14 +32,15 @@
                   
                   <div class="media-body text-left" style="width:250px;height:100px;padding-left: 50px;">
                       
-                    <h4 class="media-heading user_name">${row.memberId }</h4>
-                    ${row.reviewContents }
+                    <h4 class="media-heading user_name">${row.id }</h4>
+                    ${row.reviewcontents }
                     <div>
                     ${row.starRaiting }
+                    
                     </div>
                     <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
                   </div>
-                  <p class="pull-right" ><small>5 days ago</small></p>
+                  <p class="pull-right" ><small>${row.writetime }</small></p>
                 </div>
             </c:forEach>
             <!--  -->
