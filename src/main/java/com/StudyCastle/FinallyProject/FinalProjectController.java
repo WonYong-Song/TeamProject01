@@ -27,7 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
 import impl.example;
-
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
 
@@ -244,7 +243,7 @@ public class FinalProjectController {
 	ArrayList<ReviewWriteDTO> reviewDTO = sqlSession.getMapper(AcademyInfoImpl.class).review(paramDTO);
 	System.out.println("11111111111111111111111111111");
 	//페이지 처리를 위한 처리부분
-			String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+			String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
 					pageSize, blockPage, nowPage,
 					req.getContextPath()+"/catle/academyInfo.do?acaIdx="+acaIdx+"&"+addQueryString);
 			model.addAttribute("pagingImg", pagingImg);
@@ -315,7 +314,75 @@ public class FinalProjectController {
 	}
 	
 /////////////////////////////////////////////////////////////////////////	
+	/*//수정하기
+	@RequestMapping("/mybatis/modify.do")
+	public String modify(Model model, HttpServletRequest req,
+			HttpSession session)
+	{
+		if(session.getAttribute("siteUserInfo")==null)
+		{
+			return "redirect:login.do";
+		}
+
+		//JdbcTemplate 사용
+		MyBoardDTO dto = dao.view(
+			req.getParameter("idx"),
+			((MemberVO)session.getAttribute("siteUserInfo")).getId()
+		);
+		
+		//mybatis 사용
+		MyBoardDTO dto = sqlSession.getMapper(MybatisDAOImpl.class)
+			.view(req.getParameter("idx"),
+				((MemberVO)session.getAttribute("siteUserInfo")).getId());
+
+		
+		model.addAttribute("dto", dto);
+		return "06Mybatis/modify";
+	}
 	
+	
+	//수정처리
+	@RequestMapping("/mybatis/modifyAction.do")
+	public String modifyAction(Model model, HttpServletRequest req,
+		HttpSession session)
+	{
+		//JdbcTemplate 사용
+		dao.modify(req.getParameter("idx"),
+			req.getParameter("name"),
+			req.getParameter("contents"),
+			((MemberVO)session.getAttribute("siteUserInfo")).getId());
+		
+		//Mybatis 사용
+		int affected = sqlSession.getMapper(MybatisDAOImpl.class)
+			.modify(req.getParameter("idx"),
+				req.getParameter("name"),
+				req.getParameter("contents"),
+				((MemberVO)session.getAttribute("siteUserInfo")).getId());
+		System.out.println("수정된행의갯수 :"+affected);
+
+		return "redirect:list.do";
+	}
+*/
+	// 댓글 삭제하기
+	@RequestMapping("/catle/delete.do")
+	public String delete(HttpServletRequest req, Model model,
+		HttpSession session){
+		String acaIdx=req.getParameter("acaIdx");
+		System.out.println("삭제하기로 넘어갈 학원 번호="+acaIdx);
+		/*if(session.getAttribute("siteUserInfo")==null){
+			return "redirect:login.do";
+		}*/
+
+		//JdbcTemplate 사용
+		/*dao.delete(req.getParameter("idx"),
+			((MemberVO)session.getAttribute("siteUserInfo")).getId());*/
+		
+		//Mybatis사용
+		sqlSession.getMapper(AcademyInfoImpl.class)
+			.delete(req.getParameter("idx"));
+
+		return "redirect:academyInfo.do?acaIdx="+acaIdx;
+	}
 	
 	//결제 완료창 띄우기
 	@RequestMapping("/catle/paymentAction.do")

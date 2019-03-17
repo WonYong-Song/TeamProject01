@@ -46,6 +46,11 @@
 		  	</otherwise>
 	   	</choose>
 	</select> 
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete">
+		DELETE FROM reviewWrite WHERE reviewidx=#{param1}
+	</delete>
 </mapper>
 
    

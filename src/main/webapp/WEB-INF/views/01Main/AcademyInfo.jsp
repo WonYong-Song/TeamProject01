@@ -501,6 +501,7 @@
   <script src="js/grayscale.min.js"></script>
   
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ec06b0333644bd4771e72d23ed5395f&libraries=services"></script>
+<input type="hidden" id ="adress" value="${dto.address }" />
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -514,8 +515,10 @@ var map = new daum.maps.Map(mapContainer, mapOption);
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new daum.maps.services.Geocoder();
 
+var adress = 
+	document.getElementById("adress").value;
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('서울특별시 노원구 하계동 256', function(result, status) {
+geocoder.addressSearch(adress, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
