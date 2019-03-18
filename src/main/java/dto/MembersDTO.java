@@ -20,7 +20,7 @@ public class MembersDTO {
 	private String telephone3;	//대표전화3(학원회원만)
 	private String address;		//학원주소(학원회원만)
 	private String detailAddress;//학원상세주소(학원회원만)
-	private String interest;	//관심사(일반회원만)
+	private String interest;	//관심사(일반회원만) 
 	private String acaName;		//학원명(학원회원만
 	//기본생성자
 	public MembersDTO() {}

@@ -567,7 +567,7 @@ function postOpen()
          <td id="Column">기업(학원)주소</td>
          <td colspan="3">
          	<button type="button" class="btn btn-primary" onclick="postOpen();">주소검색</button>
-            <input type="text" name="zipcode" value="" placeholder="" class="s50" maxlength="5" style="width:150px; height:25px;" readonly="readonly"/>
+            <input type="hidden" name="zipcode" value="" placeholder="" class="s50" maxlength="5" style="width:150px; height:25px;" readonly="readonly"/>
             <!-- <input type="image" src="../images/우편번호 검색.png"  height="30px;"width="120px" align="center" onclick="postOpen();" /><br /> -->
             <input type="text" name="address" value="" placeholder="" class="input2 s300" style="width:300px; height:25px;"/>
             <input type="text" name="detailAddress" value="" placeholder="" class="input2 s400" style="width:400px; height:25px;"/>
