@@ -3,7 +3,7 @@ package dto;
 public class AcaInfoRegiEditDTO {
 	//members
 	private String id;
-	private String idx;
+	private int idx;
 	private String grade;
 	private String telephone1;
 	private String address;
@@ -21,7 +21,7 @@ public class AcaInfoRegiEditDTO {
 
 	
 
-	public AcaInfoRegiEditDTO(String id, String idx, String grade, String telephone1,
+	public AcaInfoRegiEditDTO(String id, int idx, String grade, String telephone1,
 			String address, String detailaddress, String acaname, String telephone2, String telephone3,
 			String introduce, String category, String acaIntroPhoto) {
 		this.id = id;
@@ -48,11 +48,11 @@ public class AcaInfoRegiEditDTO {
 		this.id = id;
 	}
 
-	public String getIdx() {
+	public int getIdx() {
 		return idx;
 	}
 
-	public void setIdx(String idx) {
+	public void setIdx(int idx) {
 		this.idx = idx;
 	}
 

@@ -129,7 +129,7 @@ $(function(){
        	<div style="border-color: #EEEEEE; background-color: #EEEEEE;">
 		<!-- 학원사진등록  -->
 		<form name="fileFrm" method="post" action="acaInfoRegiEdit.do" enctype="multipart/form-data" >
-			<input type="hid den" name="Idx" value="${param.Idx }" />
+			<input type="hid den" name="id" value="${RegiEditdto.Id }" />
 			<table class="table" style="width:100%; background-color: #EEEEEE;" id="example">
 			<thead>
 				<tr>
@@ -181,7 +181,7 @@ $(function(){
 							<c:if test="${!empty categorytList}" >
 							  <select name="categoryBox" id="categoryBox" style="width:80px;">					
 							     <c:forEach var="categorytList" items="${categorytList }" >			
-							        <option value="${categorytList.Category  }">${categorytList.Category }</option>
+							        <option value="${categorytList.category  }">${categorytList.category }</option>
 							     </c:forEach>
 							  </select>
 							</c:if>
@@ -219,7 +219,7 @@ $(function(){
 			</thead>
 			<tbody>
 			<c:choose>
-				<c:when test="${empty lists }">
+				<c:when test="${empty tealists }">
 					<tr>
 						<td colspan="4" class="text-center">
 							등록된 강사가 없습니다.
@@ -230,7 +230,7 @@ $(function(){
 					<c:forEach items="${tealists }" var="row" varStatus="loop">
 						<tr>
 							<td class="text-center">
-								${map.totalCount -((map.nowPage-1)*map.pageSize) - loop.index }					
+								${loop.index }					
 							</td>
 							<td class="text-center">
 								<a href="./02acaRegiForm/teaInfoView.do?teaidx=${row.teaidx }&nowPage=${param.nowPage }" 
@@ -297,7 +297,7 @@ $(function(){
 				</thead>
 				<tbody>
 				<c:choose>
-					<c:when test="${empty lists }">
+					<c:when test="${empty classlists }">
 						<tr>
 							<td colspan="7" class="text-center">
 								등록된 시간표가 없습니다.
@@ -308,10 +308,10 @@ $(function(){
 						<c:forEach items="${classlists }" var="row" varStatus="loop">
 							<tr>
 								<td class="text-center">
-									${map.totalCount -((map.nowPage-1)*map.pageSize) - loop.index }					
+									${loop.index }					
 								</td>
 								<td class="text-center">
-									<a href="./02acaRegiForm/classInfoView.do?teaidx=${row.teaidx }&nowPage=${param.nowPage }" 
+									<a href="./02acaRegiForm/classInfoView.do?teaidx=${row.teaidx }" 
 									onClick="window.open(this.href, '', 'width=400, height=430'); return false;">${row.acaClassName } </a>
 								</td>
 								<td class="text-center">${row.teaName }</td>
@@ -339,7 +339,17 @@ $(function(){
 				  <th style="font-size: 1.5em;">- 수강정보입력</th>
 	              </tr>
 	              <tr>
-	                 <td>강의일자 : <input type="date" name="acaStartDate"/>~<input type="date" name="acaEndDate"/></td>
+	                 <td>강의일자 : <input type="date" name="acaStartDate"/>~<input type="date" name="acaEndDate"/> <br />
+                  강의요일 : 
+                  <select name="acaDay">
+                  	<option value="월요일">월</option>
+                  	<option value="화요일">화</option>
+                  	<option value="수요일">수</option>
+                  	<option value="목요일">목</option>
+                  	<option value="금요일">금</option>
+                  	<option value="토요일">토</option>
+                  	<option value="일요일">일</option>
+                  </select></td>
 	                 <td colspan="2">강의명 : <input type="text" name="acaClassName"/><br /><br />강사명: <input type="text" name="teaName" style="width: 100px;"/></td>
 	                 <td rowspan="2" style="text-align: center;vertical-align: middle">
 	                 <button type="button" id="timeTab" onclick="classRegiValidate(this);">등록</button> </td>

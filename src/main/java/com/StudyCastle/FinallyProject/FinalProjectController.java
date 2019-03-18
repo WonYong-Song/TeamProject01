@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.MembersDTO;
 import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
 import impl.example;
@@ -64,46 +66,45 @@ public class FinalProjectController {
 		
 		return "01Main/Login";
 	}
+	//로그아웃
+	@RequestMapping("/catle/Logout.do")
+	public String logout(HttpServletRequest req, HttpSession session,
+			HttpServletResponse resp) {
+		
+		session.removeAttribute("USER_ID");
+		
+		return "01Main/main";
+	}
 	//로그인 처리
 	@RequestMapping("/catle/LoginAction.do")
-	@ResponseBody
-	public Map<String, Object> LoginAction(HttpServletRequest req
-			,HttpServletResponse resp, HttpSession session) throws ServletException, IOException{
+	public void LoginAction(MembersDTO membersDTO,
+			HttpServletRequest req,HttpServletResponse resp, HttpSession session) throws ServletException, IOException{
 		
-		//Json출력
-		Map<String, Object> memberMap = new HashMap<String, Object>();
+		membersDTO =
+				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(membersDTO);
+		//세션에 ID값 저장
+		session.setAttribute("USER_ID", membersDTO.getId());
+		session.setAttribute("GRADE", membersDTO.getGrade());
 		
-		String memberId = req.getParameter("memberId");
-		String memberPass = req.getParameter("memberPass");
+		//System.out.println(membersDTO.getGrade());
 		
-		String acaID = req.getParameter("memberId");
-		String acaPass = req.getParameter("memberPass");
-		AcademyMemberDTO acDTO = new AcademyMemberDTO();
-		acDTO.setId(acaID);
-		acDTO.setPass(acaPass);
-		
-		//파라미터 객체 저장
-		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMemberId(memberId);
-		memberDTO.setMemberPass(memberPass);
-		
-		
-		memberDTO =
-				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(memberDTO,acDTO);
-		
-		session.setAttribute("USER_ID", memberId);
-		
-		if(memberDTO==null) {
+		if(membersDTO==null) {
 			//로그인실패
+			
+			if(!(membersDTO.getId().equals("id")
+					|| membersDTO.getPass().equals("pass"))) {
+				
+				req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
+			}
+			
 			req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
 		}
 		else {
 			//로그인 성공
 			req.getRequestDispatcher("/catle/main.do").forward(req, resp);
-			
 		}
 		
-		return memberMap;
+		//return memberMap;
 	}
 	
 	/*//회원가입 타입 구분 바로가기

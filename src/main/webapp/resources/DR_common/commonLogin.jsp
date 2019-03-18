@@ -86,7 +86,7 @@ button:hover {
 </style>
 <body>
 
-<form action="LoginAction.do" style="border:1px solid #ccc; border-radius: 5px;">
+<form method="post" action="LoginAction.do" style="border:1px solid #ccc; border-radius: 5px;">
 	<!-- 돌아갈 페이지를 위한 hidden -->
 	<%-- <input type="hid den" name="returnPage" value="<%=request.getParameter("returnPage")%>" /> --%>
 	<div id="Regist_form">
@@ -98,11 +98,11 @@ button:hover {
 	    <div style="text-align:left;width:420px">
 	    <label for="id"><b style="text-align: left;">아이디</b></label>
 	    </div>
-	    <input type="text" placeholder="User ID" name="memberId" required>
+	    <input type="text" placeholder="User ID" name="id" required>
 	    <div style="text-align:left;width:420px">
 	    <label for="pw"><b>비밀번호</b></label>
 	    </div>
-	    <input type="password" placeholder="Password" name="memberPass" required>
+	    <input type="password" placeholder="Password" name="pass" required>
 	
 	   <!--  <label for="psw-repeat"><b>Repeat Password</b></label>
 	    <input type="password" placeholder="Repeat Password" name="psw-repeat" required> -->
