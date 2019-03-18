@@ -49,7 +49,7 @@
 <body id="page-top">
 
   <!-- Nav Bar -->
-  <%@ include file="/../resources/DR_common/commonNavTop2.jsp" %>
+  <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
   <!-- Nav Bar -->
   <!-- Header -->
   <header class="masthead" style="height:auto;">

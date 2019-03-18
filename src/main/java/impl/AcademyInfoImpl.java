@@ -2,18 +2,19 @@ package impl;
 
 import java.util.ArrayList;
 
+
 import mybatis01.AcaTeacherDTO;
+import dto.MembersDTO;
 import mybatis01.AcademyMemberDTO;
 import mybatis01.AcaiIntroduceDTO;
 import mybatis01.ClassInfoDTO;
-import mybatis01.MemberDTO;
 import mybatis01.ParamDTO;
 import mybatis01.ReviewWriteDTO;
 
 public interface AcademyInfoImpl {
 
 
-	public MemberDTO memberLogin(MemberDTO memberDTO, AcademyMemberDTO acDTO);
+	public MembersDTO memberLogin(MembersDTO membersDTO);
 
 	public AcademyMemberDTO AcaInfo(String acaIdx);
 	//리뷰리스트
