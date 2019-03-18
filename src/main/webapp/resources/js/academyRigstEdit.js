@@ -31,34 +31,12 @@ function introValidate(f) {
 		}
 	}
  
- function teaEditValidate(f) {
-		if(f.teaImage.value==null){
-			alert("강사사진을 등록해주세요");
-			return false;
-		}
-		if(f.teaName.value==""){
-			alert("강사이름을 입력해주세요");
-			f.teaName.focus();
-			return false;
-		}
-		if(f.teaInfo.value.length==0){
-			alert("강사 소개를 입력해주세요");
-			f.teaInfo.focus();
-			return false;
-		}
-		if(f.subject.value==""){
-			alert("강사담당 과목을 입력해주세요");
-			f.subject.focus();
-			return false;
-		}
-		
-	}
  function teaRegiValidate(f) {
 	 
 	var fileCheck = document.getElementById("teaImage").value;
 	 
 	if(!fileCheck){
-		alert("파일을 첨부해 주세요");
+		alert("강사사진을 첨부해 주세요");
 		return false;
 	}	
 	if(f.teaName.value==""){

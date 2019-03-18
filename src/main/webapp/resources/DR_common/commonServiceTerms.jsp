@@ -29,7 +29,7 @@
   			f.termsagree[1].focus();
   			return false;
   		}
-  		else if(f.registGroup[0].checked==false){
+  		else if(f.registGroup[0].checked==false&&f.registGroup[1].checked==false){
   			alert("회원종류를 선택해주세요.")
   			f.registGroup[0].focus();
   			return false;
@@ -71,7 +71,7 @@
            </tr>
            <tr>
              <td align=center>
-               <textarea rows=15 cols=100>
+               <textarea rows=15 cols=100 readonly="readonly">
 제1조(목적)
  이 약관은 oooo 회사(전자상거래 사업자)가 운영하는 oooo 사이버 몰(이하 “몰”이라 한다)에서 제공하는 인터넷 관련
  서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리ㆍ의무 및 책임사항을 규정함을 목적으로 합니다.
@@ -311,7 +311,7 @@
            </tr>
            <tr>
              <td align=center>
-               <textarea rows=15 cols=100>
+               <textarea rows=15 cols=100 readonly="readonly">
 수집하는 개인정보의 항목
 회사는 회원가입, 상담, 서비스 신청 및 제공 등을 위해 아래와 같은 개인정보를 수집하고 있습니다.
 - 이름, 이메일, 주소, 연락처, 핸드폰 번호, 아이디, 비밀번호, 닉네임, 팩스번호, 홈페이지 주소 또한 서비스 이용과정이나 사업

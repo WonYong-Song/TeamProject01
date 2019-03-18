@@ -106,19 +106,19 @@
 		<tr id="info02">
 			<td style="vertical-align: middle">캐슬명</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-			${dto.acaName }</td>
+			${dto.acaname }</td>
 
 		</tr>
 		<tr id="info03">
 			<td style="vertical-align: middle">캐슬번호</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-				${dto.acaHPNumber }</td>
+				${dto.telephone1 }-${dto.telephone2 }-${dto.telephone3 }</td>
 
 		</tr>
 		<tr id="info04">
 
 			<td style="vertical-align: middle">캐슬위치</td>
-			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">${dto.acaAddress }&nbsp;${dto.acaDetailAddress }</td>
+			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">${dto.address }&nbsp;${dto.detailaddress }</td>
 
 		</tr>
 		<tr id="info05">
@@ -374,12 +374,13 @@
 		<tr id="info09">
 			<td style="vertical-align: middle" colspan="4">
 			<div>
+			
 			<%@ include file="/../resources/DR_common/commonComment.jsp" %>
 			</div>
 			
 			<div class="row text-center" style="padding-left: 44%;margin:auto;">
 				<!-- 페이지번호 부분 -->
-				<ul class="pagination" style="text-align: center; ">	
+				<!-- <ul class="pagination" style="text-align: center; ">	
 					<li><a href="#"><span class="glyphicon glyphicon-hand-left"></span><<</a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-fast-backward"></span><</a></li>&nbsp;
 					<li><a href="#">1</a></li>&nbsp;		
@@ -389,34 +390,52 @@
 					<li><a href="#">5</a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-fast-forward"></span>></a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-hand-right"></span>>></a></li>
-				</ul>	
+				</ul>	 -->${pagingImg }
 			</div>
 					</td>
 			</tr>
+			<script type="text/javascript">
+			function writeValidate(f)
+			{
+				if(f.acaScore.value=="별점 매기기"){
+					alert("별점을 입력해 주세요");
+					f.acaScore.focus();
+					return false;
+				}
+				if(f.reviewContents.value==""){
+					alert("내용을 입력하세요");
+					f.reviewContents.focus();
+					return false;
+				} 
+			}
+			</script>
 			<tr><td colspan="4">
 			<!-- 학원 후기 댓글 폼 -->
 			<form name="writeFrm" method="post" 
 				onsubmit="return writeValidate(this);"
-				action="<c:url value="/mybatis/writeAction.do" />" >
+				action="reviewAction.do" >
 				
                 <div class="media" style=" padding: 0px 30px 10px 43px;margin-bottom: 80px;">
+                  <input type="hidden" name="acaidx" value="${dto.idx }"/>
+                  
                   <a class="media-left" href="#" style="width:80px;height:80px;margin-top: 4%">
                     <img src="http://lorempixel.com/40/40/people/1/" style="width:100%;height:100%;">
                   </a>
-                  	
+                  
                   <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
-                      <h4 class="media-heading user_name">jyh5869jyh</h4>
-                      <select name="keyField" class="form-control">			
+                      <input type="hidden" name="memberId" value="acamember1"/>
+                      <span class="media-heading user_name">acamember1</span>
+                      <select class="form-control" name="acaScore">			
+							<option value="0">별점 매기기</option>
 							<option value="1">1점</option>
 							<option value="2">2점</option>
 							<option value="3">3점</option>
 							<option value="4">4점</option>
 							<option value="5">5점</option>
-						</select>
+					</select>
                     
                     <div style="width:100%;height: 100%;">
-                    <textarea rows="10" class="form-control" name="contents"
-                    style="width:100%;height: 100%"></textarea>
+                    <textarea rows="10" class="form-control" style="width:100%;height: 100%" name="reviewContents"></textarea>
                     </div>
                     <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
                   </div>
@@ -426,6 +445,7 @@
                 </div>
             </form> 
             </td></tr>
+
             <!-- 학원 후기 댓글 폼 -->	
 		
 	</table>
@@ -481,6 +501,7 @@
   <script src="js/grayscale.min.js"></script>
   
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ec06b0333644bd4771e72d23ed5395f&libraries=services"></script>
+<input type="hidden" id ="adress" value="${dto.address }" />
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -494,8 +515,10 @@ var map = new daum.maps.Map(mapContainer, mapOption);
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new daum.maps.services.Geocoder();
 
+var adress = 
+	document.getElementById("adress").value;
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('서울특별시 노원구 하계동 256', function(result, status) {
+geocoder.addressSearch(adress, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
@@ -510,7 +533,7 @@ geocoder.addressSearch('서울특별시 노원구 하계동 256', function(resul
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.acaName }</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.name }</div>'
         });
         infowindow.open(map, marker);
 

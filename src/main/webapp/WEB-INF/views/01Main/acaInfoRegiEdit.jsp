@@ -15,15 +15,16 @@
 
   <!-- Bootstrap core CSS -->
   <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  
   <!-- Custom fonts for this template -->
   <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  	
+
   <!-- Custom styles for this template -->
   <link href="../resources/css/grayscale.min.css" rel="stylesheet">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
     #vtab {
         margin: auto;
@@ -85,7 +86,7 @@ $(function() {
      }).eq(0).click ();
  });
   
-/* 사진업로드 버튼 추가 ajax */   
+/* //사진업로드 버튼 추가 ajax   
 $(function(){
  
  var maxAppend = 1; //버튼누른 횟수 저장
@@ -94,8 +95,7 @@ $(function(){
    	 if(maxAppend>=6) return;
         // tr 의 최대번호 구하기
         var lastTrNo = $("#example tr:last").attr("class").replace("imgUp", "");
-
-        var newTr = $("#example tr:eq(1)").clone();
+       var newTr = $("#example tr:eq(1)").clone();
         newTr.removeClass();
         newTr.find("td:eq(0)").attr("rowspan", "1");
         newTr.addClass("imgUp"+(parseInt(lastTrNo)+1));
@@ -109,7 +109,7 @@ $(function(){
   	    $(this).parent().parent().remove();
   	    maxRemove++;
  	  });
-});
+}); */
 </script>
 </head>
 
@@ -117,19 +117,19 @@ $(function(){
  <!-- Nav Bar -->
  <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
  <!-- Nav Bar -->
-  <!-- Contact Section -->
-  <section class="signup-section">
+ <section class="signup-section">
     <div class="container" id="vtab" >
         <ul>
             <li class="selected">학원소개</li>
             <li>강사진</li>
             <li>강의 및 시간표</li>
         </ul>
-      	
+    
         <!-- 학원소개 등록  -->  
-        <div>
+       	<div style="border-color: #EEEEEE; background-color: #EEEEEE;">
 		<!-- 학원사진등록  -->
 		<form name="fileFrm" method="post" action="acaRegistAction.do" enctype="multipart/form-data" >
+			<input type="hidden" name="acaIdx" value="${param.acaIdx }" />
 			<table class="table" style="width:100%; background-color: #EEEEEE;" id="example">
 			<thead>
 				<tr> 
@@ -137,37 +137,12 @@ $(function(){
 				</tr>
 			</thead>	
 			<tbody>
-			<c:choose>
-				<c:when test="${empty lists }">
-					<tr>
-						<th>학원사진</th>
-						<td>
-							<input type="file" name="introPhoto" />
-						</td>
-						<td>
-							<button type="button" id="addTrBtn">추가</button>
-							<button type="button" id="trRemove">삭제</button>
-						</td>
-					</tr>
-				</c:when>
-				<c:otherwise>
-				<c:forEach items="${lists }" var="row" varStatus="loop">
-					<tr>
-						<td class="text-left">
-							<a href="../AcaRegister.jsp?idx=${row.idx }&nowPage=${param.nowPage }">${row.title } </a>
-						</td>
-						<th>학원사진</th>
-						<td>
-							<input type="file" name="introPhoto" value="${row.introPhoto }"/>
-						</td>
-						<td>
-							<button type="button" id="addTrBtn">추가</button>
-							<button type="button" id="trRemove">삭제</button>
-						</td>
-					</tr>
-				</c:forEach>
-				</c:otherwise>
-			</c:choose>
+				<tr>
+					<th>학원사진</th>
+					<td>
+						<input type="file" name="introPhoto" value="${dto.introPhoto }" multiple="multiple"/>
+					</td>
+				</tr>
 			</tbody>	
 			</table>
 
@@ -217,60 +192,55 @@ $(function(){
 			</table>
 				 <p style="text-align: right"><button type="submit" >확인</button></p>
 		</form>
-   		</div>
+   		</div >
         <!-- 강사진 수정  -->
-		<div>
-			<form name="teachFrm" action="teachInfoEdit.do" method="post" enctype="multipart/form-data">
-			
+		<div style="border-color: #EEEEEE; background-color: #EEEEEE;">
+			<table class="table" style="max-width: 600px; background-color: #ffffff;">
+			<colgroup>
+				<col width="20%"/>
+				<col width="40%"/>
+				<col width="40%"/>
+			</colgroup>
+				
+			<thead>
+				<tr class="success">
+					<th class="text-center">번호</th>
+					<th class="text-left">강사명</th>
+					<th class="text-center">강의과목</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
 			<c:choose>
 				<c:when test="${empty lists }">
-					<table>
-						<tr>
-							<td>
-								등록된 강사가 없습니다.
-							</td>
-						</tr>
-					</table>
+					<tr>
+						<td colspan="4" class="text-center">
+							등록된 강사가 없습니다.
+						</td>
+					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${lists }" var="row" varStatus="loop">
-					<div>
-						<table class="table" style="max-width: 600px; margin: 30px; background-color: #EEEEEE;">
-							<tr>
-								<th>강사이미지</th>
-								<td>
-								<input type="file" name="teaImage" value="./images/img_avatar1.png"/>
-								</td>
-							</tr>
-							<tr>
-								<th> 강사명 </th>
-								<td><input type="text" name="teaName" placeholder="강사이름" value="${dtr.teaName }"></td>
-							</tr>
-							<tr><th style="text-align: center" colspan="2" >강사소개</th></tr>
-							<tr>
-								<td colspan="2">
-								<textarea name="teaInfo" cols="30" rows="10" style="width:100%">${dto.teaInfo }</textarea>
-								</td>
-							</tr> 
-							<tr>
-								<th>강의과목</th>
-								<td><input type="text" name="subject" placeholder="과목명, 과목명 ..." value="${dto.subject }"></td>
-							</tr>
-							<tr>
-								<td style="text-align: right;" colspan="2"><button type="button"  onclick="teaEditValidate(this);">수정</button>
-								<button type="button" >삭제</button></td>
-							</tr>
-						</table>
-						<p style="text-align: right"><button type="submit" >확인</button></p>
-					</div>
+					<c:forEach items="${tealists }" var="row" varStatus="loop">
+						<tr>
+							<td class="text-center">
+								${map.totalCount -((map.nowPage-1)*map.pageSize) - loop.index }					
+							</td>
+							<td class="text-center">
+								<a href="./02acaRegiForm/teaInfoView.do?teaidx=${row.teaidx }&nowPage=${param.nowPage }" 
+								onClick="window.open(this.href, '', 'width=400, height=430'); return false;">${row.teaName } </a>
+							</td>
+							<td class="text-center">${row.subject }</td>
+						</tr>
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
-				
-				<!-- 강사정보추가  -->
+			</tbody>	
+			</table>		
+			<!-- 강사정보추가  -->
+			<form name="teachFrm" action="" method="post" enctype="multipart/form-data" onsubmit="teaRegiValidate">
 				<div>
 					<hr />
-					<table class="table" style="width: 600px; background-color: #EEEEEE;">
+					<table class="table" style="width:100%; background-color: #EEEEEE;">
 						<tr><th colspan="2" style="font-size: 1.5em;">- 강사 등록</th></tr>
 						<tr>
 							<th>강사이미지</th>
@@ -293,93 +263,107 @@ $(function(){
 							<td><input type="text" name="subject" placeholder="과목명, 과목명 ..."></td>
 						</tr>
 					</table>
-					<p style="text-align: right"><button type="button" id="teaRegiadd" onclick="teaRegiValidate(this);">추가</button></p>
+					<p style="text-align: right"><button type="submit">등록</button></p>
 				</div>  
 			</form>
 		</div>
         
         <!-- 강의 및 시간표 등록  -->
-   		<div style="height: 500px;">
-           <form name="classFrm" action="classActionEdit.do" method="post" onsubmit="">
-	           <c:choose>
+   		<div style=" border-color: #EEEEEE; background-color: #EEEEEE;">
+       		<table class="table" style="width: 100%; background-color: #ffffff;">
+		        <colgroup>
+					<col width="10%"/>
+					<col width="30%"/>
+					<col width="25%"/>
+					<col width="25%"/>
+					<col width="10%"/>
+				</colgroup>
+					
+				<thead>
+					<tr class="success">
+						<th class="text-center">번호</th>
+						<th class="text-left">강의명</th>
+						<th class="text-center">강사명</th>
+						<th class="text-center">강의일자</th>
+						<th class="text-center">인원</th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:choose>
 					<c:when test="${empty lists }">
-						<table>
-							<tr>
-								<td>
-									<p style="color: #ffffff;">등록된 시간표가 없습니다.</p>
-								</td>
-							</tr>
-						</table>
+						<tr>
+							<td colspan="7" class="text-center">
+								등록된 시간표가 없습니다.
+							</td>
+						</tr>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items="${lists }" var="row" varStatus="loop">
-						<div>
-						<table class="table" style="background-color: #EEEEEE;">
-			               <colgroup>
-			                  <col width="35%"/>
-			                  <col width="15%"/>
-			                  <col width="15%"/>
-			                  <col width="15%"/>
-			               </colgroup>
-			               <tr>
-			               	<th style="font-size: 1.5em;">- 수강정보입력</th>
-			               </tr>
-			               <tr>
-			                  <td>강의일자 : <br /><input type="date" name="acaStartDate" value="${dto.acaStartDate }"/> ~ <input type="date" name="acaEndDate" value="${dto.acaEndDate }"/></td>
-			                  <td>강의명 : <input type="text" name="acaClassName" value="${dto.acaClassName }"/></td>
-			                  <td>강사명: <input type="text" name="teaName" value="${dto.teaName }"/></td>
-			                  <td rowspan="2" style="text-align: center;vertical-align: middle">
-			                  <button type="button" id="">수정</button> </td>
-			               </tr>
-			               <tr>
-			                  <td>강의시간 : <br /> <input type="time" name="acaStartTime" value="${dto.acaStartTime }"/> ~ <input type="time" name="acaEndTime" value="${dto.acaEndTime }"/></td>
-			                  <td>수강료 : <input type="number" name="classPay" value="${dto.classPay }"/></td>
-			                  <td>수강인원 : <input type="number" name="classFixed" value="${dto.classFixed }"/></td>
-			               </tr>
-			             </table>
-							<p style="text-align: right"><button type="submit" >확인</button></p>
-						</div>
+						<c:forEach items="${classlists }" var="row" varStatus="loop">
+							<tr>
+								<td class="text-center">
+									${map.totalCount -((map.nowPage-1)*map.pageSize) - loop.index }					
+								</td>
+								<td class="text-center">
+									<a href="./02acaRegiForm/classInfoView.do?teaidx=${row.teaidx }&nowPage=${param.nowPage }" 
+									onClick="window.open(this.href, '', 'width=400, height=430'); return false;">${row.acaClassName } </a>
+								</td>
+								<td class="text-center">${row.teaName }</td>
+								<td class="text-center">${row.acaStartDate } ~ ${row.acaEndDate }</td>
+								<td class="text-center">${row.acaStartTime } ~ ${row.acaEndTime }</td>
+								<td class="text-center">${row.Pay }</td>
+								<td class="text-center">${row.NumberOfParticipants }</td>
+							</tr>
 						</c:forEach>
 					</c:otherwise>
 				</c:choose>
-           	</form>
+				</tbody>	
+			</table>		
          	<hr />
-            <div>
-      		<table class="table" style="background-color: #EEEEEE;">
+            <form name="classFrm" action="classActionEdit.do" method="post" onsubmit="">
+          	 <div>
+	     		<table class="table" style="width:100%; background-color: #EEEEEE;">
 	              <colgroup>
 	                  <col width="35%"/>
 	                  <col width="15%"/>
 	                  <col width="15%"/>
 	                  <col width="15%"/>
-   				  </colgroup>
-               <tr>
+	  				  </colgroup>
+	              <tr>
 				  <th style="font-size: 1.5em;">- 수강정보입력</th>
-               </tr>
-               <tr>
-                  <td>강의일자 : <input type="date" name="acaStartDate"/>~<input type="date" name="acaEndDate"/></td>
-                  <td>강의명 : <input type="text" name="acaClassName" /></td>
-                  <td>강사명: <input type="text" name="teaName" /></td>
-                  <td rowspan="2" style="text-align: center;vertical-align: middle">
-                  <button type="button" id="timeTab" onclick="classRegiValidate(this);">등록</button> </td>
-               </tr>
-               <tr>
-                  <td>강의시간 : <br /> <input type="time" name="acaStartTime" /> ~ <input type="time" name="acaEndTime" /></td>
-                  <td>수강료 : <input type="number" name="classPay" /></td>
-                  <td>수강인원 : <input type="number" name="classFixed"/></td>
-               </tr>
-            </table>
-    		</div>
+	              </tr>
+	              <tr>
+	                 <td>강의일자 : <input type="date" name="acaStartDate"/>~<input type="date" name="acaEndDate"/></td>
+	                 <td colspan="2">강의명 : <input type="text" name="acaClassName"/><br /><br />강사명: <input type="text" name="teaName" style="width: 100px;"/></td>
+	                 <td rowspan="2" style="text-align: center;vertical-align: middle">
+	                 <button type="button" id="timeTab" onclick="classRegiValidate(this);">등록</button> </td>
+	              </tr>
+	              <tr>
+	                 <td>강의시간 : <br /> <input type="time" name="acaStartTime" /> ~ <input type="time" name="acaEndTime" /></td>
+	                 <td colspan="2">수강료 : <input type="number" name="classPay" style="width: 100px;"/><br /><br />수강인원 : <input type="number" name="NumberOfParticipants" style="width: 100px;"/></td>
+	              </tr>
+       			</table>
+	           </div>
+           </form>
       	</div>
     </div>
 </section>
   <!-- Footer -->
+  
   <footer class="bg-black small text-center text-white-50">
     <div class="container">
       Copyright &copy; Your Website 2019
     </div>
   </footer>
 
-	<!-- Custom scripts for this template -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="/FinallyProject/resources/vendor/jquery/jquery.min.js"></script>
+  <script src="/FinallyProject/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="/FinallyProject/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
   <script src="/FinallyProject/resources/js/academyRigstEdit.js"></script>
 </body>
 

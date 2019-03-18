@@ -108,7 +108,7 @@ height: 100%;
       <div class="row">
         <div class="col-md-12 " style="margin-bottom: -45px;">
          
-         <a href="academyInfo.do?acaIdx=${row.acaIdx }" target="_blank">
+         <a href="academyInfo.do?acaIdx=${row.idx }" target="_blank">
           <div class="card py-4 h-60" style="width:900px;height:185px; margin-left: 10%;">
           	<div style="padding: 0px 6px 0px 6px">
              <table class="table table-bordered " style="margin-bottom: 30px; margin-top: -2%; border-top: none;">
@@ -128,7 +128,7 @@ height: 100%;
              </tr>
              <tr>
              	<td>캐슬 이름</td>
-             	<td>${row.acaName }</td>
+             	<td>${row.acaname }</td>
              	<td>캐슬 평점</td>
              	
              	<td>	
@@ -144,7 +144,7 @@ height: 100%;
              </tr>
              <tr>
              	<td>캐슬 주소</td>
-             	<td colspan="3">${row.acaAddress }&nbsp;${row.acaDetailAddress }</td>
+             	<td colspan="3">${row.address }&nbsp;${row.detailaddress }</td>
              </tr>
              </table>
              </div>

@@ -12,18 +12,22 @@
 	<select id="AcaList"  resultType="mybatis01.AcademyMemberDTO" parameterType="mybatis01.ParamDTO">
 		
 		SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				select A.*, 
-				   (select avg(acascore) from reviewWrite group by A.acaidx) AS avg
-				from academymember A inner join reviewWrite R 
-				   on A.acaidx=R.acaidx
-					<if test="!keyString.equals('') and keyString!=null">
-					WHERE ${keyField} like '%'||#{keyString}||'%'
-			   		</if> 
-					ORDER BY A.ACAIDX DESC
-			) Tb
+		    SELECT Tb.*, rownum rNum FROM (
+		        select A.*, 
+		        
+		           (select avg(score) from reviewWrite where acaidx=A.IDX group by A.idx) AS avg
+		        
+		        from members A  
+			        <if test="!keyString.equals('') and keyString!=null">
+						WHERE ${keyField} like '%'||#{keyString}||'%' and where A.grade =2
+				   	</if> 
+				   		where A.grade =2
+		            ORDER BY A.idx DESC
+		    ) Tb
 		)
 		WHERE rNum BETWEEN ${start} AND ${end}
+
+
 		<!-- SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM academymember 
@@ -41,10 +45,11 @@
 	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
 	<select id="getTotalCountSearch" resultType="int" 
 		parameterType="mybatis01.ParamDTO">
-		SELECT COUNT(*) FROM academymember
+		SELECT COUNT(*) FROM members
 		<if test="!keyString.equals('') and keyString!=null">
-			WHERE ${keyField} like '%'||#{keyString}||'%'
+			WHERE ${keyField} like '%'||#{keyString}||'%' and grade =2
 	   	</if>
+	   	 where grade =2
 	</select> 
 </mapper>
 

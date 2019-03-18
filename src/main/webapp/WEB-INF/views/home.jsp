@@ -12,7 +12,7 @@
 	<h2>PROJECT START</h2>
 
  	<li>
-		<a href="catle/helloCastle.do">
+		<a href="catle/helloCastle.do" target="_blank">
 			GO TO MAIN
 		</a>
 	</li>

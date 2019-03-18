@@ -6,8 +6,51 @@
     
 <mapper namespace="impl.AcademyInfoImpl">
 	<select id="AcaInfo" resultType="mybatis01.AcademyMemberDTO">
-		SELECT * FROM academymember where ACAIDX=#{param1}
+		SELECT * FROM members where IDX=#{param1}
 	</select>
+	
+	<select id="review" resultType="mybatis01.ReviewWriteDTO"
+			parameterType="mybatis01.ParamDTO">
+		
+		SELECT * FROM (
+			SELECT Tb.*, rownum rNum FROM (
+				SELECT * FROM reviewwrite 
+				<choose>
+					<when test="!keyString.equals('') and keyString!=null">
+						WHERE ${keyField} like '%'||#{keyString}||'%' and ACAIDX=${acaidx}
+				   	</when> 
+				   	<otherwise>
+				  		WHERE ACAIDX=${acaidx}		  			
+				  	</otherwise>
+			   	</choose>
+				ORDER BY REVIEWIDX DESC
+			) Tb
+		)
+		WHERE rNum BETWEEN ${start} AND ${end} 
+	</select>
+	<!-- 댓글 쓰기 -->
+	<insert id="reviewWrite">
+		insert into reviewWrite(ReviewContents,Score,Id,AcaIdx,reviewidx)
+		VALUES (#{param4},#{param3}, #{param2}, #{param1},REVIEWIDX_REQ.nextval)
+	</insert>
+	<!-- 댓글 총갯수 찾기 -->
+	<select id="getTotalCountSearchReview" resultType="int" 
+		parameterType="mybatis01.ParamDTO">
+		SELECT COUNT(*) FROM ReviewWrite
+		<choose>
+			<when test="!keyString.equals('') and keyString!=null">
+				WHERE ${keyField} like '%'||#{keyString}||'%' and ACAIDX=${acaidx}
+		   	</when> 
+		   	<otherwise>
+		  		WHERE ACAIDX=${acaidx}	  			
+		  	</otherwise>
+	   	</choose>
+	</select> 
+	
+	<!-- 댓글 삭제 -->
+	<delete id="delete">
+		DELETE FROM reviewWrite WHERE reviewidx=#{param1}
+	</delete>
 </mapper>
 
    

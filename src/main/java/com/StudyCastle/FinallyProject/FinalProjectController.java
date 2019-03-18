@@ -1,6 +1,8 @@
 package com.StudyCastle.FinallyProject;
 
+
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,11 +25,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.MembersDTO;
 import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
 import impl.example;
-
-
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
 
@@ -63,46 +66,45 @@ public class FinalProjectController {
 		
 		return "01Main/Login";
 	}
+	//로그아웃
+	@RequestMapping("/catle/Logout.do")
+	public String logout(HttpServletRequest req, HttpSession session,
+			HttpServletResponse resp) {
+		
+		session.removeAttribute("USER_ID");
+		
+		return "01Main/main";
+	}
 	//로그인 처리
 	@RequestMapping("/catle/LoginAction.do")
-	@ResponseBody
-	public Map<String, Object> LoginAction(HttpServletRequest req
-			,HttpServletResponse resp, HttpSession session) throws ServletException, IOException{
+	public void LoginAction(MembersDTO membersDTO,
+			HttpServletRequest req,HttpServletResponse resp, HttpSession session) throws ServletException, IOException{
 		
-		//Json출력
-		Map<String, Object> memberMap = new HashMap<String, Object>();
+		membersDTO =
+				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(membersDTO);
+		//세션에 ID값 저장
+		session.setAttribute("USER_ID", membersDTO.getId());
+		session.setAttribute("GRADE", membersDTO.getGrade());
 		
-		String memberId = req.getParameter("memberId");
-		String memberPass = req.getParameter("memberPass");
+		//System.out.println(membersDTO.getGrade());
 		
-		String acaID = req.getParameter("memberId");
-		String acaPass = req.getParameter("memberPass");
-		AcademyMemberDTO acDTO = new AcademyMemberDTO();
-		acDTO.setAcaID(acaID);
-		acDTO.setAcaPass(acaPass);
-		
-		//파라미터 객체 저장
-		MemberDTO memberDTO = new MemberDTO();
-		memberDTO.setMemberId(memberId);
-		memberDTO.setMemberPass(memberPass);
-		
-		
-		memberDTO =
-				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(memberDTO,acDTO);
-		
-		session.setAttribute("USER_ID", memberId);
-		
-		if(memberDTO==null) {
+		if(membersDTO==null) {
 			//로그인실패
+			
+			if(!(membersDTO.getId().equals("id")
+					|| membersDTO.getPass().equals("pass"))) {
+				
+				req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
+			}
+			
 			req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
 		}
 		else {
 			//로그인 성공
 			req.getRequestDispatcher("/catle/main.do").forward(req, resp);
-			
 		}
 		
-		return memberMap;
+		//return memberMap;
 	}
 	
 	/*//회원가입 타입 구분 바로가기
@@ -160,7 +162,7 @@ public class FinalProjectController {
 	//검색처리위한 추가부분
 	paramDTO.setStart(start);
 	paramDTO.setEnd(end);
-	
+	System.out.println("11111111111111111111111111111");
 	ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaList(paramDTO);
 	
 	//페이지 처리를 위한 처리부분
@@ -168,7 +170,7 @@ public class FinalProjectController {
 			pageSize, blockPage, nowPage,
 			req.getContextPath()+"/catle/list.do?"+addQueryString);
 	model.addAttribute("pagingImg", pagingImg);
-	
+	System.out.println("11111111111111111111111111111");
 	//줄바꿈처리
 	for(AcademyMemberDTO dto : acaList)
 	{
@@ -193,6 +195,7 @@ public class FinalProjectController {
 		
 		return "01Main/updateAcademyInfo";
 	}
+/////////////////////////////////////////////////////////////////////////
 	//학원 상세보기 바로가기
 	@RequestMapping("/catle/academyInfo.do")
 	public String academyInfo(Model model,HttpSession session, 
@@ -200,12 +203,77 @@ public class FinalProjectController {
 		
 	String acaIdx=req.getParameter("acaIdx");
 	System.out.println("상세보기로 넘어갈 학원 번호="+acaIdx);
+	/* 학원 댓글 가져오기 s */
+	//검색처리
+		ParamDTO paramDTO = new ParamDTO();
+		
+		String addQueryString = "";
+		String keyField = req.getParameter("keyField");				
+		String keyString = req.getParameter("keyString");
+		if(keyString!=null){
+			addQueryString = String.format("keyField=%s"
+				+"&keyString=%s&", keyField, keyString);
+	
+			paramDTO.setKeyField(keyField);
+			paramDTO.setKeyString(keyString);
+		}
+		paramDTO.setAcaidx(acaIdx);
+	//총개시물 갯수
+	int totalRecordCount = sqlSession.getMapper(AcademyInfoImpl.class)
+			.getTotalCountSearchReview(paramDTO);
+
+	System.out.println("댓글 totalRecordCount="+totalRecordCount);
+	
+	//페이지 처리를 위한 설정값
+		int pageSize = 4;
+		int blockPage = 2;
+		
+		//전체페이지수계산하기
+		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+		
+		//시작 및 끝 rownum 구하기
+		int nowPage = req.getParameter("nowPage")==null ? 1 :
+			Integer.parseInt(req.getParameter("nowPage"));
+		int start = (nowPage-1) * pageSize + 1;
+		int end = nowPage * pageSize;
+		
+		//검색처리위한 추가부분
+		paramDTO.setStart(start);
+		paramDTO.setEnd(end);
+		
+	ArrayList<ReviewWriteDTO> reviewDTO = sqlSession.getMapper(AcademyInfoImpl.class).review(paramDTO);
+	System.out.println("11111111111111111111111111111");
+	//페이지 처리를 위한 처리부분
+			String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
+					pageSize, blockPage, nowPage,
+					req.getContextPath()+"/catle/academyInfo.do?acaIdx="+acaIdx+"&"+addQueryString);
+			model.addAttribute("pagingImg", pagingImg);
+		System.out.println("22222222222222222222222222");
+	//줄바꿈처리
+	for(ReviewWriteDTO dto1 : reviewDTO)
+	{	
+		System.out.println(dto1.getReviewcontents());
+		String temp =
+			dto1.getReviewcontents().replace("\r\n","<br/>");
+		dto1.setReviewcontents(temp);
+		String temp2 =Util.RatingUtil.ratingImg((int) dto1.getScore());
+		dto1.setStarRaiting(temp2);;
+		System.out.println("정보");
+		System.out.println(dto1.getAcaidx());
+		System.out.println(dto1.getScore());
+		System.out.println(dto1.getId());
+		System.out.println(dto1.getStarRaiting());
+	}
+	model.addAttribute("reviewDTO", reviewDTO);
+	model.addAttribute("pagingImg", pagingImg);
+	
+	/* 학원 댓글 가져오기 e */
 	
 	/* 학원 정보 받기 s*/
 	AcademyMemberDTO acaMemberDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo(acaIdx);
-	System.out.println(acaMemberDTO.getAcaAddress());
+	System.out.println(acaMemberDTO.getAddress());
 	model.addAttribute("dto", acaMemberDTO);
-	String adress=acaMemberDTO.getAcaAddress();
+	String adress=acaMemberDTO.getAddress();
 	model.addAttribute("adress",adress);
 	/* 학원 정보 받기 s*/
 	/* 강사 목록 받기*/			  
@@ -214,9 +282,108 @@ public class FinalProjectController {
 	
 		return "01Main/AcademyInfo";
 	}
+/////////////////////////////////////////////////////////////////////////
+	//댓글쓰기 처리 
+	@RequestMapping("/catle/reviewAction.do")
+	public String reviewAction(Model model, HttpServletRequest req ,HttpSession session) throws UnsupportedEncodingException {
+		req.setCharacterEncoding("UTF-8");
+		String acaidx=req.getParameter("acaidx");
+		String acaScore=req.getParameter("acaScore");
+		String memberId=req.getParameter("memberId");
+		String reviewContents=req.getParameter("reviewContents");
+		
+		System.out.println("acaidx="+acaidx);
+		System.out.println("acaScore="+acaScore);
+		System.out.println("memberId="+memberId);
+		System.out.println("reviewContents="+reviewContents);
+		/*if(session.getAttribute("siteUserInfo")==null)
+		{
+			return "redirect:login.do";
+		}*/
+		//Mybatis 사용
+		/*sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+				req.getParameter("name"),req.getParameter("contents"),
+				((MemberDTO)session.getAttribute("siteUserInfo")).getMemberId());*/
+		
+		sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+				acaidx,memberId,acaScore,reviewContents);
+		 
+		
+		/*return "redirect:academyInfo.do";*/
+		return "redirect:academyInfo.do?acaIdx="+acaidx;
+		
+	}
+	
+/////////////////////////////////////////////////////////////////////////	
+	/*//수정하기
+	@RequestMapping("/mybatis/modify.do")
+	public String modify(Model model, HttpServletRequest req,
+			HttpSession session)
+	{
+		if(session.getAttribute("siteUserInfo")==null)
+		{
+			return "redirect:login.do";
+		}
+
+		//JdbcTemplate 사용
+		MyBoardDTO dto = dao.view(
+			req.getParameter("idx"),
+			((MemberVO)session.getAttribute("siteUserInfo")).getId()
+		);
+		
+		//mybatis 사용
+		MyBoardDTO dto = sqlSession.getMapper(MybatisDAOImpl.class)
+			.view(req.getParameter("idx"),
+				((MemberVO)session.getAttribute("siteUserInfo")).getId());
+
+		
+		model.addAttribute("dto", dto);
+		return "06Mybatis/modify";
+	}
 	
 	
-	
+	//수정처리
+	@RequestMapping("/mybatis/modifyAction.do")
+	public String modifyAction(Model model, HttpServletRequest req,
+		HttpSession session)
+	{
+		//JdbcTemplate 사용
+		dao.modify(req.getParameter("idx"),
+			req.getParameter("name"),
+			req.getParameter("contents"),
+			((MemberVO)session.getAttribute("siteUserInfo")).getId());
+		
+		//Mybatis 사용
+		int affected = sqlSession.getMapper(MybatisDAOImpl.class)
+			.modify(req.getParameter("idx"),
+				req.getParameter("name"),
+				req.getParameter("contents"),
+				((MemberVO)session.getAttribute("siteUserInfo")).getId());
+		System.out.println("수정된행의갯수 :"+affected);
+
+		return "redirect:list.do";
+	}
+*/
+	// 댓글 삭제하기
+	@RequestMapping("/catle/delete.do")
+	public String delete(HttpServletRequest req, Model model,
+		HttpSession session){
+		String acaIdx=req.getParameter("acaIdx");
+		System.out.println("삭제하기로 넘어갈 학원 번호="+acaIdx);
+		/*if(session.getAttribute("siteUserInfo")==null){
+			return "redirect:login.do";
+		}*/
+
+		//JdbcTemplate 사용
+		/*dao.delete(req.getParameter("idx"),
+			((MemberVO)session.getAttribute("siteUserInfo")).getId());*/
+		
+		//Mybatis사용
+		sqlSession.getMapper(AcademyInfoImpl.class)
+			.delete(req.getParameter("idx"));
+
+		return "redirect:academyInfo.do?acaIdx="+acaIdx;
+	}
 	
 	//결제 완료창 띄우기
 	@RequestMapping("/catle/paymentAction.do")
@@ -224,13 +391,6 @@ public class FinalProjectController {
 	
 	return "01Main/paymentFinish";
 	}
-	
-	//결제 완료창 띄우기
-	@RequestMapping("/catle/registA.do")
-	public String registA() {
-	
-	return "01Main/registA";
-	}	
 	
 	//일반회원마이페이지
 	@RequestMapping("catle/memberMyPage.do")
