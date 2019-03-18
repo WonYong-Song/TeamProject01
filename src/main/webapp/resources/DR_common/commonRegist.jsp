@@ -452,7 +452,9 @@ $(function(){
 	});
 	$('#passcheck').keyup(function(){
 		//패스워드2 공백제거
+		var msg="";
 		$('#passcheck').val($('#passcheck').val().replace(/ /g, ''));
+		
 	});
 });
 </script>
