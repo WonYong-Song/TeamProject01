@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="impl.MemberModifyImpl">    
+	<select id="loadMemberDate" resultType="dto.MembersDTO" parameterType="String">
+		select * from members
+		where id=#{0}
+	</select>
+	
+	<update id="memberPAction" parameterType="dto.MembersDTO">
+		update members
+		set
+			pass=#{pass},
+			emailid=#{emailId},
+			emaildomain=#{emailDomain},
+			mobile1=#{mobile1},
+			mobile2=#{mobile2},
+			mobile3=#{mobile3},
+			name=#{name},
+			interest=#{interest}
+			
+		where id=#{id}
+	</update>
+
+	<update id="memberAAction" parameterType="dto.MembersDTO">
+		update members
+		set
+			pass=#{pass},
+			emailid=#{emailId},
+			emaildomain=#{emailDomain},
+			mobile1=#{mobile1},
+			mobile2=#{mobile2},
+			mobile3=#{mobile3},
+			name=#{name},
+			telephone1=#{telephone1},
+			telephone2=#{telephone2},
+			telephone3=#{telephone3},
+			address=#{address},
+			detailaddress=#{detailAddress},
+			acaname=#{acaName}
+			
+		where id=#{id}
+	</update>
+</mapper>

@@ -70,14 +70,8 @@ public class MemberJoinController {
 	@RequestMapping("/catle/acaregistFinish.do")
 	public String acaregistFinish(MembersDTO dto) {
 		
-		System.out.println(dto.getTelephone1());
-		System.out.println(dto.getTelephone2());
-		System.out.println(dto.getTelephone3());
-		System.out.println(dto.getAddress());
-		System.out.println(dto.getDetailAddress());
-		System.out.println(dto.getAcaName());
-		
 		sqlSession.getMapper(MemberJoinImpl.class).acamemberjoin(dto); 
+		sqlSession.getMapper(MemberJoinImpl.class).introset(dto.getId()); 
 		
 		return "01Main/registFinish";
 	}

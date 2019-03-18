@@ -51,10 +51,10 @@
   <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
   <!-- Nav Bar -->
   <!-- Header -->
-  <header class="masthead" style="height:auto;">
+  <header class="masthead">
     <div class="container d-flex h-100 align-items-center">
-      <div class="mx-auto text-center" style="width:auto; height:auto;background-color: white;margin-top:150px;;border-radius: 5px;padding-top: 5%;padding-bottom: 5%  ">
-        <%@ include file="/../resources/DR_common/commonRegist.jsp" %>
+      <div class="mx-auto text-center" style="width:550px; height:700px;background-color: white;margin-top:50px;;border-radius: 5px;padding-top: 85px;padding-bottom: 50px; ">
+       <%@ include file="/../resources/DR_common/commonModifyFinish.jsp" %>
       </div>
     </div>
   </header>

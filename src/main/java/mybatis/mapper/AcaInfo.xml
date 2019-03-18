@@ -51,6 +51,33 @@
 	<delete id="delete">
 		DELETE FROM reviewWrite WHERE reviewidx=#{param1}
 	</delete>
+	<!-- 강사정보 가져오기 -->
+	<select id="teacherInfo" resultType="mybatis01.AcaTeacherDTO">
+		SELECT * FROM acateacher where id=#{param1}
+	</select>
+	<!-- 학원소개 가져오기 -->
+	<select id="acaIntro" resultType="mybatis01.AcaiIntroduceDTO">
+		SELECT * FROM acaintroduce where id=#{param1}
+	</select>
+	<!-- 강의 목록 가져오기 -->
+	<select id="classIntro" resultType="mybatis01.ClassInfoDTO">
+		SELECT
+    A.teaname , B.*
+		FROM acateacher A, acaclass B
+		
+		WHERE 
+		    A.teaidx=B.teaidx and A.id=#{param1}
+	</select>
+	<!-- 수정할 댓글 정보 -->
+	<select id="reviewModify" resultType="mybatis01.ReviewWriteDTO">
+		SELECT * FROM reviewWrite where REVIEWIDX=#{param1}
+	</select>
+	<!-- 댓글 수정 처리 -->
+	<update id="modifyAction" >
+		update  reviewWrite
+		set 
+		WHERE reviewIdx = #{param1}
+	</update>
 </mapper>
 
    

@@ -1,5 +1,9 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="dto.MembersDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html>
 <html >
@@ -259,11 +263,6 @@ function registFrmCheck()
          }
       }
    }
-   //아이디 중복확인을 마쳐야 회원가입을 할수있다.
-   if(fn.overFlag.value=="0"){
-      alert("아이디 중복확인을 해주세요.");
-      return false;
-   }
    
    //아이디 중복체크 및 유효성 검사
    if(id_overlapping(fn)==false){
@@ -406,46 +405,6 @@ function fnCheckPassword(uid, upw){
 </script>
 <script>
 $(function(){
-	$('#id').keyup(function(){
-		//아이디 공백제거
-		$('#id').val($('#id').val().replace(/ /g, ''));
-		if(document.registFrm.id.value.length==0){
-			$('#display').html(' ');
-			$('#overFlag').val(0);
-		}
-		else{
-			$.ajax({
-				url:"../catle/MemberIdCheck.do",
-				dataType : "json",
-				type:"get",
-				contentType : "text/html;charset:utf-8",
-				data : {
-					
-					id : $('#id').val()
-				},
-				success : function(d){
-					var msg = ""
-					if(d.result==0){
-						$('#overFlag').val(1);
-						msg += "<font color ='green' size='1'>";
-						msg += d.msg;
-						msg += "</font>";
-					}
-					else{
-						$('#overFlag').val(0);
-						msg += "<font color ='red' size='1'>";
-						msg += d.msg;
-						msg += "</font>";
-					}
-					$('#display').html(msg);
-				},
-				//요청실패시 콜백메소드
-				error : function(e){
-					alert("오류발생"+e.status+":"+e.statusText);
-				}
-			});
-		}
-	});
 	$('#pass').keyup(function(){
 		//패스워드1 공백제거
 		$('#pass').val($('#pass').val().replace(/ /g, ''));
@@ -460,9 +419,19 @@ $(function(){
 </script>
 </head>
 <body>
-  
-<form name="registFrm" action="./registFinish.do" method="post" onsubmit="return registFrmCheck();">
-   <input type="hidden" id="overFlag" name="overFlag" value="0" />
+<%
+MembersDTO dto = (MembersDTO)request.getAttribute("dto");
+String inter = dto.getInterest();
+/* String intere = inter.substring(1, inter.length()-1); */
+String[] interest = inter.split(",");
+/* System.out.println(intere); */
+Map<String,String> checkInter = new HashMap<String,String>();
+
+for(String in : interest){
+	checkInter.put(in, "checked");
+}
+%>
+<form name="registFrm" action="./ModifyPAction.do" method="post" onsubmit="return registFrmCheck();">
    <table width ="1000" 
       style="border-spacing:20px; width:900px;margin-left: 9%">
       <tr>
@@ -471,7 +440,7 @@ $(function(){
       <tr >
          <td id="Column">아이디</td>
          <td>
-            <input type="text" id="id" name="id" value="" style="width:150px; height:25px;"/>
+            <input type="text" id="id" name="id" value="${dto.id }" style="width:150px; height:25px;" readonly="readonly"/>
             <font color ="gray" size="1">아이디 형식에 맞춰주세요(영문,숫자 조합8문자 이상)</font>
             <br />
             <p id="display"></p>
@@ -487,18 +456,18 @@ $(function(){
       <tr>
          <td id="Column">비밀번호 확인</td>
          <td>
-            <input type="password" id="passcheck" name="passcheck" value="" style="width:150px; height:25px;"/>
+            <input type="password" id="passcheck" name="" value="${dtp.pass }" style="width:150px; height:25px;"/>
          </td>
       </tr>
       <tr>
       	<td id="Column">이름</td>
-		<td><input type="text" name="name" value="" style="width:150px; height:25px;"/></td>
+		<td><input type="text" name="name" value="${dto.name }" style="width:150px; height:25px;"/></td>
       </tr>
       <tr>
          <td id="Column">이메일</td>
          <td >
-            <input type="text" name="emailId" style="width:150px; height:25px;" value="" /> @ 
-            <input type="text" name="emailDomain" style="width:150px; height:25px;" value="" />
+            <input type="text" name="emailId" style="width:150px; height:25px;" value="${dto.emailId }" /> @ 
+            <input type="text" name="emailDomain" style="width:150px; height:25px;" value="${dto.emailDomain }" readonly="readonly"/>
             <select name="email_choice" style="height:25px;" onchange="choiceInput(this.form, this)">
                <option value="">-선택하세요-</option>
                <option value="naver.com">네이버</option>
@@ -512,11 +481,11 @@ $(function(){
       <tr>
          <td id="Column">휴대전화</td>
          <td>
-            <input type="text" name="mobile1" value="" placeholder="" class="s50" maxlength="3" style="width:150px; height:25px;" value="" />
+            <input type="text" name="mobile1" value="${dto.mobile1 }" placeholder="" class="s50" maxlength="3" style="width:150px; height:25px;"/>
             - 
-            <input type="text" name="mobile2" value="" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" value="" />             
+            <input type="text" name="mobile2" value="${dto.mobile2 }" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" />             
             - 
-            <input type="text" name="mobile3" value="" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" value="" />
+            <input type="text" name="mobile3" value="${dto.mobile3 }" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" />
              <br /> 
          </td>
       </tr>
@@ -532,35 +501,36 @@ $(function(){
       
       <tr>
       	<td rowspan="3" id="Column">관심분야</td>
+      	
       	<td>
-      		<input type="checkbox" id="exercise"name="interest" value="운동"/><label for="exercise">운동</label>
+      		<input type="checkbox" id="exercise"name="interest" value="운동" <%=checkInter.get("운동") %> /><label for="exercise">운동</label>
         </td>
       	<td>
-      		<input type="checkbox" id="music" name="interest" value="음악"/>
+      		<input type="checkbox" id="music" name="interest" value="음악" <%=checkInter.get("음악") %> />
             <label for="music">음악</label>
       	</td>
       	<td>
-      		<input type="checkbox" id="art" name="interest" value="미술"/>
+      		<input type="checkbox" id="art" name="interest" value="미술" <%=checkInter.get("미술") %> />
             <label for="art">미술</label>
       	</td>
       </tr>
       <tr>
       	<td>
-      		<input type="checkbox" id="kor" name="interest" value="국어"/>
+      		<input type="checkbox" id="kor" name="interest" value="국어" <%=checkInter.get("국어") %> />
             <label for="kor">국어</label>
       	</td>
       	<td>
-      		<input type="checkbox" id="eng" name="interest" value="영어"/>
+      		<input type="checkbox" id="eng" name="interest" value="영어" <%=checkInter.get("영어") %> />
             <label for="eng">영어</label>
       	</td>
       	<td>
-      		<input type="checkbox" id="math" name="interest" value="수학"/>
+      		<input type="checkbox" id="math" name="interest" value="수학" <%=checkInter.get("수학") %> />
             <label for="math">수학</label>
       	</td>
       </tr>
       <tr>
       	<td colspan="3">
-      		<input type="checkbox" id="etc" name="interest" value="기타" />
+      		<input type="checkbox" id="etc" name="interest" value="기타" <%=checkInter.get("기타") %> />
             <label for="etc">기타</label>
       	</td>
       </tr>
@@ -581,8 +551,8 @@ $(function(){
 	<tr>
 		<td style="font-size: 1em;vertical-align: middle;">
 			<button type = "submit"  class="btn_order" style="margin:10px;width:auto;height:auto; ">
-				가입하기</button>
-	  		<a href="registGroup.do"><button type = "button"  class="btn_cancel1" style="margin:10px;width:auto;height:auto;">
+				수정하기</button>
+	  		<a href="main.do"><button type = "button"  class="btn_cancel1" style="margin:10px;width:auto;height:auto;">
 	  			취소하기</button></a>
 		</td>
 	</tr>
