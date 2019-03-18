@@ -2,6 +2,7 @@ package com.StudyCastle.FinallyProject;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,7 +30,8 @@ import impl.AcademyListImpl;
 import impl.example;
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
-
+import mybatis01.AcaiIntroduceDTO;
+import mybatis01.ClassInfoDTO;
 import mybatis01.MemberDTO;
 
 import mybatis01.ParamDTO;
@@ -270,6 +272,41 @@ public class FinalProjectController {
 	
 	/* 학원 정보 받기 s*/
 	AcademyMemberDTO acaMemberDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo(acaIdx);
+	String acaId = acaMemberDTO.getId();
+	System.out.println("강사를 찾아야할 학원 id"+acaId);
+	/* 강사진 가져오기 s*/
+	ArrayList<AcaTeacherDTO> acaTeacherDTO = sqlSession.getMapper(AcademyInfoImpl.class).teacherInfo(acaId);
+	for(AcaTeacherDTO dto : acaTeacherDTO)
+	{
+		System.out.println(dto.getId());
+		System.out.println(dto.getSubject());
+		System.out.println(dto.getTeaname());
+	}
+	model.addAttribute("teachers", acaTeacherDTO);
+	/* 강사진 가져오기 e*/
+	
+	/* 학원 소개 가져오기 s*/
+	AcaiIntroduceDTO acaIntroDTO = sqlSession.getMapper(AcademyInfoImpl.class).acaIntro(acaId);
+	model.addAttribute("intro", acaIntroDTO);
+	/* 학원 소개 가져오기 e*/
+	
+	/* 강의 목록 가져오기 S*/
+	ArrayList<ClassInfoDTO> classIntroDTO = sqlSession.getMapper(AcademyInfoImpl.class).classIntro(acaId);
+	model.addAttribute("classInfo", classIntroDTO);
+	for(ClassInfoDTO dto : classIntroDTO)
+	{
+		String startD = dto.getAcastartdate().substring(0,10);
+		String endD = dto.getAcaenddate().substring(0,10);
+		String startT = dto.getAcastarttime().substring(10,16);
+		String endT = dto.getAcaendtime().substring(10,16);
+		
+		dto.setAcastartdate(startD);
+		dto.setAcaenddate(endD);
+		dto.setAcastarttime(startT);
+		dto.setAcaendtime(endT);
+	}
+	/* 강의 목록 가져오기 E*/
+	
 	System.out.println(acaMemberDTO.getAddress());
 	model.addAttribute("dto", acaMemberDTO);
 	String adress=acaMemberDTO.getAddress();
@@ -314,55 +351,108 @@ public class FinalProjectController {
 	}
 	
 /////////////////////////////////////////////////////////////////////////	
-	/*//수정하기
+	//수정하기
 	@RequestMapping("/mybatis/modify.do")
-	public String modify(Model model, HttpServletRequest req,
-			HttpSession session)
-	{
-		if(session.getAttribute("siteUserInfo")==null)
+	public String modify(Model model, HttpServletRequest req, HttpServletResponse resp,
+			HttpSession session) throws IOException{
+		
+		String idx =req.getParameter("reviewidx");
+		System.out.println(idx);
+		System.out.println("수정으로갈 리뷰 idx="+idx);
+		if(session.getAttribute("siteUserInfo")!=null)
 		{
-			return "redirect:login.do";
+		return "redirect:login.do";
 		}
-
-		//JdbcTemplate 사용
-		MyBoardDTO dto = dao.view(
-			req.getParameter("idx"),
-			((MemberVO)session.getAttribute("siteUserInfo")).getId()
-		);
 		
 		//mybatis 사용
-		MyBoardDTO dto = sqlSession.getMapper(MybatisDAOImpl.class)
-			.view(req.getParameter("idx"),
-				((MemberVO)session.getAttribute("siteUserInfo")).getId());
+		ReviewWriteDTO reviewModify = sqlSession.getMapper(AcademyInfoImpl.class).reviewModify(idx);
 
+		String str =" <div class=\"media\" style=\" padding: 0px 30px 10px 43px;margin-bottom: 80px;\">\r\n" + 
+				"                  <input type=\"hidden\" name=\"acaidx\" value=\"${dto.idx }\"/>\r\n" + 
+				"                  \r\n" + 
+				"                  <a class=\"media-left\" href=\"#\" style=\"width:80px;height:80px;margin-top: 4%\">\r\n" + 
+				"                    <img src=\"http://lorempixel.com/40/40/people/1/\" style=\"width:100%;height:100%;\">\r\n" + 
+				"                  </a>\r\n" + 
+				"                  \r\n" + 
+				"                  <div class=\"media-body text-left\" style=\"width:200px;height:100px;padding-left: 40px;\">\r\n" + 
+				"                      <input type=\"hidden\" name=\"memberId\" value='"+reviewModify.getId()+"' />\r\n" + 
+				"                      <input type=\"hidden\" name=\"acaidx\" value='"+reviewModify.getAcaidx()+"' />\r\n" + 
+				"                      <input type=\"hidden\" name=\"reviewidx\" value='"+reviewModify.getReviewidx()+"' />\r\n" + 
+				"                      <span class=\"media-heading user_name\">"+reviewModify.getId()+"</span>\r\n" + 
+				"                      <select class=\"form-control\" name=\"acaScore\">			\r\n" + 
+				"							<option value=\"0\">별점 매기기</option>\r\n" + 
+				"							<option value=\"1\">1점</option>\r\n" + 
+				"							<option value=\"2\">2점</option>\r\n" + 
+				"							<option value=\"3\">3점</option>\r\n" + 
+				"							<option value=\"4\">4점</option>\r\n" + 
+				"							<option value=\"5\">5점</option>\r\n" + 
+				"					</select>\r\n" + 
+				"                    \r\n" + 
+				"                    <div style=\"width:100%;height: 100%;\">\r\n" + 
+				"                    <textarea rows=\"10\" class=\"form-control\" style=\"width:100%;height: 100%\" name=\"reviewContents\">"+reviewModify.getReviewcontents()+"</textarea>\r\n" + 
+				"                    </div>\r\n" + 
+				"                    <p><small><button type=\"submit\" style=\"border:none\" >수정하기</button> - <a href=\"\">돌아가기</a></small></p>\r\n" + 
+				"                  </div>\r\n" + 
+				"                  <p class=\"pull-right\" ><small></small></p>\r\n" + 
+				//"                  <button type=\"submit\" class=\"btn btn-danger\" style=\"margin-top: 5%;margin-left: 2%;\">\r\n" + 
+				//"                  후기작성</button>\r\n" + 
+				"                </div>";
+		resp.setCharacterEncoding("UTF-8");
 		
-		model.addAttribute("dto", dto);
-		return "06Mybatis/modify";
+		PrintWriter writer = resp.getWriter();
+	    //가져온 Write 객체에 응답할 Text를 작성한다.
+	    //writer.write("안녕하세요");
+	    //응답을 보낸다.
+	    //writer.flush();
+	    writer.println(str);
+	    System.out.println("1111111111111111111111111111111111");
+	    writer.close();
+	    System.out.println(str);
+	 
+	 return str;
 	}
 	
 	
 	//수정처리
 	@RequestMapping("/mybatis/modifyAction.do")
 	public String modifyAction(Model model, HttpServletRequest req,
-		HttpSession session)
-	{
+		HttpSession session) {
+		//수정하기로 넘어갈 정보
+		System.out.println("수정하기로 넘어갈 정보");
+		String acaidx=req.getParameter("acaidx");
+		String acaScore=req.getParameter("acaScore");
+		String memberId=req.getParameter("memberId");
+		String reviewContents=req.getParameter("reviewContents");
+		String reviewidx=req.getParameter("reviewidx");
+		
+		System.out.println("acaidx="+acaidx);
+		System.out.println("acaScore="+acaScore);
+		System.out.println("memberId="+memberId);
+		System.out.println("reviewContents="+reviewContents);
+		System.out.println("reviewidx="+reviewidx);
+		
 		//JdbcTemplate 사용
-		dao.modify(req.getParameter("idx"),
+		/*dao.modify(req.getParameter("idx"),
 			req.getParameter("name"),
 			req.getParameter("contents"),
-			((MemberVO)session.getAttribute("siteUserInfo")).getId());
+			((MemberVO)session.getAttribute("siteUserInfo")).getId());*/
 		
 		//Mybatis 사용
-		int affected = sqlSession.getMapper(MybatisDAOImpl.class)
-			.modify(req.getParameter("idx"),
-				req.getParameter("name"),
-				req.getParameter("contents"),
-				((MemberVO)session.getAttribute("siteUserInfo")).getId());
-		System.out.println("수정된행의갯수 :"+affected);
-
-		return "redirect:list.do";
+		sqlSession.getMapper(AcademyInfoImpl.class).modifyAction(
+				reviewidx,acaScore,reviewContents);
+		
+		/*System.out.println("수정된 댓글 행의갯수 :"+affected);
+		if(affected ==1) {
+			System.out.println("수정완료");
+		}
+		else {
+			System.out.println("수정실패");
+		}*/
+		
+        
+		return "redirect:academyInfo.do?acaIdx="+acaidx;
 	}
-*/
+
 	// 댓글 삭제하기
 	@RequestMapping("/catle/delete.do")
 	public String delete(HttpServletRequest req, Model model,

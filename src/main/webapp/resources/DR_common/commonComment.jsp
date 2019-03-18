@@ -16,6 +16,31 @@
   color: orange;
 }
 </style>
+<script>
+function Modify(n){
+	$.ajax({
+		url : "../mybatis/modify.do",
+		type : "get",
+		data : {
+			reviewidx : n
+		},
+		dataType : "html",
+		contentType : "text/html; charset:utf-8",
+		success:function(responseData){			
+			//alert(responseData);
+			$('#editR').html(responseData);
+		},
+		error:function(errorData){
+			alert("오류발생:"+errorData.status+":"
+				+errorData.statusText);
+		}
+	});
+}
+$(function(){
+
+
+}); 
+</script>
 <div class="container" style="padding-left: 30px;padding-top: 20px;padding-bottom: 20px;">
      <div class="row" >
          <div  style="width:1055px;">
@@ -62,10 +87,10 @@
                     
                     </div>
                    
-                  <p class="pull-right" ><small>${row.writetime }</small></p>
+                  <p class="pull-right" ><small>${row.writetime }&nbsp;</small></p>
                     <div style="vertical-align: bottom;height:20px;" >
-                  
-                    <p><small><a href="#">수정</a> - <a href="delete.do?idx=${row.reviewidx}&acaIdx=${row.acaidx}">삭제</a></small></p>
+                    <p><small><a  onclick="Modify('${row.reviewidx }');" style="cursor: pointer;color: #839997">&nbsp;수정</a> - <a href="delete.do?idx=${row.reviewidx}&acaIdx=${row.acaidx}">삭제</a></small></p>
+                    <%-- <p><small><a href="modify.do?idx=${row.reviewidx}&acaIdx=${row.acaidx}">수정</a> - <a href="delete.do?idx=${row.reviewidx}&acaIdx=${row.acaidx}">삭제</a></small></p> --%>
                     </div>
                 </div>
                

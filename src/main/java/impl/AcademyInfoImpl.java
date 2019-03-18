@@ -2,7 +2,10 @@ package impl;
 
 import java.util.ArrayList;
 
+import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
+import mybatis01.AcaiIntroduceDTO;
+import mybatis01.ClassInfoDTO;
 import mybatis01.MemberDTO;
 import mybatis01.ParamDTO;
 import mybatis01.ReviewWriteDTO;
@@ -21,4 +24,14 @@ public interface AcademyInfoImpl {
 	public int getTotalCountSearchReview(ParamDTO paramDTO);
 
 	public void delete(String idx);
+	//강사 정보
+	public ArrayList<AcaTeacherDTO> teacherInfo(String acaId);
+	//학원 소개
+	public AcaiIntroduceDTO acaIntro(String acaId);
+
+	public ArrayList<ClassInfoDTO> classIntro(String acaId);
+	//댓글 수정
+	public ReviewWriteDTO reviewModify(String idx);
+	//댓글 수정 처리
+	public int modifyAction(String reviewidx, String acaScore, String reviewContents);
 }

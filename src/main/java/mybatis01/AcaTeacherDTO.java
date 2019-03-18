@@ -1,25 +1,48 @@
 package mybatis01;
 
 public class AcaTeacherDTO {
-	private	String teaimage;
-	private	String teaname;
-	private	String teaintro;
-	private	String subject;
-	private	String acaidx;
-	private	String teaidx;
+	
+	private String id;
+	private String subject;
+	private String teaidx;
+	private String teaimage;
+	private String teaintro;
+	private String teaname;
 	
 	public AcaTeacherDTO() {
-
 	}
 
-	public AcaTeacherDTO(String teaimage, String teaname, String teaintro, String subject, String acaidx,
-			String teaidx) {
-		super();
-		this.teaimage = teaimage;
-		this.teaname = teaname;
-		this.teaintro = teaintro;
+	public AcaTeacherDTO(String id, String subject, String teaidx, String teaimage, String teaintro, String teaname) {
+
+		this.id = id;
 		this.subject = subject;
-		this.acaidx = acaidx;
+		this.teaidx = teaidx;
+		this.teaimage = teaimage;
+		this.teaintro = teaintro;
+		this.teaname = teaname;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getTeaidx() {
+		return teaidx;
+	}
+
+	public void setTeaidx(String teaidx) {
 		this.teaidx = teaidx;
 	}
 
@@ -31,14 +54,6 @@ public class AcaTeacherDTO {
 		this.teaimage = teaimage;
 	}
 
-	public String getTeaname() {
-		return teaname;
-	}
-
-	public void setTeaname(String teaname) {
-		this.teaname = teaname;
-	}
-
 	public String getTeaintro() {
 		return teaintro;
 	}
@@ -47,31 +62,13 @@ public class AcaTeacherDTO {
 		this.teaintro = teaintro;
 	}
 
-	public String getSubject() {
-		return subject;
+	public String getTeaname() {
+		return teaname;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setTeaname(String teaname) {
+		this.teaname = teaname;
 	}
-
-	public String getAcaidx() {
-		return acaidx;
-	}
-
-	public void setAcaidx(String acaidx) {
-		this.acaidx = acaidx;
-	}
-
-	public String getTeaidx() {
-		return teaidx;
-	}
-
-	public void setTeaidx(String teaidx) {
-		this.teaidx = teaidx;
-	}
-	
-	
 	
 	
 }
