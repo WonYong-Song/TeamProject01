@@ -5,11 +5,21 @@
     
 <mapper namespace="impl.MemberJoinImpl">    
 	
-	<insert id="normalmemberjoin" parameterType="dto.NormalMemberDTO">
-		insert into NormalMember
-		(MemberId,MemberPass,MemberName,EmainId,EmainDomain,PhoneNumber,Interest)
-    	values 
-    	(#{memberId},#{memberPass},#{memberName},#{emainId},#{emainDomain},#{phoneNumber},#{interest})
+	<insert id="normalmemberjoin" parameterType="dto.MembersDTO">    	
+    	
+    	insert into members
+		(id,pass,emailid,emaildomain,mobile1,mobile2,mobile3,name,idx,grade,interest)
+		VALUES
+		(#{id},#{pass},#{emailId},#{emailDomain},#{mobile1},#{mobile2},#{mobile3},#{name},MEMBERS_SEQ.nextval,1,#{interest})
+		    	
+	</insert>
+	
+	<insert id="acamemberjoin" parameterType="dto.MembersDTO">
+		insert into members
+		(id,pass,emailid,emaildomain,mobile1,mobile2,mobile3,name,idx,grade,telephone1,telephone2,telephone3,address,detailaddress,acaname)
+		VALUES
+		(#{id},#{pass},#{emailId},#{emailDomain},#{mobile1},#{mobile2},#{mobile3},#{name},MEMBERS_SEQ.nextval,2,#{telephone1},#{telephone2},#{telephone3},#{address},#{detailAddress},#{acaName})
+		
 	</insert>
  
 </mapper>

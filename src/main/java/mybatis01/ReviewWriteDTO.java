@@ -1,28 +1,38 @@
 package mybatis01;
 
 public class ReviewWriteDTO {
-	private String acaIdx;
-	private int acaScore;
-	private String memberId;
-	private String reviewContents;
+	private String reviewcontents;
+	private double score;
+	private String writetime;
+	private String id;
+	private String acaidx;
+	private String reviewidx;
+	
 	private String starRaiting;
 	
 	public ReviewWriteDTO() {}
 
-	public ReviewWriteDTO(String acaIdx, int acaScore, String memberId, String reviewContents) {
+	public ReviewWriteDTO(String reviewcontents, double score, String writetime, String id, String acaidx,
+			String reviewidx) {
 		super();
-		this.acaIdx = acaIdx;
-		this.acaScore = acaScore;
-		this.memberId = memberId;
-		this.reviewContents = reviewContents;
+		this.reviewcontents = reviewcontents;
+		this.score = score;
+		this.writetime = writetime;
+		this.id = id;
+		this.acaidx = acaidx;
+		this.reviewidx = reviewidx;
 	}
+
 	
-	public ReviewWriteDTO(String acaIdx, int acaScore, String memberId, String reviewContents, String starRaiting) {
+	public ReviewWriteDTO(String reviewcontents, double score, String writetime, String id, String acaidx,
+			String reviewidx, String starRaiting) {
 		super();
-		this.acaIdx = acaIdx;
-		this.acaScore = acaScore;
-		this.memberId = memberId;
-		this.reviewContents = reviewContents;
+		this.reviewcontents = reviewcontents;
+		this.score = score;
+		this.writetime = writetime;
+		this.id = id;
+		this.acaidx = acaidx;
+		this.reviewidx = reviewidx;
 		this.starRaiting = starRaiting;
 	}
 
@@ -34,38 +44,54 @@ public class ReviewWriteDTO {
 		this.starRaiting = starRaiting;
 	}
 
-	public String getAcaIdx() {
-		return acaIdx;
+	public String getReviewcontents() {
+		return reviewcontents;
 	}
 
-	public void setAcaIdx(String acaIdx) {
-		this.acaIdx = acaIdx;
+	public void setReviewcontents(String reviewcontents) {
+		this.reviewcontents = reviewcontents;
 	}
 
-	public int getAcaScore() {
-		return acaScore;
+	public double getScore() {
+		return score;
 	}
 
-	public void setAcaScore(int acaScore) {
-		this.acaScore = acaScore;
+	public void setScore(double score) {
+		this.score = score;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getWritetime() {
+		return writetime;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setWritetime(String writetime) {
+		this.writetime = writetime;
 	}
 
-	public String getReviewContents() {
-		return reviewContents;
+	public String getId() {
+		return id;
 	}
 
-	public void setReviewContents(String reviewContents) {
-		this.reviewContents = reviewContents;
+	public void setId(String id) {
+		this.id = id;
 	}
-	
-	
-	
+
+	public String getAcaidx() {
+		return acaidx;
+	}
+
+	public void setAcaidx(String acaidx) {
+		this.acaidx = acaidx;
+	}
+
+	public String getReviewidx() {
+		return reviewidx;
+	}
+
+	public void setReviewidx(String reviewidx) {
+		this.reviewidx = reviewidx;
+	}
+
+    
+		
 }

@@ -219,8 +219,8 @@ function registFrmCheck()
 {   
    var fn = document.registFrm;
    
-   var frmArray = ["user_id", "user_pw1", "user_pw2", "user_name", "email_id","email_domain",
-               "mobile1","mobile2","mobile3","user_brand[0]"];
+   var frmArray = ["id", "pass", "passcheck", "name", "emailid","emaildomain",
+               "phonenumber1","phonenumber2","phonenumber3","interest[0]"];
    var txtArray = ["아이디", "패스워드", "패스워드확인", "이름", "이메일", "이메일도메인",
                "휴대전화번호1","휴대전화번호2","휴대전화번호3","관심분야"];
    
@@ -271,9 +271,9 @@ function registFrmCheck()
    }
    
    //패스워드 유효성 검사
-   fnCheckPassword(fn.user_id.value, fn.user_pw1.value);
+   fnCheckPassword(fn.id.value, fn.pass.value);
    //패스워드1,2 일치 여부 확인
-   if(fn.user_pw1.value!=fn.user_pw2.value){
+   if(fn.pass.value!=fn.passcheck.value){
 	   alert("비밀번호가 일치하지 않습니다.");
 	   fn.user_pw2.value="";
 	   fn.user_pw1.focus();
@@ -286,7 +286,7 @@ function registFrmCheck()
 //아이디 중복체크하기
 function id_overlapping(fn)
 {
-	var iForm = fn.user_id;
+	var iForm = fn.id;
 	
 	//공백제거
 	trimAll(iForm);
@@ -362,15 +362,17 @@ function choiceInput(frm, elem) {
    for(var i=0; i<elem.length;i++) { 
       if (elem.options[i].selected) {
          if(elem.options[elem.selectedIndex].value!="direct_input"){
-            frm.email_domain.value = elem.options[elem.selectedIndex].value   
+        	frm.emailDomain.readOnly = true;
+        	frm.emailDomain.value = elem.options[elem.selectedIndex].value   
          }
          else{
-            frm.email_domain.value = "";
-            frm.email_domain.focus();
+            frm.emailDomain.value = "";
+            frm.emailDomain.readOnly = false;
+            frm.emailDomain.focus();
          }
       } 
    }
-}  
+} 
 
 //비밀번호 체크
 function fnCheckPassword(uid, upw){
@@ -404,22 +406,22 @@ function fnCheckPassword(uid, upw){
 </script>
 <script>
 $(function(){
-	$('#user_id').keyup(function(){
+	$('#id').keyup(function(){
 		//아이디 공백제거
-		$('#user_id').val($('#user_id').val().replace(/ /g, ''));
-		if(document.registFrm.user_id.value.length==0){
+		$('#id').val($('#id').val().replace(/ /g, ''));
+		if(document.registFrm.id.value.length==0){
 			$('#display').html(' ');
 			$('#overFlag').val(0);
 		}
 		else{
 			$.ajax({
-				url:"../catle/NormalMemberIdCheck.do",
+				url:"../catle/MemberIdCheck.do",
 				dataType : "json",
 				type:"get",
 				contentType : "text/html;charset:utf-8",
 				data : {
 					
-					user_id : $('#user_id').val()
+					id : $('#id').val()
 				},
 				success : function(d){
 					var msg = ""
@@ -444,13 +446,13 @@ $(function(){
 			});
 		}
 	});
-	$('#user_pw1').keyup(function(){
+	$('#pass').keyup(function(){
 		//패스워드1 공백제거
-		$('#user_pw1').val($('#user_pw1').val().replace(/ /g, ''));
+		$('#pass').val($('#pass').val().replace(/ /g, ''));
 	});
-	$('#user_pw2').keyup(function(){
+	$('#passcheck').keyup(function(){
 		//패스워드2 공백제거
-		$('#user_pw2').val($('#user_pw2').val().replace(/ /g, ''));
+		$('#passcheck').val($('#passcheck').val().replace(/ /g, ''));
 	});
 });
 </script>
@@ -458,7 +460,7 @@ $(function(){
 <body>
   
 <form name="registFrm" action="./registFinish.do" method="post" onsubmit="return registFrmCheck();">
-   <input type="hid-den" id="overFlag" name="overFlag" value="0" />
+   <input type="hidden" id="overFlag" name="overFlag" value="0" />
    <table width ="1000" 
       style="border-spacing:20px; width:900px;margin-left: 9%">
       <tr>
@@ -467,7 +469,7 @@ $(function(){
       <tr >
          <td id="Column">아이디</td>
          <td>
-            <input type="text" id="user_id" name="user_id" value="" style="width:150px; height:25px;"/>
+            <input type="text" id="id" name="id" value="" style="width:150px; height:25px;"/>
             <font color ="gray" size="1">아이디 형식에 맞춰주세요(영문,숫자 조합8문자 이상)</font>
             <br />
             <p id="display"></p>
@@ -476,25 +478,25 @@ $(function(){
       <tr>
          <td id="Column">비밀번호</td>
          <td>
-            <input type="password" id="user_pw1" name="user_pw1" value="" style="width:150px; height:25px;"/>
+            <input type="password" id="pass" name="pass" value="" style="width:150px; height:25px;"/>
             <font color ="gray" size="1">8~20자리의 영문, 숫자 조합(영문,숫자,특수기호 조합을 권장합니다.)</font>
          </td>
       </tr>
       <tr>
          <td id="Column">비밀번호 확인</td>
          <td>
-            <input type="password" id="user_pw2" name="user_pw2" value="" style="width:150px; height:25px;"/>
+            <input type="password" id="passcheck" name="passcheck" value="" style="width:150px; height:25px;"/>
          </td>
       </tr>
       <tr>
       	<td id="Column">이름</td>
-		<td><input type="text" name="user_name" value="" style="width:150px; height:25px;"/></td>
+		<td><input type="text" name="name" value="" style="width:150px; height:25px;"/></td>
       </tr>
       <tr>
          <td id="Column">이메일</td>
          <td >
-            <input type="text" name="email_id" style="width:150px; height:25px;" value="" /> @ 
-            <input type="text" name="email_domain" style="width:150px; height:25px;" value="" />
+            <input type="text" name="emailId" style="width:150px; height:25px;" value="" /> @ 
+            <input type="text" name="emailDomain" style="width:150px; height:25px;" value="" />
             <select name="email_choice" style="height:25px;" onchange="choiceInput(this.form, this)">
                <option value="">-선택하세요-</option>
                <option value="naver.com">네이버</option>
@@ -529,34 +531,34 @@ $(function(){
       <tr>
       	<td rowspan="3" id="Column">관심분야</td>
       	<td>
-      		<input type="checkbox" id="exercise"name="user_brand" value="운동"/><label for="exercise">운동</label>
+      		<input type="checkbox" id="exercise"name="interest" value="운동"/><label for="exercise">운동</label>
         </td>
       	<td>
-      		<input type="checkbox" id="music" name="user_brand" value="음악"/>
+      		<input type="checkbox" id="music" name="interest" value="음악"/>
             <label for="music">음악</label>
       	</td>
       	<td>
-      		<input type="checkbox" id="art" name="user_brand" value="미술"/>
+      		<input type="checkbox" id="art" name="interest" value="미술"/>
             <label for="art">미술</label>
       	</td>
       </tr>
       <tr>
       	<td>
-      		<input type="checkbox" id="kor" name="user_brand" value="국어"/>
+      		<input type="checkbox" id="kor" name="interest" value="국어"/>
             <label for="kor">국어</label>
       	</td>
       	<td>
-      		<input type="checkbox" id="eng" name="user_brand" value="영어"/>
+      		<input type="checkbox" id="eng" name="interest" value="영어"/>
             <label for="eng">영어</label>
       	</td>
       	<td>
-      		<input type="checkbox" id="math" name="user_brand" value="수학"/>
+      		<input type="checkbox" id="math" name="interest" value="수학"/>
             <label for="math">수학</label>
       	</td>
       </tr>
       <tr>
       	<td colspan="3">
-      		<input type="checkbox" id="etc" name="user_brand" value="기타" />
+      		<input type="checkbox" id="etc" name="interest" value="기타" />
             <label for="etc">기타</label>
       	</td>
       </tr>

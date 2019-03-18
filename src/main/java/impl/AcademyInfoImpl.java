@@ -19,4 +19,6 @@ public interface AcademyInfoImpl {
 	public void reviewWrite(String acaidx, String id, String acaScore, String reviewContents);
 	//댓글 총갯수 반환
 	public int getTotalCountSearchReview(ParamDTO paramDTO);
+
+	public void delete(String idx);
 }

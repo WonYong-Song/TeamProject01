@@ -1,8 +1,12 @@
 package impl;
 
-import dto.NormalMemberDTO;
+import dto.MembersDTO;
+import mybatis01.MemberDTO;
 
 public interface MemberJoinImpl {
 
-	public void normalmemberjoin(NormalMemberDTO normalMemberDTO);
+	//일반회원가입처리
+	public void normalmemberjoin(MembersDTO membersDTO);
+	//학원회원가입처리
+	public void acamemberjoin(MembersDTO memberDTO);
 }
