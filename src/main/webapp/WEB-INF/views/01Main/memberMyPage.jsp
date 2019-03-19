@@ -124,7 +124,7 @@ height: 100%;
 			</thead>	
 			<tbody>
 			<c:choose>
-				<c:when test="${empty lists }">
+				<c:when test="${empty myClass }">
 					<tr>
 						<td colspan="5" class="text-center">
 							수강중인 강의가 없습니다.
@@ -132,14 +132,14 @@ height: 100%;
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${listRows }" var="row" varStatus="loop">
+					<c:forEach items="${myClass }" var="row" varStatus="loop">
 						<!-- 리스트반복 시작 -->
 						<tr>
-							<td class="text-center">${row.virtualNum }</td>
-							<td class="text-left">${row.acaClassName }</td>
-							<td class="text-center">${row.acaStartDate }~${row.acaEndDate }</td>
-							<td class="text-center">${row.acaStarTime }~</td>
-							<td class="text-center">${row.teaName }</td>
+							<td class="text-center">${loop.index+1 }</td>
+							<td class="text-left">${row.acaclassname }</td>
+							<td class="text-center">${row.acastartdate }~${row.acaenddate }</td>
+							<td class="text-center">${row.acastarttime }~</td>
+							<td class="text-center">${row.teaname }</td>
 						</tr>
 						<!-- 리스트반복 끝 -->
 					</c:forEach>

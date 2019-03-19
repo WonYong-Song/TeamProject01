@@ -19,7 +19,6 @@
       <!-- 로그인전 -->
           <li class="nav-item">
 
-
            <a class="nav-link js-scroll-trigger"  href="Login.do" style="cursor: pointer;">로그인</a>
 
           </li>

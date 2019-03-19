@@ -206,10 +206,11 @@
 						<input type="hidden" name="business" value="beholderstar-facilitator@gmail.com">
 						<input type="hidden" name="custom" value="${dto.idx }">
 						<input type="hidden" name="charset" value="UTF-8">
-						<input type="hidden" name="item_name" value="${row3.acaclassname }">
+						<input type="hidden" name="item_name" value="${user_id}">
 						<input type="hidden" name="item_number" value="${row3.classidx }">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="amount" value="${row3.pay/1132.71 }">
+						<%-- <input type="hidden" name="user_id" value="${user_id}"> --%>
 						</form>
 					</tr>			
 				</table>
@@ -257,10 +258,22 @@
 					return false;
 				} 
 			}
+			/* 폼값 전송 */
+			function writeValidate2(){
+			    /* document.getElementById('btn').onclick = function() {
+			        
+			    }; */
+			    
+			    document.getElementById("editF").submit();
+		        return false;
+			};
 			</script>
+			
+			
 			<tr><td colspan="4">
 			<!-- 학원 후기 댓글 폼 -->
-			<form name="writeFrm" method="post" id="editR"
+			<div id="editR">
+			<form name="writeFrm" method="post" 
 				onsubmit="return writeValidate(this);"
 				action="reviewAction.do" >
 				
@@ -273,7 +286,7 @@
                   
                   <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
                       <input type="hidden" name="memberId" value="acamember1"/>
-                      <span class="media-heading user_name">acamember1</span>
+                      <span class="media-heading user_name">${user_id }</span>
                       <select class="form-control" name="acaScore">			
 							<option value="0">별점 매기기</option>
 							<option value="1">1점</option>
@@ -296,6 +309,7 @@
                 
                 
             </form> 
+            </div>
             </td></tr>
 
             <!-- 학원 후기 댓글 폼 -->	
