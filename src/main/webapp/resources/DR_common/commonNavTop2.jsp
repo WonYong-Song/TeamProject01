@@ -18,11 +18,9 @@
 <% if(session.getAttribute("USER_ID")==null){ %> 
       <!-- 로그인전 -->
           <li class="nav-item">
-
-
            <a class="nav-link js-scroll-trigger"  href="Login.do" style="cursor: pointer;font-size:1.22em;">로그인</a>
-
           </li>
+          
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="registGroup.do" style="cursor: pointer;font-size:1.22em;">회원가입</a>
           </li>
@@ -57,7 +55,7 @@
          
          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="Logout.do" style="cursor: pointer;font-size:1.22em;">로그아웃</a>
-         </li>
+          </li>
 <% } %>         
           
         </ul>
