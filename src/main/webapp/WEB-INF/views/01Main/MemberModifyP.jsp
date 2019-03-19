@@ -54,7 +54,7 @@
   <header class="masthead" style="height:auto;">
     <div class="container d-flex h-100 align-items-center">
       <div class="mx-auto text-center" style="width:auto; height:auto;background-color: white;margin-top:150px;;border-radius: 5px;padding-top: 5%;padding-bottom: 5%  ">
-        <%@ include file="/../resources/DR_common/commonRegist.jsp" %>
+        <%@ include file="/../resources/DR_common/commonMemberModify.jsp" %>
       </div>
     </div>
   </header>

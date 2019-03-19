@@ -128,10 +128,15 @@ $(function(){
         <!-- 학원소개 등록  -->  
        	<div style="border-color: #EEEEEE; background-color: #EEEEEE;">
 		<!-- 학원사진등록  -->
-		<form name="fileFrm" method="post" action="acaRegistAction.do" enctype="multipart/form-data" >
-			<input type="hidden" name="acaIdx" value="${param.acaIdx }" />
+		<form name="fileFrm" method="post" action="acaInfoRegiEdit.do" enctype="multipart/form-data" >
+			<input type="hid den" name="id" value="${RegiEditdto.Id }" />
 			<table class="table" style="width:100%; background-color: #EEEEEE;" id="example">
 			<thead>
+				<tr>
+					<td>
+						학원명: <input type="text" value="${RegiEditdto.acaName}"/>
+					</td>
+				</tr>
 				<tr> 
 					<th colspan="4" style="font-size: 1.5em;"> - 학원사진등록 </th>
 				</tr>
@@ -140,7 +145,7 @@ $(function(){
 				<tr>
 					<th>학원사진</th>
 					<td>
-						<input type="file" name="introPhoto" value="${dto.introPhoto }" multiple="multiple"/>
+						<input type="file" name="AcaIntroPhoto" value="${RegiEditdto.AcaIntroPhoto }" multiple="multiple"/>
 					</td>
 				</tr>
 			</tbody>	
@@ -152,20 +157,22 @@ $(function(){
 				<tr style="padding: 10px;">
 					<th>학원명:</th>
 					<td>
-						<input type="text" name="AcaName" placeholder="학원이름" value="${dto.acaName }"/>
+						<input type="text" name="AcaName" placeholder="학원이름" value="${RegiEditdto.acaName }"/>
 					</td>
 				</tr> 
 				<tr>
 					<th>주소</th>
 					<td>
-						<input type="text" name="AcaAddress" placeholder="기본주소(동, 읍, 리)" style="width: 200px;" value="${dto.acaAddress }"/>
-						<input type="text" name="AcaDetailAddress" placeholder="상세주소(도로명, 건물번호 등)" style="width: 400px;" value="${dto.acaDetailAddress }"/>
+						<input type="text" name="AcaAddress" placeholder="기본주소(동, 읍, 리)" style="width: 200px;" value="${RegiEditdto.Address }"/>
+						<input type="text" name="AcaDetailAddress" placeholder="상세주소(도로명, 건물번호 등)" style="width: 400px;" value="${RegiEditdto.DetailAddress }"/>
 						</td>
 					</tr>
 					<tr>
 						<th>대표번호</th>
 						<td>
-							<input type="text" name="AcaHPNumber" placeholder="학원대표전화번호" value="${dto.acaHPNumber }"/>
+							<input type="text" name="telephone1"  value="${RegiEditdto.telephone1 }"/>
+							<input type="text" name="telephone2"  value="${RegiEditdto.telephone2 }"/>
+							<input type="text" name="telephone3"  value="${RegiEditdto.telephone3 }"/>
 						</td>
 					</tr>
 					<tr>
@@ -174,7 +181,7 @@ $(function(){
 							<c:if test="${!empty categorytList}" >
 							  <select name="categoryBox" id="categoryBox" style="width:80px;">					
 							     <c:forEach var="categorytList" items="${categorytList }" >			
-							        <option value="${categorytList.MainCategory  }">${categorytList.MainCategory }</option>
+							        <option value="${categorytList.category  }">${categorytList.category }</option>
 							     </c:forEach>
 							  </select>
 							</c:if>
@@ -186,7 +193,7 @@ $(function(){
 				<tr><th style="font-size: 1.5em;"> - 학원소개 </th></tr>
 				<tr style="padding: 10px;">
 					<td>
-						<textarea name="introduce" cols="30" rows="10" style="width: 100%;">${dto.introduce }</textarea>
+						<textarea name="introduce" cols="30" rows="10" style="width: 100%;">${RegiEditdto.introduce }</textarea>
 						</td>
 					</tr>
 			</table>
@@ -212,7 +219,7 @@ $(function(){
 			</thead>
 			<tbody>
 			<c:choose>
-				<c:when test="${empty lists }">
+				<c:when test="${empty tealists }">
 					<tr>
 						<td colspan="4" class="text-center">
 							등록된 강사가 없습니다.
@@ -223,7 +230,7 @@ $(function(){
 					<c:forEach items="${tealists }" var="row" varStatus="loop">
 						<tr>
 							<td class="text-center">
-								${map.totalCount -((map.nowPage-1)*map.pageSize) - loop.index }					
+								${loop.index }					
 							</td>
 							<td class="text-center">
 								<a href="./02acaRegiForm/teaInfoView.do?teaidx=${row.teaidx }&nowPage=${param.nowPage }" 
@@ -290,7 +297,7 @@ $(function(){
 				</thead>
 				<tbody>
 				<c:choose>
-					<c:when test="${empty lists }">
+					<c:when test="${empty classlists }">
 						<tr>
 							<td colspan="7" class="text-center">
 								등록된 시간표가 없습니다.
@@ -301,10 +308,10 @@ $(function(){
 						<c:forEach items="${classlists }" var="row" varStatus="loop">
 							<tr>
 								<td class="text-center">
-									${map.totalCount -((map.nowPage-1)*map.pageSize) - loop.index }					
+									${loop.index }					
 								</td>
 								<td class="text-center">
-									<a href="./02acaRegiForm/classInfoView.do?teaidx=${row.teaidx }&nowPage=${param.nowPage }" 
+									<a href="./02acaRegiForm/classInfoView.do?teaidx=${row.teaidx }" 
 									onClick="window.open(this.href, '', 'width=400, height=430'); return false;">${row.acaClassName } </a>
 								</td>
 								<td class="text-center">${row.teaName }</td>
@@ -332,14 +339,24 @@ $(function(){
 				  <th style="font-size: 1.5em;">- 수강정보입력</th>
 	              </tr>
 	              <tr>
-	                 <td>강의일자 : <input type="date" name="acaStartDate"/>~<input type="date" name="acaEndDate"/></td>
+	                 <td>강의일자 : <input type="date" name="acaStartDate"/>~<input type="date" name="acaEndDate"/> <br />
+                  강의요일 : 
+                  <select name="acaDay">
+                  	<option value="월요일">월</option>
+                  	<option value="화요일">화</option>
+                  	<option value="수요일">수</option>
+                  	<option value="목요일">목</option>
+                  	<option value="금요일">금</option>
+                  	<option value="토요일">토</option>
+                  	<option value="일요일">일</option>
+                  </select></td>
 	                 <td colspan="2">강의명 : <input type="text" name="acaClassName"/><br /><br />강사명: <input type="text" name="teaName" style="width: 100px;"/></td>
 	                 <td rowspan="2" style="text-align: center;vertical-align: middle">
 	                 <button type="button" id="timeTab" onclick="classRegiValidate(this);">등록</button> </td>
 	              </tr>
 	              <tr>
 	                 <td>강의시간 : <br /> <input type="time" name="acaStartTime" /> ~ <input type="time" name="acaEndTime" /></td>
-	                 <td colspan="2">수강료 : <input type="number" name="classPay" style="width: 100px;"/><br /><br />수강인원 : <input type="number" name="NumberOfParticipants" style="width: 100px;"/></td>
+	                 <td colspan="2">수강료 : <input type="number" name="Pay" style="width: 100px;"/><br /><br />수강인원 : <input type="number" name="NumberOfParticipants" style="width: 100px;"/></td>
 	              </tr>
        			</table>
 	           </div>

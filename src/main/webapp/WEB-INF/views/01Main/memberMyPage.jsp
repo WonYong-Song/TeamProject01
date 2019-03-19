@@ -92,7 +92,7 @@ height: 100%;
 				</tr>
 				<tr>
 					<td colspan="2" bgcolor="#ffffff" height="50px;"><p style="text-align: right">
-					<button type="button">정보수정</button></p>
+					<button type="button"><a href="MemberModifyP.do">정보수정</a></button></p>
 					</td>
 				</tr>
 			</table>

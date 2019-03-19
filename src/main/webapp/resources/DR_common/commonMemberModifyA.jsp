@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% request.setCharacterEncoding("UTF-8");%>
 <!DOCTYPE html>
 <html >
   <head>
@@ -14,7 +13,7 @@
 
     <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-	<script src="../resources/jquery/jquery-3.3.1.min.js"></script>   
+    <script src="/FinallyProject/resources/jquery/jquery-3.3.1.min.js"></script>
   </head>
 
   <body> 
@@ -219,10 +218,12 @@ function registFrmCheck()
 {   
    var fn = document.registFrm;
    
-   var frmArray = ["id", "pass", "passcheck", "name", "emailid","emaildomain",
-               "phonenumber1","phonenumber2","phonenumber3","interest[0]"];
-   var txtArray = ["아이디", "패스워드", "패스워드확인", "이름", "이메일", "이메일도메인",
-               "휴대전화번호1","휴대전화번호2","휴대전화번호3","관심분야"];
+   var frmArray = ["id", "pass", "passcheck", "acaName", "telephone1","telephone2","telephone3",
+               "name","mobile1","mobile2","mobile3","emailId","emailDomain",
+               "주소","상세주소"];
+   var txtArray = ["아이디", "패스워드", "패스워드확인", "기업명(학원명)", "학원대표번호1", "학원대표번호2", "학원대표번호3",
+               "대표자 성함","대표자 휴대전화번호1","대표자 휴대전화번호2","대표자 휴대전화번호3","이메일아이디","이메일도메인",
+               "address","addressDetail"];
    
    for(var i=0 ; i<frmArray.length ; i++)
    {
@@ -258,11 +259,6 @@ function registFrmCheck()
             return false;
          }
       }
-   }
-   //아이디 중복확인을 마쳐야 회원가입을 할수있다.
-   if(fn.overFlag.value=="0"){
-      alert("아이디 중복확인을 해주세요.");
-      return false;
    }
    
    //아이디 중복체크 및 유효성 검사
@@ -372,7 +368,7 @@ function choiceInput(frm, elem) {
          }
       } 
    }
-} 
+}  
 
 //비밀번호 체크
 function fnCheckPassword(uid, upw){
@@ -406,72 +402,49 @@ function fnCheckPassword(uid, upw){
 </script>
 <script>
 $(function(){
-	$('#id').keyup(function(){
-		//아이디 공백제거
-		$('#id').val($('#id').val().replace(/ /g, ''));
-		if(document.registFrm.id.value.length==0){
-			$('#display').html(' ');
-			$('#overFlag').val(0);
-		}
-		else{
-			$.ajax({
-				url:"../catle/MemberIdCheck.do",
-				dataType : "json",
-				type:"get",
-				contentType : "text/html;charset:utf-8",
-				data : {
-					
-					id : $('#id').val()
-				},
-				success : function(d){
-					var msg = ""
-					if(d.result==0){
-						$('#overFlag').val(1);
-						msg += "<font color ='green' size='1'>";
-						msg += d.msg;
-						msg += "</font>";
-					}
-					else{
-						$('#overFlag').val(0);
-						msg += "<font color ='red' size='1'>";
-						msg += d.msg;
-						msg += "</font>";
-					}
-					$('#display').html(msg);
-				},
-				//요청실패시 콜백메소드
-				error : function(e){
-					alert("오류발생"+e.status+":"+e.statusText);
-				}
-			});
-		}
-	});
+	
 	$('#pass').keyup(function(){
 		//패스워드1 공백제거
 		$('#pass').val($('#pass').val().replace(/ /g, ''));
 	});
 	$('#passcheck').keyup(function(){
 		//패스워드2 공백제거
-		var msg="";
 		$('#passcheck').val($('#passcheck').val().replace(/ /g, ''));
-		
 	});
 });
+</script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script>
+function postOpen()
+{
+    new daum.Postcode({
+        oncomplete: function(data) {
+         
+           var f = document.registFrm;
+           f.zipcode.value = data.zonecode;
+           f.address.value = data.address;
+           
+           f.sido.value = data.sido;
+           f.gugun.value = data.sigungu;
+           
+           f.detailAddress.focus();
+        }
+    }).open();
+}
 </script>
 </head>
 <body>
   
-<form name="registFrm" action="./registFinish.do" method="post" onsubmit="return registFrmCheck();">
-   <input type="hidden" id="overFlag" name="overFlag" value="0" />
+<form name="registFrm" action="./ModifyAAction.do" method="post" onsubmit="return registFrmCheck();">
    <table width ="1000" 
       style="border-spacing:20px; width:900px;margin-left: 9%">
       <tr>
-      	<td colspan="2" style=" font-size: 24px;"><b>회원정보 <span style="color: gray;"><small>(일반회원)</small></span></b></td>
-   	  </tr>
+    	  <td colspan="2" style=" font-size: 24px;"><b>회원정보 <span style="color: grat;">(학원회원)</span></b></td>
+      </tr>
       <tr >
          <td id="Column">아이디</td>
          <td>
-            <input type="text" id="id" name="id" value="" style="width:150px; height:25px;"/>
+            <input type="text" id="id" name="id" value="${dto.id }" style="width:150px; height:25px;" readonly="readonly"/>
             <font color ="gray" size="1">아이디 형식에 맞춰주세요(영문,숫자 조합8문자 이상)</font>
             <br />
             <p id="display"></p>
@@ -487,18 +460,43 @@ $(function(){
       <tr>
          <td id="Column">비밀번호 확인</td>
          <td>
-            <input type="password" id="passcheck" name="passcheck" value="" style="width:150px; height:25px;"/>
+            <input type="password" id="passcheck"name="passcheck" value="" style="width:150px; height:25px;"/>
          </td>
       </tr>
       <tr>
-      	<td id="Column">이름</td>
-		<td><input type="text" name="name" value="" style="width:150px; height:25px;"/></td>
+         <td id="Column">기업명(학원명)</td>
+         <td><input type="text" name="acaName" value="${dto.acaName }" style="width:150px; height:25px;"/></td>
       </tr>
+      <tr>
+         <td id="Column">기업(학원)대표번호</td>
+         <td colspan="3">
+            <input type="text" name="telephone1" value="${dto.telephone1 }" placeholder="" class="s50" maxlength="3" style="width:150px; height:25px;"/>
+            - 
+            <input type="text" name="telephone2" value="${dto.telephone2 }" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;"/>             
+            - 
+            <input type="text" name="telephone3" value="${dto.telephone3 }" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" />
+         </td>
+      </tr>      
+      <tr>
+         <td id="Column">대표자 성함</td>
+         <td><input type="text" name="name" value="${dto.name }" style="width:150px; height:25px;"/></td>
+      </tr>      
+      <tr>
+         <td id="Column">대표자 휴대전화</td>
+         <td>
+            <input type="text" name="mobile1" value="${dto.mobile1 }" placeholder="" class="s50" maxlength="3" style="width:150px; height:25px;" value="" />
+            - 
+            <input type="text" name="mobile2" value="${dto.mobile2 }" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" value="" />             
+            - 
+            <input type="text" name="mobile3" value="${dto.mobile3 }" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" value="" />
+             <br /> 
+         </td>
+      </tr>      
       <tr>
          <td id="Column">이메일</td>
          <td >
-            <input type="text" name="emailId" style="width:150px; height:25px;" value="" /> @ 
-            <input type="text" name="emailDomain" style="width:150px; height:25px;" value="" />
+            <input type="text" name="emailId" style="width:150px; height:25px;" value="${dto.emailId }" /> @ 
+            <input type="text" name="emailDomain" style="width:150px; height:25px;" value="${dto.emailDomain }"  readonly="readonly"/>
             <select name="email_choice" style="height:25px;" onchange="choiceInput(this.form, this)">
                <option value="">-선택하세요-</option>
                <option value="naver.com">네이버</option>
@@ -509,65 +507,39 @@ $(function(){
             </select>
          </td>
       </tr>
-      <tr>
-         <td id="Column">휴대전화</td>
-         <td>
-            <input type="text" name="mobile1" value="" placeholder="" class="s50" maxlength="3" style="width:150px; height:25px;" value="" />
-            - 
-            <input type="text" name="mobile2" value="" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" value="" />             
-            - 
-            <input type="text" name="mobile3" value="" placeholder="" class="s70" maxlength="4" style="width:150px; height:25px;" value="" />
-             <br /> 
-         </td>
-      </tr>
    </table>
-   <table width="800" height="200" style="border-spacing:20px;" >
+
+   <table width="800" height="300" style="border-spacing:20px;"  >
+   <tr>
       <colgroup>
-         <col width="16%" />
+         <col width="21%" />
          <col width="28%" />
          <col width="28%" />
          <col width="28%" />
          <!-- *로 대체해도됨 -->
       </colgroup>   
-      
-      <tr>
-      	<td rowspan="3" id="Column">관심분야</td>
-      	<td>
-      		<input type="checkbox" id="exercise"name="interest" value="운동"/><label for="exercise">운동</label>
-        </td>
-      	<td>
-      		<input type="checkbox" id="music" name="interest" value="음악"/>
-            <label for="music">음악</label>
-      	</td>
-      	<td>
-      		<input type="checkbox" id="art" name="interest" value="미술"/>
-            <label for="art">미술</label>
-      	</td>
-      </tr>
-      <tr>
-      	<td>
-      		<input type="checkbox" id="kor" name="interest" value="국어"/>
-            <label for="kor">국어</label>
-      	</td>
-      	<td>
-      		<input type="checkbox" id="eng" name="interest" value="영어"/>
-            <label for="eng">영어</label>
-      	</td>
-      	<td>
-      		<input type="checkbox" id="math" name="interest" value="수학"/>
-            <label for="math">수학</label>
-      	</td>
-      </tr>
-      <tr>
-      	<td colspan="3">
-      		<input type="checkbox" id="etc" name="interest" value="기타" />
-            <label for="etc">기타</label>
-      	</td>
-      </tr>
-      
-      
-      
-   </table>
+         <tr>
+         <td id="Column">기업(학원)주소</td>
+         <td colspan="3">
+         	<button type="button" class="btn btn-primary" onclick="postOpen();">주소검색</button>
+            <input type="hidden" name="zipcode" value="" placeholder="" class="s50" maxlength="5" style="width:150px; height:25px;" readonly="readonly"/>
+            <!-- <input type="image" src="../images/우편번호 검색.png"  height="30px;"width="120px" align="center" onclick="postOpen();" /><br /> -->
+            <input type="text" name="address" value="${dto.address }" placeholder="" class="input2 s300" style="width:300px; height:25px;"/>
+            <input type="text" name="detailAddress" value="${dto.detailAddress }" placeholder="" class="input2 s400" style="width:400px; height:25px;"/>
+            
+            <input type="hidden" name="sido" />
+            <input type="hidden" name="gugun" />
+         </td>
+       </tr>
+
+  <!--  <table>
+      <p style="margin-top: 20px;margin-bottom: 20px;"> 
+        <button type="submit" style="background-color: white; margin-left:3%; margin-top:3% ">
+           <img src="../images/가입하기.png" style="width:72px; height:20px;"/>
+         </button>
+      </p> 
+   </table> -->
+
    <p style="margin-top: 20px;margin-bottom: 20px;"> 
 
       
@@ -575,19 +547,19 @@ $(function(){
          <img src="../images/가입하기.png" style="width:72px; height:20px;"/>
       </button> -->
    </p>
-
 <br><br>
 	<table>
 	<tr>
 		<td style="font-size: 1em;vertical-align: middle;">
 			<button type = "submit"  class="btn_order" style="margin:10px;width:auto;height:auto; ">
-				가입하기</button>
+				수정하기</button>
 	  		<a href="registGroup.do"><button type = "button"  class="btn_cancel1" style="margin:10px;width:auto;height:auto;">
 	  			취소하기</button></a>
 		</td>
 	</tr>
 	</table>
-	</form>
+	
     </center>
-  </body>
+</form>
+</body>
 </html>

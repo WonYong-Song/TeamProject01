@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="impl.AcademyInfoRegiEditImpl">
+	
+	<!-- 학원부가정보 -->
+	<select id="AcaInfoLoad" resultType="dto.AcaInfoRegiEditDTO">
+		SELECT m.id, idx, grade, telephone1, address, detailaddress, acaname, telephone2, telephone3,
+					a.id,introduce, category, acaIntroPhoto
+		FROM members m inner join AcaIntroduce a
+		    on m.id=a.id
+		WHERE a.id=#{id}
+	</select>
+	
+	<!-- <update id="AcaInfoRegiEdit" >
+		UPDATE members SET address = ?, detailaddress = ?, acaname = ?, telephone2 = ?, telephone3 =?
+			WHERE id = ?
+	
+	</update>
+	<update id="AcaInfoRegiEdit2">
+		UPDATE acaintroduce SET introduce=?, category=?, acaintrophoto=?
+			where id = ? 
+	</update> -->
+	
+	<!-- 강사정보  -->
+<!-- 	<select id="TeacherList" resultType="mybatis01.AcaTeacherDTO">
+		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id
+			FROM members m inner join AcaTeacher a
+				on m.id = a.id
+			WHERE teaidx = #{TeaIdx}
+	</select>
+	
+	<insert id="TeacherRegi2">
+		INSERT INTO (teaidx, teaimage, teaname, teaintro, subject)
+		VALUES (acaTeacher_seq.NEXTVAL,#{param1}, {#param2}, #{param3}, #{param4})
+		WHERE id = #{id}
+	</insert> -->
+	
+	<!-- 강의정보  -->
+<!-- 	<select id="ClassList" resultType="dto.AcaClassDTO">
+		SELECT T.TeaIdx, acaStartDate, acaEndDate, acaDay, acaStartTime, acaEndTime, acaClassName;
+			 NumberOfParticipants, classIdx, C.TeaIdx;
+			FROM AcaTeacher T inner join AcaClass C
+				on T.TeaIdx = C.TeaIdx
+			WHERE Classidx = #{ClassIdx}
+	</select>
+	
+	<insert id="TeacherRegi2">
+		INSERT INTO (classidx, acaStartDate, acaEndDate, acaDay, acaStartTime, acaEndTime, acaClassName;
+			 NumberOfParticipants)
+		VALUES (acaTeacher_seq.NEXTVAL,#{param1}, {#param2}, #{param3}, #{param4},
+				#{param5}, {#param6}, #{param7})
+		WHERE teaidx = #{TeaIdx}
+	</insert> -->
+
+	
+</mapper>

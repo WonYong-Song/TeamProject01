@@ -35,6 +35,7 @@
   
   <!-- Bootstrap core CSS -->
   <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ 
   <!-- Custom fonts for this template -->
   <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
@@ -54,7 +55,7 @@
   <header class="masthead" style="height:auto;">
     <div class="container d-flex h-100 align-items-center">
       <div class="mx-auto text-center" style="width:auto; height:auto;background-color: white;margin-top:150px;;border-radius: 5px;padding-top: 5%;padding-bottom: 5%  ">
-        <%@ include file="/../resources/DR_common/commonRegist.jsp" %>
+        <%@ include file="/../resources/DR_common/commonMemberModifyA.jsp" %>
       </div>
     </div>
   </header>
