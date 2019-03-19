@@ -5,12 +5,37 @@
     
 <mapper namespace="impl.MypageImpl">    
 	<!-- 마이페이지 뿌려줄떄 아이디에 맞는 강의정보 가져오기 -->
-	<select id="myclass" resultType="mybatis01.ClassInfoDTO">
+	<select id="myclass" resultType="mybatis01.ClassInfoDTO" parameterType="mybatis01.ParamDTO">
 		SELECT A.*, B.*, (
 		    select teaname from acateacher where TEAIDX=B.teaidx
 		) teaname FROM 
 		enrollclass A inner join acaclass B
 		on A.classidx = B.classidx
-		where A.id=#{param1}    
+		<choose>
+			<when test="!keyString.equals('') and keyString!=null">
+			WHERE B.${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
+	   		</when>
+	   		<otherwise>
+			where A.id='${user_id}'
+			</otherwise>
+		</choose>
 	</select>
+	<select id="memberInfo" resultType="dto.MembersDTO">
+		select * from members where id=#{param1}
+	</select>
+	<select id="getTotalCountSearch" resultType="int" 
+		parameterType="mybatis01.ParamDTO">
+		SELECT COUNT(*) from 
+		enrollclass A inner join acaclass B
+		on A.classidx = B.classidx
+		<choose>
+			<when test="!keyString.equals('') and keyString!=null">
+			WHERE B.${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
+	   		</when>
+	   		<otherwise>
+			where A.id='${user_id}'
+			</otherwise>
+		</choose>
+		
+	</select> 
 </mapper>

@@ -7,6 +7,9 @@ public class ParamDTO {
 	private int start;//select 시작값
 	private int end;//select 종료값
 	private String acaidx;
+	private String user_id;
+	
+	
 	//기본생성자
 	/*
 	해당 DTO객체는 Mybatis의 Mapper파일로 파라미터 전달용도로
@@ -39,6 +42,24 @@ public class ParamDTO {
 		this.acaidx = acaidx;
 	}
 	
+	
+	public ParamDTO(String keyField, String keyString, int start, int end, String acaidx, String user_id) {
+		super();
+		this.keyField = keyField;
+		this.keyString = keyString;
+		this.start = start;
+		this.end = end;
+		this.acaidx = acaidx;
+		this.user_id = user_id;
+	}
+	
+	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public String getAcaidx() {
 		return acaidx;
 	}

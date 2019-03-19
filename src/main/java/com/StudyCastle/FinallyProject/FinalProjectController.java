@@ -504,7 +504,7 @@ public class FinalProjectController {
 	System.out.println("111111111111111111111111111111111111");
 	if(session.getAttribute("USER_ID")==null){
 		
-		return "redirect:login.do";
+		return "redirect:Login.do";
 	}
 	//결제한 수강정보 가져오기
 	String item_number = req.getParameter("item_number");
@@ -547,10 +547,76 @@ public class FinalProjectController {
 	@RequestMapping("catle/memberMyPage.do")
 	public String memberMyPage(Model model, HttpServletRequest req, HttpSession session) {
 		//세션 아이디 들고오기
+		if(session.getAttribute("USER_ID")==null){
+			
+			return "redirect:Login.do";
+		}
+		
 		String user_id=(String) session.getAttribute("USER_ID");
 		System.out.println(user_id);
-		ArrayList<ClassInfoDTO> dto =sqlSession.getMapper(MypageImpl.class).myclass(user_id);
-		model.addAttribute("myClass",dto);
+		ParamDTO paramDTO = new ParamDTO();
+		String addQueryString = "";
+		String keyField = req.getParameter("keyField");				
+		String keyString = req.getParameter("keyString");
+		System.out.println("keyField"+keyField);
+		System.out.println("keyString"+keyString);
+		if(keyString!=null){
+			addQueryString = String.format("keyField=%s"
+				+"&keyString=%s&", keyField, keyString);
+
+			paramDTO.setKeyField(keyField);
+			paramDTO.setKeyString(keyString);
+		}
+		System.out.println("1111111111111111111111111111111111111111");
+		paramDTO.setUser_id(user_id);
+		int totalRecordCount = sqlSession.getMapper(MypageImpl.class).getTotalCountSearch(paramDTO);
+		//검색어에 따른 레코드 갯수 확인용 
+		System.out.println("totalRecordCount="+
+									totalRecordCount);
+		
+		//페이지 처리를 위한 설정값
+		int pageSize = 4;
+		int blockPage = 2;
+		
+		//전체페이지수계산하기
+		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+
+		//시작 및 끝 rownum 구하기
+		int nowPage = req.getParameter("nowPage")==null ? 1 :
+			Integer.parseInt(req.getParameter("nowPage"));
+		int start = (nowPage-1) * pageSize + 1;
+		int end = nowPage * pageSize;
+
+		//검색처리위한 추가부분
+		paramDTO.setStart(start);
+		paramDTO.setEnd(end);
+		//수강신청한 강의정보 들고오기
+		System.out.println("1111111111111111111111111111111111111111");
+		ArrayList<ClassInfoDTO> classIntroDTO =sqlSession.getMapper(MypageImpl.class).myclass(paramDTO);
+		System.out.println("1111111111111111111111111111111111111111");
+		//페이지 처리를 위한 처리부분
+				String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+						pageSize, blockPage, nowPage,
+						req.getContextPath()+"/mybatis/memberMyPage.do?"+addQueryString+user_id);
+				model.addAttribute("pagingImg", pagingImg);
+		//회원정보 가져오기
+		System.out.println("1111111111111111111111111111111111111111");
+		MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
+		for(ClassInfoDTO dto : classIntroDTO)
+		{
+			String startD = dto.getAcastartdate().substring(0,10);
+			String endD = dto.getAcaenddate().substring(0,10);
+			String startT = dto.getAcastarttime().substring(10,16);
+			String endT = dto.getAcaendtime().substring(10,16);
+			
+			dto.setAcastartdate(startD);
+			dto.setAcaenddate(endD);
+			dto.setAcastarttime(startT);
+			dto.setAcaendtime(endT);
+		}
+		model.addAttribute("myClass",classIntroDTO);
+		model.addAttribute("memberInfo",memberInfo);
+		model.addAttribute("pagingImg",pagingImg);
 		return "01Main/memberMyPage";
 	}
 }

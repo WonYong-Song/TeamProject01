@@ -285,7 +285,7 @@
                   </a>
                   
                   <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
-                      <input type="hidden" name="memberId" value="acamember1"/>
+                      <input type="hidden" name="memberId" value="${user_id }"/>
                       <span class="media-heading user_name">${user_id }</span>
                       <select class="form-control" name="acaScore">			
 							<option value="0">별점 매기기</option>
