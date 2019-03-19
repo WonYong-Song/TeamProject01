@@ -28,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 import dto.MembersDTO;
 import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
+import impl.MypageImpl;
+import impl.PaymentImpl;
 import impl.example;
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
@@ -312,6 +314,9 @@ public class FinalProjectController {
 	String adress=acaMemberDTO.getAddress();
 	model.addAttribute("adress",adress);
 	/* 학원 정보 받기 s*/
+	String user_id=(String) session.getAttribute("USER_ID");
+	System.out.println(user_id);
+	model.addAttribute("user_id",user_id);
 	/* 강사 목록 받기*/			  
 	/*AcaTeacherDTO acaTeacherDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo();*/
 	/* 강사 목록 받기*/
@@ -367,8 +372,11 @@ public class FinalProjectController {
 		//mybatis 사용
 		ReviewWriteDTO reviewModify = sqlSession.getMapper(AcademyInfoImpl.class).reviewModify(idx);
 
-		String str =" <div class=\"media\" style=\" padding: 0px 30px 10px 43px;margin-bottom: 80px;\">\r\n" + 
-				"                  <input type=\"hidden\" name=\"acaidx\" value=\"${dto.idx }\"/>\r\n" + 
+		String str ="         <form name=\"writeFrm\" id=\"editF\" method=\"post\" \r\n" + 
+				//"				onsubmit=\"return writeValidate(this);\"\r\n" + 
+				"				action=\"../mybatis/modifyAction.do\" >"+
+				"                <div class=\"media\" style=\" padding: 0px 30px 10px 43px;margin-bottom: 80px;\">\r\n" + 
+				//"                  <input type=\"hidden\" name=\"acaidx\" value=\"${dto.idx }\"/>\r\n" + 
 				"                  \r\n" + 
 				"                  <a class=\"media-left\" href=\"#\" style=\"width:80px;height:80px;margin-top: 4%\">\r\n" + 
 				"                    <img src=\"http://lorempixel.com/40/40/people/1/\" style=\"width:100%;height:100%;\">\r\n" + 
@@ -391,12 +399,14 @@ public class FinalProjectController {
 				"                    <div style=\"width:100%;height: 100%;\">\r\n" + 
 				"                    <textarea rows=\"10\" class=\"form-control\" style=\"width:100%;height: 100%\" name=\"reviewContents\">"+reviewModify.getReviewcontents()+"</textarea>\r\n" + 
 				"                    </div>\r\n" + 
-				"                    <p><small><button type=\"submit\" style=\"border:none\" >수정하기</button> - <a href=\"\">돌아가기</a></small></p>\r\n" + 
+				//"                    <p><small><button type=\"submit\" style=\"border:none\" >수정하기</button> - <a href=\"\">돌아가기</a></small></p>\r\n" + 
+				"                    <p><small><a onclick=\"writeValidate2();\" style=\"cursor:pointer;color:#839997;\">수정하기</a> - <a href=\"\">돌아가기</a></small></p>\r\n" + 
 				"                  </div>\r\n" + 
 				"                  <p class=\"pull-right\" ><small></small></p>\r\n" + 
 				//"                  <button type=\"submit\" class=\"btn btn-danger\" style=\"margin-top: 5%;margin-left: 2%;\">\r\n" + 
 				//"                  후기작성</button>\r\n" + 
-				"                </div>";
+				"                </div> "+
+				"               </form> ";
 		resp.setCharacterEncoding("UTF-8");
 		
 		PrintWriter writer = resp.getWriter();
@@ -449,19 +459,21 @@ public class FinalProjectController {
 			System.out.println("수정실패");
 		}
 		
-        
-		return "redirect:academyInfo.do?acaIdx="+acaidx;
+		
+		model.addAttribute("acaIdx",acaidx);  //<--- 여기에 제대로 된 값을 담으면 될듯...
+      
+		return "redirect:/catle/academyInfo.do?";
 	}
-
+	
 	// 댓글 삭제하기
 	@RequestMapping("/catle/delete.do")
 	public String delete(HttpServletRequest req, Model model,
 		HttpSession session){
 		String acaIdx=req.getParameter("acaIdx");
 		System.out.println("삭제하기로 넘어갈 학원 번호="+acaIdx);
-		/*if(session.getAttribute("siteUserInfo")==null){
+		if(session.getAttribute("USER_ID")==null){
 			return "redirect:login.do";
-		}*/
+		}
 
 		//JdbcTemplate 사용
 		/*dao.delete(req.getParameter("idx"),
@@ -476,15 +488,69 @@ public class FinalProjectController {
 	
 	//결제 완료창 띄우기
 	@RequestMapping("/catle/paymentAction.do")
-	public String paymentAction() {
+	public String paymentAction(Model model, HttpServletRequest req, HttpSession session) {
+	System.out.println("----------------결제과정 시작----------------");
+    //넘어오는 user_id(어쩔수없이 이 네임으로 아이디를 받음)
+	String user_id = req.getParameter("item_name");
+	System.out.println("세로 생성해야할 아이디="+user_id);
+	//세로운 세션생성을 위해 reLogin
+	MembersDTO membersDTO = sqlSession.getMapper(PaymentImpl.class).reLogin(user_id);
+	System.out.println("세로 생성된 아이디="+membersDTO.getId());
+	System.out.println("111111111111111111111111111111111111");
+	
+	//세션에 ID값 저장
+	session.setAttribute("USER_ID", membersDTO.getId());
+	session.setAttribute("GRADE", membersDTO.getGrade());
+	System.out.println("111111111111111111111111111111111111");
+	if(session.getAttribute("USER_ID")==null){
+		
+		return "redirect:login.do";
+	}
+	//결제한 수강정보 가져오기
+	String item_number = req.getParameter("item_number");
+	System.out.println("111111111111111111111111111111111111");
+	//결제를 진행하는 Mybatis!
+	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number);
+	System.out.println("결제가 완료된 아이디="+user_id);
+	System.out.println("결제완료된 과목 idx="+item_number);
+	System.out.println("111111111111111111111111111111111111");
+	//결제된 과목의 정보를 가져오는 Mybatis!
+	ClassInfoDTO classDTO = sqlSession.getMapper(PaymentImpl.class).classInfo(item_number);
+	System.out.println(classDTO.getAcaclassname());
+	System.out.println(classDTO.getPay());
+	System.out.println("111111111111111111111111111111111111");
+	if(affected ==1) {
+		System.out.println("결제완료");
+	}
+	else {
+		System.out.println("결제실패");
+	}
+	/* 문자열 처리 함수 */
+	String startD = classDTO.getAcastartdate().substring(0,10);
+	String endD = classDTO.getAcaenddate().substring(0,10);
+	String startT = classDTO.getAcastarttime().substring(10,16);
+	String endT = classDTO.getAcaendtime().substring(10,16);
+	
+	classDTO.setAcastartdate(startD);
+	classDTO.setAcaenddate(endD);
+	classDTO.setAcastarttime(startT);
+	classDTO.setAcaendtime(endT);
+
+		
+	model.addAttribute("user_id",user_id);
+	model.addAttribute("classDTO",classDTO);
 	
 	return "01Main/paymentFinish";
 	}
 	
 	//일반회원마이페이지
 	@RequestMapping("catle/memberMyPage.do")
-	public String memberMyPage() {
-		
+	public String memberMyPage(Model model, HttpServletRequest req, HttpSession session) {
+		//세션 아이디 들고오기
+		String user_id=(String) session.getAttribute("USER_ID");
+		System.out.println(user_id);
+		ArrayList<ClassInfoDTO> dto =sqlSession.getMapper(MypageImpl.class).myclass(user_id);
+		model.addAttribute("myClass",dto);
 		return "01Main/memberMyPage";
 	}
 }

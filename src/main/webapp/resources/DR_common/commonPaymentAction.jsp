@@ -17,35 +17,55 @@
   </head>
 
   <body> 
-    <center>
+
   <table style="width:550px;hieght:700px;" align=center>
     <tr>
     <td align=center>
-      <center><div class="stepLine">
-        <!-- <div title="이용약관" class="stepDot"></div>
-        <div title="정보입력" class="stepDot"></div> -->
+ <div class="stepLine">
         <div title="결제완료" class="stepDot activeStep"></div>
       </div>
-      </center><br/><br/><br/>
+
+<br/><br/><br />
     </td>
     </tr>
   </table>
-  <br /><br /><br /><br /><br /><br />
-  <div style="text-align: center;margin-top: 5%;margin-bottom: 20%">
+
+  <div style="text-align: center;margin-bottom: 20%;margin:10%">
 
 	<h4>수강 결제가 완료되었습니다.</h4>
 	<h6>-캐슬로 배움의 품격을 높혀보세요-</h6>
-  </div>
-	
-<br/><br/> 
-	<table>
-	<tr>
-		<td style="font-size: 1em;vertical-align: middle;">
-			<a href="Login.do"><button type = "button"  class="btn_order" style="margin:10px;width:auto;vertical-align: middle">마이페이지</button></a>
+	<table class="table table-border">
+		<tr>
+			<th style="text-align: center;vertical-align: middle">아이디</th>
+			<td style="text-align: center;vertical-align: middle">${user_id }</td>
+		</tr>
+		<tr>
+			<th style="text-align: center;vertical-align: middle">수강클래스</th>
+			<td style="text-align: center;vertical-align: middle">${classDTO.acaclassname }</td>
+		</tr>
+		<tr>
+			<th style="text-align: center;vertical-align: middle">결제 금액</th>
+			<td style="text-align: center;vertical-align: middle">${classDTO.pay }(단위:원)</td>
+		</tr>
+		<tr>
+			<th style="text-align: center;vertical-align: middle">수강 기간</th>
+			<td style="text-align: center;vertical-align: middle">${classDTO.acastartdate }~${classDTO.acaenddate }<br />매주&nbsp;${classDTO.acaday }&nbsp;&nbsp;${classDTO.acastarttime }~${classDTO.acaendtime }</td>
+		</tr>
+		<tr>
+		<td style="font-size: 1em;vertical-align: middle;" colspan="2">
+			<br />
+			<br /><br />
+			<a href="memberMyPage.do"><button type = "button"  class="btn_order" style="margin:10px;width:auto;vertical-align: middle">마이페이지</button></a>
 	  		<a href="helloCastle.do"><button type = "button"  class="btn_cancel1" style="margin:10px;width:auto;vertical-align: middle">홈으로</button></a>
 		</td>
 	</tr>
 	</table>
-    </center>
+  </div>
+	
+<br/><br/> 
+	<table>
+	
+	</table>
+
   </body>
 </html>

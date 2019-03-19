@@ -34,4 +34,6 @@ public interface AcademyInfoImpl {
 	public ReviewWriteDTO reviewModify(String idx);
 	//댓글 수정 처리
 	public int modifyAction(String reviewidx, String acaScore, String reviewContents);
+	
+
 }

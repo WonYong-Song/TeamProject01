@@ -74,9 +74,9 @@
 	</select>
 	<!-- 댓글 수정 처리 -->
 	<update id="modifyAction" >
-		update  reviewWrite
-		set 
-		WHERE reviewIdx = #{param1}
+		update  reviewWrite set 
+			score= #{param2}, reviewcontents=#{param3}
+		WHERE REVIEWIDX=#{param1}
 	</update>
 </mapper>
 
