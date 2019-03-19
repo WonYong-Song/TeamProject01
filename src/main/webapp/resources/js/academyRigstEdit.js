@@ -1,22 +1,32 @@
 function introValidate(f) {
-		if(f.AcaName.value==""){
+		if(f.acaname.value==""){
 			alert("학원이름을 입력해주세요");
-			f.AcaName.focus();
+			f.acaname.focus();
 			return false;
 		}
-		if(f.AcaAddress.value==""){
+		if(f.address.value==""){
 			alert("학원주소를 입력해주세요");
-			f.AcaAddress.focus();
+			f.address.focus();
 			return false;
 		}
-		if(f.AcaDetailAddress.value==""){
+		if(f.detailaddress.value==""){
 			alert("학원상세주소를 입력해주세요");
-			f.AcaDetailAddress.focus();
+			f.detailaddress.focus();
 			return false;
 		}
-		if(f.AcaHPNumber.value==""){
+		if(f.telephone1.value==""){
 			alert("대표전화번호를 입력해주세요");
-			f.AcaHPNumber.focus();
+			f.telephone1.focus();
+			return false;
+		}
+		if(f.telephone2.value==""){
+			alert("대표전화번호를 입력해주세요");
+			f.telephone2.focus();
+			return false;
+		}
+		if(f.telephone3.value==""){
+			alert("대표전화번호를 입력해주세요");
+			f.telephone3.focus();
 			return false;
 		}
 		if(f.categoryBox.value=""){
@@ -29,6 +39,7 @@ function introValidate(f) {
 			f.introduce.focus();
 			return false;
 		}
+		
 	}
  
  function teaRegiValidate(f) {
@@ -72,6 +83,11 @@ function introValidate(f) {
 		}
 		if(f.acaEnddate.value==""){
 			alert("강의종료시간을 등록해주세요");
+			return false;
+		}
+		if(f.acaDay.value==""){
+			alert("강의요일을 입력해주세요");
+			f.acaDay.focus();
 			return false;
 		}
 		if(f.acaClassName.value==""){

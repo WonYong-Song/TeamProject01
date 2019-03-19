@@ -14,30 +14,37 @@
 		    on m.id=a.id
 		WHERE a.id=#{id}
 	</select>
+	<!-- 카테고리 불러오기  -->
+	<select id="categorySelect" resultType="dto.CategoryDTO">
+		SELECT DISTINCT maincategory FROM category 
+		WHERE 1=1
+	</select> 
 	
-	<!-- <update id="AcaInfoRegiEdit" >
-		UPDATE members SET address = ?, detailaddress = ?, acaname = ?, telephone2 = ?, telephone3 =?
-			WHERE id = ?
-	
+	<!-- 정보 수정  -->
+	<update id="AcaInfoRegiEdit" >
+		UPDATE members SET 
+			address = #{param1}, detailaddress = #{param2}, acaname = #{param3}, telephone1=#{param4}, telephone2 = #{param5}, telephone3 =#{param6}
+			WHERE id = #{param7}
 	</update>
+	
 	<update id="AcaInfoRegiEdit2">
-		UPDATE acaintroduce SET introduce=?, category=?, acaintrophoto=?
-			where id = ? 
-	</update> -->
+		UPDATE acaintroduce SET introduce=#{param1}, category=#{param2}, acaintrophoto=#{param3,jdbcType=VARCHAR}
+			where id = #{param4} 
+	</update>
 	
 	<!-- 강사정보  -->
-<!-- 	<select id="TeacherList" resultType="mybatis01.AcaTeacherDTO">
+	<select id="TeacherList" resultType="mybatis01.AcaTeacherDTO">
 		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id
 			FROM members m inner join AcaTeacher a
 				on m.id = a.id
-			WHERE teaidx = #{TeaIdx}
+			WHERE a.id = #{id}
 	</select>
 	
-	<insert id="TeacherRegi2">
+	<insert id="TeacherRegi">
 		INSERT INTO (teaidx, teaimage, teaname, teaintro, subject)
 		VALUES (acaTeacher_seq.NEXTVAL,#{param1}, {#param2}, #{param3}, #{param4})
 		WHERE id = #{id}
-	</insert> -->
+	</insert>
 	
 	<!-- 강의정보  -->
 <!-- 	<select id="ClassList" resultType="dto.AcaClassDTO">

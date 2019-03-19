@@ -5,6 +5,7 @@ public class AcaiIntroduceDTO {
 	private String category;
 	private String id;
 	private String introduce;
+	
 	public AcaiIntroduceDTO(String acaintrophoto, String category, String id, String introduce) {
 		super();
 		this.acaintrophoto = acaintrophoto;
