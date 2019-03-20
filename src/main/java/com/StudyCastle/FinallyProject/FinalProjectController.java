@@ -93,8 +93,7 @@ public class FinalProjectController {
 		if(membersDTO==null) {
 			//로그인실패
 			
-			if(!(membersDTO.getId().equals("id")
-				|| membersDTO.getPass().equals("pass"))) {
+			if(!(membersDTO.getId().equals("id") || membersDTO.getPass().equals("pass"))) {
 
 				req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
 			}
@@ -121,7 +120,8 @@ public class FinalProjectController {
 	public String list(Model model,HttpSession session, HttpServletRequest req) {
 	
 	String cateB = req.getParameter("cateB");
-	model.addAttribute("cateB",cateB);
+	System.out.println("카테고리="+cateB);
+	
 		
 		
 	/* 학원 평점 들고오기 s	*/
@@ -129,6 +129,7 @@ public class FinalProjectController {
 	/* 학원 평점 들고오기 e	*/
 	/* 검색처리 s*/ 
 	ParamDTO paramDTO = new ParamDTO();
+	paramDTO.setCateB(cateB);
 	String addQueryString = "";
 	String keyField = req.getParameter("keyField");				
 	String keyString = req.getParameter("keyString");
@@ -167,11 +168,11 @@ public class FinalProjectController {
 	paramDTO.setEnd(end);
 	System.out.println("11111111111111111111111111111");
 	ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaList(paramDTO);
-	
+	System.out.println("카테고리="+cateB);
 	//페이지 처리를 위한 처리부분
 	String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
 			pageSize, blockPage, nowPage,
-			req.getContextPath()+"/catle/list.do?"+addQueryString);
+			req.getContextPath()+"/catle/list.do?"+addQueryString+"cateB="+cateB+"&");
 	model.addAttribute("pagingImg", pagingImg);
 	System.out.println("11111111111111111111111111111");
 	//줄바꿈처리
@@ -189,8 +190,10 @@ public class FinalProjectController {
 	req.setAttribute("score", checkMap);
 	/* 별점처리를 위한 부분 e */
 	model.addAttribute("acaList", acaList);
+	model.addAttribute("cateB",cateB);
 		return "01Main/list";
 	}
+	
 /////////////////////////////////////////////////////////////////////////
 	//학원정보 등록 창 바로가기
 	@RequestMapping("/catle/updateAcademyInfo.do")
@@ -205,7 +208,7 @@ public class FinalProjectController {
 			HttpServletRequest req) {
 		
 	String acaIdx=req.getParameter("acaIdx");
-	System.out.println("상세보기로 넘어갈 학원 번호="+acaIdx);
+	System.out.println("상세보기로 넘어갈 학원 번호="+acaIdx+"&");
 	/* 학원 댓글 가져오기 s */
 	//검색처리
 		ParamDTO paramDTO = new ParamDTO();
@@ -373,10 +376,10 @@ public class FinalProjectController {
 		ReviewWriteDTO reviewModify = sqlSession.getMapper(AcademyInfoImpl.class).reviewModify(idx);
 
 		String str ="         <form name=\"writeFrm\" id=\"editF\" method=\"post\" \r\n" + 
-				//"				onsubmit=\"return writeValidate(this);\"\r\n" + 
+			
 				"				action=\"../mybatis/modifyAction.do\" >"+
 				"                <div class=\"media\" style=\" padding: 0px 30px 10px 43px;margin-bottom: 80px;\">\r\n" + 
-				//"                  <input type=\"hidden\" name=\"acaidx\" value=\"${dto.idx }\"/>\r\n" + 
+				
 				"                  \r\n" + 
 				"                  <a class=\"media-left\" href=\"#\" style=\"width:80px;height:80px;margin-top: 4%\">\r\n" + 
 				"                    <img src=\"http://lorempixel.com/40/40/people/1/\" style=\"width:100%;height:100%;\">\r\n" + 
@@ -399,12 +402,11 @@ public class FinalProjectController {
 				"                    <div style=\"width:100%;height: 100%;\">\r\n" + 
 				"                    <textarea rows=\"10\" class=\"form-control\" style=\"width:100%;height: 100%\" name=\"reviewContents\">"+reviewModify.getReviewcontents()+"</textarea>\r\n" + 
 				"                    </div>\r\n" + 
-				//"                    <p><small><button type=\"submit\" style=\"border:none\" >수정하기</button> - <a href=\"\">돌아가기</a></small></p>\r\n" + 
+			
 				"                    <p><small><a onclick=\"writeValidate2();\" style=\"cursor:pointer;color:#839997;\">수정하기</a> - <a href=\"\">돌아가기</a></small></p>\r\n" + 
 				"                  </div>\r\n" + 
 				"                  <p class=\"pull-right\" ><small></small></p>\r\n" + 
-				//"                  <button type=\"submit\" class=\"btn btn-danger\" style=\"margin-top: 5%;margin-left: 2%;\">\r\n" + 
-				//"                  후기작성</button>\r\n" + 
+				
 				"                </div> "+
 				"               </form> ";
 		resp.setCharacterEncoding("UTF-8");
@@ -504,7 +506,7 @@ public class FinalProjectController {
 	System.out.println("111111111111111111111111111111111111");
 	if(session.getAttribute("USER_ID")==null){
 		
-		return "redirect:login.do";
+		return "redirect:Login.do";
 	}
 	//결제한 수강정보 가져오기
 	String item_number = req.getParameter("item_number");
@@ -547,11 +549,110 @@ public class FinalProjectController {
 	@RequestMapping("catle/memberMyPage.do")
 	public String memberMyPage(Model model, HttpServletRequest req, HttpSession session) {
 		//세션 아이디 들고오기
+		if(session.getAttribute("USER_ID")==null){
+			
+			return "redirect:Login.do";
+		}
+		String msg=req.getParameter("msg");
 		String user_id=(String) session.getAttribute("USER_ID");
 		System.out.println(user_id);
-		ArrayList<ClassInfoDTO> dto =sqlSession.getMapper(MypageImpl.class).myclass(user_id);
-		model.addAttribute("myClass",dto);
+		ParamDTO paramDTO = new ParamDTO();
+		String addQueryString = "";
+		String keyField = req.getParameter("keyField");				
+		String keyString = req.getParameter("keyString");
+		System.out.println("keyField"+keyField);
+		System.out.println("keyString"+keyString);
+		if(keyString!=null){
+			addQueryString = String.format("keyField=%s"
+				+"&keyString=%s&", keyField, keyString);
+
+			paramDTO.setKeyField(keyField);
+			paramDTO.setKeyString(keyString);
+		}
+		System.out.println("1111111111111111111111111111111111111111");
+		paramDTO.setUser_id(user_id);
+		int totalRecordCount = sqlSession.getMapper(MypageImpl.class).getTotalCountSearch(paramDTO);
+		//검색어에 따른 레코드 갯수 확인용 
+		System.out.println("totalRecordCount="+ totalRecordCount);
+		
+		//페이지 처리를 위한 설정값
+		int pageSize = 4;
+		int blockPage = 2;
+		
+		//전체페이지수계산하기
+		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+
+		//시작 및 끝 rownum 구하기
+		int nowPage = req.getParameter("nowPage")==null ? 1 :
+			Integer.parseInt(req.getParameter("nowPage"));
+		int start = (nowPage-1) * pageSize + 1;
+		int end = nowPage * pageSize;
+
+		//검색처리위한 추가부분
+		paramDTO.setStart(start);
+		paramDTO.setEnd(end);
+		//수강신청한 강의정보 들고오기
+		System.out.println("1111111111111111111111111111111111111111");
+		ArrayList<ClassInfoDTO> classIntroDTO =sqlSession.getMapper(MypageImpl.class).myclass(paramDTO);
+		
+		System.out.println("1111111111111111111111111111111111111111");
+		
+		System.out.println("1111111111111111111111111111111111111111");
+		MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
+		int virtualNum = 0;
+		int countNum = 0;
+		for(ClassInfoDTO dto : classIntroDTO)
+		{
+			
+			
+			virtualNum = totalRecordCount
+				- (((nowPage-1)*pageSize) + countNum++);
+			dto.setSetVirtualNum(virtualNum);
+			
+			String startD = dto.getAcastartdate().substring(0,10);
+			String endD = dto.getAcaenddate().substring(0,10);
+			String startT = dto.getAcastarttime().substring(10,16);
+			String endT = dto.getAcaendtime().substring(10,16);
+			
+			dto.setAcastartdate(startD);
+			dto.setAcaenddate(endD);
+			dto.setAcastarttime(startT);
+			dto.setAcaendtime(endT);
+		}
+		//페이지 처리를 위한 처리부분
+		String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+				pageSize, blockPage, nowPage,
+				req.getContextPath()+"/catle/memberMyPage.do?"+addQueryString);
+		model.addAttribute("pagingImg", pagingImg);
+		//회원정보 가져오기
+		model.addAttribute("myClass",classIntroDTO);
+		model.addAttribute("memberInfo",memberInfo);
+		model.addAttribute("pagingImg",pagingImg);
+		
+		model.addAttribute("msg",msg);
 		return "01Main/memberMyPage";
+	}
+	/* 비밀번호 검증 */
+	@RequestMapping("catle/passConfirm.do")
+	public String passConfirm(Model model, HttpServletRequest req, HttpSession session) {
+		
+		String pass=req.getParameter("pass");
+		String id=(String) session.getAttribute("USER_ID");
+		System.out.println("pass="+pass);
+		System.out.println("id="+id);
+		
+		String DTOpass =sqlSession.getMapper(MypageImpl.class).passConfirm(id);
+		System.out.println("1111111111111111111111111111111111111111111");
+		if(!DTOpass.equals(null) && DTOpass.equals(pass)) {
+			System.out.println("1111111111111111111111111111111111111111111");
+			return "redirect:MemberModifyP.do";
+		}
+
+		System.out.println("22222222222222222222222222222222222222222");
+		String msg = "비밀번호가 일치하지 않습니다.";
+		model.addAttribute("msg",msg);
+		return "redirect:memberMyPage.do";
+		
 	}
 }
 

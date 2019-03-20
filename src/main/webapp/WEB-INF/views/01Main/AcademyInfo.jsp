@@ -59,34 +59,118 @@
   <link href="../resources/css/grayscale.min.css" rel="stylesheet">
 
 </head>
-
+  <%-- <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>  --%>
 <body id="page-top">
 
+
   <!-- Nav Bar -->
-  <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
+
   <!-- Nav Bar -->
   <!-- Header -->
 
 
-
+	
 
 
 
 <!-- 학원 정보 등록 페이지  s -->
 <section id="mainImage" class="about-section text-center" style="padding-bottom:5%;background-image: url('../resources/img/bg-signup.jpg');">
-<div  class="container "style="background-color: white;margin-top: 0px;border-radius:5px;height:auto;padding-bottom: 30px;width:auto;">
-	<div class="tab" style="padding: 3% 30px 5% 30px;">
-	  <a class="tablinks" href="#info01">카테고리</a>
-	  <a class="tablinks" href="#info02">캐슬이름</a>
-	  <a class="tablinks" href="#info03">캐슬번호</a>
-	  <a class="tablinks" href="#info04">캐슬위치</a>
-	  <a class="tablinks" href="#info05">캐슬소개</a>
-	  <a class="tablinks" href="#info06">강사진</a>
-	  <a class="tablinks" href="#info07">오시는길</a>
-	  <a class="tablinks" href="#info08">수강신청</a>
-	  <a class="tablinks" href="#info09">캐슬링후기</a>
-	  
+
+<div  class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;">
+
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:auto;">
+    <div class="container">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+	<div class="tab" style="padding: -10% 30px 0% 30px;">
+	<div style="padding-top: -53%;text-align: right;">
+		<ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="main.do">메인으로</a>
+          </li>
+  
+<% if(session.getAttribute("USER_ID")==null){ %> 
+      <!-- 로그인전 -->
+          <li class="nav-item">
+
+           <a class="nav-link js-scroll-trigger"  href="Login.do" style="cursor: pointer;">로그인</a>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="registGroup.do">회원가입</a>
+          </li>
+
+<% }else if(Integer.parseInt(session.getAttribute("GRADE").toString())==2){ %>
+<%-- <%} else if(session.getAttribute("USER_ID")==null){ %> --%> 
+      <!--기업 회원 로그인후 -->
+      	 <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="MemberModifyP.do">학원기본정보 수정</a>
+         </li>
+         <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="acaInfoRegiEdit.do">학원부가정보 등록 및 수정</a>
+         </li>
+         <li class="nav-item">
+            <p  class="nav-link js-scroll-trigger"><%=session.getAttribute("USER_ID")%>님</p>
+         </li>
+         
+         <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="Logout.do">로그아웃</a>
+         </li>
+<% }else { %>
+      <!--개인 회원 로그인후 -->
+      <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="MemberModifyP.do">회원정보수정</a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="memberMyPage.do">마이페이지</a>
+          </li>
+          <li class="nav-item">
+            <p  class="nav-link js-scroll-trigger"><%=session.getAttribute("USER_ID")%>님</p>
+         </li>
+         
+         <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="Logout.do">로그아웃</a>
+         </li>
+<% } %>         
+          
+        </ul>
 	</div>
+<% if(session.getAttribute("USER_ID")==null){ %> 
+	 <ul class="navbar-nav ml-auto" style="margin-top: -4%">
+		
+
+          <li class="nav-item">
+		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info05">캐슬소개</a></li>
+		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info06">강사진</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
+		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info09">캐슬링후기</a></li>
+     </ul>
+<% }else { %>
+	 <ul class="navbar-nav ml-auto" style="margin-top: -11%">
+		
+
+          <li class="nav-item">
+		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info05">캐슬소개</a></li>
+		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info06">강사진</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
+		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info09">캐슬링후기</a></li>
+     </ul>
+<% } %>   
+	</div>
+	</div>
+	</nav>
 	<table class="table table-bordered" >
 		<colgroup>
 			<col width="200px"/>
@@ -285,7 +369,7 @@
                   </a>
                   
                   <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
-                      <input type="hidden" name="memberId" value="acamember1"/>
+                      <input type="hidden" name="memberId" value="${user_id }"/>
                       <span class="media-heading user_name">${user_id }</span>
                       <select class="form-control" name="acaScore">			
 							<option value="0">별점 매기기</option>
@@ -302,7 +386,7 @@
                     <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
                   </div>
                   <p class="pull-right" ><small></small></p>
-                  <button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;">
+                  <button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">
                   후기작성</button>
                 </div>
                 
@@ -315,7 +399,7 @@
             <!-- 학원 후기 댓글 폼 -->	
 		
 	</table>
-		<a href="#info01"><button type = "button"  class="btn btn-info" style="margin:10px;width:auto;height:auto;vertical-align: middle;">위로가기</button></a>
+		<a href="#info01"><button type = "button"  class="btn btn-info" style="margin:10px;width:auto;height:auto;vertical-align: middle;background-color: #699F9B">위로가기</button></a>
 	<!-- Tab content
 	<div id="London" class="tabcontent">
 	  <h3>London</h3>

@@ -22,6 +22,15 @@ public class MembersDTO {
 	private String detailAddress;//학원상세주소(학원회원만)
 	private String interest;	//관심사(일반회원만) 
 	private String acaName;		//학원명(학원회원만
+	
+	//App이용으로 인한 추가내용
+	private String introduce;
+	private String category;
+	private String acaIntroPhoto;
+	private double score;
+	
+	
+	
 	//기본생성자
 	public MembersDTO() {}
 	//인자생성자
@@ -155,6 +164,30 @@ public class MembersDTO {
 	}
 	public void setAcaName(String acaName) {
 		this.acaName = acaName;
+	}
+	public String getIntroduce() {
+		return introduce;
+	}
+	public void setIntroduce(String introduce) {
+		this.introduce = introduce;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getAcaIntroPhoto() {
+		return acaIntroPhoto;
+	}
+	public void setAcaIntroPhoto(String acaIntroPhoto) {
+		this.acaIntroPhoto = acaIntroPhoto;
+	}
+	public double getScore() {
+		return score;
+	}
+	public void setScore(double score) {
+		this.score = score;
 	}
 	
 }

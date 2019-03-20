@@ -59,7 +59,8 @@ $(function(){
 				<div class="input-group">
 					<input type="text" name="keyString"  class="form-control" />
 					<div class="input-group-btn">
-						<button type="submit" class="btn btn-info" style="height: 20px;margin-top: -1%;padding-top: -20%;border: #CED4DA 1px;" >검색
+						<button type="submit" class="btn btn-info" style="height: 20px;margin-top: -1%;padding-top: -20%;border: #CED4DA 1px;background-color: #699F9B" >
+						<div style="margin-top: -15%">검색하기</div>
 						</button>
 					</div>
 				</div>
