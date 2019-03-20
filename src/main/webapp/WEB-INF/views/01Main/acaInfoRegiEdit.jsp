@@ -25,6 +25,7 @@
   <link href="../resources/css/grayscale.min.css" rel="stylesheet">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
 <style>
     #vtab {
         margin: auto;
@@ -96,6 +97,27 @@ $(function(){
 		$('#telephone3').val($('#telephone3').val().replace(/ /g, ''));
 	});
 });
+
+$(document).ready( function() {
+	  
+    $("input[type=file]").change(function () {
+          
+        var fileInput = document.getElementById("fileup");
+        var files = fileInput.files;
+        var file;
+        for (var i = 0; i <files.length; i++) {
+    		if(i > 6){
+    			alert("사진은 최대 6개까지 등록가능합니다.");
+    			document.getElementById("fileup").value = "";
+    		    return;
+    		}
+    		else{
+    			file = files[i];
+    		}
+        }  
+    });
+});
+
 </script>
 <script>
 //공백제거
@@ -159,76 +181,82 @@ function introValidate(f) {
 	}
 	
 }
-function teaRegiValidate(f) {
-	 
-	var fileCheck = document.getElementById("teaimage").value;
-	 
-	if(!fileCheck){
+
+function teaRegiValidate(t) {
+	
+	var t = document.teachFrm;
+	
+	if(t.teaimage.value==""){
 		alert("강사사진을 첨부해 주세요");
 		return false;
 	}	
-	if(f.teaName.value==""){
+	
+	if(t.teaname.value==""){
 		alert("강사이름을 입력해주세요");
-		f.teaName.focus();
+		t.teaname.focus();
 		return false;
 	}
-	if(f.teaInfo.value.length==0){
+	
+	if(t.teaintro.value.length==0){
 		alert("강사 소개를 입력해주세요");
-		f.teaInfo.focus();
+		t.teaintro.focus();
 		return false;
 	}
-	if(f.subject.value==""){
+	
+	if(t.subject.value==""){
 		alert("강사담당 과목을 입력해주세요");
-		f.subject.focus();
+		t.subject.focus();
 		return false;
 	}
 
 }
-function classRegiValidate(f) {
-	if(f.acaStartdate.value==""){
+
+function classRegiValidate(c) {
+	
+	var c = document.classFrm
+	
+	if(c.acastartdate.value==""){
 		alert("강의시작일자를 입력해주세요");
 		return false;
 	}
-	if(f.acaEnddate.value==""){
+	if(c.acaenddate.value==""){
 		alert("강의종료일자를 등록해주세요");
 		return false;
 	}
-	if(f.acaStartTime.value==""){
+	if(c.acastarttime.value==""){
 		alert("강의시작시간을 입력해주세요");
 		return false;
 	}
-	if(f.acaEnddate.value==""){
+	
+	if(c.acaendtime.value==""){
 		alert("강의종료시간을 등록해주세요");
 		return false;
 	}
-	if(f.acaDay.value==""){
+	
+	if(c.acaday.value==""){
 		alert("강의요일을 입력해주세요");
-		f.acaDay.focus();
+		c.acaday.focus();
 		return false;
 	}
-	if(f.acaClassName.value==""){
+	if(c.acaclassname.value==""){
 		alert("강의명을 입력해주세요");
-		f.acaClassName.focus();
+		c.acaclassname.focus();
 		return false;
 	}
-	if(f.teaName.value==""){
+	if(c.teaidx.value==""){
 		alert("강사명을 입력해주세요");
-		f.teaInfo.focus();
+		c.teaidx.focus();
 		return false;
 	}
-	if(f.subject.value==""){
-		alert("강사담당 과목을 입력해주세요");
-		f.subject.focus();
-		return false;
-	}
-	if(f.pay.value==""){
+	
+	if(c.pay.value==""){
 		alert("수강료를 입력해주세요");
-		f.pay.focus();
+		c.pay.focus();
 		return false;
 	}
-	if(f.NumberOfParticipants.value==""){
+	if(c.numberofparticipants.value==""){
 		alert("수강인원을 입력해주세요");
-		f.NumberOfParticipants.focus();
+		c.numberofparticipants.focus();
 		return false;
 	}
 }
@@ -262,7 +290,7 @@ function classRegiValidate(f) {
 				<tr>
 					<th>학원사진</th>
 					<td>
-						<input type="file" name="acaIntroPhoto" value="${RegiEditdto.acaIntroPhoto }" multiple="multiple"/>
+						<input type="file" id="fileup" name="acaintrophoto" value="${RegiEditdto.acaintrophoto }" multiple="multiple" />
 					</td>
 				</tr>
 			</tbody>	
@@ -297,7 +325,7 @@ function classRegiValidate(f) {
 						<td >
 							<c:if test="${!empty categorytList}">
 							  <select id="categoryBox" style="width:80px;" onchange="document.getElementById('category').value= this.options[this.selectedIndex].value">					
-							     <c:forEach var="categorytList" items="${categorytList }" >			
+							     <c:forEach var="categorytList" items="${categorytList }" >		
 							        <option value="${categorytList.maincategory  }">${categorytList.maincategory }</option>
 							     </c:forEach>
 							  </select>
@@ -326,6 +354,7 @@ function classRegiValidate(f) {
 				<col width="20%;"/>
 				<col width="30%;"/>
 				<col width="30%;"/>
+				<col width="20%;"/>
 			</colgroup>
 				
 			<thead>
@@ -352,10 +381,11 @@ function classRegiValidate(f) {
 								${loop.index+1 }					
 							</td>
 							<td class="text-center">
-								<a href="./02sub/teacherEdit.do?teaidx=${row.teaidx }" 
-								onClick="window.open(this.href, '', 'width=400, height=430'); return false;">${row.teaname } </a>
+								${row.teaname }
 							</td>
 							<td class="text-center">${row.subject }</td>
+							<td><a href="./02sub/teacherEdit.do?teaidx=${row.teaidx }" 
+								onClick="window.open(this.href, '', 'width=400, height=430'); return false;">수정</a></td>
 						</tr>
 					</c:forEach>
 				</c:otherwise>
@@ -363,7 +393,7 @@ function classRegiValidate(f) {
 			</tbody>	
 			</table>		
 			<!-- 강사정보추가  -->
-			<form name="teachFrm" action="teaInfoInsert.do" method="post" enctype="multipart/form-data" onsubmit="return teaRegiValidate(this)">
+			<form name="teachFrm" action="teaInfoInsert.do" method="post" onsubmit="return teaRegiValidate(this)">
 				<div>
 					<hr />
 					<table class="table" style="width:100%; background-color: #EEEEEE;">
@@ -398,10 +428,11 @@ function classRegiValidate(f) {
    		<div style=" border-color: #EEEEEE; background-color: #EEEEEE;">
        		<table class="table" style="width: 100%; background-color: #ffffff;">
 		        <colgroup>
-					<col width="10%"/>
-					<col width="30%"/>
-					<col width="25%"/>
-					<col width="25%"/>
+					<col width="8%"/>
+					<col width="28%"/>
+					<col width="22%"/>
+					<col width="22%"/>
+					<col width="8%"/>
 					<col width="10%"/>
 				</colgroup>
 					
@@ -412,6 +443,7 @@ function classRegiValidate(f) {
 						<th class="text-center">강사명</th>
 						<th class="text-center">강의일자</th>
 						<th class="text-center">인원</th>
+						<th class="text-center"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -430,12 +462,13 @@ function classRegiValidate(f) {
 									${loop.index+1 }					
 								</td>
 								<td class="text-center">
-									<a href="./02acaRegiForm/classInfoView.do?teaidx=${row.teaidx }" 
-									onClick="window.open(this.href, '', 'width=400, height=430'); return false;">${row.acaclassname } </a>
+									${row.acaclassname }
 								</td>
 								<td class="text-center">${row.teaname }</td>
-								<td class="text-center">${row.acastartdate } ~ ${row.acaenddate }</td>
+								<td class="text-center">${row.startd } ~ ${row.endd }</td>
 								<td class="text-center">${row.numberofparticipants }</td>
+								<td class="text-center"><a href="./02sub/classEdit.do?classidx=${row.classidx }" 
+								onClick="window.open(this.href, '', 'width=400, height=430'); return false;">수정</a></td>
 							</tr>
 						</c:forEach>
 					</c:otherwise>
@@ -443,7 +476,7 @@ function classRegiValidate(f) {
 				</tbody>	
 			</table>		
          	<hr />
-            <form name="classFrm" action="classInsertAction.do" method="post" onsubmit="return classRegiValidate(this)">
+            <form name="classFrm" action="classInfoInsert.do" method="post" onsubmit="return classRegiValidate(this)">
           	 <div>
 	     		<table class="table" style="width:100%; background-color: #EEEEEE;">
 	              <colgroup>
@@ -458,7 +491,7 @@ function classRegiValidate(f) {
 	              <tr>
 	                 <td>강의일자 : <input type="date" name="acastartdate"/>~<input type="date" name="acaenddate"/> <br />
                   강의요일 : 
-                  <select name="acaday">
+                  <select name="acaday" size="2" multiple="multiple" style="width:100px;" >
                   	<option value="월요일">월</option>
                   	<option value="화요일">화</option>
                   	<option value="수요일">수</option>
@@ -468,9 +501,19 @@ function classRegiValidate(f) {
                   	<option value="일요일">일</option>
                   </select>
                   </td>
-	                 <td colspan="2">강의명 : <input type="text" name="acaclassname"/><br /><br />강사명: <input type="text" name="teaname" style="width: 100px;"/></td>
+	                 <td colspan="2">강의명 : <input type="text" name="acaclassname"/><br /><br />
+	                 강사명: <c:if test="${!empty tealists}">
+							  <select style="width:80px;" onchange="document.getElementById('teaName').value= this.options[this.selectedIndex].value">					
+							     	<option value="">선택</option>
+							     <c:forEach var="tealists" items="${tealists }" >		
+							        <option value="${tealists.teaidx  }">${tealists.teaname }</option>
+							     </c:forEach>
+							  </select>
+							</c:if>
+							<input type="hid den" name="teaidx" id="teaName" value=""/>  
+					</td>
 	                 <td rowspan="2" style="text-align: center;vertical-align: middle">
-	                 <button type="button" id="timeTab" onclick="classRegiValidate(this);">등록</button> </td>
+	                 <button type="submit" onclick="classRegiValidate(this);">등록</button> </td>
 	              </tr>
 	              <tr>
 	                 <td>강의시간 : <br /> <input type="time" name="acastarttime" /> ~ <input type="time" name="acaendtime" /></td>

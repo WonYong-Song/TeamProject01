@@ -15,7 +15,7 @@ public class AcaInfoRegiEditDTO {
 	//학원소개
 	private	String introduce;
 	private String category;
-	private String acaIntroPhoto;
+	private String acaintrophoto;
 	
 	public AcaInfoRegiEditDTO() {}
 
@@ -23,7 +23,7 @@ public class AcaInfoRegiEditDTO {
 
 	public AcaInfoRegiEditDTO(String id, int idx, String grade, String telephone1,
 			String address, String detailaddress, String acaname, String telephone2, String telephone3,
-			String introduce, String category, String acaIntroPhoto) {
+			String introduce, String category, String acaintrophoto) {
 		this.id = id;
 		this.idx = idx;
 		this.grade = grade;
@@ -35,7 +35,7 @@ public class AcaInfoRegiEditDTO {
 		this.telephone3 = telephone3;
 		this.introduce = introduce;
 		this.category = category;
-		this.acaIntroPhoto = acaIntroPhoto;
+		this.acaintrophoto = acaintrophoto;
 	}
 
 
@@ -128,11 +128,11 @@ public class AcaInfoRegiEditDTO {
 		this.category = category;
 	}
 
-	public String getAcaIntroPhoto() {
-		return acaIntroPhoto;
+	public String getAcaintrophoto() {
+		return acaintrophoto;
 	}
 
-	public void setAcaIntroPhoto(String acaIntroPhoto) {
-		this.acaIntroPhoto = acaIntroPhoto;
+	public void setAcaintrophoto(String acaintrophoto) {
+		this.acaintrophoto = acaintrophoto;
 	}
 }

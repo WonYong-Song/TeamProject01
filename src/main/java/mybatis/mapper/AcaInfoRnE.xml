@@ -9,11 +9,12 @@
 	<!-- 학원부가정보 -->
 	<select id="AcaInfoLoad" resultType="dto.AcaInfoRegiEditDTO">
 		SELECT m.id, idx, grade, telephone1, address, detailaddress, acaname, telephone2, telephone3,
-					a.id,introduce, category, acaIntroPhoto
+					a.id,introduce, category, acaintrophoto
 		FROM members m inner join AcaIntroduce a
 		    on m.id=a.id
 		WHERE a.id=#{id}
 	</select>
+	
 	<!-- 카테고리 불러오기  -->
 	<select id="categorySelect" resultType="dto.CategoryDTO">
 		SELECT DISTINCT maincategory FROM category 
@@ -32,6 +33,8 @@
 			where id = #{param4} 
 	</update>
 	
+	
+	
 	<!-- 강사정보  -->
 	<select id="TeacherList" resultType="mybatis01.AcaTeacherDTO">
 		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id
@@ -39,29 +42,30 @@
 				on m.id = a.id
 			WHERE a.id = #{id}
 	</select>
-	
 	<insert id="TeacherRegi">
-		INSERT INTO (teaidx, teaimage, teaname, teaintro, subject)
-		VALUES (acaTeacher_seq.NEXTVAL,#{param1}, {#param2}, #{param3}, #{param4})
-		WHERE id = #{id}
+		INSERT INTO acateacher (teaidx, teaimage, teaname, teaintro, subject, id)
+		VALUES (ACATEACHER_SEQ.NEXTVAL,#{param1}, #{param2}, #{param3}, #{param4}, #{param5})
 	</insert>
 	
 	<!-- 강의정보  -->
-<!-- 	<select id="ClassList" resultType="dto.AcaClassDTO">
-		SELECT T.TeaIdx, acaStartDate, acaEndDate, acaDay, acaStartTime, acaEndTime, acaClassName;
-			 NumberOfParticipants, classIdx, C.TeaIdx;
-			FROM AcaTeacher T inner join AcaClass C
-				on T.TeaIdx = C.TeaIdx
-			WHERE Classidx = #{ClassIdx}
+	<select id="ClassList" resultType="dto.AcaClassDTO">
+		SELECT m.id,t.id, t.teaidx,to_char(acastartdate, 'yy-mm-dd') as startd, to_char(acaenddate, 'yy-mm-dd') as endd, acaday, acastarttime, acaendtime, acaclassname, pay, numberofparticipants, classidx, c.teaidx, t.teaname
+			FROM
+				members m inner join AcaTeacher t
+					on m.id = t.id 
+				inner join acaclass c
+					on c.teaidx = t.teaidx
+			WHERE t.id = #{id}
 	</select>
 	
-	<insert id="TeacherRegi2">
-		INSERT INTO (classidx, acaStartDate, acaEndDate, acaDay, acaStartTime, acaEndTime, acaClassName;
-			 NumberOfParticipants)
-		VALUES (acaTeacher_seq.NEXTVAL,#{param1}, {#param2}, #{param3}, #{param4},
-				#{param5}, {#param6}, #{param7})
-		WHERE teaidx = #{TeaIdx}
-	</insert> -->
+	<insert id="ClassRegi">
+		INSERT INTO acaclass (classidx, acastartdate, acaenddate, acaday, 
+								acastarttime,  acaendtime, acaclassname, pay, 
+								numberofparticipants, teaidx)
+		VALUES (acaTeacher_seq.NEXTVAL, to_date(#{param1},'yyyy-MM-dd'), to_date(#{param2},'yyyy-MM-dd'), 
+				#{param3}, to_date(#{param4},'hh24:mi'),
+				to_date(#{param5},'hh24:mi'), #{param6}, to_number(#{param7}), to_number(#{param8}), to_number(#{param9}))
+	</insert>
 
 	
 </mapper>

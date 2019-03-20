@@ -1,11 +1,17 @@
 package com.StudyCastle.FinallyProject;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +22,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import dto.AcaClassDTO;
 import dto.AcaInfoRegiEditDTO;
@@ -23,6 +31,7 @@ import dto.CategoryDTO;
 import impl.AcademyInfoImpl;
 import impl.AcademyInfoRegiEditImpl;
 import mybatis01.AcaTeacherDTO;
+import mybatis01.ClassInfoDTO;
 
 @Controller
 public class AcademyRegistEditContoller {
@@ -47,18 +56,20 @@ public class AcademyRegistEditContoller {
 		//등록된 강사 정보 불러오기
 		ArrayList<AcaTeacherDTO> tealists = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).TeacherList(id);
 		model.addAttribute("tealists",tealists);
+		System.out.println("tealists: "+ tealists);
 		
-		/*//등록된 강의 정보 불러오기
-		String teaIdx = req.getParameter("TeaIdx");
-		ArrayList<AcaClassDTO> classlists = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassList(teaIdx);
-		model.addAttribute("classlists",classlists);*/
+		
+		//등록된 강의 정보 불러오기
+		ArrayList<AcaClassDTO> classlists = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassList(id);
+		model.addAttribute("classlists",classlists);
+		System.out.println("classlists: "+ classlists);
 		
 		return "01Main/acaInfoRegiEdit";
 		
 	}
 	
 	@RequestMapping("/catle/AcaInfoUpdate.do")
-	public String AcaInfoUpdate(Model model, HttpSession session, HttpServletRequest req) throws UnsupportedEncodingException {
+	public String AcaInfoUpdate(Model model, HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
 		
 		String id = (String) session.getAttribute("USER_ID");
 		
@@ -72,56 +83,72 @@ public class AcademyRegistEditContoller {
 		String telephone3 = req.getParameter("telephone3");
 		String introduce = req.getParameter("introduce");
 		String category = req.getParameter("category");
-		String acaIntroPhoto = req.getParameter("acaIntroPhoto");
-		
-		System.out.println("acaIntroPhoto"+acaIntroPhoto);
+		String acaintrophoto = req.getParameter("acaintrophoto");		
+        
+		System.out.println("acaintrophoto"+acaintrophoto);
 		System.out.println("telephone1"+telephone2);
 		System.out.println("introduce"+introduce);
 		System.out.println("id"+id);
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit(address,detailaddress,acaname,telephone1,telephone2,telephone3,id);
-		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit2(introduce,category,acaIntroPhoto,id);
-		
-		
-		
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit2(introduce,category,acaintrophoto,id);
+  
 		return "redirect:acaInfoRegiEdit.do"; 
 	}
 	
+	//강사정보 입력
 	@RequestMapping("/catle/teaInfoInsert.do")
-	public String teaInfoInsert(Model model, HttpSession session, HttpServletRequest req) {
+	public String teaInfoInsert(Model model, HttpSession session, HttpServletRequest req) throws UnsupportedEncodingException {
 		
-		String subject = req.getParameter("subject");
+		req.setCharacterEncoding("UTF-8");
+		String id = (String) session.getAttribute("USER_ID");
 		String teaimage = req.getParameter("teaimage");
-		String teaintro = req.getParameter("teaintro");
 		String teaname = req.getParameter("teaname");
-		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).TeacherRegi(subject, teaimage, teaintro,teaname);
+		String teaintro = req.getParameter("teaintro");
+		String subject = req.getParameter("subject");
+		
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).TeacherRegi(teaimage, teaname, teaintro, subject, id);
 		
 		return "redirect:acaInfoRegiEdit.do";
 	}
 	
-	/*@RequestMapping("/catle/classInfoInsert.do")
+	//강의정보 입력
+	@RequestMapping("/catle/classInfoInsert.do")
 	public String classInfoInsert(Model model, HttpSession session, HttpServletRequest req) {
-		int teaIdx= Integer.parseInt("teaIdx");
 		
-		DateFormat d = new SimpleDateFormat("yy/MM/dd");
-		DateFormat t = new SimpleDateFormat("hh:mm");
 		
-		String acaStartDate = d.format("acaStartDate");
-		String acaEndDate = d.format("acaEndDate");
-		String acaDay = req.getParameter("acaDay");
-		String acaStartTime = t.format("acaStartTime");
-		String acaEndTime =  t.format("acaEndTime");
-		String acaClassName = req.getParameter("acaClassName");
-		int NumberOfParticipants = Integer.parseInt("NumberOfParticipants");
-		String subject = req.getParameter("subject");
-		String teaimage = req.getParameter("teaimage");
-		String teaintro = req.getParameter("teaintro");
-		String teaname = req.getParameter("teaname");
-		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassRegi(acaStartDate,acaEndDate,
-																acaDay,acaStartTime,acaEndTime,acaClassName,
-																NumberOfParticipants,subject,teaimage,teaintro,teaname);
+		
+		String teaidx = req.getParameter("teaidx");
+		System.out.println(teaidx);
+	
+		String acastartdate = req.getParameter("acastartdate");
+		System.out.println(acastartdate);
+		
+		String acaenddate = req.getParameter("acaenddate");
+		System.out.println(acaenddate);
+		
+		String acaday = req.getParameter("acaday");
+		System.out.println(acaday);
+		
+		String acastarttime =  req.getParameter("acastarttime");
+		System.out.println(acastarttime);
+		
+		String acaendtime =   req.getParameter("acaendtime");
+		System.out.println(acaendtime);
+		
+		String acaclassname = req.getParameter("acaclassname");
+		System.out.println(acaclassname);
+		
+		String pay = req.getParameter("pay");
+		System.out.println(pay);
+		
+		String numberofparticipants = req.getParameter("numberofparticipants");
+		System.out.println(numberofparticipants);
+		
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassRegi(acastartdate,acaenddate,acaday,acastarttime,acaendtime,acaclassname,
+																pay, numberofparticipants, teaidx);
 		
 		return "redirect:acaInfoRegiEdit.do";
-	}*/
+	}
 	
 }
