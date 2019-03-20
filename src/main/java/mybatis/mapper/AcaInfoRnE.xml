@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="impl.AcademyInfoRegiEditImpl">
+	
+	<!-- 학원부가정보 -->
+	<select id="AcaInfoLoad" resultType="dto.AcaInfoRegiEditDTO">
+		SELECT m.id, idx, grade, telephone1, address, detailaddress, acaname, telephone2, telephone3,
+					a.id,introduce, category, acaIntroPhoto
+		FROM members m inner join AcaIntroduce a
+		    on m.id=a.id
+		WHERE a.id=#{id}
+	</select>
+	<!-- 카테고리 불러오기  -->
+	<select id="categorySelect" resultType="dto.CategoryDTO">
+		SELECT DISTINCT maincategory FROM category 
+		WHERE 1=1
+	</select> 
+	
+	<!-- 정보 수정  -->
+	<update id="AcaInfoRegiEdit" >
+		UPDATE members SET 
+			address = #{param1}, detailaddress = #{param2}, acaname = #{param3}, telephone1=#{param4}, telephone2 = #{param5}, telephone3 =#{param6}
+			WHERE id = #{param7}
+	</update>
+	
+	<update id="AcaInfoRegiEdit2">
+		UPDATE acaintroduce SET introduce=#{param1}, category=#{param2}, acaintrophoto=#{param3,jdbcType=VARCHAR}
+			where id = #{param4} 
+	</update>
+	
+	<!-- 강사정보  -->
+	<select id="TeacherList" resultType="mybatis01.AcaTeacherDTO">
+		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id
+			FROM members m inner join AcaTeacher a
+				on m.id = a.id
+			WHERE a.id = #{id}
+	</select>
+	
+	<insert id="TeacherRegi">
+		INSERT INTO (teaidx, teaimage, teaname, teaintro, subject)
+		VALUES (acaTeacher_seq.NEXTVAL,#{param1}, {#param2}, #{param3}, #{param4})
+		WHERE id = #{id}
+	</insert>
+	
+	<!-- 강의정보  -->
+<!-- 	<select id="ClassList" resultType="dto.AcaClassDTO">
+		SELECT T.TeaIdx, acaStartDate, acaEndDate, acaDay, acaStartTime, acaEndTime, acaClassName;
+			 NumberOfParticipants, classIdx, C.TeaIdx;
+			FROM AcaTeacher T inner join AcaClass C
+				on T.TeaIdx = C.TeaIdx
+			WHERE Classidx = #{ClassIdx}
+	</select>
+	
+	<insert id="TeacherRegi2">
+		INSERT INTO (classidx, acaStartDate, acaEndDate, acaDay, acaStartTime, acaEndTime, acaClassName;
+			 NumberOfParticipants)
+		VALUES (acaTeacher_seq.NEXTVAL,#{param1}, {#param2}, #{param3}, #{param4},
+				#{param5}, {#param6}, #{param7})
+		WHERE teaidx = #{TeaIdx}
+	</insert> -->
+
+	
+</mapper>

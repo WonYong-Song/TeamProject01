@@ -96,7 +96,7 @@
 		<tr id="info01" >
 			<td style="vertical-align: middle">카테고리</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-				전체>예체능>피아노 </td>
+				전체>예체능>${intro.category } </td>
 			<td rowspan="4" style="height:400px;">
 				<div class="container">
 				<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
@@ -123,7 +123,7 @@
 		</tr>
 		<tr id="info05">
 			<td style="vertical-align: middle">학원소개</td>
-			<td colspan="2" style="height:auto;padding: 30px;text-align: left"></td>
+			<td colspan="2" style="height:auto;padding: 30px;text-align: left">${intro.introduce }</td>
 		</td>
 		</tr>
 		<tr id="info06">
@@ -132,6 +132,7 @@
 				<!-- 강사 목록 s -->
 			  <div class="row" style="padding-left: 30px;">
 			  	<!--  -->
+			  	 <c:forEach items="${teachers }" var="row2" varStatus="loopStatus">
 				<div>
 				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
 					<tr style="width:80px;">
@@ -141,77 +142,15 @@
              			</td>
 					</tr>
 				 	<tr style="width:100px;text-align: center;">
-				 		<td>강사이름</td>
+				 		<td>${row2.teaname }-${row2.subject }</td>
 				 	</tr>
 				 	<tr style="width:100px;height:70px;text-align: center;">
-				 		<td>국어,듣기,웅변<br />모의고사 특강</td>
+				 		<td>${row2.teaintro }</td>
 				 	</tr>
 				</table>
 				</div>
+				</c:forEach>
 				<!--  -->
-				<div>
-				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
-					<tr style="width:80px;">
-						<td style="padding:3px;height:170px;width:70px;text-align: center;">
-		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"
-		             		alt="엑스박스" />
-             			</td>
-					</tr>
-				 	<tr style="width:100px;text-align: center;">
-				 		<td>강사이름</td>
-				 	</tr>
-				 	<tr style="width:100px;height:70px;text-align: center;">
-				 		<td>국어,듣기,웅변<br />모의고사 특강</td>
-				 	</tr>
-				</table>
-				</div><div>
-				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
-					<tr style="width:80px;">
-						<td style="padding:3px;height:170px;width:70px;text-align: center;">
-		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"
-		             		alt="엑스박스" />
-             			</td>
-					</tr>
-				 	<tr style="width:100px;text-align: center;">
-				 		<td>강사이름</td>
-				 	</tr>
-				 	<tr style="width:100px;height:70px;text-align: center;">
-				 		<td>국어,듣기,웅변<br />모의고사 특강</td>
-				 	</tr>
-				</table>
-				</div>
-				<div>
-				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
-					<tr style="width:80px;">
-						<td style="padding:3px;height:170px;width:70px;text-align: center;">
-		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"
-		             		alt="엑스박스" />
-             			</td>
-					</tr>
-				 	<tr style="width:100px;text-align: center;">
-				 		<td>강사이름</td>
-				 	</tr>
-				 	<tr style="width:100px;height:70px;text-align: center;">
-				 		<td>국어,듣기,웅변<br />모의고사 특강</td>
-				 	</tr>
-				</table>
-				</div>
-				<div>
-				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
-					<tr style="width:80px;">
-						<td style="padding:3px;height:170px;width:70px;text-align: center;">
-		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"
-		             		alt="엑스박스" />
-             			</td>
-					</tr>
-				 	<tr style="width:100px;text-align: center;">
-				 		<td>강사이름</td>
-				 	</tr>
-				 	<tr style="width:100px;height:70px;text-align: center;">
-				 		<td>국어,듣기,웅변<br />모의고사 특강</td>
-				 	</tr>
-				</table>
-				</div>
 				
 			  </div>
 			</td>
@@ -225,148 +164,59 @@
 			</td>
 		</tr>
 		<!-- 오시는길 -->
-		<!-- 수강신청 -->
+		<!-- 수강신청 s -->
 		<tr id="info08">
 			<td style="vertical-align: middle;height:auto;padding: 30px;">수강신청</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;"colspan="2">
-				<form action="paymentAction.do" method="post">
-				<table class="table">
+			<c:forEach items="${classInfo }" var="row3" varStatus="loopStatus">
+				<table class="table table-bordered" style="text-align: center;vertical-align:middle">
 					<colgroup>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
+						<col width="auto"/>
+						<col width="10%"/>
+						<col width="17%"/>
+						<col width="auto"/>
+						<col width="10%"/>
+						<col width="11%"/>
+						<col width="auto"/>
 					</colgroup>
-					<h6>수강정보1</h6>
+					<h6>수강정보${loopStatus.index+1 }</h6>
 					<tr>
-						<td>g</td>
-						<td>g</td>
-						<td rowspan="2">g</td>
-						<td rowspan="2" style="text-align: center;vertical-align: middle"
-						><button class="btn btn-success" value="" style="font-size: 1em;">수강신청</button></td>
+						<th style="vertical-align: middle">강의명</th>
+						<th style="vertical-align: middle">강사명</th>
+						<th style="vertical-align: middle">강의기간</th>
+						<th style="vertical-align: middle">강의시간</th>
+						<th style="vertical-align: middle">수강료 <br /> <small>(단위:원)</small></th>
+						<th style="vertical-align: middle">수강인원 <br /> <small>(단위:명)</small></th>
+						<th style="vertical-align: middle">결제 <br /> <small></small></th>
+						
 					</tr>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-					</tr>
-					<hr class="my-4">
+					<tr><div id="paypal-button-container"></div>
+						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+						<td style="vertical-align: middle">${row3.acaclassname }</td>
+						<td style="vertical-align: middle">${row3.teaname }</td>
+						<td style="vertical-align: middle">${row3.acastartdate }~<br />${row3.acaenddate }</td>
+						<td style="vertical-align: middle">매주&nbsp;${row3.acaday }&nbsp;&nbsp;${row3.acastarttime }~${row3.acaendtime }</td>
+						<td style="vertical-align: middle">${row3.numberofparticipants } <br /> </td>
+						<td style="vertical-align: middle"> ${row3.pay } </td>
+						<td  rowspan="2" style="text-align: center;vertical-align: middle"
+						><input type="image" name="submit" border="0" 
+						src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
+						alt="PayPal - The safer, easier way to pay online"></td>
+						<input type="hidden" name="cmd" value="_xclick">
+						<input type="hidden" name="business" value="beholderstar-facilitator@gmail.com">
+						<input type="hidden" name="custom" value="${dto.idx }">
+						<input type="hidden" name="charset" value="UTF-8">
+						<input type="hidden" name="item_name" value="${user_id}">
+						<input type="hidden" name="item_number" value="${row3.classidx }">
+						<input type="hidden" name="currency_code" value="USD">
+						<input type="hidden" name="amount" value="${row3.pay/1132.71 }">
+						<%-- <input type="hidden" name="user_id" value="${user_id}"> --%>
+						</form>
+					</tr>			
 				</table>
-				</form>
-				<form action="paymentAction.do" method="post">
-				<table class="table">
-					<colgroup>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-					</colgroup>
-					<h6>수강정보1</h6>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-						<td rowspan="2">g</td>
-						<td rowspan="2" style="text-align: center;vertical-align: middle"
-						><button class="btn btn-success" value="" style="font-size: 1em;">수강신청</button></td>
-					</tr>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-					</tr>
-					<hr class="my-4">
-				</table>
-				</form>
-				<form action="payment.do" method="post">
-				<table class="table">
-					<colgroup>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-					</colgroup>
-					<h6>수강정보1</h6>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-						<td rowspan="2">g</td>
-						<td rowspan="2" style="text-align: center;vertical-align: middle"
-						><button class="btn btn-success" value="" style="font-size: 1em;">수강신청</button></td>
-					</tr>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-					</tr>
-					<hr class="my-4">
-				</table>
-				</form>
-				<form action="payment.do" method="post">
-				<table class="table">
-					<colgroup>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-					</colgroup>
-					<h6>수강정보1</h6>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-						<td rowspan="2">g</td>
-						<td rowspan="2" style="text-align: center;vertical-align: middle"
-						><button class="btn btn-success" value="" style="font-size: 1em;">수강신청</button></td>
-					</tr>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-					</tr>
-					<hr class="my-4">
-				</table>
-				</form>
-				<form action="payment.do" method="post">
-				<table class="table">
-					<colgroup>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-					</colgroup>
-					<h6>수강정보1</h6>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-						<td rowspan="2">g</td>
-						<td rowspan="2" style="text-align: center;vertical-align: middle"
-						><button class="btn btn-success" value="" style="font-size: 1em;">수강신청</button></td>
-					</tr>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-					</tr>
-					<hr class="my-4">
-				</table>
-				</form>
-				<form action="payment.do" method="post">
-				<table class="table">
-					<colgroup>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-						<col width="25%"/>
-					</colgroup>
-					<h6>수강정보1</h6>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-						<td rowspan="2">g</td>
-						<td rowspan="2" style="text-align: center;vertical-align: middle"
-						><button class="btn btn-success" value="" style="font-size: 1em;">수강신청</button></td>
-					</tr>
-					<tr>
-						<td>g</td>
-						<td>g</td>
-					</tr>
-					<hr class="my-4">
-				</table>
-				</form>
+				<hr class="my-4">
+				</c:forEach>
+		<!-- 수강신청 n-->		
 
 				
 			</td>
@@ -408,9 +258,21 @@
 					return false;
 				} 
 			}
+			/* 폼값 전송 */
+			function writeValidate2(){
+			    /* document.getElementById('btn').onclick = function() {
+			        
+			    }; */
+			    
+			    document.getElementById("editF").submit();
+		        return false;
+			};
 			</script>
+			
+			
 			<tr><td colspan="4">
 			<!-- 학원 후기 댓글 폼 -->
+			<div id="editR">
 			<form name="writeFrm" method="post" 
 				onsubmit="return writeValidate(this);"
 				action="reviewAction.do" >
@@ -423,8 +285,8 @@
                   </a>
                   
                   <div class="media-body text-left" style="width:200px;height:100px;padding-left: 40px;">
-                      <input type="hidden" name="memberId" value="acamember1"/>
-                      <span class="media-heading user_name">acamember1</span>
+                      <input type="hidden" name="memberId" value="${user_id }"/>
+                      <span class="media-heading user_name">${user_id }</span>
                       <select class="form-control" name="acaScore">			
 							<option value="0">별점 매기기</option>
 							<option value="1">1점</option>
@@ -443,7 +305,11 @@
                   <button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;">
                   후기작성</button>
                 </div>
+                
+                
+                
             </form> 
+            </div>
             </td></tr>
 
             <!-- 학원 후기 댓글 폼 -->	
@@ -488,6 +354,8 @@
       Copyright &copy; Your Website 2019
     </div>
   </footer>
+  <!-- 추가s -->
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="/FinallyProject/resources/vendor/jquery/jquery.min.js"></script>
