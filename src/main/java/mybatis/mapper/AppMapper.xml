@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="impl.AppImpl">    
+	<select id="acaList1" resultType="dto.MembersDTO" >
+		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score 
+		from  
+		(
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			from members a inner join acaintroduce b on a.id=b.id
+			where b.category is not null and b.category=#{0}
+		) m
+	</select>
+	<select id="acaList2" resultType="dto.MembersDTO" >
+		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score 
+		from  
+		(
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			from members a inner join acaintroduce b on a.id=b.id
+			where b.category is not null
+		) m
+	</select>
+	<select id="acaList3" resultType="dto.MembersDTO" >
+		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score 
+		from  
+		(
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			from members a inner join acaintroduce b on a.id=b.id
+			where b.category is not null and b.category=#{1} and ${0} like '%'||#{2}||'%'
+		) m
+	</select>
+	<select id="acaList4" resultType="dto.MembersDTO" >
+		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score 
+		from  
+		(
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			from members a inner join acaintroduce b on a.id=b.id
+			where b.category is not null and b.category=#{0} and( a.acaname like '%'||#{1}||'% or a.address like '%'||#{1}||'%
+		) m
+	</select>
+</mapper>
