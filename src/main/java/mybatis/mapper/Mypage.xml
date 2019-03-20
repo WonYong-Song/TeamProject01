@@ -11,9 +11,11 @@
 		) teaname FROM 
 		enrollclass A inner join acaclass B
 		on A.classidx = B.classidx
+					  inner join ACATEACHER C
+        on B.teaidx =C.teaidx
 		<choose>
 			<when test="!keyString.equals('') and keyString!=null">
-			WHERE B.${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
+			WHERE ${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
 	   		</when>
 	   		<otherwise>
 			where A.id='${user_id}'
@@ -23,9 +25,61 @@
 	<select id="memberInfo" resultType="dto.MembersDTO">
 		select * from members where id=#{param1}
 	</select>
-	<select id="getTotalCountSearch" resultType="int" 
-		parameterType="mybatis01.ParamDTO">
-		SELECT COUNT(*) from 
+	<select id="getTotalCountSearch" resultType="int" parameterType="mybatis01.ParamDTO">
+		
+		
+		select  COUNT(*) from (
+		SELECT A.*, B.*, (
+		    select teaname from acateacher where TEAIDX=B.teaidx
+		) teaname FROM 
+		enrollclass A inner join acaclass B
+            on A.classidx = B.classidx
+                      inner join ACATEACHER C
+            on B.teaidx =C.teaidx
+		<choose>
+			<when test="!keyString.equals('') and keyString!=null">
+			WHERE ${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
+	   		</when>
+	   		
+	   		<otherwise>
+			where A.id='${user_id}'
+			</otherwise>
+		</choose>
+		)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- select  COUNT(*) from (
+		SELECT A.*, B.*, (
+		    select teaname from acateacher where TEAIDX=B.teaidx
+		) AS teaname FROM 
+		enrollclass A inner join acaclass B
+		on A.classidx = B.classidx
+		              inner join ACATEACHER C
+        on B.teaidx =C.teaidx
+		<choose>
+			<when test="!keyString.equals('') and keyString!=null and keyField.equals('teaname')">
+			WHERE ${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
+	   		</when>
+			<when test="!keyString.equals('') and keyString!=null and keyField.equals('acaclassname')">
+			WHERE B.${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
+	   		</when>
+	   		<when test="!keyString.equals('') and keyString!=null and keyField.equals('acaday')">
+			WHERE B.${keyField} like '%'||'${keyString}'||'%' and A.id='${user_id}'
+	   		</when>
+	   		<otherwise>
+			where A.id='${user_id}'
+			</otherwise>
+		</choose>
+		)    -->
+		<!-- SELECT COUNT(*) from 
 		enrollclass A inner join acaclass B
 		on A.classidx = B.classidx
 		<choose>
@@ -35,7 +89,11 @@
 	   		<otherwise>
 			where A.id='${user_id}'
 			</otherwise>
-		</choose>
+		</choose> -->
 		
 	</select> 
+	<select id="passConfirm" resultType="String">
+		select pass from members where id=#{param1}
+	</select>
+	
 </mapper>

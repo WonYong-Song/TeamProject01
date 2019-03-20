@@ -12,6 +12,7 @@ public class ClassInfoDTO {
 	private String teaidx;
 	private String pay;
 	private String teaname;
+	private int setVirtualNum;
 		
 	public ClassInfoDTO() {
 	}
@@ -29,6 +30,30 @@ public class ClassInfoDTO {
 		this.teaidx = teaidx;
 		this.pay = pay;
 		this.teaname = teaname;
+	}
+	
+	public ClassInfoDTO(String acastartdate, String acaenddate, String acaday, String acastarttime, String acaendtime,
+			String acaclassname, String numberofparticipants, String classidx, String teaidx, String pay,
+			String teaname, int setVirtualNum) {
+		super();
+		this.acastartdate = acastartdate;
+		this.acaenddate = acaenddate;
+		this.acaday = acaday;
+		this.acastarttime = acastarttime;
+		this.acaendtime = acaendtime;
+		this.acaclassname = acaclassname;
+		this.numberofparticipants = numberofparticipants;
+		this.classidx = classidx;
+		this.teaidx = teaidx;
+		this.pay = pay;
+		this.teaname = teaname;
+		this.setVirtualNum = setVirtualNum;
+	}
+	public int getSetVirtualNum() {
+		return setVirtualNum;
+	}
+	public void setSetVirtualNum(int setVirtualNum) {
+		this.setVirtualNum = setVirtualNum;
 	}
 	public String getAcastartdate() {
 		return acastartdate;
