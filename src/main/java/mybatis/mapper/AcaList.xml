@@ -32,33 +32,11 @@
 		)
 		WHERE rNum BETWEEN ${start} AND ${end}
 
-
-		<!-- SELECT * FROM (
-			SELECT Tb.*, rownum rNum FROM (
-				SELECT * FROM academymember 
-				<if test="!keyString.equals('') and keyString!=null">
-					WHERE ${keyField} like '%'||#{keyString}||'%'
-			   	</if> 
-				ORDER BY ACAIDX DESC
-			) Tb
-		)
-		WHERE rNum BETWEEN ${start} AND ${end} -->
-		
-		
 	</select>
 	
 	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
 	<select id="getTotalCountSearch" resultType="int" 
 		parameterType="mybatis01.ParamDTO">
-		<!-- SELECT COUNT(*) FROM members
-		<choose>
-			<when test="!keyString.equals('') and keyString!=null">
-				WHERE ${keyField} like '%'||#{keyString}||'%' and grade =2
-			</when>
-			<otherwise>
-				where grade =2
-			</otherwise>
-		</choose> -->
 		select  COUNT(*) from (
 		SELECT A.*, B.category from
 		members A inner join acaintroduce B         
@@ -69,6 +47,60 @@
 			</when>
 			<otherwise>
 				where grade =2 and category='${cateB}'
+			</otherwise>
+		</choose>
+		)
+	</select> 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- 조건에 맞는 리스트 추가 -->
+	<select id="AcaListM"  resultType="mybatis01.AcademyMemberDTO" parameterType="mybatis01.ParamDTO">
+		
+		SELECT * FROM (
+		    SELECT Tb.*, rownum rNum FROM (
+		        select A.*, 
+		        
+		           (select avg(score) from reviewWrite where acaidx=A.IDX group by A.idx) AS avg
+		        
+		        from members A  inner join acaintroduce B         
+                         	on A.id = B.id 
+			        <choose>
+						<when test="!keyString.equals('') and keyString!=null">
+							WHERE ${keyField} like '%'||#{keyString}||'%' and grade =2
+						</when>
+						<otherwise>
+							where grade =2 
+						</otherwise>
+					</choose>
+		            ORDER BY A.idx DESC
+		    ) Tb
+		)
+		WHERE rNum BETWEEN ${start} AND ${end}
+
+	</select>
+	
+	<!-- 전체 게시물수 카운트 : 검색기능추가 -->
+	<select id="getTotalCountSearchM" resultType="int" 
+		parameterType="mybatis01.ParamDTO">
+		select  COUNT(*) from (
+		SELECT A.*, B.category from
+		members A inner join acaintroduce B         
+            on A.id = B.id
+			<choose>
+			<when test="!keyString.equals('') and keyString!=null">
+				WHERE ${keyField} like '%'||#{keyString}||'%'
+			</when>
+			<otherwise>
+				where grade =2
 			</otherwise>
 		</choose>
 		)

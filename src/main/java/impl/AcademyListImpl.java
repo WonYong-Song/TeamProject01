@@ -13,4 +13,8 @@ public interface AcademyListImpl {
 	public ArrayList<ReviewWriteDTO> getReview(String idx);
 	//게시물 갯수
 	public int getTotalCountSearch(ParamDTO paramDTO);
+	//맵에 뿌려줄 게시물 갯수
+	public int getTotalCountSearchM(ParamDTO paramDTO);
+	//맵에 뿌려줄 게시물 정보
+	public ArrayList<AcademyMemberDTO> AcaListM(ParamDTO paramDTO);
 }

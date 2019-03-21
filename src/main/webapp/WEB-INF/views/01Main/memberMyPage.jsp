@@ -67,7 +67,7 @@ height: 100%;
   <!-- Contact Section -->
   <section class="signup-section">
     <div class="container">
-		<div class="row" style="background-color: #ffffff; border-radius: 10px 10px 10px 10px;padding-top: 5% ">
+		<div class="row" style="background-color: #ffffff; border-radius: 10px 10px 10px 10px;padding-top: 5%;width:auto;height:auto">
 
 			<h4 style="font-family: sans-serif; ">&nbsp;&nbsp;&nbsp; ■ 마이페이지  </h4>
 			<br /><br />

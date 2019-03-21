@@ -190,6 +190,7 @@ public class FinalProjectController {
 	/* 별점처리를 위한 부분 e */
 	model.addAttribute("acaList", acaList);
 	model.addAttribute("cateB",cateB);
+	
 		return "01Main/list";
 	}
 	
@@ -545,7 +546,7 @@ public class FinalProjectController {
 	}
 	
 	//일반회원마이페이지
-	@RequestMapping("catle/memberMyPage.do")
+	@RequestMapping("/catle/memberMyPage.do")
 	public String memberMyPage(Model model, HttpServletRequest req, HttpSession session) {
 		//세션 아이디 들고오기
 		if(session.getAttribute("USER_ID")==null){
@@ -632,7 +633,7 @@ public class FinalProjectController {
 		return "01Main/memberMyPage";
 	}
 	/* 비밀번호 검증 */
-	@RequestMapping("catle/passConfirm.do")
+	@RequestMapping("/catle/passConfirm.do")
 	public String passConfirm(Model model, HttpServletRequest req, HttpSession session) {
 		
 		String pass=req.getParameter("pass");
@@ -653,6 +654,81 @@ public class FinalProjectController {
 		return "redirect:memberMyPage.do";
 		
 	}
+	
+
+	//다음 api 지도로 검색결과 뿌리기
+	@RequestMapping("/catle/acaSearchMap.do")
+	public String acaSearchMap(Model model, HttpServletRequest req, HttpSession session) {
+		
+		/* 검색어처리 s*/ 
+		ParamDTO paramDTO = new ParamDTO();
+		String addQueryString = "";
+		String keyField = req.getParameter("keyField");				
+		String keyString = req.getParameter("keyString");
+		
+		System.out.println("keyField="+keyField);
+		System.out.println("keyString="+keyString);
+		if(keyString!=null){
+			addQueryString = String.format("keyField=%s"
+				+"&keyString=%s&", keyField, keyString);
+
+			paramDTO.setKeyField(keyField);
+			paramDTO.setKeyString(keyString);
+			
+		}
+		System.out.println("keyField="+keyField);
+		System.out.println("keyStrin="+keyString);
+		/* 검색어처리 e */ 
+		//조건에 맞는 학원의 갯수
+		int totalRecordCount = sqlSession.getMapper(AcademyListImpl.class).getTotalCountSearchM(paramDTO);
+		System.out.println("totalRecordCount="+totalRecordCount);
+		
+		//페이지 처리를 위한 설정값
+		int pageSize = 4;
+		int blockPage = 2;
+		
+		//전체페이지수계산하기
+		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
+
+		//시작 및 끝 rownum 구하기
+		int nowPage = req.getParameter("nowPage")==null ? 1 :
+			Integer.parseInt(req.getParameter("nowPage"));
+		int start = (nowPage-1) * pageSize + 1;
+		int end = nowPage * pageSize;
+
+		//검색처리위한 추가부분
+		paramDTO.setStart(start);
+		paramDTO.setEnd(end);
+		System.out.println("11111111111111111111111111111");
+		ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaListM(paramDTO);
+		//페이지 처리를 위한 처리부분
+		String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+				pageSize, blockPage, nowPage,
+				req.getContextPath()+"/catle/list.do?"+addQueryString);
+		model.addAttribute("pagingImg", pagingImg);
+		System.out.println("11111111111111111111111111111");
+		//줄바꿈처리
+		for(AcademyMemberDTO dto : acaList)
+		{
+			
+			String temp =Util.RatingUtil.ratingImg((int) dto.getAvg());
+					
+				System.out.println(temp);
+			dto.setRatingStar(temp);
+			dto.setAvg((int) dto.getAvg());
+		}
+		/* 별점처리를 위한 부분 s */
+		Map<String,String> checkMap = new HashMap<String,String>();
+		req.setAttribute("score", checkMap);
+		/* 별점처리를 위한 부분 e */
+		model.addAttribute("acaList", acaList);
+	
+		
+		return "01Main/AcaSearchMap";
+	}
+	
+	
+	
 }
 
 

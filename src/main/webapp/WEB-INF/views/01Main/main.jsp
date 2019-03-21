@@ -59,24 +59,23 @@
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-lg-8 mx-auto text-center" style="margin-top: -5%;">
-
           <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
           <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-
-          <form class="form-inline d-flex">
-			<div style="width:1000px;">
-			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
-				<option value="title">캐슬 이름</option>
-				<option value="name">캐슬 위치</option>
-				<option value="contents">이름+위치</option>
-			</select>
-
-            <input type="email" class="form-control " id="inputEmail" placeholder="캐슬정보를 입력해주세요."
-            	style="width:400px;">
-            <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
-            </div>
+			<!-- 지역기반 검색 폼 -->
+			<form class="form-inline d-flex" name="SearchMap" 
+				method="post"  action="acaSearchMap.do">
+				<div style="width:1000px;">
+				<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
+					<option value="ACANAME">캐슬 이름</option>
+					<option value="address" >캐슬 위치</option>
+					<!-- <option value="contents">이름+위치</option> -->
+				</select>
+				<input type="hidden" value="${cateB }" name="cateB"/>
+	            <input type="text" name="keyString"  class="form-control" placeholder="캐슬정보를 입력해주세요"  
+	            	style="width:400px;"/>
+	            <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
+	            </div>
           </form>
-
         </div>
       </div>
     </div>
