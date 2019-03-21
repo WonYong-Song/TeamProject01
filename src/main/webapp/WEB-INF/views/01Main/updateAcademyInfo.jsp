@@ -37,7 +37,7 @@
     .tablinks{
     	padding-right: 20px;
     }
-  </style> 
+  </style>  
   
   <!-- 끌어온 스킨의 것 -->
   <meta charset="utf-8">
