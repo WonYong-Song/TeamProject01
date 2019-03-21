@@ -65,40 +65,8 @@ height: 100%;
 <style>
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-#placesList .item .markerbg {float:left;position:absolute;width:36px; height:37px;margin:10px 0 0 10px;background:url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png) no-repeat;}
-#placesList .item .marker_1 {background-position: 0 -10px;}
-#placesList .item .marker_2 {background-position: 0 -56px;}
-#placesList .item .marker_3 {background-position: 0 -102px}
-#placesList .item .marker_4 {background-position: 0 -148px;}
-#placesList .item .marker_5 {background-position: 0 -194px;}
-#placesList .item .marker_6 {background-position: 0 -240px;}
-#placesList .item .marker_7 {background-position: 0 -286px;}
-#placesList .item .marker_8 {background-position: 0 -332px;}
-#placesList .item .marker_9 {background-position: 0 -378px;}
-#placesList .item .marker_10 {background-position: 0 -423px;}
-#placesList .item .marker_11 {background-position: 0 -470px;}
-#placesList .item .marker_12 {background-position: 0 -516px;}
-#placesList .item .marker_13 {background-position: 0 -562px;}
-#placesList .item .marker_14 {background-position: 0 -608px;}
-#placesList .item .marker_15 {background-position: 0 -654px;}
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
+.map_wrap {position:relative;width:100%;height:600px;}
+
 </style>
 <!-- 다음지도 스타일 e-->
 <body id="page-top">
@@ -195,9 +163,9 @@ height: 100%;
 				<c:otherwise>
 					<c:forEach items="${acaList }" var="row" varStatus="loop">
 						<!-- 리스트반복 시작 -->
-						<tr style="text-align:center;vertical-align: middle;">
+						<tr style="text-align:center;vertical-align: middle;" id="List${loop.index }">
 							<td class="text-center" style="text-align:center;vertical-align: middle;">${loop.index+1}</td>
-							<td class="text-left" style="vertical-align:middle;"><span class="maps">${row.address }</span></td>
+							<td class="text-left" style="vertical-align:middle;"><span class="maps" id="MapList${loop.index }">${row.address }</span></td>
 							<td class="text-center" style="text-align:center;vertical-align: middle;">${row.acaname }</td>
 						 	<td class="text-center" style="text-align:center;vertical-align: middle;">${row.mobile1 }-${row.mobile2 }-${row.mobile3 }</td>
 						 	<td class="text-center" style="text-align:center;vertical-align: middle;">
@@ -242,12 +210,15 @@ height: 100%;
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ec06b0333644bd4771e72d23ed5395f&libraries=services"></script>
 
 <%-- <input type="hid-den" id ="adress" value="${acaList.address }" /> --%>
-
+    <style>
+ 
+</style>
 <script>
+
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 7 // 지도의 확대 레벨
+        level: 9 // 지도의 확대 레벨
     };  
 
 // 지도를 생성합니다    
@@ -255,36 +226,39 @@ var map = new daum.maps.Map(mapContainer, mapOption);
 
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new daum.maps.services.Geocoder();
+<%
+ArrayList<AcademyMemberDTO> acaList = (ArrayList<AcademyMemberDTO>)request.getAttribute("acaList");
 
-var listData = [
-	<%
-	ArrayList<AcademyMemberDTO> acaList = (ArrayList<AcademyMemberDTO>)request.getAttribute("acaList");
+
+String[] array = new String[acaList.size()];
+for(int i=0; i<acaList.size(); i++){
 	
-	%>
-	<%for(int i=0; i<acaList.size(); i++){%>
-    {
-        groupAddress: '<%=acaList.get(i).getAddress()%>'
-    } <%= i==acaList.size() ? "" : "," %>
-    
-    <%}%>
-];
-	<%
-	String[] array = new String[acaList.size()];
-	for(int i=0; i<acaList.size(); i++){
-		
 
-		  array[i] = acaList.get(i).getName();
-		 
-	}%>
-for (var i=0; i < listData.length ; i++) {
+	  array[i] = acaList.get(i).getAcaname();
+
+	 
+}%>
+<%
+String[] array2 = new String[acaList.size()];
+for(int i=0; i<acaList.size(); i++){
+	
+
+	  array2[i] = acaList.get(i).getAddress();
+
+	 
+}%>
+
+
+	
+
+<%for(int i=0; i<acaList.size(); i++){%>
 
 // 주소로 좌표를 검색합니다
-
-geocoder.addressSearch(listData[i].groupAddress, function(result, status) {
+geocoder.addressSearch('<%=array2[i] %>', function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
-
+    	
         var coords = new daum.maps.LatLng(result[0].y, result[0].x);
 
         // 결과값으로 받은 위치를 마커로 표시합니다
@@ -293,23 +267,23 @@ geocoder.addressSearch(listData[i].groupAddress, function(result, status) {
             position: coords
         });
 
-       /*  // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new daum.maps.InfoWindow({
-            content: result[0].y + "하이욤" + result[0].x
-        });
-        infowindow.open(map, marker); */
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;"></div>'
-        });
-        infowindow.open(map, marker);
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
+
+        var iwContent = '<div style="padding:5px;"><div style="padding-bottom:5px;margin-left:15%">&nbsp;<%=array[i]%> <br /></div> &nbsp;&nbsp;&nbsp;<a href="#MapList<%=i%>" style="color:#64A19D" target="_blank">정보보기</a> - <a href="http://map.daum.net/link/to/<%=array[i]%>,33.450701,126.570667" style="color:#64A19D" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        iwPosition = new daum.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new daum.maps.InfoWindow({
+        position : iwPosition, 
+        content : iwContent 
+    });
+      
+    // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+    infowindow.open(map, marker); 
     } 
 })
 
 
-};    
+<%}%>  
 </script>
 
 
