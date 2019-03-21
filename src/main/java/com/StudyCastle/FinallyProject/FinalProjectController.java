@@ -84,24 +84,23 @@ public class FinalProjectController {
 		
 		membersDTO =
 				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(membersDTO);
-		//세션에 ID값 저장
-		session.setAttribute("USER_ID", membersDTO.getId());
-		session.setAttribute("GRADE", membersDTO.getGrade());
-		
-		//System.out.println(membersDTO.getGrade());
-		
+				
 		if(membersDTO==null) {
 			//로그인실패
 			
-			if(!(membersDTO.getId().equals("id") || membersDTO.getPass().equals("pass"))) {
+			/*if(!(membersDTO.getId().equals("id") || membersDTO.getPass().equals("pass"))) {
 
 				req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
-			}
+			}*/
 			
 			req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
 		}
 		else {
 			//로그인 성공
+			//세션에 ID값 저장
+			session.setAttribute("USER_ID", membersDTO.getId());
+			session.setAttribute("GRADE", membersDTO.getGrade());
+			
 			req.getRequestDispatcher("/catle/main.do").forward(req, resp);
 			
 		}

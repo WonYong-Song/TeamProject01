@@ -5,17 +5,15 @@
 <%@page import="App.AppDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
+<%-- <%
 //한글처리
 request.setCharacterEncoding("UTF-8");
-
 //DB연결
 String driver = application.getInitParameter("oracle.jdbc.OracleDriver");
 String url = application.getInitParameter("jdbc:oracle:thin:@localhost:1521:orcl");
 AppDAO dao = new AppDAO(driver,url);
 System.out.println(driver);
 System.out.println(url);
-
 /*
 파라미터가 없는 경우에는 빈값을 저장한다.
 */
@@ -28,12 +26,8 @@ String button_name = (request.getParameter("button_name")==null) ? "" : request.
 System.out.println(search_column);
 System.out.println(search_contents);
 System.out.println(button_name);
-
-
 JSONArray jsonArray = new JSONArray();
-
 List<MembersDTO> list = dao.acaList(search_column, search_contents, button_name);
-
 for(MembersDTO m : list){
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("acaName", m.getAcaName());
@@ -45,6 +39,5 @@ for(MembersDTO m : list){
 	
 	jsonArray.add(jsonObject);
 }
-
 out.println(jsonArray.toJSONString());
-%>
+%> --%>
