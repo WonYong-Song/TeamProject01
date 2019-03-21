@@ -78,10 +78,10 @@ height: 100%;
 			<div style="width:1000px;">
 			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
 				<option value="ACANAME">캐슬 이름</option>
-				<option value="ACAADDRESS" >캐슬 위치</option>
+				<option value="address" >캐슬 위치</option>
 				<!-- <option value="contents">이름+위치</option> -->
 			</select>
-
+			<input type="hidden" value="${cateB }" name="cateB"/>
             <input type="text" name="keyString"  class="form-control" placeholder="캐슬정보를 입력해주세요"  
             	style="width:400px;"/>
             <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>

@@ -54,6 +54,10 @@ position: absolute; top:0; left: 0;
 width: 100%;
 height: 100%;
 }
+
+#holder::placeholder {
+	color: red;
+}
 </style>
 
 <body id="page-top">
@@ -81,19 +85,27 @@ height: 100%;
 				</tr>
 				<tr>
 					<td>이름 : &nbsp;&nbsp;${memberInfo.name }</td>
-					<td></td>
-				</tr>
-				<tr>
 					<td>아이디 : &nbsp;&nbsp;${memberInfo.id }</td>
+				</tr>
+				<tr>
 					<td>이메일 : &nbsp;&nbsp;${memberInfo.emailId }@${memberInfo.emailDomain}</td>
-				</tr>
-				<tr>
 					<td>휴대전화번호: &nbsp;&nbsp;${memberInfo.mobile1}-${memberInfo.mobile2}-${memberInfo.mobile3}</td>
-					<td>관심사: &nbsp;&nbsp;${memberInfo.interest}</td>
 				</tr>
 				<tr>
-					<td colspan="2" bgcolor="#ffffff" height="50px;"><p style="text-align: right">
-					<button type="button"><a href="MemberModifyP.do">정보수정</a></button></p>
+					<td>관심사: &nbsp;&nbsp;${memberInfo.interest}</td>
+					<td>
+						<form action="passConfirm.do" style="text-align: left;">
+						
+							<c:if test="${not empty msg }">
+							<input id="holder" type="text" name="pass" style="width: 220px;" placeholder="${msg }"/>
+							</c:if>
+							<c:if test="${empty msg }">
+							<input type="text" name="pass" style="width: auto"placeholder="비밀번호를 입력후 클릭"/>
+							</c:if>
+							<button type="submit" class="btn btn-primary" style="margin-left:2%;height:35px;padding-bottom:10px;font-size:  1em;vertical-align: middle">
+				            <div style="margin-top: -20%">수정하기</div></button>
+				            </div>
+						</form>
 					</td>
 				</tr>
 			</table>
@@ -161,7 +173,7 @@ height: 100%;
 					<c:forEach items="${myClass }" var="row" varStatus="loop">
 						<!-- 리스트반복 시작 -->
 						<tr>
-							<td class="text-center">${loop.index+1 }</td>
+							<td class="text-center">${row.setVirtualNum}</td>
 							<td class="text-left">${row.acaclassname }</td>
 							<td class="text-center">${row.acastartdate }~${row.acaenddate }</td>
 							<td class="text-center">${row.acastarttime }~${row.acaendtime }</td>

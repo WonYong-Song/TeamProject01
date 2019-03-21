@@ -1,110 +1,170 @@
 package dto;
 
-import java.sql.Date;
-
 public class AcaClassDTO {
-	private java.sql.Date acaStartDate;
-	private java.sql.Date acaEndDate;
-	private String acaDay;
-	private java.sql.Date acaStartTime;
-	private java.sql.Date acaEndTime;
-	private String acaClassName;
-	private int NumberOfParticipants;
-	private int classIdx;
-	private int TeaIdx;
+	private String acastartdate;
+	private String acaenddate;
+	private String acaday;
+	private String acastarttime;
+	private String acaendtime;
+	private String acaclassname;
+	private String numberofparticipants;
+	private String classidx;
+	private String teaidx;
+	private String pay;
+	private String teaname;
+
+	private String startd;
+	private String endd;
 	
 	public AcaClassDTO() {}
-	
-	public AcaClassDTO(Date acaStartDate, Date acaEndDate, String acaDay, Date acaStartTime, Date acaEndTime,
-			String acaClassName, int numberOfParticipants, int classIdx, int teaIdx) {
-		super();
-		this.acaStartDate = acaStartDate;
-		this.acaEndDate = acaEndDate;
-		this.acaDay = acaDay;
-		this.acaStartTime = acaStartTime;
-		this.acaEndTime = acaEndTime;
-		this.acaClassName = acaClassName;
-		NumberOfParticipants = numberOfParticipants;
-		this.classIdx = classIdx;
-		TeaIdx = teaIdx;
+
+	public AcaClassDTO(String acastartdate, String acaenddate, String acaday, String acastarttime, String acaendtime,
+			String acaclassname, String numberofparticipants, String classidx, String teaidx, String pay,
+			String teaname, String startd, String endd) {
+		this.acastartdate = acastartdate;
+		this.acaenddate = acaenddate;
+		this.acaday = acaday;
+		this.acastarttime = acastarttime;
+		this.acaendtime = acaendtime;
+		this.acaclassname = acaclassname;
+		this.numberofparticipants = numberofparticipants;
+		this.classidx = classidx;
+		this.teaidx = teaidx;
+		this.pay = pay;
+		this.teaname = teaname;
+		this.startd = startd;
+		this.endd = endd;
 	}
 
-	public java.sql.Date getAcaStartDate() {
-		return acaStartDate;
+
+
+
+
+	public String getAcastartdate() {
+		return acastartdate;
 	}
 
-	public void setAcaStartDate(java.sql.Date acaStartDate) {
-		this.acaStartDate = acaStartDate;
+
+	public void setAcastartdate(String acastartdate) {
+		this.acastartdate = acastartdate;
 	}
 
-	public java.sql.Date getAcaEndDate() {
-		return acaEndDate;
+
+	public String getAcaenddate() {
+		return acaenddate;
 	}
 
-	public void setAcaEndDate(java.sql.Date acaEndDate) {
-		this.acaEndDate = acaEndDate;
+
+	public void setAcaenddate(String acaenddate) {
+		this.acaenddate = acaenddate;
 	}
 
-	public String getAcaDay() {
-		return acaDay;
+
+	public String getAcaday() {
+		return acaday;
 	}
 
-	public void setAcaDay(String acaDay) {
-		this.acaDay = acaDay;
+
+	public void setAcaday(String acaday) {
+		this.acaday = acaday;
 	}
 
-	public java.sql.Date getAcaStartTime() {
-		return acaStartTime;
+
+	public String getAcastarttime() {
+		return acastarttime;
 	}
 
-	public void setAcaStartTime(java.sql.Date acaStartTime) {
-		this.acaStartTime = acaStartTime;
+
+	public void setAcastarttime(String acastarttime) {
+		this.acastarttime = acastarttime;
 	}
 
-	public java.sql.Date getAcaEndTime() {
-		return acaEndTime;
+
+	public String getAcaendtime() {
+		return acaendtime;
 	}
 
-	public void setAcaEndTime(java.sql.Date acaEndTime) {
-		this.acaEndTime = acaEndTime;
+
+	public void setAcaendtime(String acaendtime) {
+		this.acaendtime = acaendtime;
 	}
 
-	public String getAcaClassName() {
-		return acaClassName;
+
+	public String getAcaclassname() {
+		return acaclassname;
 	}
 
-	public void setAcaClassName(String acaClassName) {
-		this.acaClassName = acaClassName;
+
+	public void setAcaclassname(String acaclassname) {
+		this.acaclassname = acaclassname;
 	}
 
-	public int getNumberOfParticipants() {
-		return NumberOfParticipants;
+
+	public String getNumberofparticipants() {
+		return numberofparticipants;
 	}
 
-	public void setNumberOfParticipants(int numberOfParticipants) {
-		NumberOfParticipants = numberOfParticipants;
+
+	public void setNumberofparticipants(String numberofparticipants) {
+		this.numberofparticipants = numberofparticipants;
 	}
 
-	public int getClassIdx() {
-		return classIdx;
+
+	public String getClassidx() {
+		return classidx;
 	}
 
-	public void setClassIdx(int classIdx) {
-		this.classIdx = classIdx;
+
+	public void setClassidx(String classidx) {
+		this.classidx = classidx;
 	}
 
-	public int getTeaIdx() {
-		return TeaIdx;
+
+	public String getTeaidx() {
+		return teaidx;
 	}
 
-	public void setTeaIdx(int teaIdx) {
-		TeaIdx = teaIdx;
-	}
-	
-	
 
-	
-	
-	
-		
+	public void setTeaidx(String teaidx) {
+		this.teaidx = teaidx;
+	}
+
+
+	public String getPay() {
+		return pay;
+	}
+
+
+	public void setPay(String pay) {
+		this.pay = pay;
+	}
+
+
+	public String getTeaname() {
+		return teaname;
+	}
+
+
+	public void setTeaname(String teaname) {
+		this.teaname = teaname;
+	}
+
+	public String getStartd() {
+		return startd;
+	}
+
+	public void setStartd(String startd) {
+		this.startd = startd;
+	}
+
+	public String getEndd() {
+		return endd;
+	}
+
+	public void setEndd(String endd) {
+		this.endd = endd;
+	}
+
+
 }
+	

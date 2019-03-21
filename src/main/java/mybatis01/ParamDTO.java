@@ -8,6 +8,7 @@ public class ParamDTO {
 	private int end;//select 종료값
 	private String acaidx;
 	private String user_id;
+	private String cateB;
 	
 	
 	//기본생성자
@@ -54,6 +55,24 @@ public class ParamDTO {
 	}
 	
 	
+	public ParamDTO(String keyField, String keyString, int start, int end, String acaidx, String user_id,
+			String cateB) {
+		super();
+		this.keyField = keyField;
+		this.keyString = keyString;
+		this.start = start;
+		this.end = end;
+		this.acaidx = acaidx;
+		this.user_id = user_id;
+		this.cateB = cateB;
+	}
+	
+	public String getCateB() {
+		return cateB;
+	}
+	public void setCateB(String cateB) {
+		this.cateB = cateB;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

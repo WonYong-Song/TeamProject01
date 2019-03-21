@@ -15,5 +15,7 @@ public interface MypageImpl {
 	public MembersDTO memberInfo(String user_id);
 
 	public int getTotalCountSearch(ParamDTO paramDTO);
+	//회원정보 수정을 위한 비밀번호 검증
+	public String passConfirm(String id);
 	
 }
