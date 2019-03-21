@@ -58,14 +58,57 @@
 			WHERE t.id = #{id}
 	</select>
 	
-	<insert id="ClassRegi">
+	<insert id="ClassRegi" parameterType="dto.AcaClassDTO">
 		INSERT INTO acaclass (classidx, acastartdate, acaenddate, acaday, 
 								acastarttime,  acaendtime, acaclassname, pay, 
 								numberofparticipants, teaidx)
-		VALUES (acaTeacher_seq.NEXTVAL, to_date(#{param1},'yyyy-MM-dd'), to_date(#{param2},'yyyy-MM-dd'), 
-				#{param3}, to_date(#{param4},'hh24:mi'),
-				to_date(#{param5},'hh24:mi'), #{param6}, to_number(#{param7}), to_number(#{param8}), to_number(#{param9}))
+		VALUES (acaTeacher_seq.NEXTVAL, to_date(#{acastartdate},'yyyy-MM-dd'), to_date(#{acaenddate},'yyyy-MM-dd'), 
+				#{acaday}, to_date(#{acastarttime},'hh24:mi'),
+				to_date(#{acaendtime},'hh24:mi'), #{acaclassname}, to_number(#{pay}), to_number(#{numberofparticipants}), to_number(#{teaidx}))
 	</insert>
-
 	
+	<!-- 새창에 강사뷰 불러오기  -->
+	<select id="teacherView" resultType="mybatis01.AcaTeacherDTO">
+		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id
+			FROM members m inner join AcaTeacher a
+				on m.id = a.id
+			WHERE a.id = #{param7}
+	</select>
+	
+	<!-- 새창에 강의뷰 불러오기  -->
+	<select id="classView" resultType="dto.AcaClassDTO">
+		SELECT m.id,t.id, t.teaidx,to_char(acastartdate, 'yyyy-MM-dd') as startd, to_char(acaenddate, 'yyyy-MM-dd') as endd, acaday, to_char(acastarttime,'HH24:mi') as startt, to_char(acaendtime,'HH24:mi') as endt, acaclassname, pay, numberofparticipants, classidx, c.teaidx, t.teaname
+			FROM
+				members m inner join AcaTeacher t
+					on m.id = t.id 
+				inner join acaclass c
+					on c.teaidx = t.teaidx
+			WHERE classidx = #{classidx}
+	</select>
+	
+	
+	<!-- 강사정보 수정  -->
+	<update id="teaInfoUpd" parameterType="mybatis01.AcaTeacherDTO">
+		UPDATE acateacher SET teaidx=#{teaidx}, teaimage=#{teaimage}, teaname=#{teaname}, teaintro=#{teaintro}, subject=#{subject}
+		WHERE teaid=#{teaid} 
+	</update>
+	
+	<!-- 강의정보 수정  -->
+	<update id="classInfoUpd" parameterType="dto.AcaClassDTO">
+		UPDATE acaclass SET 
+				castartdate=#castartdate}, acaenddate=#{acaenddate}, acaday=#{acaday}, 
+				acastarttime=#{acastarttime},acaendtime=#{acaendtime}, acaclassname=#{acaclassname}, 
+				pay=#{pay}, numberofparticipants=#{numberofparticipants}
+		WHERE classid=#{classid} 
+	</update>
+	
+	
+	<!-- 강사정보 삭제  -->
+	<delete id="teaInfoDel" parameterType="mybatis01.AcaTeacherDTO">
+		DELETE FROM acateacher WHERE teaidx = #{teaidx} 
+	</delete>
+	<!-- 강의정보 삭제  -->
+	<delete id="classDel" parameterType="dto.AcaClassDTO">
+		DELETE FROM acaclass WHERE classidx = #{classidx} 
+	</delete>
 </mapper>

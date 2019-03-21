@@ -84,11 +84,6 @@ public class AcademyRegistEditContoller {
 		String introduce = req.getParameter("introduce");
 		String category = req.getParameter("category");
 		String acaintrophoto = req.getParameter("acaintrophoto");		
-        
-		System.out.println("acaintrophoto"+acaintrophoto);
-		System.out.println("telephone1"+telephone2);
-		System.out.println("introduce"+introduce);
-		System.out.println("id"+id);
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit(address,detailaddress,acaname,telephone1,telephone2,telephone3,id);
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit2(introduce,category,acaintrophoto,id);
@@ -114,41 +109,78 @@ public class AcademyRegistEditContoller {
 	
 	//강의정보 입력
 	@RequestMapping("/catle/classInfoInsert.do")
-	public String classInfoInsert(Model model, HttpSession session, HttpServletRequest req) {
-		
-		
-		
-		String teaidx = req.getParameter("teaidx");
-		System.out.println(teaidx);
+	public String classInfoInsert(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
 	
-		String acastartdate = req.getParameter("acastartdate");
-		System.out.println(acastartdate);
-		
-		String acaenddate = req.getParameter("acaenddate");
-		System.out.println(acaenddate);
-		
-		String acaday = req.getParameter("acaday");
-		System.out.println(acaday);
-		
-		String acastarttime =  req.getParameter("acastarttime");
-		System.out.println(acastarttime);
-		
-		String acaendtime =   req.getParameter("acaendtime");
-		System.out.println(acaendtime);
-		
-		String acaclassname = req.getParameter("acaclassname");
-		System.out.println(acaclassname);
-		
-		String pay = req.getParameter("pay");
-		System.out.println(pay);
-		
-		String numberofparticipants = req.getParameter("numberofparticipants");
-		System.out.println(numberofparticipants);
-		
-		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassRegi(acastartdate,acaenddate,acaday,acastarttime,acaendtime,acaclassname,
-																pay, numberofparticipants, teaidx);
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassRegi(acaClassDTO);
 		
 		return "redirect:acaInfoRegiEdit.do";
 	}
+
+	
+	//강사정보 상세보기
+	@RequestMapping("/catle/teacherInfoView.do")
+	public String classInfoView(AcaTeacherDTO acaTeacherDTO, Model model, HttpServletRequest req, HttpSession session) {
+		
+		String id = (String) session.getAttribute("USER_ID");
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).teacherView(acaTeacherDTO,id);
+		model.addAttribute("teaDTO", acaTeacherDTO);
+		
+		return "02sub/teacherInfoView";
+	}
+		
+	//강의정보 상세보기
+	@RequestMapping("/catle/classInfoView.do")
+	public String classInfoView(Model model, HttpServletRequest req, HttpSession session) {
+		
+		String id = (String) session.getAttribute("USER_ID");
+		String classidx = req.getParameter("classidx");
+		AcaClassDTO acaClassDTO = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classView(classidx);
+		model.addAttribute("classDTO", acaClassDTO);
+		
+		ArrayList<AcaTeacherDTO> tealists = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).TeacherList(id);
+		model.addAttribute("tealists",tealists);
+		
+		return "02sub/classInfoView";
+	}
+	
+	
+	
+	//강사정보수정
+	@RequestMapping("/catle/teaInfoUpdate.do")
+	public String teaInfoUpdate(AcaTeacherDTO acaTeacherDTO, Model model, HttpSession session, HttpServletRequest req) {
+		
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).teaInfoUpd(acaTeacherDTO);
+		
+		return "redirect:acaInfoRegiEdit.do";
+	}
+	
+	//강의정보수정
+	@RequestMapping("/catle/classInfoUpdate.do")
+	public String classInfoUpdate(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
+	
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classInfoUpd(acaClassDTO);
+		
+		return "redirect:acaInfoRegiEdit.do";
+	}
+	
+	//강사정보삭제
+	@RequestMapping("/catle/teaInfoDelete.do")
+	public String teaInfoDelete(AcaTeacherDTO acaTeacherDTO, Model model, HttpSession session, HttpServletRequest req) {
+		
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).teaInfoDel(acaTeacherDTO);
+		
+		return "redirect:acaInfoRegiEdit.do";
+	}
+	
+	//강의정보삭제
+	@RequestMapping("/catle/classDelete.do")
+	public String classDelete(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
+		
+		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classDel(acaClassDTO);
+		
+		return "redirect:acaInfoRegiEdit.do";
+	}
+	
+	
 	
 }
