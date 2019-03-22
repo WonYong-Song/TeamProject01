@@ -60,7 +60,7 @@
       <div class="row">
         <div class="col-md-10 col-lg-8 mx-auto text-center" style="margin-top: -5%;">
           <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-          <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+          <h2 class="text-white mb-5">' 배움의 품격을 높이다 '</h2>
 			<!-- 지역기반 검색 폼 -->
 			<form class="form-inline d-flex" name="SearchMap" 
 				method="post"  action="acaSearchMap.do">
@@ -71,7 +71,7 @@
 					<!-- <option value="contents">이름+위치</option> -->
 				</select>
 				<input type="hidden" value="${cateB }" name="cateB"/>
-	            <input type="text" name="keyString"  class="form-control" placeholder="캐슬정보를 입력해주세요"  
+	            <input type="text" name="keyString"  class="form-control" placeholder="이곳에 입력하시면 지도에서 보여집니다."  
 	            	style="width:400px;"/>
 	            <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
 	            </div>
