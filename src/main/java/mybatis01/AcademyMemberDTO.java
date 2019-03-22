@@ -13,7 +13,7 @@ public class AcademyMemberDTO {
 	private String telephone1;
 	private String address;
 	private String detailaddress;
-	private String interest;
+	private String interest; 
 	private String acaname;
 	private String mobile2;
 	private String mobile3;

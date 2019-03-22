@@ -97,6 +97,8 @@ public class AppController {
 		}
 		for(MembersDTO s : list) {
 			JSONObject jsonObject = new JSONObject();
+			
+			jsonObject.put("idx", s.getIdx());
 			jsonObject.put("acaName", s.getAcaName());
 			jsonObject.put("address", s.getAddress());
 			jsonObject.put("detailAddress", s.getDetailAddress());
