@@ -30,8 +30,25 @@ public interface AcademyInfoRegiEditImpl {
 	//강의시간표 리스트
 	public ArrayList<AcaClassDTO> ClassList(String id);
 	
-	
 	//강의등록
-	public void ClassRegi(String acastartdate,String acaenddate,String acaday,String acastarttime,String acaendtime,
-			String acaclassname,String pay, String numberofparticipants, String teaidx);
+	public void ClassRegi(AcaClassDTO acaClassDTO);
+	
+	
+	//강사정보 뷰
+	public void teacherView(AcaTeacherDTO acaTeacherDTO, String id);
+	//강사정보 수정
+	public void teaInfoUpd(AcaTeacherDTO acaTeacherDTO);
+	//강사정보 삭제
+	public void teaInfoDel(AcaTeacherDTO acaTeacherDTO);
+	
+	//강의정보 뷰
+	public AcaClassDTO classView(String classidx);
+	//강의정보 수정
+	public void classInfoUpd(AcaClassDTO acaClassDTO);
+	//강의정보 삭제
+	public void classDel(AcaClassDTO acaClassDTO);
+
+	
+	
+	
 }
