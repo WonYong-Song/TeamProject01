@@ -22,6 +22,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -173,12 +175,13 @@ public class AcademyRegistEditContoller {
 	}
 	
 	//강의정보삭제
-	@RequestMapping("/catle/classDelete.do")
+	@RequestMapping(value="/catle/classDelete/{classidx}", method = RequestMethod.GET )
 	public String classDelete(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
+		
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classDel(acaClassDTO);
 		
-		return "redirect:acaInfoRegiEdit.do";
+		return "";
 	}
 	
 	

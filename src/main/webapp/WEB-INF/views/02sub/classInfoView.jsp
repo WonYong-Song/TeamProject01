@@ -13,6 +13,15 @@
 <link rel="stylesheet" href="../resources/bs3.3.7/css/bootstrap.css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+body {
+ background-color: #409CDE;"
+}
+
+.line{border-bottom:1px solid #DDE1E5; padding-left: 10px;}
+.line2{border-bottom:1px solid #DDE1E5; border-right:1px solid #DDE1E5; padding-left: 10px;}
+.line3{border-right:1px solid #DDE1E5; padding-left: 10px;}
+</style>
 <script>
 function classRegiValidate(c) {
 	
@@ -74,23 +83,22 @@ function classRegiValidate(c) {
 $(function(){
 	$('#delete').click(function(){
 		if(confirm("삭제하시겠습니까?")){
-			self.location.href = "/catle/teaInfoDelete.do?classidx=${classDTO.classidx }";
+			self.location.href = "<c:url value='/catle/classDelete/${classDTO.classidx }'/>";
+			window.opener.location.reload();
 		}
 	});
 });
 
 $(document).ready(function(){
 
-	  $('#selbox').find("option").each(function(){
+  $('#selbox').find("option").each(function(){
 
-	    if($(this).val()=="${classDTO.teaidx}"){
+    if($(this).val()=="${classDTO.teaidx}"){
 
-	      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
-
-	    }
-	  });
-
-	});
+      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+    }
+  });
+});
 
 </script>
 </head>
@@ -107,27 +115,27 @@ for(String in : acaday){
 	checkAcaday.put(in, "checked");
 }
 %>
-<div class="container">
+<div class="container" style="padding-top:40px;" >
 	<form name="classFrm" action="classInfoUpdate.do" method="post">
-	<input type="hid den" name="classidx" value="${classDTO.classidx }" />
-	<table class="table table-borderd" style="width:100%; background-color: #EEEEEE;">
+	<input type="hidden" name="classidx" value="${classDTO.classidx }" />
+	<table style=" width:100%; height:250px; background-color: #ffffff; border-radius: 10px; ">
 	      <colgroup>
 	          <col width="55%"/>
 	          <col width="35%"/>
 	          <col width="10%"/>
 	</colgroup>
-	         <tr>
-	<th style="font-size: 1.5em;">- 수강정보입력</th>
+	      <tr>
+			<th class="line" colspan="3" style="font-size: 1.5em;">- 수강정보입력</th>
 	      </tr>
 	      <tr>
-	         <td>강의일자 : <input type="date" name="acastartdate" value="${classDTO.startd}"/>~<input type="date" name="acaenddate" value="${classDTO.endd}"/> <br /><br />	
-	         <td>강의명 : <input type="text" name="acaclassname" value="${classDTO.acaclassname}"/>
-	         <td rowspan="4" style="text-align: center;vertical-align: middle">
-	         <button type="button" onsubmit="return classRegiValidate(this)">수정</button><br /><br />
+	         <td class="line2"style="padding-top: 20px; ">강의일자 : <input type="date" name="acastartdate" value="${classDTO.startd}"/>~<input type="date" name="acaenddate" value="${classDTO.endd}"/> <br /><br />	
+	         <td class="line2">강의명 : <input type="text" name="acaclassname" value="${classDTO.acaclassname}"/>
+	         <td rowspan="3" style="text-align: center;vertical-align: middle">
+	         <button type="submit" onsubmit="classRegiValidate(this);">수정</button><br /><br />
 	         <button type="button" id="delete">삭제</button></td>
 	      </tr>
 	      <tr>
-	      	<td>
+	      	<td class="line2">
 	      	 강의요일 <br />
 	 		<input type="checkbox" id="exercise"name="acaday" value="월요일" <%=checkAcaday.get("월요일") %>/>
 	 		<label for="mon">월</label>
@@ -144,7 +152,7 @@ for(String in : acaday){
 	 		<input type="checkbox" id="etc" name="acaday" value="일요일" <%=checkAcaday.get("일요일") %>/>
 	       <label for="sun">일</label>
 	        	 </td>
-	        	 <td>
+	        	 <td class="line2">
 	   		강사명: 
 	   			<c:if test="${!empty tealists}">
 					<select id="selbox" style="width:100px;" onchange="document.getElementById('teaName').value= this.options[this.selectedIndex].value">					
@@ -154,12 +162,12 @@ for(String in : acaday){
 				  		 </c:forEach>
 					</select>
 				</c:if>
-					<input type="hid den" name="teaidx" id="teaName" value=""/> 
+					<input type="hidden" name="teaidx" id="teaName" value="${classDTO.teaidx }"/> 
         		</td>
 	        </tr>
 	        <tr>
-	           <td>강의시간 : <br /> <input type="time" name="acastarttime" value="${classDTO.startt}"/> ~ <input type="time" name="acaendtime" value="${classDTO.endt}"/></td>
-	           <td>수강료 : <input type="number" name="pay" style="width: 100px;" value="${classDTO.pay}"/><br /><br />수강인원 : <input type="number" name="numberofparticipants" style="width: 100px;" value="${classDTO.numberofparticipants}"/></td>
+	           <td class="line3">강의시간 : <br /><input type="time" name="acastarttime" value="${classDTO.startt}"/> ~ <input type="time" name="acaendtime" value="${classDTO.endt}"/></td>
+	           <td class="line3">수강료 : <input type="number" name="pay" style="width: 100px;" value="${classDTO.pay}"/><br /><br />수강인원 : <input type="number" name="numberofparticipants" style="width: 100px;" value="${classDTO.numberofparticipants}"/></td>
 	      </tr>
 		</table>
 	  </form>
