@@ -73,12 +73,12 @@ height: 100%;
 
           <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
           <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-
+			
           <form class="form-inline d-flex">
 			<div style="width:1000px;">
 			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
-				<option value="ACANAME">캐슬 이름</option>
-				<option value="address" >캐슬 위치</option>
+				<option value="ACANAME">캐슬 위치</option>
+				<option value="address" >캐슬 이름</option>
 				<!-- <option value="contents">이름+위치</option> -->
 			</select>
 			<input type="hidden" value="${cateB }" name="cateB"/>

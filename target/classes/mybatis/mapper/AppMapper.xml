@@ -77,6 +77,20 @@
 			where b.category is not null and b.category=#{1} and (a.address like '%'||#{0}||'%' or a.acaname like '%'||#{0}||'%')
 			) m
 	</select>
+	
+	
+	<select id="detail1" resultType="dto.MembersDTO">
+		select *
+		from members m inner join acaIntroduce a
+			on m.id = a.id
+		where m.idx=#{0}
+	</select>
+	<select id="detail2" resultType="mybatis01.AcaTeacherDTO">
+		select a.*
+		from members m inner join acateacher a
+		    on m.id = a.id
+		where m.idx=#{0}
+	</select>
 </mapper>
 
    
