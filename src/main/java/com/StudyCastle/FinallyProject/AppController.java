@@ -1,5 +1,6 @@
 package com.StudyCastle.FinallyProject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -51,7 +52,6 @@ public class AppController {
 		List<MembersDTO> list = new Vector<MembersDTO>();
 		//검색어가 없고 카테고리 선택이 전체인경우
 		if(search_contents.equals("")&&button_name.equals("전체")) {
-			System.out.println("여기 들어옴"); 
 			list = sqlSession.getMapper(AppImpl.class).acalist1();
 		}
 		//검색어가 없고 카테고리 선택이 전체가 아닌 경우
@@ -96,7 +96,10 @@ public class AppController {
 			}
 		}
 		for(MembersDTO s : list) {
+			
 			JSONObject jsonObject = new JSONObject();
+			
+			jsonObject.put("idx", s.getIdx());
 			jsonObject.put("acaName", s.getAcaName());
 			jsonObject.put("address", s.getAddress());
 			jsonObject.put("detailAddress", s.getDetailAddress());
@@ -106,6 +109,21 @@ public class AppController {
 			
 			jsonArray.add(jsonObject);
 		}
+		System.out.println(jsonArray.toJSONString());
+		
+		return jsonArray;
+	}
+	
+	@RequestMapping("catle/AppAcaDetail.do")
+	@ResponseBody
+	public JSONArray detailInfo(HttpServletRequest req) {
+		JSONArray jsonArray = new JSONArray();
+		
+		//파라미터 받기
+		String idx = (req.getParameter("idx")==null) ? "" : req.getParameter("idx");
+		
+		//맵퍼의 결과를 회신하기위한 리스트객체 생성
+		List<MembersDTO> list = new Vector<MembersDTO>();
 		
 		
 		return jsonArray;
