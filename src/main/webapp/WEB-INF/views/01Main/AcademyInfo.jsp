@@ -76,7 +76,7 @@
 <!-- 학원 정보 등록 페이지  s -->
 <section id="mainImage" class="about-section text-center" style="padding-bottom:5%;background-image: url('../resources/img/bg-signup.jpg');">
 
-<div  class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px;">
+<div class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px;">
 
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:auto;">
     <div class="container">
@@ -142,7 +142,7 @@
 		
 
           <li class="nav-item">
-		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li>
+		  <!-- <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
@@ -151,13 +151,14 @@
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
 		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info09">캐슬링후기</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info10">공유하기</a></li>
      </ul>
 <% }else { %>
 	 <ul class="navbar-nav ml-auto" style="margin-top: -11%">
 		
 
           <li class="nav-item">
-		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li>
+		  <!-- <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
@@ -166,6 +167,7 @@
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
 		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info09">캐슬링후기</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info10">공유하기</a></li>
      </ul>
 <% } %>   
 	</div>
@@ -180,7 +182,7 @@
 		<tr id="info01" >
 			<td style="vertical-align: middle">카테고리</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-				전체>예체능>${intro.category } </td>
+				전체>${intro.category } </td>
 			<td rowspan="4" style="height:400px;">
 				<div class="container" style="margin-left: -2%;">
 				<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
@@ -244,7 +246,7 @@
 		<tr id="info07">
 			<td style="vertical-align: middle">오시는길</td>
 			<td colspan="2" style="height:auto;padding: 30px;text-align: left">
-				<div id="map" style="width:100%;height:350px;"></div>
+				<div id="map" style="width:100%;height:400px;"></div>
 			</td>
 		</tr>
 		<!-- 오시는길 -->
@@ -259,7 +261,7 @@
 						<col width="10%"/>
 						<col width="17%"/>
 						<col width="auto"/>
-						<col width="10%"/>
+						<col width="11%"/>
 						<col width="11%"/>
 						<col width="auto"/>
 					</colgroup>
@@ -269,8 +271,8 @@
 						<th style="vertical-align: middle">강사명</th>
 						<th style="vertical-align: middle">강의기간</th>
 						<th style="vertical-align: middle">강의시간</th>
-						<th style="vertical-align: middle">수강료 <br /> <small>(단위:원)</small></th>
 						<th style="vertical-align: middle">수강인원 <br /> <small>(단위:명)</small></th>
+						<th style="vertical-align: middle">수강료 <br /> <small>(단위:원)</small></th>
 						<th style="vertical-align: middle">결제 <br /> <small></small></th>
 						
 					</tr>
@@ -399,7 +401,9 @@
             <!-- 학원 후기 댓글 폼 -->	
 		
 	</table>
-		<a href="#info01"><button type = "button"  class="btn btn-info" style="margin:10px;width:auto;height:auto;vertical-align: middle;background-color: #699F9B">위로가기</button></a>
+		<%@ include file="/../resources/DR_common/commonShareSNS.jsp" %>
+		<br />
+		<a href="#page-top"><button type = "button"  class="btn btn-info " style="margin:10px;width:auto;height:auto;vertical-align: middle;background-color: #699F9B;margin-left: 3.3%">위로가기</button></a>
 	<!-- Tab content
 	<div id="London" class="tabcontent">
 	  <h3>London</h3>
@@ -416,6 +420,7 @@
 	  <p>Tokyo is the capital of Japan.</p>
 	</div> -->
 	</div>
+	
 </section>
 
 <!-- 학원 정보 등록 페이지  e -->
@@ -496,7 +501,6 @@ geocoder.addressSearch(adress, function(result, status) {
 </script>
 =======
   <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
->>>>>>> refs/remotes/origin/master
 
 </body>
 </html>

@@ -323,6 +323,12 @@ public class FinalProjectController {
 	/* 강사 목록 받기*/			  
 	/*AcaTeacherDTO acaTeacherDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo();*/
 	/* 강사 목록 받기*/
+	/* 공유를 위한 url받기*/
+	StringBuffer URL=req.getRequestURL();
+	System.out.println("URL="+URL);
+	String FULLURL =String.format("%s?acaIdx=%s", URL,acaIdx);
+	model.addAttribute("FULLURL",FULLURL);
+	model.addAttribute("naver","http://naver.com");
 	
 		return "01Main/AcademyInfo";
 	}

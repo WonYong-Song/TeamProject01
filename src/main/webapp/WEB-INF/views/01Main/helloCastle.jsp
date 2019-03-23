@@ -59,8 +59,8 @@
     </div>
   </header>
 
-  <!-- About Section -->
-  <section id="about" class="about-section text-center">
+  <!-- 간단한 소개를 쓸가요? -->
+  <!-- <section id="about" class="about-section text-center">
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
@@ -71,7 +71,7 @@
       </div>
       <img src="img/ipad.png" class="img-fluid" alt="">
     </div>
-  </section>
+  </section> -->
   <!-- Footer -->
   <footer class="bg-black small text-center text-white-50">
     <div class="container">
