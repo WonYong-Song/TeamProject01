@@ -575,35 +575,32 @@ public class FinalProjectController {
 			paramDTO.setKeyField(keyField);
 			paramDTO.setKeyString(keyString);
 		}
-		System.out.println("1111111111111111111111111111111111111111");
 		paramDTO.setUser_id(user_id);
 		int totalRecordCount = sqlSession.getMapper(MypageImpl.class).getTotalCountSearch(paramDTO);
 		//검색어에 따른 레코드 갯수 확인용 
 		System.out.println("totalRecordCount="+ totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 4;
-		int blockPage = 2;
+		int pageSize = 2;
+		int blockPage = 5;
 		
 		//전체페이지수계산하기
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
-
+		System.out.println("totalPage="+totalPage);
 		//시작 및 끝 rownum 구하기
 		int nowPage = req.getParameter("nowPage")==null ? 1 :
 			Integer.parseInt(req.getParameter("nowPage"));
 		int start = (nowPage-1) * pageSize + 1;
 		int end = nowPage * pageSize;
-
+		System.out.println("nowPage="+nowPage);
+		System.out.println("start="+start);
+		System.out.println("end="+end);
 		//검색처리위한 추가부분
 		paramDTO.setStart(start);
 		paramDTO.setEnd(end);
 		//수강신청한 강의정보 들고오기
-		System.out.println("1111111111111111111111111111111111111111");
 		ArrayList<ClassInfoDTO> classIntroDTO =sqlSession.getMapper(MypageImpl.class).myclass(paramDTO);
 		
-		System.out.println("1111111111111111111111111111111111111111");
-		
-		System.out.println("1111111111111111111111111111111111111111");
 		MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
 		int virtualNum = 0;
 		int countNum = 0;
@@ -690,7 +687,7 @@ public class FinalProjectController {
 		System.out.println("totalRecordCount="+totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 10;
+		int pageSize = 2;
 		int blockPage = 5;
 		
 		//전체페이지수계산하기
@@ -710,7 +707,7 @@ public class FinalProjectController {
 		//페이지 처리를 위한 처리부분
 		String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
 				pageSize, blockPage, nowPage,
-				req.getContextPath()+"/catle/list.do?"+addQueryString);
+				req.getContextPath()+"/catle/acaSearchMap.do?"+addQueryString);
 		model.addAttribute("pagingImg", pagingImg);
 		System.out.println("11111111111111111111111111111");
 		//줄바꿈처리
