@@ -76,7 +76,7 @@
 <!-- 학원 정보 등록 페이지  s -->
 <section id="mainImage" class="about-section text-center" style="padding-bottom:5%;background-image: url('../resources/img/bg-signup.jpg');">
 
-<div  class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;">
+<div  class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px;">
 
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:auto;">
     <div class="container">
@@ -84,54 +84,54 @@
         Menu
         <i class="fas fa-bars"></i>
       </button>
-	<div class="tab" style="padding: -10% 30px 0% 30px;">
-	<div style="padding-top: -53%;text-align: right;">
+	<div class="tab" style="padding: -10% 30px 0% 30px;margin:0 0 0 2.3%;">
+	<div style="padding-top: -53%;padding-left:52%; text-align: center;">
 		<ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="main.do">메인으로</a>
+            <a class="nav-link js-scroll-trigger" href="main.do" style="color: #64A19D">메인으로</a>
           </li>
   
 <% if(session.getAttribute("USER_ID")==null){ %> 
       <!-- 로그인전 -->
           <li class="nav-item">
 
-           <a class="nav-link js-scroll-trigger"  href="Login.do" style="cursor: pointer;">로그인</a>
+           <a class="nav-link js-scroll-trigger"  href="Login.do" style="cursor: pointer;color: #64A19D">로그인</a>
 
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="registGroup.do">회원가입</a>
+            <a class="nav-link js-scroll-trigger" href="registGroup.do" style="color: #64A19D">회원가입</a>
           </li>
 
 <% }else if(Integer.parseInt(session.getAttribute("GRADE").toString())==2){ %>
 <%-- <%} else if(session.getAttribute("USER_ID")==null){ %> --%> 
       <!--기업 회원 로그인후 -->
       	 <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="MemberModifyP.do">학원기본정보 수정</a>
+            <a class="nav-link js-scroll-trigger" href="MemberModifyP.do" style="color: #64A19D">학원기본정보 수정</a>
          </li>
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="acaInfoRegiEdit.do">학원부가정보 등록 및 수정</a>
+            <a class="nav-link js-scroll-trigger" href="acaInfoRegiEdit.do" style="color: #64A19D">학원부가정보 등록 및 수정</a>
          </li>
          <li class="nav-item">
-            <p  class="nav-link js-scroll-trigger"><%=session.getAttribute("USER_ID")%>님</p>
+            <p  class="nav-link js-scroll-trigger" style="color: #64A19D"><%=session.getAttribute("USER_ID")%>님</p>
          </li>
          
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="Logout.do">로그아웃</a>
+            <a class="nav-link js-scroll-trigger" href="Logout.do" style="color: #64A19D">로그아웃</a>
          </li>
 <% }else { %>
       <!--개인 회원 로그인후 -->
-      <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="MemberModifyP.do">회원정보수정</a>
-          </li>
+      <!-- <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="MemberModifyP.do" style="color: #64A19D">회원정보수정</a>
+          </li> -->
            <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="memberMyPage.do">마이페이지</a>
+            <a class="nav-link js-scroll-trigger" href="memberMyPage.do" style="color: #64A19D">마이페이지</a>
           </li>
           <li class="nav-item">
-            <p  class="nav-link js-scroll-trigger"><%=session.getAttribute("USER_ID")%>님</p>
+            <p  class="nav-link js-scroll-trigger" style="color: #64A19D"><%=session.getAttribute("USER_ID")%>님</p>
          </li>
          
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="Logout.do">로그아웃</a>
+            <a class="nav-link js-scroll-trigger" href="Logout.do" style="color: #64A19D">로그아웃</a>
          </li>
 <% } %>         
           
@@ -171,7 +171,7 @@
 	</div>
 	</div>
 	</nav>
-	<table class="table table-bordered" >
+	<table class="table table-bordered" style="height: auto">
 		<colgroup>
 			<col width="200px"/>
 			<col width="350px"/>
@@ -182,7 +182,7 @@
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
 				전체>예체능>${intro.category } </td>
 			<td rowspan="4" style="height:400px;">
-				<div class="container">
+				<div class="container" style="margin-left: -2%;">
 				<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
 			    </div>
 			</td>
@@ -263,7 +263,7 @@
 						<col width="11%"/>
 						<col width="auto"/>
 					</colgroup>
-					<h6>수강정보${loopStatus.index+1 }</h6>
+					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }</h6>
 					<tr>
 						<th style="vertical-align: middle">강의명</th>
 						<th style="vertical-align: middle">강사명</th>
@@ -331,7 +331,7 @@
 			<script type="text/javascript">
 			function writeValidate(f)
 			{
-				if(f.acaScore.value=="별점 매기기"){
+				if(f.acaScore.value=="0"){
 					alert("별점을 입력해 주세요");
 					f.acaScore.focus();
 					return false;
@@ -383,7 +383,7 @@
                     <div style="width:100%;height: 100%;">
                     <textarea rows="10" class="form-control" style="width:100%;height: 100%" name="reviewContents"></textarea>
                     </div>
-                    <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
+                    <p><small style="color: #64A19D">꺠끗하고 정확한 후기는 다른회원들의 캐슬 선택에 많이 도움이 됩니다.</small></p>
                   </div>
                   <p class="pull-right" ><small></small></p>
                   <button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">

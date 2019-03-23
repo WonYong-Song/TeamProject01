@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {
@@ -101,49 +101,50 @@ img {
   opacity: 1;
 }
 </style>
-<body>
 
-<h6 style="text-align:center;margin-bottom: 2%;"> - 캐슬 전경 - </h2>
 
-<div class="container" >
-  <div class="mySlides" >
-    <div class="numbertext">1 / 6</div>
-    <img src="../resources/img/Wommen.jpg" style="width:100%;height:350px">
-  </div>
+<!-- <h6 style="text-align:center;margin-bottom: 2%;"> - 캐슬 전경 - </h2> -->
 
-  <div class="mySlides">
-    <div class="numbertext">2 / 6</div>
-    <img src="../resources/img/hotel4.jpg" style="width:100%;height:350px">
-  </div>
-
-  <div class="mySlides">
-    <div class="numbertext">3 / 6</div>
-    <img src="../resources/img/hotel5.jpg" style="width:100%;height:350px">
-  </div>
-    
-  <div class="mySlides">
-    <div class="numbertext">4 / 6</div>
-    <img src="../resources/img/H_Chocolate.jpg" style="width:100%;height:350px">
-  </div>
-
-  <div class="mySlides">
-    <div class="numbertext">5 / 6</div>
-    <img src="../resources/img/hotelpront.jpg" style="width:100%;height:350px">
-  </div>
-    
-  <div class="mySlides">
-    <div class="numbertext">6 / 6</div>
-    <img src="../resources/img/H_Hotel0.jpg" style="width:100%;height:350px">
-  </div>
-    
-  <!-- <a class="prev" onclick="plusSlides(-1)"style="text-align:left;">❮</a>
-  <a class="next" onclick="plusSlides(1)" style="align:left">❯</a> -->
-
-  <div class="caption-container" style="height:50px;vertical-align: middle">
-    <p id="caption" ></p>
-  </div>
-
-  <div class="row">
+<div class="container" style="width:auto;" >
+	<div  style="width:112%;text-align: center;margin-left: -3.39%">
+	  <div class="mySlides" >
+	    <div class="numbertext">1 / 6</div>
+	    <img src="../resources/img/Wommen.jpg" style="width:100%;height:350px">
+	  </div>
+	
+	  <div class="mySlides">
+	    <div class="numbertext">2 / 6</div>
+	    <img src="../resources/img/hotel4.jpg" style="width:100%;height:350px">
+	  </div>
+	
+	  <div class="mySlides">
+	    <div class="numbertext">3 / 6</div>
+	    <img src="../resources/img/hotel5.jpg" style="width:100%;height:350px">
+	  </div>
+	    
+	  <div class="mySlides">
+	    <div class="numbertext">4 / 6</div>
+	    <img src="../resources/img/H_Chocolate.jpg" style="width:100%;height:350px">
+	  </div>
+	
+	  <div class="mySlides">
+	    <div class="numbertext">5 / 6</div>
+	    <img src="../resources/img/hotelpront.jpg" style="width:100%;height:350px">
+	  </div>
+	    
+	  <div class="mySlides">
+	    <div class="numbertext">6 / 6</div>
+	    <img src="../resources/img/H_Hotel0.jpg" style="width:100%;height:350px">
+	  </div>
+	    
+	  <!-- <a class="prev" onclick="plusSlides(-1)"style="text-align:left;">❮</a>
+	  <a class="next" onclick="plusSlides(1)" style="align:left">❯</a> -->
+	
+	  <div class="caption-container" style="height:50px;vertical-align: middle">
+	    <p id="caption" ></p>
+	  </div>
+	</div>
+  <div class="row" style="width:112%">
     <div class="column">
       <img class="demo cursor" src="../resources/img/Wommen.jpg" style="width:100%;height:100%" onclick="currentSlide(1)" alt="The Woods">
     </div>
@@ -195,5 +196,4 @@ function showSlides(n) {
 }
 </script>
     
-</body>
-</html>
+

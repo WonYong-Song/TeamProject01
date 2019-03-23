@@ -68,7 +68,7 @@ function classRegiValidate(c) {
 	}
 	
 	var chk = false
-	for(var i =0; c.acaday.length; i++){
+	for(var i =0; c.acaday.index; i++){
 	    if(c.acaday[i].checked){   
 	        chk=true;
 	    }
@@ -83,11 +83,33 @@ function classRegiValidate(c) {
 $(function(){
 	$('#delete').click(function(){
 		if(confirm("삭제하시겠습니까?")){
-			self.location.href = "<c:url value='/catle/classDelete/${classDTO.classidx }'/>";
-			window.opener.location.reload();
+			$.ajax({
+				type : "get",
+				url : "<c:url value='/catle/classDelete/${classDTO.classidx }'/>",
+				success:function(){
+					alert("삭제되었습니다");
+					window.opener.location.reload(); 
+					window.close();
+				}
+				,error:function(){
+				
+				}			
+			});	
 		}
 	});
 });
+
+$(function(){
+	$('#clsup').click(function(){
+		if(confirm("수정하시겠습니까?")){
+			
+		}
+	});
+});
+
+/* self.location.href = "<c:url value='/catle/classDelete/${classDTO.classidx }'/>";
+window.opener.location.reload();
+close(); */
 
 $(document).ready(function(){
 
@@ -95,10 +117,11 @@ $(document).ready(function(){
 
     if($(this).val()=="${classDTO.teaidx}"){
 
-      $(this).attr("selected","selected"); // attr적용안될경우 prop으로 
+      $(this).attr("selected","selected");
     }
   });
 });
+
 
 </script>
 </head>
@@ -116,7 +139,7 @@ for(String in : acaday){
 }
 %>
 <div class="container" style="padding-top:40px;" >
-	<form name="classFrm" action="classInfoUpdate.do" method="post">
+	<form name="classFrm" action="classInfoUpdate.do" method="post" onsubmit="classRegiValidate(this);">
 	<input type="hidden" name="classidx" value="${classDTO.classidx }" />
 	<table style=" width:100%; height:250px; background-color: #ffffff; border-radius: 10px; ">
 	      <colgroup>
@@ -131,7 +154,7 @@ for(String in : acaday){
 	         <td class="line2"style="padding-top: 20px; ">강의일자 : <input type="date" name="acastartdate" value="${classDTO.startd}"/>~<input type="date" name="acaenddate" value="${classDTO.endd}"/> <br /><br />	
 	         <td class="line2">강의명 : <input type="text" name="acaclassname" value="${classDTO.acaclassname}"/>
 	         <td rowspan="3" style="text-align: center;vertical-align: middle">
-	         <button type="submit" onsubmit="classRegiValidate(this);">수정</button><br /><br />
+	         <button type="submit" id="clsup">수정</button><br /><br />
 	         <button type="button" id="delete">삭제</button></td>
 	      </tr>
 	      <tr>

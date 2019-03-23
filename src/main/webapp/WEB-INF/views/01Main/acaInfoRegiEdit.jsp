@@ -103,7 +103,7 @@ $(document).ready( function() {
         var files = fileInput.files;
         var file;
         for (var i = 0; i <files.length; i++) {
-    		if(i > 6){
+    		if(i > 5){
     			alert("사진은 최대 6개까지 등록가능합니다.");
     			document.getElementById("fileup").value = "";
     		    return;
@@ -279,7 +279,6 @@ function classRegiValidate(c) {
 		<!-- 학원사진등록  -->
 		<form name="fileFrm" method="post" action="AcaInfoUpdate.do" enctype="multipart/form-data"  onsubmit="return introValidate(this)">
 			<input type="hidden" name="id" value="${RegiEditdto.id }" />
-			<input type="hidden" name="file" value="${RegiEditdto.acaintrophoto }" />
 			<table class="table" style="width:100%; background-color: #ffffff;" id="example">
 			<thead>
 				<tr> 
