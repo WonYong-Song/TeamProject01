@@ -16,7 +16,20 @@ public class AcaInfoRegiEditDTO {
 	private	String introduce;
 	private String category;
 	private String acaintrophoto;
+	private String acaintrophotouu;
 	
+	public String getAcaintrophotouu() {
+		return acaintrophotouu;
+	}
+
+
+
+	public void setAcaintrophotouu(String acaintrophotouu) {
+		this.acaintrophotouu = acaintrophotouu;
+	}
+
+
+
 	public AcaInfoRegiEditDTO() {}
 
 	

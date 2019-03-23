@@ -72,8 +72,9 @@
 		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id
 			FROM members m inner join AcaTeacher a
 				on m.id = a.id
-			WHERE a.id = #{param7}
+			WHERE teaidx = #{teaidx}
 	</select>
+	
 	
 	<!-- 새창에 강의뷰 불러오기  -->
 	<select id="classView" resultType="dto.AcaClassDTO">
@@ -89,17 +90,17 @@
 	
 	<!-- 강사정보 수정  -->
 	<update id="teaInfoUpd" parameterType="mybatis01.AcaTeacherDTO">
-		UPDATE acateacher SET teaidx=#{teaidx}, teaimage=#{teaimage}, teaname=#{teaname}, teaintro=#{teaintro}, subject=#{subject}
-		WHERE teaid=#{teaid} 
+		UPDATE acateacher SET teaimage=#{teaimage}, teaname=#{teaname}, teaintro=#{teaintro}, subject=#{subject}
+		WHERE teaidx=#{teaidx} 
 	</update>
 	
 	<!-- 강의정보 수정  -->
 	<update id="classInfoUpd" parameterType="dto.AcaClassDTO">
-		UPDATE acaclass SET 
-				castartdate=#castartdate}, acaenddate=#{acaenddate}, acaday=#{acaday}, 
-				acastarttime=#{acastarttime},acaendtime=#{acaendtime}, acaclassname=#{acaclassname}, 
+		UPDATE acaclass SET teaidx=#{teaidx}, 
+				acastartdate=to_date(#{acastartdate},'yyyy-MM-dd'), acaenddate=to_date(#{acaenddate},'yyyy-MM-dd'), acaday=#{acaday}, 
+				acastarttime=to_date(#{acastarttime},'HH24:mi'),acaendtime=to_date(#{acaendtime},'HH24:mi'), acaclassname=#{acaclassname}, 
 				pay=#{pay}, numberofparticipants=#{numberofparticipants}
-		WHERE classid=#{classid} 
+		WHERE classidx=#{classidx} 
 	</update>
 	
 	
