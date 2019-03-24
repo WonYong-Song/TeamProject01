@@ -2,6 +2,7 @@ package impl;
 
 import java.util.List;
 
+import dto.AcaClassDTO;
 import dto.MembersDTO;
 import mybatis01.AcaTeacherDTO;
 
@@ -28,4 +29,6 @@ public interface AppImpl {
 	public List<MembersDTO> detail1(String idx);
 	//학원상세정보페이지2
 	public List<AcaTeacherDTO> detail2(String idx);
+	//학원상세정보페이지3
+	public List<AcaClassDTO> detail3(String idx);
 }

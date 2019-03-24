@@ -91,6 +91,18 @@
 		    on m.id = a.id
 		where m.idx=#{0}
 	</select>
+	<select id="detail3" resultType="dto.AcaClassDTO">
+		select z.*,(select count(*) from enrollclass where classidx = z.classidx) classmembers
+		from
+		(
+		    select a.teaname, to_char(b.acastartdate,'yy-mm-dd') acastartdate, to_char(b.acaenddate,'yy-mm-dd') acaenddate, b.acaday, to_char(b.acastarttime,'hh24:mi') acastarttime, to_char(b.acaendtime,'hh24:mi') acaendtime, b.acaclassname,b.numberofparticipants,b.classidx,b.teaidx,b.pay
+		    from members m inner join acateacher a
+		        on m.id = a.id
+		        inner join acaclass b
+		        on a.teaidx = b.teaidx
+		    where m.idx = #{0}
+		) z
+	</select>
 </mapper>
 
    
