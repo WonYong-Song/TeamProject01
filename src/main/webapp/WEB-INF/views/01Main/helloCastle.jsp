@@ -5,25 +5,6 @@
 <html lang="en">
 
 <head>
-  <style>
-  /* 모달창 */
-	.modal {
-		text-align: center;
-		padding: 0!important;
-	}
-	.modal:before {
-		content: '';
-		display: inline-block;
-		height: 100%;
-		vertical-align: middle;
-		margin-right: -4px;
-	}
-	.modal-dialog {
-		display: inline-block;
-		text-align: left;
-		vertical-align: middle; 
-	}
-  </style> 
   
   <!-- 끌어온 스킨의 것 -->
   <meta charset="utf-8">
@@ -44,17 +25,20 @@
   <link href="../resources/css/grayscale.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
-
   <!-- Nav Bar -->
   <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
   <!-- Nav Bar -->
   <!-- Header -->
   <header class="masthead">
     <div class="container d-flex h-100 align-items-center">
-      <div class="mx-auto text-center">
-        <h1 class="mx-auto my-0 text-uppercase">STUDY CASTLE</h1>
-        <h2 class="text-white-50 mx-auto mt-2 mb-5">' 배움의 품격을 높히다 ,</h2>
-        <a href="main.do?param=123" class="btn btn-primary js-scroll-trigger" style="font-size:1em;margin-top: -2%">캐슬 시작하기</a>
+      <div class="mx-auto text-center"  style="margin-top: -5%">
+        <h1 class="mx-auto my-0 text-uppercase"><img src="../resources/Images/스터디캐슬 로고.png" alt=""style="height: 240px;width: 800px;" /></h1>
+        <div style="margin-top: -8%">
+	        <h2 class="text-white-50 mx-auto mt-2 mb-5">' 배움의 품격을 높이다 ,</h2>
+	        <div style="margin-left: -1%">
+	        	<a href="main.do?param=123" class="btn btn-primary js-scroll-trigger" style="font-size:1em;margin-top: -2%">캐슬 시작하기</a>
+        	</div>
+      	</div>
       </div>
     </div>
   </header>
@@ -73,6 +57,7 @@
     </div>
   </section> -->
   <!-- Footer -->
+  
   <footer class="bg-black small text-center text-white-50">
     <div class="container">
       Copyright &copy; Your Website 2019

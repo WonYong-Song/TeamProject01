@@ -56,10 +56,12 @@ public class FinalProjectController {
 	//케슬 메인
 	@RequestMapping("/catle/main.do")
 	public String main(HttpServletRequest req, Model model) {
-		String num =req.getParameter("param");
-		if(req.getParameter("param")==null) {
-			System.out.println(num+"여기까지 왔니??");
-		}
+		/* 공유를 위한 url받기*/
+		StringBuffer URL=req.getRequestURL();
+		System.out.println("URL="+URL);
+		String FULLURL =String.format("%s", URL);
+		model.addAttribute("FULLURL",FULLURL);
+
 		
 		return "01Main/main";
 	}
