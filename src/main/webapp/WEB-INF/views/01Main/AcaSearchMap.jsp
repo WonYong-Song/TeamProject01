@@ -163,7 +163,7 @@ height: 100%;
 				<c:otherwise>
 					<c:forEach items="${acaList }" var="row" varStatus="loop">
 						<!-- 리스트반복 시작 -->
-						<tr style="text-align:center;vertical-align: middle;" id="List${loop.index }">
+						<tr style="text-align:center;vertical-align: middle;">
 							<td class="text-center" style="text-align:center;vertical-align: middle;">${loop.index+1}</td>
 							<td class="text-left" style="vertical-align:middle;"><span class="maps" id="MapList${loop.index }">${row.address }</span></td>
 							<td class="text-center" style="text-align:center;vertical-align: middle;">${row.acaname }</td>

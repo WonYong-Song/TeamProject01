@@ -170,7 +170,7 @@ height: 100%;
 					</tr>
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${myClass }" var="row" varStatus="loop">
+					<c:forEach items="${myClass }" var="row">
 						<!-- 리스트반복 시작 -->
 						<tr>
 							<td class="text-center">${row.setVirtualNum}</td>
