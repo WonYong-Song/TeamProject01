@@ -30,8 +30,8 @@
 	</select>
 	<!-- 댓글 쓰기 -->
 	<insert id="reviewWrite">
-		insert into reviewWrite(ReviewContents,Score,Id,AcaIdx,reviewidx)
-		VALUES (#{param4},#{param3}, #{param2}, #{param1},REVIEWIDX_REQ.nextval)
+		insert into reviewWrite(ReviewContents,Score,Id,AcaIdx,reviewidx,reviewgroup)
+		VALUES (#{param4},#{param3}, #{param2}, #{param1},REVIEWIDX_REQ.nextval,#{param5})
 	</insert>
 	<!-- 댓글 총갯수 찾기 -->
 	<select id="getTotalCountSearchReview" resultType="int" 
@@ -78,6 +78,10 @@
 			score= #{param2}, reviewcontents=#{param3}
 		WHERE REVIEWIDX=#{param1}
 	</update>
+	<!-- 수정할 댓글 정보 -->
+	<select id="reviewIdentify" resultType="int">
+		SELECT COUNT(*) FROM ENROLLCLASS where id=#{param2} and acaidx=#{param1}
+	</select>
 </mapper>
 
    

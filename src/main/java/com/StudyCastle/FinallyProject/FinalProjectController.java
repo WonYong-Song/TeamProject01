@@ -348,19 +348,20 @@ public class FinalProjectController {
 		System.out.println("acaScore="+acaScore);
 		System.out.println("memberId="+memberId);
 		System.out.println("reviewContents="+reviewContents);
-		/*if(session.getAttribute("siteUserInfo")==null)
-		{
-			return "redirect:login.do";
-		}*/
-		//Mybatis 사용
-		/*sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				req.getParameter("name"),req.getParameter("contents"),
-				((MemberDTO)session.getAttribute("siteUserInfo")).getMemberId());*/
-		
-		sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				acaidx,memberId,acaScore,reviewContents);
+		int flag = sqlSession.getMapper(AcademyInfoImpl.class).reviewIdentify(acaidx,memberId);
+		if(flag==1) {
+			//수강신청한 적 있는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,2);
+			System.out.println("수강신청 한적있는 리뷰 작성 완료");
+		}
+		else{
+			//수강신청한 적 없는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,1);
+			System.out.println("수강신청 한적없는 리뷰 작성 완료");
+		}		
 		 
-		
 		/*return "redirect:academyInfo.do";*/
 		return "redirect:academyInfo.do?acaIdx="+acaidx;
 		
@@ -501,7 +502,10 @@ public class FinalProjectController {
 	public String paymentAction(Model model, HttpServletRequest req, HttpSession session) {
 	System.out.println("----------------결제과정 시작----------------");
     //넘어오는 user_id(어쩔수없이 이 네임으로 아이디를 받음)
-	String user_id = req.getParameter("item_name");
+	//String user_id = req.getParameter("item_name");
+	String acaidx = req.getParameter("item_name");
+	String user_id=(String) session.getAttribute("USER_ID");
+	System.out.println("acaidx="+acaidx);
 	System.out.println("세로 생성해야할 아이디="+user_id);
 	//세로운 세션생성을 위해 reLogin
 	MembersDTO membersDTO = sqlSession.getMapper(PaymentImpl.class).reLogin(user_id);
@@ -520,9 +524,11 @@ public class FinalProjectController {
 	String item_number = req.getParameter("item_number");
 	System.out.println("111111111111111111111111111111111111");
 	//결제를 진행하는 Mybatis!
-	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number);
+	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number,acaidx);
 	System.out.println("결제가 완료된 아이디="+user_id);
 	System.out.println("결제완료된 과목 idx="+item_number);
+	//결제된 과목의 수강인원을 1회 높여주는 마이바티스
+	sqlSession.getMapper(PaymentImpl.class).numberplus(item_number);
 	System.out.println("111111111111111111111111111111111111");
 	//결제된 과목의 정보를 가져오는 Mybatis!
 	ClassInfoDTO classDTO = sqlSession.getMapper(PaymentImpl.class).classInfo(item_number);

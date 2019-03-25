@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -265,7 +266,16 @@
 						<col width="11%"/>
 						<col width="auto"/>
 					</colgroup>
-					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }</h6>
+					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }-
+						<c:choose>
+							<c:when test="${row3.numberofparticipants eq row3.numberofapplicants }">
+								<span style="color: #F15041">신청불가</sapn>
+							</c:when>
+							<c:otherwise>
+								<span style="color: #2556C9">신청가능</sapn>
+							</c:otherwise>
+						</c:choose>
+					</h6>
 					<tr>
 						<th style="vertical-align: middle">강의명</th>
 						<th style="vertical-align: middle">강사명</th>
@@ -282,17 +292,26 @@
 						<td style="vertical-align: middle">${row3.teaname }</td>
 						<td style="vertical-align: middle">${row3.acastartdate }~<br />${row3.acaenddate }</td>
 						<td style="vertical-align: middle">매주&nbsp;${row3.acaday }&nbsp;&nbsp;${row3.acastarttime }~${row3.acaendtime }</td>
-						<td style="vertical-align: middle">${row3.numberofparticipants } <br /> </td>
-						<td style="vertical-align: middle"> ${row3.pay } </td>
-						<td  rowspan="2" style="text-align: center;vertical-align: middle"
-						><input type="image" name="submit" border="0" 
-						src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
-						alt="PayPal - The safer, easier way to pay online"></td>
+						<td style="vertical-align: middle">${row3.numberofapplicants}/${row3.numberofparticipants } <br /> </td>
+						<td style="vertical-align: middle"><fmt:formatNumber value="${row3.pay }" /></td>
+						<td  rowspan="2" style="text-align: center;vertical-align: middle;color:#F15041 "
+						>
+						<c:choose>
+							<c:when test="${row3.numberofparticipants eq row3.numberofapplicants }">
+								수강만원
+							</c:when>
+							<c:otherwise>
+								<input type="image" name="submit" border="0" 
+									src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
+									alt="PayPal - The safer, easier way to pay online">
+							</c:otherwise>
+						</c:choose>
+						</td>
 						<input type="hidden" name="cmd" value="_xclick">
 						<input type="hidden" name="business" value="beholderstar-facilitator@gmail.com">
 						<input type="hidden" name="custom" value="${dto.idx }">
 						<input type="hidden" name="charset" value="UTF-8">
-						<input type="hidden" name="item_name" value="${user_id}">
+						<input type="hidden" name="item_name" value="${dto.idx}">
 						<input type="hidden" name="item_number" value="${row3.classidx }">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="amount" value="${row3.pay/1132.71 }">

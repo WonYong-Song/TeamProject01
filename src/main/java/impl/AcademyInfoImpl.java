@@ -19,7 +19,7 @@ public interface AcademyInfoImpl {
 	//리뷰리스트
 	public ArrayList<ReviewWriteDTO> review(ParamDTO paramDTO);
 	//글쓰기
-	public void reviewWrite(String acaidx, String id, String acaScore, String reviewContents);
+	public void reviewWrite(String acaidx, String id, String acaScore, String reviewContents, int group);
 	//댓글 총갯수 반환
 	public int getTotalCountSearchReview(ParamDTO paramDTO);
 
@@ -34,6 +34,8 @@ public interface AcademyInfoImpl {
 	public ReviewWriteDTO reviewModify(String idx);
 	//댓글 수정 처리
 	public int modifyAction(String reviewidx, String acaScore, String reviewContents);
+	//수강신청을 한사람의 댓글인지 그냥댓글인지 구분하는 함수
+	public int reviewIdentify(String acaidx, String memberId);
 	
 
 }

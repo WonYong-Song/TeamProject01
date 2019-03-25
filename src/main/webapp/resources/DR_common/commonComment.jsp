@@ -78,7 +78,11 @@ $(function(){
                   
                   <div class="media-body text-left" style="width:250px;height:100px;padding-left: 50px;">
                       
-                    <h4 class="media-heading user_name">${row.id }</h4>
+                    <h4 class="media-heading user_name">${row.id }
+						<c:if test="${row.reviewgroup eq '2' }">
+							${reviewfroup}(★수강자 리뷰★)
+						</c:if>	
+                    </h4>
                     ${row.reviewcontents }
                     <div>
                     ${row.starRaiting }
