@@ -23,6 +23,7 @@ public class MembersDTO {
 	private String interest;	//관심사(일반회원만) 
 	private String acaName;		//학원명(학원회원만
 	
+	
 	//App이용으로 인한 추가내용
 	private String introduce;
 	private String category;
@@ -38,9 +39,13 @@ public class MembersDTO {
 	
 	
 	
+	public MembersDTO(String id) {
+		this.id = id;
+	}
 	//기본생성자
 	public MembersDTO() {}
 	//인자생성자
+
 	public MembersDTO(String id, String pass, Date regidate, String emailId, String emailDomain, String mobile1,
 			String mobile2, String mobile3, String name, int idx, int grade, String telephone1, String telephone2,
 			String telephone3, String address, String detailAddress, String interest, String acaName) {

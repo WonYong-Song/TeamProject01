@@ -10,5 +10,7 @@ public interface PaymentImpl {
 	public ClassInfoDTO classInfo(String item_number);
 	//결제시 다시 로그인
 	public MembersDTO reLogin(String user_id);
+	//해당 클래스의 신청인원을 1 더해줌
+	public void numberplus(String item_number);
 
 }

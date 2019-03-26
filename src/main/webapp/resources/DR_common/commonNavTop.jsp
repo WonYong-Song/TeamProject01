@@ -44,9 +44,9 @@
          </li>
 <% }else { %>
       <!--개인 회원 로그인후 -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="MemberModifyP.do">회원정보수정</a>
-          </li>
+          </li> -->
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="memberMyPage.do">마이페이지</a>
           </li>

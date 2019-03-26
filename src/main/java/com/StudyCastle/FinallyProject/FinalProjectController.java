@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.AcaClassDTO;
 import dto.MembersDTO;
 import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
@@ -39,6 +40,8 @@ import mybatis01.MemberDTO;
 
 import mybatis01.ParamDTO;
 import mybatis01.ReviewWriteDTO;
+import mybatis01.idsDTO;
+
 
 
 @Controller
@@ -272,6 +275,7 @@ public class FinalProjectController {
 		System.out.println(dto1.getId());
 		System.out.println(dto1.getStarRaiting());
 	}
+	model.addAttribute("USER_ID",(String)session.getAttribute("USER_ID"));
 	model.addAttribute("reviewDTO", reviewDTO);
 	model.addAttribute("pagingImg", pagingImg);
 	
@@ -298,9 +302,10 @@ public class FinalProjectController {
 	/* 학원 소개 가져오기 e*/
 	
 	/* 강의 목록 가져오기 S*/
-	ArrayList<ClassInfoDTO> classIntroDTO = sqlSession.getMapper(AcademyInfoImpl.class).classIntro(acaId);
+	ArrayList<AcaClassDTO> classIntroDTO = sqlSession.getMapper(AcademyInfoImpl.class).classIntro(acaIdx);
+	System.out.println("acaidx="+acaIdx);
 	model.addAttribute("classInfo", classIntroDTO);
-	for(ClassInfoDTO dto : classIntroDTO)
+	/*for(AcaClassDTO dto : classIntroDTO)
 	{
 		String startD = dto.getAcastartdate().substring(0,10);
 		String endD = dto.getAcaenddate().substring(0,10);
@@ -311,7 +316,7 @@ public class FinalProjectController {
 		dto.setAcaenddate(endD);
 		dto.setAcastarttime(startT);
 		dto.setAcaendtime(endT);
-	}
+	}*/
 	/* 강의 목록 가져오기 E*/
 	
 	System.out.println(acaMemberDTO.getAddress());
@@ -325,6 +330,21 @@ public class FinalProjectController {
 	/* 강사 목록 받기*/			  
 	/*AcaTeacherDTO acaTeacherDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo();*/
 	/* 강사 목록 받기*/
+	/*MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
+	memberInfo.getId();*/
+	
+	ArrayList<MembersDTO> ids = sqlSession.getMapper(AcademyInfoImpl.class).reviewIdentify(acaIdx);
+	System.out.println("111111111111111111111111111111111111111111111111111111111111111111111");
+	int isflag =0;
+	for(MembersDTO dto : ids) {
+		if(dto.getId().equals(user_id)) {
+			isflag=1;
+			
+		}
+	}
+	System.out.println("isflag="+isflag);
+	model.addAttribute("isflag",isflag);
+	
 	/* 공유를 위한 url받기*/
 	StringBuffer URL=req.getRequestURL();
 	System.out.println("URL="+URL);
@@ -348,24 +368,27 @@ public class FinalProjectController {
 		System.out.println("acaScore="+acaScore);
 		System.out.println("memberId="+memberId);
 		System.out.println("reviewContents="+reviewContents);
-		/*if(session.getAttribute("siteUserInfo")==null)
-		{
-			return "redirect:login.do";
-		}*/
-		//Mybatis 사용
-		/*sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				req.getParameter("name"),req.getParameter("contents"),
-				((MemberDTO)session.getAttribute("siteUserInfo")).getMemberId());*/
 		
-		sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				acaidx,memberId,acaScore,reviewContents);
+		
+		boolean isflag=true;
+		//int flag = sqlSession.getMapper(AcademyInfoImpl.class).reviewIdentify(memberId);
+		if(isflag==true) {
+			//수강신청한 적 있는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,2);
+			System.out.println("수강신청 한적있는 리뷰 작성 완료");
+		}
+		else{
+			//수강신청한 적 없는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,1);
+			System.out.println("수강신청 한적없는 리뷰 작성 완료");
+		}		
 		 
-		
 		/*return "redirect:academyInfo.do";*/
 		return "redirect:academyInfo.do?acaIdx="+acaidx;
 		
 	}
-	
 /////////////////////////////////////////////////////////////////////////	
 	//수정하기
 	@RequestMapping("/mybatis/modify.do")
@@ -474,7 +497,6 @@ public class FinalProjectController {
       
 		return "redirect:/catle/academyInfo.do?";
 	}
-	
 	// 댓글 삭제하기
 	@RequestMapping("/catle/delete.do")
 	public String delete(HttpServletRequest req, Model model,
@@ -496,12 +518,16 @@ public class FinalProjectController {
 		return "redirect:academyInfo.do?acaIdx="+acaIdx;
 	}
 	
+	
 	//결제 완료창 띄우기
 	@RequestMapping("/catle/paymentAction.do")
 	public String paymentAction(Model model, HttpServletRequest req, HttpSession session) {
 	System.out.println("----------------결제과정 시작----------------");
     //넘어오는 user_id(어쩔수없이 이 네임으로 아이디를 받음)
-	String user_id = req.getParameter("item_name");
+	//String user_id = req.getParameter("item_name");
+	String acaidx = req.getParameter("item_name");
+	String user_id=(String) session.getAttribute("USER_ID");
+	System.out.println("acaidx="+acaidx);
 	System.out.println("세로 생성해야할 아이디="+user_id);
 	//세로운 세션생성을 위해 reLogin
 	MembersDTO membersDTO = sqlSession.getMapper(PaymentImpl.class).reLogin(user_id);
@@ -523,6 +549,8 @@ public class FinalProjectController {
 	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number);
 	System.out.println("결제가 완료된 아이디="+user_id);
 	System.out.println("결제완료된 과목 idx="+item_number);
+	/*//결제된 과목의 수강인원을 1회 높여주는 마이바티스
+	sqlSession.getMapper(PaymentImpl.class).numberplus(item_number);*/
 	System.out.println("111111111111111111111111111111111111");
 	//결제된 과목의 정보를 가져오는 Mybatis!
 	ClassInfoDTO classDTO = sqlSession.getMapper(PaymentImpl.class).classInfo(item_number);
@@ -652,7 +680,7 @@ public class FinalProjectController {
 			System.out.println("1111111111111111111111111111111111111111111");
 			return "redirect:MemberModifyP.do";
 		}
-
+		
 		System.out.println("22222222222222222222222222222222222222222");
 		String msg = "비밀번호가 일치하지 않습니다.";
 		model.addAttribute("msg",msg);

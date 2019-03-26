@@ -116,7 +116,7 @@
 
         <div class="col-md-4 mb-3 mb-md-0">
           <div class="card py-4 h-100">
-          	<a href="list.do" target="_blank">
+          	<a href="list.do?cateB=기타&" target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
               <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">기타</h4>
