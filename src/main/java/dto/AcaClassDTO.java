@@ -19,6 +19,8 @@ public class AcaClassDTO {
 	private String startt;
 	private String endt;
 	
+	private String classmembers;//원용이가 만든 맴버변수 - app에서 사용하며 맵퍼에서 현재수강인원을 가져오기위해서 사용함 
+	
 	public AcaClassDTO() {}
 
 	public AcaClassDTO(String acastartdate, String acaenddate, String acaday, String acastarttime, String acaendtime,
@@ -198,6 +200,14 @@ public class AcaClassDTO {
 
 	public void setEndt(String endt) {
 		this.endt = endt;
+	}
+	
+	public String getClassmembers() {
+		return classmembers;
+	}
+
+	public void setClassmembers(String classmembers) {
+		this.classmembers = classmembers;
 	}
 
 	

@@ -27,6 +27,13 @@ public class MembersDTO {
 	private String introduce;
 	private String category;
 	private String acaIntroPhoto;
+	private String acaIntroPhotoUU;
+	public String getAcaIntroPhotoUU() {
+		return acaIntroPhotoUU;
+	}
+	public void setAcaIntroPhotoUU(String acaIntroPhotoUU) {
+		this.acaIntroPhotoUU = acaIntroPhotoUU;
+	}
 	private double score;
 	
 	

@@ -8,6 +8,7 @@ public class AcaTeacherDTO {
 	private String teaimage;
 	private String teaintro;
 	private String teaname;
+	private String teaimageuu;
 	
 	public AcaTeacherDTO() {
 	}
@@ -70,5 +71,12 @@ public class AcaTeacherDTO {
 		this.teaname = teaname;
 	}
 	
+	public String getTeaimageuu() {
+		return teaimageuu;
+	}
+
+	public void setTeaimageuu(String teaimageuu) {
+		this.teaimageuu = teaimageuu;
+	}
 	
 }

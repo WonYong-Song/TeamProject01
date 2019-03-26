@@ -2,7 +2,9 @@ package impl;
 
 import java.util.List;
 
+import dto.AcaClassDTO;
 import dto.MembersDTO;
+import mybatis01.AcaTeacherDTO;
 
 public interface AppImpl {
 
@@ -22,4 +24,17 @@ public interface AppImpl {
 	public List<MembersDTO> acalist7(String search_contents,String button_name);
 	//리스트8
 	public List<MembersDTO> acalist8(String search_contents,String button_name);
+	
+	//학원상세정보페이지1
+	public List<MembersDTO> detail1(String idx);
+	//학원상세정보페이지2
+	public List<AcaTeacherDTO> detail2(String idx);
+	//학원상세정보페이지3
+	public List<AcaClassDTO> detail3(String idx);
+	
+	//로그인처리
+	public MembersDTO loginAction(String id, String pass);
+	
+	//회원정보 가져오기
+	public MembersDTO myInfo(String id);
 }

@@ -37,7 +37,7 @@
 			value="oracle.jdbc.OracleDriver" />
 		<beans:property name="url" 
 			value="jdbc:oracle:thin:@localhost:1521:orcl" />
-		<beans:property name="username" value="kosmo" />
+		<beans:property name="username" value="studycastle" />
 		<beans:property name="password" value="1234" />
 	</beans:bean>
 	<beans:bean name="template" 
@@ -59,8 +59,8 @@
 	
 	<!-- 파일업로드를 위한 빈생성 MultipartResolver 설정 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 업로드는 1메가까지 허용 -->
-		<beans:property name="maxUploadSize" value="1000000"/>
+		<!-- 업로드는 20메가까지 허용 -->
+		<beans:property name="maxUploadSize" value="20000000"/>
 	</beans:bean>
 	
 	<!-- <beans:bean id="uploadPath" class="java.lang.String">

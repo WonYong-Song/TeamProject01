@@ -14,8 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import dto.AcaClassDTO;
 import dto.MembersDTO;
 import impl.AppImpl;
+import mybatis01.AcaTeacherDTO;
 
 @Controller
 public class AppController {
@@ -23,6 +27,8 @@ public class AppController {
 	@Autowired
 	private SqlSession sqlSession;
 	
+	
+	//학원들의 리스트를 보여주는 맵핑
 	@RequestMapping("/catle/AppAcaList.do")
 	@ResponseBody
 	public JSONArray appList(HttpServletRequest req) {
@@ -105,6 +111,7 @@ public class AppController {
 			jsonObject.put("detailAddress", s.getDetailAddress());
 			jsonObject.put("category", s.getCategory());
 			jsonObject.put("acaIntroPhoto", s.getAcaIntroPhoto());
+			jsonObject.put("acaIntroPhotoUU", s.getAcaIntroPhotoUU());
 			jsonObject.put("score", s.getScore());
 			
 			jsonArray.add(jsonObject);
@@ -114,18 +121,123 @@ public class AppController {
 		return jsonArray;
 	}
 	
+	
+	//학원의 상세정보를 보여주는 매핑
 	@RequestMapping("catle/AppAcaDetail.do")
 	@ResponseBody
-	public JSONArray detailInfo(HttpServletRequest req) {
-		JSONArray jsonArray = new JSONArray();
+	public JSONObject detailInfo(HttpServletRequest req) {
+		JSONObject jsonResult = new JSONObject();
+		JSONArray jsonArray1 = new JSONArray();
+		JSONArray jsonArray2 = new JSONArray();
+		JSONArray jsonArray3 = new JSONArray();
 		
 		//파라미터 받기
 		String idx = (req.getParameter("idx")==null) ? "" : req.getParameter("idx");
+		System.out.println(idx);
 		
 		//맵퍼의 결과를 회신하기위한 리스트객체 생성
-		List<MembersDTO> list = new Vector<MembersDTO>();
+		List<MembersDTO> list1 = new Vector<MembersDTO>();
+		List<AcaTeacherDTO> list2 = new Vector<AcaTeacherDTO>();
+		List<AcaClassDTO> list3 = new Vector<AcaClassDTO>();
+		
+		//1.학원사진명, 카테테고리, 학원명, 학원전화번호, 학원주소, 학원소개의 정보를 가져옴
+		list1 = sqlSession.getMapper(AppImpl.class).detail1(idx);
+		for(MembersDTO s : list1) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("acaIntroPhoto", s.getAcaIntroPhoto());
+			jsonObject.put("acaIntroPhotoUU", s.getAcaIntroPhotoUU());
+			jsonObject.put("category", s.getCategory());
+			jsonObject.put("acaName", s.getAcaName());
+			jsonObject.put("telephone1", s.getTelephone1());
+			jsonObject.put("telephone2", s.getTelephone2());
+			jsonObject.put("telephone3", s.getTelephone3());
+			jsonObject.put("address", s.getAddress());
+			jsonObject.put("detailAddress", s.getDetailAddress());
+			jsonObject.put("introduce", s.getIntroduce());
+			
+			jsonArray1.add(jsonObject);
+		}
+		jsonResult.put("학원정보", jsonArray1);
+		System.out.println("학원정보:" + jsonResult.toJSONString());
 		
 		
-		return jsonArray;
+		//2.강사이미지, 강사명, 강사소개, 강의과목의 정보를 가져옴
+		list2 = sqlSession.getMapper(AppImpl.class).detail2(idx);
+		for(AcaTeacherDTO s : list2) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("teaImage", s.getTeaimage());
+			jsonObject.put("teaImageUU", s.getTeaimageuu());
+			jsonObject.put("teaName", s.getTeaname());
+			jsonObject.put("teaIntro", s.getTeaintro());
+			jsonObject.put("subject", s.getSubject());
+			jsonArray2.add(jsonObject);
+		}
+		jsonResult.put("강사정보", jsonArray2);
+		System.out.println("강사정보까지 진행후 : " + jsonResult.toJSONString());
+		
+		
+		//3.강의명,강사명,강의기간(시작일~종료일),강의요일,강의시간(시작시간~종료시간),수강인원
+		list3 = sqlSession.getMapper(AppImpl.class).detail3(idx);
+		for(AcaClassDTO s : list3) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("classTeaName", s.getTeaname());//강사명
+			jsonObject.put("startDate", s.getAcastartdate());//강의시작일
+			jsonObject.put("endDate", s.getAcaenddate());//강의종료일
+			jsonObject.put("day", s.getAcaday());//강의요일
+			jsonObject.put("startTime", s.getAcastarttime());//강의시작시간
+			jsonObject.put("endTime", s.getAcaendtime());//강의종료시간
+			jsonObject.put("className", s.getAcaclassname());//강의명
+			jsonObject.put("participants", s.getNumberofparticipants());//강의정원
+			jsonObject.put("pay", s.getPay());//수강료
+			jsonObject.put("classMembers", s.getClassmembers());//현재수강신청인원
+			
+			jsonArray3.add(jsonObject);
+		}
+		jsonResult.put("강의정보", jsonArray3);
+		System.out.println("강사정보까지 진행후 : " + jsonResult.toJSONString());
+		
+		return jsonResult;
+	}
+	
+	@RequestMapping("catle/AppLoginAction.do")
+	@ResponseBody
+	public JSONObject loginAction1(HttpServletRequest req) {
+		JSONObject jsonObject = new JSONObject();
+		
+		String id = req.getParameter("id");
+		String pass = req.getParameter("pass");
+		
+		MembersDTO dto = sqlSession.getMapper(AppImpl.class).loginAction(id,pass);
+	
+		if(dto!=null) {
+			jsonObject.put("id", dto.getId());
+			jsonObject.put("name", dto.getName());
+		}
+		
+		return jsonObject;
+	}
+	
+	@RequestMapping("catle/AppMyInfo.do")
+	@ResponseBody
+	public JSONObject myInfo(HttpServletRequest req) {
+		JSONObject jsonObject = new JSONObject();
+		
+		String id = req.getParameter("id");
+		
+		MembersDTO dto = sqlSession.getMapper(AppImpl.class).myInfo(id);
+		if(dto!=null) {
+			jsonObject.put("id", dto.getId());
+			jsonObject.put("pass", dto.getPass());
+			jsonObject.put("emailid", dto.getEmailId());
+			jsonObject.put("emaildomain", dto.getEmailDomain());
+			jsonObject.put("mobile1", dto.getMobile1());
+			jsonObject.put("mobile2", dto.getMobile2());
+			jsonObject.put("mobile3", dto.getMobile3());
+			jsonObject.put("name", dto.getName());
+			jsonObject.put("interest", dto.getInterest());
+		
+		}
+		
+		return jsonObject;
 	}
 }

@@ -15,7 +15,7 @@ public interface AcademyInfoRegiEditImpl {
 	
 	//학원소개 등록 수정
 	public void AcaInfoRegiEdit(String address, String detailaddress,String acaname,String telephone1,String telephone2, String telephone3, String id);//members
-	public void AcaInfoRegiEdit2(String introduce, String category, String acaintrophoto, String id);//acaIntroduce
+	public void AcaInfoRegiEdit2(String introduce, String category, String[] acaintrophoto, String id);//acaIntroduce
 	
 	//카테고리 셀렉트 옵션
 	public ArrayList<CategoryDTO> categorySelect();
@@ -35,7 +35,7 @@ public interface AcademyInfoRegiEditImpl {
 	
 	
 	//강사정보 뷰
-	public void teacherView(AcaTeacherDTO acaTeacherDTO, String id);
+	public AcaTeacherDTO teacherView(String teaidx);
 	//강사정보 수정
 	public void teaInfoUpd(AcaTeacherDTO acaTeacherDTO);
 	//강사정보 삭제
