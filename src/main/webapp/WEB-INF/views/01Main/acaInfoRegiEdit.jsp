@@ -95,7 +95,7 @@ $(function(){
 		$('#telephone3').val($('#telephone3').val().replace(/ /g, ''));
 	});
 });
-$(document).ready( function() {
+/* $(document).ready( function() {
 	  
     $("input[type=file]").change(function () {
           
@@ -111,9 +111,9 @@ $(document).ready( function() {
     		else{
     			file = files[i];
     		}
-        }  
+        }
     });
-});
+}); */
 </script>
 <script>
 //공백제거
@@ -289,7 +289,7 @@ function classRegiValidate(c) {
 				<tr>
 					<th>학원사진</th>
 					<td>
-						<input type="file" id="fileup" name="acaintrophoto" multiple="multiple" />
+						<input type="file" name="acaintrophoto" />
 						등록 파일 : ${RegiEditdto.acaintrophoto }
 					</td>
 				</tr>
@@ -390,7 +390,7 @@ function classRegiValidate(c) {
 			</tbody>	
 			</table>		
 			<!-- 강사정보추가  -->
-			<form name="teachFrm" action="teaInfoInsert.do" method="post" onsubmit="return teaRegiValidate(this)">
+			<form name="teachFrm" action="teaInfoInsert.do" method="post" onsubmit="return teaRegiValidate(this)" enctype="multipart/form-data" >
 				<div>
 					<table class="table" style="width:100%; background-color: #ffffff;">
 						<tr><th colspan="2" style="font-size: 1.5em;">- 강사 등록</th></tr>

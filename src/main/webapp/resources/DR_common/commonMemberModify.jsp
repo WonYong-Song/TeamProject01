@@ -473,7 +473,7 @@ for(String in : interest){
                <option value="naver.com">네이버</option>
                <option value="hanmail.net">다음</option>
                <option value="gmail.com">구글G메일</option>
-               <option value="yahoo.com">야후</option>
+               <option value="nate.com">네이트</option>
                <option value="direct_input">-직접입력-</option>
             </select>
          </td>

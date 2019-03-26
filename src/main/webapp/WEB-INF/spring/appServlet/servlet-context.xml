@@ -37,7 +37,7 @@
 			value="oracle.jdbc.OracleDriver" />
 		<beans:property name="url" 
 			value="jdbc:oracle:thin:@localhost:1521:orcl" />
-		<beans:property name="username" value="kosmo" />
+		<beans:property name="username" value="studycastle" />
 		<beans:property name="password" value="1234" />
 	</beans:bean>
 	<beans:bean name="template" 
@@ -66,10 +66,7 @@
 	<!-- <beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="D:\\SpringUploadRepo\\upload"></beans:constructor-arg>
 	</beans:bean> -->
-	
-	
-	
-	
+		
 	
 	
 	
