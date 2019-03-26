@@ -2,15 +2,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:85px; ">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="helloCastle.do">Study Castle</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand js-scroll-trigger" href="helloCastle.do"><img src="../resources/Images/스터디캐슬 로고3.png" alt=""style="height: 70px;width: 210px;" /></a>
+      <!-- <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
-      </button>
+      </button> -->
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto" style="margin-top: 1.9%">
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="main.do">메인으로</a>
           </li>
@@ -44,9 +44,9 @@
          </li>
 <% }else { %>
       <!--개인 회원 로그인후 -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="MemberModifyP.do">회원정보수정</a>
-          </li>
+          </li> -->
            <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="memberMyPage.do">마이페이지</a>
           </li>

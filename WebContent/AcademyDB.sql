@@ -51,7 +51,9 @@ CREATE TABLE AcaIntroduce
 	-- 학원소개사진
 	AcaIntroPhoto varchar2(3000),
 	-- 아이디
-	id varchar2(300) NOT NULL
+	id varchar2(300) NOT NULL,
+	-- 학원소개사진UUID
+	AcaIntroPhotoUU varchar2(3000)
 );
 
 
@@ -70,6 +72,8 @@ CREATE TABLE AcaTeacher
 	TeaIdx number NOT NULL,
 	-- 아이디
 	id varchar2(300) NOT NULL,
+	-- 강사이미지UUID
+	TeaImageUU varchar2(3000),
 	PRIMARY KEY (TeaIdx)
 );
 
@@ -213,6 +217,7 @@ COMMENT ON COLUMN AcaIntroduce.Introduce IS '학원소개';
 COMMENT ON COLUMN AcaIntroduce.Category IS '학원의 카테고리';
 COMMENT ON COLUMN AcaIntroduce.AcaIntroPhoto IS '학원소개사진';
 COMMENT ON COLUMN AcaIntroduce.id IS '아이디';
+COMMENT ON COLUMN AcaIntroduce.AcaIntroPhotoUU IS '학원소개사진UUID';
 COMMENT ON TABLE AcaTeacher IS '학원선생님';
 COMMENT ON COLUMN AcaTeacher.TeaImage IS '강사이미지';
 COMMENT ON COLUMN AcaTeacher.TeaName IS '강사명';
@@ -220,6 +225,7 @@ COMMENT ON COLUMN AcaTeacher.TeaIntro IS '강사소개';
 COMMENT ON COLUMN AcaTeacher.Subject IS '강의과목';
 COMMENT ON COLUMN AcaTeacher.TeaIdx IS '강사고유번호';
 COMMENT ON COLUMN AcaTeacher.id IS '아이디';
+COMMENT ON COLUMN AcaTeacher.TeaImageUU IS '강사이미지UUID';
 COMMENT ON TABLE Category IS '학원의카테고리';
 COMMENT ON COLUMN Category.MainCategory IS '대분류';
 COMMENT ON COLUMN Category.MiddleCategory IS '중분류';

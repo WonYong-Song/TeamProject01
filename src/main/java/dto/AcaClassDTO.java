@@ -16,6 +16,11 @@ public class AcaClassDTO {
 	private String startd;
 	private String endd;
 	
+	private String startt;
+	private String endt;
+	
+	private String classmembers;//원용이가 만든 맴버변수 - app에서 사용하며 맵퍼에서 현재수강인원을 가져오기위해서 사용함 
+	
 	public AcaClassDTO() {}
 
 	public AcaClassDTO(String acastartdate, String acaenddate, String acaday, String acastarttime, String acaendtime,
@@ -36,9 +41,25 @@ public class AcaClassDTO {
 		this.endd = endd;
 	}
 
-
-
-
+	public AcaClassDTO(String acastartdate, String acaenddate, String acaday, String acastarttime, String acaendtime,
+			String acaclassname, String numberofparticipants, String classidx, String teaidx, String pay,
+			String teaname, String startd, String endd, String startt, String endt) {
+		this.acastartdate = acastartdate;
+		this.acaenddate = acaenddate;
+		this.acaday = acaday;
+		this.acastarttime = acastarttime;
+		this.acaendtime = acaendtime;
+		this.acaclassname = acaclassname;
+		this.numberofparticipants = numberofparticipants;
+		this.classidx = classidx;
+		this.teaidx = teaidx;
+		this.pay = pay;
+		this.teaname = teaname;
+		this.startd = startd;
+		this.endd = endd;
+		this.startt = startt;
+		this.endt = endt;
+	}
 
 	public String getAcastartdate() {
 		return acastartdate;
@@ -165,6 +186,30 @@ public class AcaClassDTO {
 		this.endd = endd;
 	}
 
+	public String getStartt() {
+		return startt;
+	}
 
+	public void setStartt(String startt) {
+		this.startt = startt;
+	}
+
+	public String getEndt() {
+		return endt;
+	}
+
+	public void setEndt(String endt) {
+		this.endt = endt;
+	}
+	
+	public String getClassmembers() {
+		return classmembers;
+	}
+
+	public void setClassmembers(String classmembers) {
+		this.classmembers = classmembers;
+	}
+
+	
 }
 	

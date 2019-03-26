@@ -37,9 +37,19 @@ function Modify(n){
 	});
 }
 $(function(){
-
+	
 
 }); 
+</script>
+<script type="text/javascript">
+function deletes(ri,ai){
+	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+		location.href="delete.do?idx="+ri+"&acaIdx="+ai;
+	}else{   //취소
+	    return;
+	}
+
+}
 </script>
 <div class="container" style="padding-left: 30px;padding-top: 20px;padding-bottom: 20px;">
      <div class="row" >
@@ -78,7 +88,11 @@ $(function(){
                   
                   <div class="media-body text-left" style="width:250px;height:100px;padding-left: 50px;">
                       
-                    <h4 class="media-heading user_name">${row.id }</h4>
+                    <h4 class="media-heading user_name">${row.id }
+						<c:if test="${row.reviewgroup eq '2' }">
+							${reviewfroup}(★수강자 리뷰★)
+						</c:if>	
+                    </h4>
                     ${row.reviewcontents }
                     <div>
                     ${row.starRaiting }
@@ -90,7 +104,9 @@ $(function(){
                    
                   <p class="pull-right" ><small>${row.writetime }&nbsp;</small></p>
                     <div style="vertical-align: bottom;height:20px;" >
-                    <p><small><a  onclick="Modify('${row.reviewidx }');" style="cursor: pointer;color: #839997">&nbsp;수정</a> - <a href="delete.do?idx=${row.reviewidx}&acaIdx=${row.acaidx}">삭제</a></small></p>
+                    <c:if test="${row.id eq USER_ID }">
+                    <p><small><a  onclick="Modify('${row.reviewidx }');" style="cursor: pointer;color: #839997">&nbsp;수정</a> - <a onclick="deletes('${row.reviewidx }','${row.acaidx}');" style="cursor: pointer;color: #839997">삭제</a></small></p>
+                    </c:if>
                     <%-- <p><small><a href="modify.do?idx=${row.reviewidx}&acaIdx=${row.acaidx}">수정</a> - <a href="delete.do?idx=${row.reviewidx}&acaIdx=${row.acaidx}">삭제</a></small></p> --%>
                     </div>
                 </div>

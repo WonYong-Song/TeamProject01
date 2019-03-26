@@ -7,6 +7,7 @@ public class ReviewWriteDTO {
 	private String id;
 	private String acaidx;
 	private String reviewidx;
+	private String reviewgroup;
 	
 	private String starRaiting;
 	
@@ -34,6 +35,27 @@ public class ReviewWriteDTO {
 		this.acaidx = acaidx;
 		this.reviewidx = reviewidx;
 		this.starRaiting = starRaiting;
+	}
+	
+	public ReviewWriteDTO(String reviewcontents, double score, String writetime, String id, String acaidx,
+			String reviewidx, String reviewgroup, String starRaiting) {
+		super();
+		this.reviewcontents = reviewcontents;
+		this.score = score;
+		this.writetime = writetime;
+		this.id = id;
+		this.acaidx = acaidx;
+		this.reviewidx = reviewidx;
+		this.reviewgroup = reviewgroup;
+		this.starRaiting = starRaiting;
+	}
+	
+	public String getReviewgroup() {
+		return reviewgroup;
+	}
+
+	public void setReviewgroup(String reviewgroup) {
+		this.reviewgroup = reviewgroup;
 	}
 
 	public String getStarRaiting() {
