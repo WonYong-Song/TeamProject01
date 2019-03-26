@@ -2,6 +2,8 @@ package mybatis01;
 
 public class AcaiIntroduceDTO {
 	private String acaintrophoto;
+	private String acaintrophotouu;
+	
 	private String category;
 	private String id;
 	private String introduce;
@@ -40,6 +42,11 @@ public class AcaiIntroduceDTO {
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}
-	
+	public String getAcaintrophotouu() {
+		return acaintrophotouu;
+	}
+	public void setAcaintrophotouu(String acaintrophotouu) {
+		this.acaintrophotouu = acaintrophotouu;
+	}
 	
 }

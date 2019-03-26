@@ -56,10 +56,12 @@ public class FinalProjectController {
 	//케슬 메인
 	@RequestMapping("/catle/main.do")
 	public String main(HttpServletRequest req, Model model) {
-		String num =req.getParameter("param");
-		if(req.getParameter("param")==null) {
-			System.out.println(num+"여기까지 왔니??");
-		}
+		/* 공유를 위한 url받기*/
+		StringBuffer URL=req.getRequestURL();
+		System.out.println("URL="+URL);
+		String FULLURL =String.format("%s", URL);
+		model.addAttribute("FULLURL",FULLURL);
+
 		
 		return "01Main/main";
 	}
@@ -323,6 +325,12 @@ public class FinalProjectController {
 	/* 강사 목록 받기*/			  
 	/*AcaTeacherDTO acaTeacherDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo();*/
 	/* 강사 목록 받기*/
+	/* 공유를 위한 url받기*/
+	StringBuffer URL=req.getRequestURL();
+	System.out.println("URL="+URL);
+	String FULLURL =String.format("%s?acaIdx=%s", URL,acaIdx);
+	model.addAttribute("FULLURL",FULLURL);
+	model.addAttribute("naver","http://naver.com");
 	
 		return "01Main/AcademyInfo";
 	}
@@ -340,19 +348,20 @@ public class FinalProjectController {
 		System.out.println("acaScore="+acaScore);
 		System.out.println("memberId="+memberId);
 		System.out.println("reviewContents="+reviewContents);
-		/*if(session.getAttribute("siteUserInfo")==null)
-		{
-			return "redirect:login.do";
-		}*/
-		//Mybatis 사용
-		/*sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				req.getParameter("name"),req.getParameter("contents"),
-				((MemberDTO)session.getAttribute("siteUserInfo")).getMemberId());*/
-		
-		sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				acaidx,memberId,acaScore,reviewContents);
+		int flag = sqlSession.getMapper(AcademyInfoImpl.class).reviewIdentify(acaidx,memberId);
+		if(flag==1) {
+			//수강신청한 적 있는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,2);
+			System.out.println("수강신청 한적있는 리뷰 작성 완료");
+		}
+		else{
+			//수강신청한 적 없는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,1);
+			System.out.println("수강신청 한적없는 리뷰 작성 완료");
+		}		
 		 
-		
 		/*return "redirect:academyInfo.do";*/
 		return "redirect:academyInfo.do?acaIdx="+acaidx;
 		
@@ -493,7 +502,10 @@ public class FinalProjectController {
 	public String paymentAction(Model model, HttpServletRequest req, HttpSession session) {
 	System.out.println("----------------결제과정 시작----------------");
     //넘어오는 user_id(어쩔수없이 이 네임으로 아이디를 받음)
-	String user_id = req.getParameter("item_name");
+	//String user_id = req.getParameter("item_name");
+	String acaidx = req.getParameter("item_name");
+	String user_id=(String) session.getAttribute("USER_ID");
+	System.out.println("acaidx="+acaidx);
 	System.out.println("세로 생성해야할 아이디="+user_id);
 	//세로운 세션생성을 위해 reLogin
 	MembersDTO membersDTO = sqlSession.getMapper(PaymentImpl.class).reLogin(user_id);
@@ -512,9 +524,11 @@ public class FinalProjectController {
 	String item_number = req.getParameter("item_number");
 	System.out.println("111111111111111111111111111111111111");
 	//결제를 진행하는 Mybatis!
-	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number);
+	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number,acaidx);
 	System.out.println("결제가 완료된 아이디="+user_id);
 	System.out.println("결제완료된 과목 idx="+item_number);
+	//결제된 과목의 수강인원을 1회 높여주는 마이바티스
+	sqlSession.getMapper(PaymentImpl.class).numberplus(item_number);
 	System.out.println("111111111111111111111111111111111111");
 	//결제된 과목의 정보를 가져오는 Mybatis!
 	ClassInfoDTO classDTO = sqlSession.getMapper(PaymentImpl.class).classInfo(item_number);
@@ -569,35 +583,32 @@ public class FinalProjectController {
 			paramDTO.setKeyField(keyField);
 			paramDTO.setKeyString(keyString);
 		}
-		System.out.println("1111111111111111111111111111111111111111");
 		paramDTO.setUser_id(user_id);
 		int totalRecordCount = sqlSession.getMapper(MypageImpl.class).getTotalCountSearch(paramDTO);
 		//검색어에 따른 레코드 갯수 확인용 
 		System.out.println("totalRecordCount="+ totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 4;
-		int blockPage = 2;
+		int pageSize = 2;
+		int blockPage = 5;
 		
 		//전체페이지수계산하기
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
-
+		System.out.println("totalPage="+totalPage);
 		//시작 및 끝 rownum 구하기
 		int nowPage = req.getParameter("nowPage")==null ? 1 :
 			Integer.parseInt(req.getParameter("nowPage"));
 		int start = (nowPage-1) * pageSize + 1;
 		int end = nowPage * pageSize;
-
+		System.out.println("nowPage="+nowPage);
+		System.out.println("start="+start);
+		System.out.println("end="+end);
 		//검색처리위한 추가부분
 		paramDTO.setStart(start);
 		paramDTO.setEnd(end);
 		//수강신청한 강의정보 들고오기
-		System.out.println("1111111111111111111111111111111111111111");
 		ArrayList<ClassInfoDTO> classIntroDTO =sqlSession.getMapper(MypageImpl.class).myclass(paramDTO);
 		
-		System.out.println("1111111111111111111111111111111111111111");
-		
-		System.out.println("1111111111111111111111111111111111111111");
 		MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
 		int virtualNum = 0;
 		int countNum = 0;
@@ -684,7 +695,7 @@ public class FinalProjectController {
 		System.out.println("totalRecordCount="+totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 10;
+		int pageSize = 2;
 		int blockPage = 5;
 		
 		//전체페이지수계산하기
@@ -704,7 +715,7 @@ public class FinalProjectController {
 		//페이지 처리를 위한 처리부분
 		String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
 				pageSize, blockPage, nowPage,
-				req.getContextPath()+"/catle/list.do?"+addQueryString);
+				req.getContextPath()+"/catle/acaSearchMap.do?"+addQueryString);
 		model.addAttribute("pagingImg", pagingImg);
 		System.out.println("11111111111111111111111111111");
 		//줄바꿈처리

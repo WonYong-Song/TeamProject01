@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +77,7 @@
 <!-- 학원 정보 등록 페이지  s -->
 <section id="mainImage" class="about-section text-center" style="padding-bottom:5%;background-image: url('../resources/img/bg-signup.jpg');">
 
-<div  class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px;">
+<div class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px;">
 
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:auto;">
     <div class="container">
@@ -142,7 +143,7 @@
 		
 
           <li class="nav-item">
-		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li>
+		  <!-- <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
@@ -151,13 +152,14 @@
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
 		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info09">캐슬링후기</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info10">공유하기</a></li>
      </ul>
 <% }else { %>
 	 <ul class="navbar-nav ml-auto" style="margin-top: -11%">
 		
 
           <li class="nav-item">
-		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li>
+		  <!-- <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
@@ -166,6 +168,7 @@
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
 		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info09">캐슬링후기</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info10">공유하기</a></li>
      </ul>
 <% } %>   
 	</div>
@@ -180,7 +183,7 @@
 		<tr id="info01" >
 			<td style="vertical-align: middle">카테고리</td>
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
-				전체>예체능>${intro.category } </td>
+				전체>${intro.category } </td>
 			<td rowspan="4" style="height:400px;">
 				<div class="container" style="margin-left: -2%;">
 				<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
@@ -244,7 +247,7 @@
 		<tr id="info07">
 			<td style="vertical-align: middle">오시는길</td>
 			<td colspan="2" style="height:auto;padding: 30px;text-align: left">
-				<div id="map" style="width:100%;height:350px;"></div>
+				<div id="map" style="width:100%;height:400px;"></div>
 			</td>
 		</tr>
 		<!-- 오시는길 -->
@@ -259,18 +262,27 @@
 						<col width="10%"/>
 						<col width="17%"/>
 						<col width="auto"/>
-						<col width="10%"/>
+						<col width="11%"/>
 						<col width="11%"/>
 						<col width="auto"/>
 					</colgroup>
-					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }</h6>
+					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }-
+						<c:choose>
+							<c:when test="${row3.numberofparticipants eq row3.numberofapplicants }">
+								<span style="color: #F15041">신청불가</sapn>
+							</c:when>
+							<c:otherwise>
+								<span style="color: #2556C9">신청가능</sapn>
+							</c:otherwise>
+						</c:choose>
+					</h6>
 					<tr>
 						<th style="vertical-align: middle">강의명</th>
 						<th style="vertical-align: middle">강사명</th>
 						<th style="vertical-align: middle">강의기간</th>
 						<th style="vertical-align: middle">강의시간</th>
-						<th style="vertical-align: middle">수강료 <br /> <small>(단위:원)</small></th>
 						<th style="vertical-align: middle">수강인원 <br /> <small>(단위:명)</small></th>
+						<th style="vertical-align: middle">수강료 <br /> <small>(단위:원)</small></th>
 						<th style="vertical-align: middle">결제 <br /> <small></small></th>
 						
 					</tr>
@@ -280,17 +292,26 @@
 						<td style="vertical-align: middle">${row3.teaname }</td>
 						<td style="vertical-align: middle">${row3.acastartdate }~<br />${row3.acaenddate }</td>
 						<td style="vertical-align: middle">매주&nbsp;${row3.acaday }&nbsp;&nbsp;${row3.acastarttime }~${row3.acaendtime }</td>
-						<td style="vertical-align: middle">${row3.numberofparticipants } <br /> </td>
-						<td style="vertical-align: middle"> ${row3.pay } </td>
-						<td  rowspan="2" style="text-align: center;vertical-align: middle"
-						><input type="image" name="submit" border="0" 
-						src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
-						alt="PayPal - The safer, easier way to pay online"></td>
+						<td style="vertical-align: middle">${row3.numberofapplicants}/${row3.numberofparticipants } <br /> </td>
+						<td style="vertical-align: middle"><fmt:formatNumber value="${row3.pay }" /></td>
+						<td  rowspan="2" style="text-align: center;vertical-align: middle;color:#F15041 "
+						>
+						<c:choose>
+							<c:when test="${row3.numberofparticipants eq row3.numberofapplicants }">
+								수강만원
+							</c:when>
+							<c:otherwise>
+								<input type="image" name="submit" border="0" 
+									src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
+									alt="PayPal - The safer, easier way to pay online">
+							</c:otherwise>
+						</c:choose>
+						</td>
 						<input type="hidden" name="cmd" value="_xclick">
 						<input type="hidden" name="business" value="beholderstar-facilitator@gmail.com">
 						<input type="hidden" name="custom" value="${dto.idx }">
 						<input type="hidden" name="charset" value="UTF-8">
-						<input type="hidden" name="item_name" value="${user_id}">
+						<input type="hidden" name="item_name" value="${dto.idx}">
 						<input type="hidden" name="item_number" value="${row3.classidx }">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="amount" value="${row3.pay/1132.71 }">
@@ -399,7 +420,9 @@
             <!-- 학원 후기 댓글 폼 -->	
 		
 	</table>
-		<a href="#info01"><button type = "button"  class="btn btn-info" style="margin:10px;width:auto;height:auto;vertical-align: middle;background-color: #699F9B">위로가기</button></a>
+		<%@ include file="/../resources/DR_common/commonShareSNS.jsp" %>
+		<br />
+		<a href="#page-top"><button type = "button"  class="btn btn-info " style="margin:10px;width:auto;height:auto;vertical-align: middle;background-color: #699F9B;margin-left: 3.3%">위로가기</button></a>
 	<!-- Tab content
 	<div id="London" class="tabcontent">
 	  <h3>London</h3>
@@ -416,6 +439,7 @@
 	  <p>Tokyo is the capital of Japan.</p>
 	</div> -->
 	</div>
+	
 </section>
 
 <!-- 학원 정보 등록 페이지  e -->
@@ -496,7 +520,6 @@ geocoder.addressSearch(adress, function(result, status) {
 </script>
 =======
   <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
->>>>>>> refs/remotes/origin/master
 
 </body>
 </html>
