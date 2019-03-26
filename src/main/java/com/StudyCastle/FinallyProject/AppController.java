@@ -198,4 +198,46 @@ public class AppController {
 		
 		return jsonResult;
 	}
+	
+	@RequestMapping("catle/AppLoginAction.do")
+	@ResponseBody
+	public JSONObject loginAction1(HttpServletRequest req) {
+		JSONObject jsonObject = new JSONObject();
+		
+		String id = req.getParameter("id");
+		String pass = req.getParameter("pass");
+		
+		MembersDTO dto = sqlSession.getMapper(AppImpl.class).loginAction(id,pass);
+	
+		if(dto!=null) {
+			jsonObject.put("id", dto.getId());
+			jsonObject.put("name", dto.getName());
+		}
+		
+		return jsonObject;
+	}
+	
+	@RequestMapping("catle/AppMyInfo.do")
+	@ResponseBody
+	public JSONObject myInfo(HttpServletRequest req) {
+		JSONObject jsonObject = new JSONObject();
+		
+		String id = req.getParameter("id");
+		
+		MembersDTO dto = sqlSession.getMapper(AppImpl.class).myInfo(id);
+		if(dto!=null) {
+			jsonObject.put("id", dto.getId());
+			jsonObject.put("pass", dto.getPass());
+			jsonObject.put("emailid", dto.getEmailId());
+			jsonObject.put("emaildomain", dto.getEmailDomain());
+			jsonObject.put("mobile1", dto.getMobile1());
+			jsonObject.put("mobile2", dto.getMobile2());
+			jsonObject.put("mobile3", dto.getMobile3());
+			jsonObject.put("name", dto.getName());
+			jsonObject.put("interest", dto.getInterest());
+		
+		}
+		
+		return jsonObject;
+	}
 }

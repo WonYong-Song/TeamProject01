@@ -25,7 +25,7 @@
 
   <!-- Custom styles for this template -->
   <link href="../resources/css/grayscale.min.css" rel="stylesheet">
-  
+
 </head>
 <style>
 

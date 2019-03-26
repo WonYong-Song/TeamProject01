@@ -5,8 +5,8 @@
     
 <mapper namespace="impl.PaymentImpl">    
 	<insert id="payment">
-		insert into enrollclass(id,classidx,acaidx)
-		VALUES (#{param1},#{param2},#{param3})
+		insert into enrollclass(id,classidx)
+		VALUES (#{param1},#{param2})
 	</insert>
 	
 	<select id="classInfo" resultType="mybatis01.ClassInfoDTO">

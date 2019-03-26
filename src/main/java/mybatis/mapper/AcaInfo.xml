@@ -30,8 +30,8 @@
 	</select>
 	<!-- 댓글 쓰기 -->
 	<insert id="reviewWrite">
-		insert into reviewWrite(ReviewContents,Score,Id,AcaIdx,reviewidx,reviewgroup)
-		VALUES (#{param4},#{param3}, #{param2}, #{param1},REVIEWIDX_REQ.nextval,#{param5})
+		insert into reviewWrite(ReviewContents,Score,Id,AcaIdx,reviewidx)
+		VALUES (#{param4},#{param3}, #{param2}, #{param1},REVIEWIDX_REQ.nextval)
 	</insert>
 	<!-- 댓글 총갯수 찾기 -->
 	<select id="getTotalCountSearchReview" resultType="int" 
@@ -46,7 +46,7 @@
 		  	</otherwise>
 	   	</choose>
 	</select> 
-	
+
 	<!-- 댓글 삭제 -->
 	<delete id="delete">
 		DELETE FROM reviewWrite WHERE reviewidx=#{param1}
@@ -60,13 +60,17 @@
 		SELECT * FROM acaintroduce where id=#{param1}
 	</select>
 	<!-- 강의 목록 가져오기 -->
-	<select id="classIntro" resultType="mybatis01.ClassInfoDTO">
-		SELECT
-    A.teaname , B.*
-		FROM acateacher A, acaclass B
-		
-		WHERE 
-		    A.teaidx=B.teaidx and A.id=#{param1}
+	<select id="classIntro" resultType="dto.AcaClassDTO">
+	      select z.*,(select count(*) from enrollclass where classidx = z.classidx) classmembers
+      from
+      (
+          select a.teaname, to_char(b.acastartdate,'yy-mm-dd') acastartdate, to_char(b.acaenddate,'yy-mm-dd') acaenddate, b.acaday, to_char(b.acastarttime,'hh24:mi') acastarttime, to_char(b.acaendtime,'hh24:mi') acaendtime, b.acaclassname,b.numberofparticipants,b.classidx,b.teaidx,b.pay
+          from members m inner join acateacher a
+              on m.id = a.id
+              inner join acaclass b
+              on a.teaidx = b.teaidx
+          where m.idx = #{param1}
+      ) z
 	</select>
 	<!-- 수정할 댓글 정보 -->
 	<select id="reviewModify" resultType="mybatis01.ReviewWriteDTO">
@@ -79,8 +83,15 @@
 		WHERE REVIEWIDX=#{param1}
 	</update>
 	<!-- 수정할 댓글 정보 -->
-	<select id="reviewIdentify" resultType="int">
-		SELECT COUNT(*) FROM ENROLLCLASS where id=#{param2} and acaidx=#{param1}
+	<select id="reviewIdentify" resultType="dto.MembersDTO" parameterType="String">
+		select e.id
+		from members m inner join acateacher t
+		    on m.id = t.id
+		    inner join acaclass c
+		    on t.teaidx = c.teaidx
+		    inner join enrollclass e
+		    on c.classidx = e.classidx
+		where m.idx = #{param1}
 	</select>
 </mapper>
 

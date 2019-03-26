@@ -268,7 +268,7 @@
 					</colgroup>
 					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }-
 						<c:choose>
-							<c:when test="${row3.numberofparticipants eq row3.numberofapplicants }">
+							<c:when test="${row3.classmembers eq row3.numberofparticipants }">
 								<span style="color: #F15041">신청불가</sapn>
 							</c:when>
 							<c:otherwise>
@@ -292,12 +292,12 @@
 						<td style="vertical-align: middle">${row3.teaname }</td>
 						<td style="vertical-align: middle">${row3.acastartdate }~<br />${row3.acaenddate }</td>
 						<td style="vertical-align: middle">매주&nbsp;${row3.acaday }&nbsp;&nbsp;${row3.acastarttime }~${row3.acaendtime }</td>
-						<td style="vertical-align: middle">${row3.numberofapplicants}/${row3.numberofparticipants } <br /> </td>
+						<td style="vertical-align: middle">${row3.classmembers}/${row3.numberofparticipants } <br /> </td>
 						<td style="vertical-align: middle"><fmt:formatNumber value="${row3.pay }" /></td>
 						<td  rowspan="2" style="text-align: center;vertical-align: middle;color:#F15041 "
 						>
 						<c:choose>
-							<c:when test="${row3.numberofparticipants eq row3.numberofapplicants }">
+							<c:when test="${row3.classmembers eq row3.numberofparticipants }">
 								수강만원
 							</c:when>
 							<c:otherwise>
@@ -365,12 +365,12 @@
 			}
 			/* 폼값 전송 */
 			function writeValidate2(){
-			    /* document.getElementById('btn').onclick = function() {
-			        
-			    }; */
+				if (confirm("정말 수정 하시겠습니까??") == true){    //확인
+					document.getElementById("editF").submit();
+				}else{   //취소
+				    return;
+				}
 			    
-			    document.getElementById("editF").submit();
-		        return false;
 			};
 			</script>
 			
@@ -378,7 +378,7 @@
 			<tr><td colspan="4">
 			<!-- 학원 후기 댓글 폼 -->
 			<div id="editR">
-			<form name="writeFrm" method="post" 
+			<form name="writeFrm" method="post"  id="reviewForm"
 				onsubmit="return writeValidate(this);"
 				action="reviewAction.do" >
 				
@@ -407,8 +407,18 @@
                     <p><small style="color: #64A19D">꺠끗하고 정확한 후기는 다른회원들의 캐슬 선택에 많이 도움이 됩니다.</small></p>
                   </div>
                   <p class="pull-right" ><small></small></p>
-                  <button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">
-                  후기작성</button>
+               	  <c:choose>
+							<c:when test="${isflag eq 0 }">
+							<div style=" padding-top: 6%;padding-left:1%; height: 100px;">
+								 <p><small style="color: #64A19D;font-weight: bold">수강신청을 하시면 <br />후기작성 하기 버튼이 <br />생성됩니다☆</small></p>
+							</div>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">후기작성</button>
+							</c:otherwise>
+						</c:choose>
+                  
+           
                 </div>
                 
                 

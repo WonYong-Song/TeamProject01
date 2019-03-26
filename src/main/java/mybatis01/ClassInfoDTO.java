@@ -14,6 +14,7 @@ public class ClassInfoDTO {
 	private String pay;
 	private String teaname;
 	private int setVirtualNum;
+	private String classmembers;
 		
 	public ClassInfoDTO() {
 	}
@@ -69,6 +70,32 @@ public class ClassInfoDTO {
 		this.setVirtualNum = setVirtualNum;
 	}
 	
+	public ClassInfoDTO(String acastartdate, String acaenddate, String acaday, String acastarttime, String acaendtime,
+			String acaclassname, String numberofparticipants, String numberofapplicants, String classidx, String teaidx,
+			String pay, String teaname, int setVirtualNum, String classmembers) {
+		super();
+		this.acastartdate = acastartdate;
+		this.acaenddate = acaenddate;
+		this.acaday = acaday;
+		this.acastarttime = acastarttime;
+		this.acaendtime = acaendtime;
+		this.acaclassname = acaclassname;
+		this.numberofparticipants = numberofparticipants;
+		this.numberofapplicants = numberofapplicants;
+		this.classidx = classidx;
+		this.teaidx = teaidx;
+		this.pay = pay;
+		this.teaname = teaname;
+		this.setVirtualNum = setVirtualNum;
+		this.classmembers = classmembers;
+	}
+	
+	public String getClassmembers() {
+		return classmembers;
+	}
+	public void setClassmembers(String classmembers) {
+		this.classmembers = classmembers;
+	}
 	public String getNumberofapplicants() {
 		return numberofapplicants;
 	}

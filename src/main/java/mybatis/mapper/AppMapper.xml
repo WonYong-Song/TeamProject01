@@ -103,6 +103,17 @@
 		    where m.idx = #{0}
 		) z
 	</select>
+	
+	<select id="loginAction" resultType="dto.MembersDTO">
+		select *
+		from members
+		where id=#{0} and pass=#{1} and grade=1
+	</select>
+	<select id="myInfo" resultType="dto.MembersDTO">
+		select *
+		from members
+		where id=#{0} and grade=1
+	</select>
 </mapper>
 
    
