@@ -29,7 +29,7 @@
   <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
   <!-- Nav Bar -->
   <!-- Header -->
-  <header class="masthead">
+  <header class="masthead" >
     <div class="container d-flex h-100 align-items-center">
       <div class="mx-auto text-center"  style="margin-top: -5%">
         <h1 class="mx-auto my-0 text-uppercase"><img src="../resources/Images/스터디캐슬 로고.png" alt=""style="height: 240px;width: 800px;" /></h1>

@@ -2,6 +2,8 @@ package impl;
 
 import java.util.ArrayList;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import dto.AcaClassDTO;
 import dto.AcaInfoRegiEditDTO;
 import dto.CategoryDTO;
@@ -15,7 +17,7 @@ public interface AcademyInfoRegiEditImpl {
 	
 	//학원소개 등록 수정
 	public void AcaInfoRegiEdit(String address, String detailaddress,String acaname,String telephone1,String telephone2, String telephone3, String id);//members
-	public void AcaInfoRegiEdit2(String introduce, String category, String[] acaintrophoto, String id);//acaIntroduce
+	public void AcaInfoRegiEdit2(String introduce, String category, String originalName,String serverFullName, String id);//acaIntroduce
 	
 	//카테고리 셀렉트 옵션
 	public ArrayList<CategoryDTO> categorySelect();
@@ -24,7 +26,7 @@ public interface AcademyInfoRegiEditImpl {
 	public ArrayList<AcaTeacherDTO> TeacherList(String id);
 	
 	//강사진 등록
-	public void TeacherRegi(String teaimage, String teaname, String teaintro, String subject, String id);
+	public void TeacherRegi(String originalName,String serverFullName, String teaname, String teaintro, String subject, String id);
 	
 	
 	//강의시간표 리스트
@@ -37,7 +39,7 @@ public interface AcademyInfoRegiEditImpl {
 	//강사정보 뷰
 	public AcaTeacherDTO teacherView(String teaidx);
 	//강사정보 수정
-	public void teaInfoUpd(AcaTeacherDTO acaTeacherDTO);
+	public void teaInfoUpd(String originalName,String serverFullName, String teaname, String teaintro, String subject, String teaidx);
 	//강사정보 삭제
 	public void teaInfoDel(AcaTeacherDTO acaTeacherDTO);
 	

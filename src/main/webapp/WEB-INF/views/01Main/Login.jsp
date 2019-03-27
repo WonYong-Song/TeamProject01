@@ -31,7 +31,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   
-  <title>Grayscale - Start Bootstrap Theme</title>
+  <title>로그인하기</title>
   
   <!-- Bootstrap core CSS -->
   <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -65,18 +65,23 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <h2 class="text-white mb-4">Built with Bootstrap 4</h2>
-          <p class="text-white-50">Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-            <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
         </div>
       </div>
       <img src="img/ipad.png" class="img-fluid" alt="">
     </div>
   </section>
   <!-- Footer -->
-  <footer class="bg-black small text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Your Website 2019
+  <footer class="bg-black small text-center text-white-50" >
+	<div class="row">
+    	<div class="col-lg-2">
+ 			<img src="../resources/Images/스터디캐슬로고4.png" alt=""style="height: 70px;width: 210px;" />
+    	</div>
+    	<div class="col-lg-8">
+    		 <p>주)미라클포포 서울시 금천구 가산동 426-5 월드메르디앙 2차 410호<br /></p>
+	 	 	<p>대표이사 : 송원용 사업자등록번호 : 000-00-00000  TEL : 02-0000-0000 FAX : 02-0000-0000 E-mail : beholderstar@gmail.com</p>
+	  		<p>Copyright &copy; MiraclePoPo 2019. All rights reserved.</p>
+    	</div>
+    	<div class="col-lg-2"></div>
     </div>
   </footer>
 

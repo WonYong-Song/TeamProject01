@@ -3,9 +3,9 @@ package mybatis01;
 public class AcademyMemberDTO {
 	private String id;
 	private String pass;
-	private String regidate;
+	private String regidate; 
 	private String emailid;
-	private String emaildomain;
+	private String emaildomain; 
 	private String mobile1; 
 	private String name;
 	private String idx;

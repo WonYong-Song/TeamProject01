@@ -61,7 +61,7 @@
   <section id="signup" class="signup-section" style="height:300px;">
     <div class="container">
       <div class="row">
-        <div class="col-md-10 col-lg-8 mx-auto text-center" style="margin-top: -5%;">
+        <div class="col-md-12 col-lg-10 mx-auto text-center" style="margin-top: -5%;">
           <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
           <h2 class="text-white mb-5">' 배움의 품격을 높이다 '</h2>
 			<!-- 지역기반 검색 폼 -->
@@ -75,8 +75,7 @@
 				</select>
 				<input type="hidden" value="${cateB }" name="cateB"/>
 	            <input type="text" name="keyString"  class="form-control" placeholder="이곳에 입력하시면 지도에서 보여집니다."  
-	            	style="width:400px;"/>
-	            <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
+	            	style="width:400px;"/> <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
 	            </div>
           </form>
         </div>
@@ -95,7 +94,7 @@
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
               <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">대입</h4>
               <hr class="my-4">
-              <div class="small text-black-50">작곡,피아노,노래,기타 악기</div>
+              <div class="small text-black-50">수학, 영어, 종합, 보습 등</div>
               </a>
             </div>
           </div>
@@ -108,7 +107,7 @@
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
               <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">예체능</h4>
               <hr class="my-4">
-              <div class="small text-black-50">태권도,합기도,유도,체대입시,기타 운동</div>
+              <div class="small text-black-50">스포츠, 체대입시, 무용, 음악 등</div>
               </a>
             </div>
           </div>
@@ -197,13 +196,13 @@
 	<!-- SNS공유 스크립트  E-->
     <div class="container">
 
-      <div class="row" style="margin-left: 27%;margin-top: -8%">
+      <div class="row">
 
-      <div class="social d-flex justify-content-center"">
-        <table style="bor ">
+      <div class="social d-flex justify-content-center col-lg-12" style="margin-bottom:5%;">
+        <table>
 			<tr style="height: 50px;">
-				<td colspan="10" style="text-align: center;margin-top: 3%;vertical-align: middle">
-					<small style="color: #8B8984">스터디 캐슬 공유하기</small>
+				<td colspan="10" style="text-align: center; margin-top: 3%;vertical-align: middle">
+					<small style="color: #8B8984; font-size:16px;">스터디 캐슬 공유하기</small>
 				</td>
 			</tr>
 			<tr style="text-align: center;width: 100%; margin-top: -5%">
@@ -246,7 +245,7 @@
 						    }
 					
 						</script>
-					  <!-- 플러스친와 1:1 채팅 기능 e-->	
+					  <!-- 플러스친와 1:1 채팅 기능 e-->
 				</td>
 			</tr>
 		</table>

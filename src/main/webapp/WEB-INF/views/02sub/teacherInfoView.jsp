@@ -70,7 +70,7 @@ $(function(){
 <body>
 <div class="container">
 <!-- 강사정보추가  -->
-	<form name="teachFrm" action="teaInfoUpdate.do" method="post" onsubmit="return teaRegiValidate(this)">
+	<form name="teachFrm" action="teaInfoUpdate.do" method="post" onsubmit="return teaRegiValidate(this)" enctype="multipart/form-data">
 		<div>
 			<hr />
 			<input type="hidden" name="teaidx" value="${teaDTO.teaidx }" />
