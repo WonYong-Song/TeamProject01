@@ -7,7 +7,9 @@ public class ReviewWriteDTO {
 	private String id;
 	private String acaidx;
 	private String reviewidx;
-	private String reviewgroup;
+	private int reviewgroup;
+	private String countlike;
+	
 	
 	private String starRaiting;
 	
@@ -38,7 +40,7 @@ public class ReviewWriteDTO {
 	}
 	
 	public ReviewWriteDTO(String reviewcontents, double score, String writetime, String id, String acaidx,
-			String reviewidx, String reviewgroup, String starRaiting) {
+			String reviewidx, int reviewgroup, String starRaiting) {
 		super();
 		this.reviewcontents = reviewcontents;
 		this.score = score;
@@ -50,11 +52,33 @@ public class ReviewWriteDTO {
 		this.starRaiting = starRaiting;
 	}
 	
-	public String getReviewgroup() {
+	public ReviewWriteDTO(String reviewcontents, double score, String writetime, String id, String acaidx,
+			String reviewidx, int reviewgroup, String countlike, String starRaiting) {
+		super();
+		this.reviewcontents = reviewcontents;
+		this.score = score;
+		this.writetime = writetime;
+		this.id = id;
+		this.acaidx = acaidx;
+		this.reviewidx = reviewidx;
+		this.reviewgroup = reviewgroup;
+		this.countlike = countlike;
+		this.starRaiting = starRaiting;
+	}
+	
+	public String getcountlike() {
+		return countlike;
+	}
+
+	public void setcountlike(String countlike) {
+		this.countlike = countlike;
+	}
+
+	public int getReviewgroup() {
 		return reviewgroup;
 	}
 
-	public void setReviewgroup(String reviewgroup) {
+	public void setReviewgroup(int reviewgroup) {
 		this.reviewgroup = reviewgroup;
 	}
 
