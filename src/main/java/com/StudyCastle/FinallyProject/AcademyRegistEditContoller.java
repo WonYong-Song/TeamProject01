@@ -93,7 +93,7 @@ public class AcademyRegistEditContoller {
 	   return "01Main/acaInfoRegiEdit";
 	}
 
-
+	//학원정보수정 
 	@RequestMapping("/catle/AcaInfoUpdate.do")
 	public String AcaInfoUpdate(Model model, HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
 		
