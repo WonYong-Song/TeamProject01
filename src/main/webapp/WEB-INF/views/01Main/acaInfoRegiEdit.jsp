@@ -38,6 +38,7 @@
         list-style-type: none;
         display: block;
         text-align: center;
+        color : #EEE;
         border: 1px solid #fff;
         position: relative;
         border-right: none;
@@ -47,6 +48,7 @@
     }
     #vtab > ul > li.selected {
         font-weight :bold;
+        color : #000;
         opacity: 1;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
@@ -351,7 +353,7 @@ function classRegiValidate(c) {
    		</div >
    		
         <!-- 강사진 수정  -->
-		<div style="border-color: #ffffff; background-color: #ffffff;" class="div2" align="center">
+		<div style="border: 2px solid #000000; background-color: #ffffff; border-radius: 0 10px 10px 10px;" class="div2" align="center">
 			<table class="table"><tr><th colspan="2" style="font-size: 1.5em;">- 등록 강사 목록</th></tr></table>
 			<table class="table table-bordered" style="max-width: 600px; background-color: #ffffff;">
 			<colgroup>
@@ -424,7 +426,7 @@ function classRegiValidate(c) {
 		</div>
         
         <!-- 강의 및 시간표 등록  -->
-   		<div style=" border-color: #ffffff; background-color: #ffffff;">
+   		<div style=" border: 2px solid #000000; background-color: #ffffff; border-radius: 0 10px 10px 10px;">
        		<table class="table"><tr><th colspan="2" style="font-size: 1.5em;">- 등록 강의 목록</th></tr></table>
        		<table class="table table-bordered" style="width: 100%; background-color: #ffffff;">
 		        <colgroup>
