@@ -68,9 +68,7 @@
   </section>
   <!-- Footer -->
   <footer class="bg-black small text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Your Website 2019
-    </div>
+    <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
   </section>
   <!-- Bootstrap core JavaScript -->

@@ -68,13 +68,13 @@ height: 100%;
   <!-- Signup Section -->
   <section id="signup" class="signup-section" style="height:300px;">
     <div class="container">
-      <div class="row">
-        <div class="col-md-10 col-lg-8 mx-auto text-center" style="margin-top: -5%;">
+      <div class="row" >
+        <div class="col-md-12 col-lg-10 mx-auto text-center" style="margin-top: -5%;">
 
           <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-          <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
+          <h2 class="text-white mb-5">'변화는 모든 배움의 마지막 결과이다.'</h2>
 			
-          <form class="form-inline d-flex">
+          <form class="form-inline d-flex" >
 			<div style="width:1000px;">
 			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
 				<option value="ACANAME">캐슬 위치</option>
@@ -104,12 +104,12 @@ height: 100%;
   <!-- Contact Section -->
   <c:forEach items="${acaList }" var="row">
   <section class="contact-section bg-black">
-    <div class="container" >
+    <div class="container">
       <div class="row">
-        <div class="col-md-12 " style="margin-bottom: -45px;">
+        <div class="col-md-10 col-lg-10 mx-auto text-center" style="margin-bottom: -45px;">
          
          <a href="academyInfo.do?acaIdx=${row.idx }" target="_blank">
-          <div class="card py-4 h-60" style="width:900px;height:185px; margin-left: 10%;">
+          <div class="card py-4 h-60" style="width:900px;height:185px;">
           	<div style="padding: 0px 6px 0px 6px">
              <table class="table table-bordered " style="margin-bottom: 30px; margin-top: -2%; border-top: none;">
              <colgroup>
@@ -157,8 +157,8 @@ height: 100%;
   
    </c:forEach>
 	<section class="contact-section bg-black">
-    <div class="container" >
-      <div class="row " ">
+    <div class="container">
+      <div class="row">
 			<ul class="pagination" style="margin-left: 49%">
 				${pagingImg }
 			</ul>
@@ -168,9 +168,7 @@ height: 100%;
   <!-- Footer -->
   
   <footer class="bg-black small text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Your Website 2019
-    </div>
+    <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
 
   <!-- Bootstrap core JavaScript -->

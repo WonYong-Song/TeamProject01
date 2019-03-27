@@ -109,7 +109,8 @@ public class AcademyRegistEditContoller {
 		String telephone3 = req.getParameter("telephone3");
 		String introduce = req.getParameter("introduce");
 		String category = req.getParameter("category");	
-		
+		String acaimgOrigin = req.getParameter("acaimgOrigin");
+		String acaimgOriuu = req.getParameter("acaimgOriuu");
 		
 		String path = req.getSession().getServletContext().getRealPath("/resources/acaUpload");
 		String originalName = "";
@@ -123,26 +124,27 @@ public class AcademyRegistEditContoller {
 		MultipartFile mpf = mtfRequest.getFile(files.next());
 		
 		if(mpf == null || mpf.getSize()<=0) {
-			
+			originalName = acaimgOrigin;
+			serverFullName = acaimgOriuu;	
 		}
-		List<MultipartFile> fileList = mtfRequest.getFiles("acaintrophoto");
-	
-		for(MultipartFile filePart : fileList) {
-			originalName = filePart.getOriginalFilename();//원본파일
-			String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
-			serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
-			directory = new File(path +File.separator+ serverFullName);
-			if(!originalName.equals("")) {
-				try {
-					filePart.transferTo(directory);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
+		else{
+			List<MultipartFile> fileList = mtfRequest.getFiles("acaintrophoto");
+			
+			for(MultipartFile filePart : fileList) {
+				originalName = filePart.getOriginalFilename();//원본파일
+				String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
+				serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
+				directory = new File(path +File.separator+ serverFullName);
+				if(!originalName.equals("")) {
+					try {
+						filePart.transferTo(directory);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
-		
-		 
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit(address,detailaddress,acaname,telephone1,telephone2,telephone3,id);
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit2(introduce,category,originalName,serverFullName,id);
 
@@ -188,6 +190,7 @@ public class AcademyRegistEditContoller {
 					e.printStackTrace();
 				}
 			}
+			
 		}
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).TeacherRegi(originalName,serverFullName ,teaname,teaintro,subject,id);
@@ -256,6 +259,8 @@ public class AcademyRegistEditContoller {
 		String teaintro  = req.getParameter("teaintro");
 		String subject = req.getParameter("subject");
 		String teaidx = req.getParameter("teaidx");
+		String teaimgOrigin = req.getParameter("teaimgOrigin"); 
+		String teaimgOriuu = req.getParameter("teaimgOriuu");
 		
 		String path = req.getSession().getServletContext().getRealPath("/resources/acaUpload");
 		String originalName = "";
@@ -269,24 +274,29 @@ public class AcademyRegistEditContoller {
 		MultipartFile mpf = mtfRequest.getFile(files.next());
 		
 		if(mpf == null || mpf.getSize()<=0) {
-			
+			originalName = teaimgOrigin;
+			serverFullName = teaimgOriuu;	
 		}
-		List<MultipartFile> fileList = mtfRequest.getFiles("teaimage");
-	
-		for(MultipartFile filePart : fileList) {
-			originalName = filePart.getOriginalFilename();//원본파일
-			String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
-			serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
-			directory = new File(path +File.separator+ serverFullName);
-			if(!originalName.equals("")) {
-				try {
-					filePart.transferTo(directory);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
+		else{
+			List<MultipartFile> fileList = mtfRequest.getFiles("teaimage");
+			
+			for(MultipartFile filePart : fileList) {
+				originalName = filePart.getOriginalFilename();//원본파일
+				String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
+				serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
+				directory = new File(path +File.separator+ serverFullName);
+				if(!originalName.equals("")) {
+					try {
+						filePart.transferTo(directory);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
+	
+		
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).teaInfoUpd(originalName,serverFullName ,teaname,teaintro,subject,teaidx);
 		

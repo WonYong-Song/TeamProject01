@@ -1,19 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-
-<footer class="container-fluid text-center"
-	style="background-color:#a8664f;position:relative">
-  <div class="col-md-2">
-	<a href="../DR_Skin/SkinMain.jsp"><img src="../resources/Images/세렌디피티 로고2.png" 
-			id="logo"style=";width:400px;height:40px; margin-top:10px;margin-left:20%; " /></a>
+<div class="row">
+ 	<div class="col-lg-2">
+	<img src="../resources/Images/스터디캐슬로고4.png" alt=""style="height: 70px;width: 210px;" />
+	</div>
+	<div class="col-lg-8">
+		 <p>(주)스터디캐슬 서울시 금천구 가산동 426-5 월드메르디앙 2차 410호<br /></p>
+		<p>대표이사 : 송원용 사업자등록번호 : 000-00-00000  TEL : 02-0000-0000 FAX : 02-0000-0000 E-mail : miraclepopo@studycastle.co.kr</p>
+		<p>Copyright &copy; StudyCastle 2019. All rights reserved.</p>
+	</div>
+	<div class="col-lg-2"></div>
 </div>
-<div class="col-md-8 text-center"style="margin-top:0.5%;">
-	Email : <small>jyh5869@naver.com&nbsp;&nbsp;</small>
-	Mobile : <small>010-4925-5869&nbsp;&nbsp;</small>
-	Address : <small>서울시 강남구 테헤란로 128길</small>
-	<br/>
-	copyright <small>&copy; 2019 호텔호텔호텔.</small>
-	All right reserved.
-</div>
-</footer>

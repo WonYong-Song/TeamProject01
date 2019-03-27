@@ -278,6 +278,8 @@ function classRegiValidate(c) {
        	<div style="border-color: #ffffff; background-color: #ffffff;">
 		<!-- 학원사진등록  -->
 		<form name="fileFrm" method="post" action="AcaInfoUpdate.do" enctype="multipart/form-data"  onsubmit="return introValidate(this)">
+			<input type="hidden" name="acaimgOrigin" value="${RegiEditdto.acaintrophoto }" />
+			<input type="hidden" name="acaimgOriuu" value="${RegiEditdto.acaintrophotouu }" />
 			<input type="hidden" name="id" value="${RegiEditdto.id }" />
 			<table class="table" style="width:100%; background-color: #ffffff;" id="example">
 			<thead>
@@ -528,9 +530,7 @@ function classRegiValidate(c) {
   <!-- Footer -->
   
   <footer class="bg-black small text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Your Website 2019
-    </div>
+    <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
 
   <!-- Bootstrap core JavaScript -->
