@@ -51,26 +51,19 @@
   <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
   <!-- Nav Bar -->
   <!-- Header -->
-  <header class="masthead" style="height:auto;">
+  <header class="masthead" style="height:auto; linear-gradient(to bottom, rgba(22, 22, 22, .1) 0,rgba(22, 22, 22, .5) 75%, #161616 100%), url(../img/back2.jpg);">
     <div class="container d-flex h-100 align-items-center">
       <div class="mx-auto text-center" style="width:auto; height:auto;background-color: white;margin-top:150px;;border-radius: 5px;padding-top: 5%;padding-bottom: 5%  ">
         <%@ include file="/../resources/DR_common/commonMemberModify.jsp" %>
       </div>
     </div>
   </header>
-  <section>
-  <!-- About Section -->
-  <section id="about" class="about-section text-center">
-    <div class="container">
-     
-      <img src="img/ipad.png" class="img-fluid" alt="">
-    </div>
-  </section>
+  
   <!-- Footer -->
   <footer class="bg-black small text-center text-white-50">
     <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
-  </section>
+
   <!-- Bootstrap core JavaScript -->
   <script src="/FinallyProject/resources/vendor/jquery/jquery.min.js"></script>
   <script src="/FinallyProject/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

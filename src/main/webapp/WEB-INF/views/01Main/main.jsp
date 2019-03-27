@@ -54,16 +54,15 @@
 <body id="page-top">
 
   <!-- Nav Bar -->
+  <header class="masthead" >
   <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
-  <!-- Nav Bar -->
-
-   <!-- Signup Section -->
-  <section id="signup" class="signup-section" style="height:300px;">
-    <div class="container">
+  <div class="container">
       <div class="row">
-        <div class="col-md-12 col-lg-10 mx-auto text-center" style="margin-top: -5%;">
-          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-          <h2 class="text-white mb-5">' 배움의 품격을 높이다 '</h2>
+        <div class="col-md-10 col-lg-8 mx-auto text-center" style="padding-top:25%; margin-top: -5%; ">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white" >
+          <h1></h1>
+          <h2 class="text-white">' 배움의 품격을 높이다 '</h2>
+          </i>
 			<!-- 지역기반 검색 폼 -->
 			<form class="form-inline d-flex" name="SearchMap" 
 				method="post"  action="acaSearchMap.do">
@@ -81,10 +80,52 @@
         </div>
       </div>
     </div>
-  </section>
+    <div class="container"  style="padding-top:10%;">
+      <div class="row">
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100">
+          	<a href="list.do?cateB=입시&" target="_blank">
+            <div class="card-body text-center">
+              <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
+              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">대입</h4>
+              <hr class="my-4">
+              <div class="small text-black-50">수학, 영어, 종합, 보습 등</div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100">
+          	<a href="list.do?cateB=예체능&" target="_blank">
+            <div class="card-body text-center">
+              <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
+              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">예체능</h4>
+              <hr class="my-4">
+              <div class="small text-black-50">스포츠, 체대입시, 무용, 음악 등</div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100">
+          	<a href="list.do?cateB=기타&" target="_blank">
+            <div class="card-body text-center">
+              <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
+              <h4 class="text-uppercase m-0" style="font-size: 1em; padding-top: 10px;">기타</h4>
+              <hr class="my-4">
+              <div class="small text-black-50">컴퓨터,바리스타,제과제빵,기타 직업교육</div>
+              </a>
+            </div>
+          </div>
+        </div>
+    </div>
+  </header>
+  <!-- Nav Bar -->
 
   <!-- Contact Section -->
-  <section class="contact-section bg-black">
+  <!-- <section class="contact-section bg-black">
     <div class="container">
       <div class="row">
         <div class="col-md-4 mb-3 mb-md-0">
@@ -126,7 +167,7 @@
           </div>
         </div>
     </div>
-  </section>
+  </section>  -->
 
     <section class="contact-section bg-black">
     <!-- SNS공유 스크립트  s-->
@@ -257,17 +298,7 @@
   </section>
   <!-- Footer S-->
   <footer class="bg-black small text-center text-white-50" >
-    <div class="row">
-    	<div class="col-lg-2">
- 			<img src="../resources/Images/스터디캐슬로고4.png" alt=""style="height: 70px;width: 210px;" />
-    	</div>
-    	<div class="col-lg-8">
-    		 <p>주)스터디캐슬 서울시 금천구 가산동 426-5 월드메르디앙 2차 410호<br /></p>
-	 	 	<p>대표이사 : 송원용 사업자등록번호 : 000-00-00000  TEL : 02-0000-0000 FAX : 02-0000-0000 E-mail : miraclepopo@studycastle.co.kr</p>
-	  		<p>Copyright &copy; StudyCastle 2019. All rights reserved.</p>
-    	</div>
-    	<div class="col-lg-2"></div>
-    </div>
+    <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
   <!-- Footer E-->
   <!-- Bootstrap core JavaScript -->
