@@ -37,4 +37,7 @@ public interface AppImpl {
 	
 	//회원정보 가져오기
 	public MembersDTO myInfo(String id);
+	
+	//회원정보 변경처리
+	public int myInfoModifyAction(MembersDTO membersDTO);
 }

@@ -114,6 +114,21 @@
 		from members
 		where id=#{0} and grade=1
 	</select>
+	
+	<update id="myInfoModifyAction" parameterType="dto.MembersDTO">
+		update members
+		set 
+		    pass = #{pass},
+		    emailid = #{emailId},
+		    emaildomain = #{emailDomain} ,
+		    mobile1 = #{mobile1} ,
+		    mobile2 = #{mobile2} ,
+		    mobile3 = #{mobile3} ,
+		    name = #{name},
+		    interest = #{interest}
+		where
+		    id = #{id}
+	</update>
 </mapper>
 
    
