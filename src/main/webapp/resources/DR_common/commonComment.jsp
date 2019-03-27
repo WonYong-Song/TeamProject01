@@ -41,6 +41,7 @@ $(function(){
 
 }); 
 </script>
+<!-- 댓글 삭제를 확인하기위한 스크립트 s -->
 <script type="text/javascript">
 function deletes(ri,ai){
 	if (confirm("정말 삭제하시겠습니까??") == true){    //확인
@@ -51,6 +52,42 @@ function deletes(ri,ai){
 
 }
 </script>
+<!-- 댓글 삭제를 확인하기위한 스크립트 e -->
+<!-- 좋아요 구현을 위한 스크립트 s -->
+<script>
+function like_func(m,ri){
+	/* var reviewidx = $('#reviewidx').val(); */
+	$.ajax({
+		url:"../catle/reviewLike.do",
+		type:"get",
+		cache:false,
+		dataType:"json",
+		data: {
+			reviewidx : ri, group : m
+		},
+		success:function(data){
+			
+			var msg ='';
+			msg+=data.msg
+			location.reload();
+			 alert(msg);
+			alert(data.reviewFlag);			
+			if(data.reviewFlag==1){
+				$('.liketoggle').html('좋아요 취소');
+			}
+			else{
+				$('.liketoggle').html('좋아요');
+			} 
+		},
+		error:function(errorData){
+			 location.reload(); 
+			 alert("오류발생:"+errorData.status+":"
+				+errorData.statusText); 
+		}
+	});
+}
+</script>
+<!-- 좋아요 구현을 위한 스크립트 e -->
 <div class="container" style="padding-left: 30px;padding-top: 20px;padding-bottom: 20px;">
      <div class="row" >
          <div  style="width:1055px;">
@@ -85,21 +122,41 @@ function deletes(ri,ai){
                   <a class="media-left" href="#" style="width:80px;height:80px;">
                     <img src="http://lorempixel.com/40/40/people/${loopStatus.index }/" style="width:100%;height:100% ">
                   </a>
-                  
+                  <input type="hidden" id="reviewidx" value="${row.reviewidx }"/>
                   <div class="media-body text-left" style="width:250px;height:100px;padding-left: 50px;">
                       
                     <h4 class="media-heading user_name">${row.id }
-						<c:if test="${row.reviewgroup eq '2' }">
-							${reviewfroup}(★수강자 리뷰★)
-						</c:if>	
+                    <c:choose>
+						<c:when test="${row.reviewgroup eq 0 }">
+							
+						</c:when>
+						<c:when test="${row.reviewgroup eq 2 }">
+
+						</c:when>
+						<c:otherwise>
+							<img style="width:50px;height:50px;" src="../resources/img/heartjpg.jpg" alt="" />
+							
+						</c:otherwise>
+					</c:choose>
                     </h4>
                     ${row.reviewcontents }
                     <div>
                     ${row.starRaiting }
                     
-                    </div>
-                    <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
-                    
+                    </div>좋아요 수${row.countlike }
+                    <c:choose>
+						<c:when test="${row.reviewgroup eq 0 }">
+							<p><small><a onclick="like_func('like','${row.reviewidx }')" class="liketoggle" style="cursor: pointer;color: #839997">좋아요</a></small></p>
+						</c:when>
+						<c:when test="${row.reviewgroup eq 2 }">
+							<p><small style="color: #839997" class="liketoggle">로그인을 하시고 댓글에 좋아요를 눌러주세요!</small></p>
+						</c:when>
+						<c:otherwise>
+
+							<p><small><a onclick="like_func('likecancel','${row.reviewidx }')" class="liketoggle" style="cursor: pointer;color: #839997">좋아요취소</a></small></p>
+						</c:otherwise>
+					</c:choose>
+					
                     </div>
                    
                   <p class="pull-right" ><small>${row.writetime }&nbsp;</small></p>
