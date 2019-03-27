@@ -29,8 +29,8 @@
 	</update>
 	
 	<update id="AcaInfoRegiEdit2">
-		UPDATE acaintroduce SET introduce=#{param1}, category=#{param2}, acaintrophoto=#{param3,jdbcType=VARCHAR}
-			where id = #{param4} 
+		UPDATE acaintroduce SET introduce=#{param1}, category=#{param2}, acaintrophoto=#{param3,jdbcType=VARCHAR}, acaintrophotouu=#{param4,jdbcType=VARCHAR}
+			where id = #{param5} 
 	</update>
 	
 	
@@ -41,10 +41,11 @@
 			FROM members m inner join AcaTeacher a
 				on m.id = a.id
 			WHERE a.id = #{id}
+			ORDER BY teaidx ASC
 	</select>
 	<insert id="TeacherRegi">
-		INSERT INTO acateacher (teaidx, teaimage, teaname, teaintro, subject, id)
-		VALUES (ACATEACHER_SEQ.NEXTVAL,#{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+		INSERT INTO acateacher (teaidx, teaimage,teaimageuu, teaname, teaintro, subject, id)
+		VALUES (ACATEACHER_SEQ.NEXTVAL,#{param1}, #{param2}, #{param3}, #{param4}, #{param5},#{param6})
 	</insert>
 	
 	<!-- 강의정보  -->
@@ -56,6 +57,7 @@
 				inner join acaclass c
 					on c.teaidx = t.teaidx
 			WHERE t.id = #{id}
+			ORDER BY classidx ASC
 	</select>
 	
 	<insert id="ClassRegi" parameterType="dto.AcaClassDTO">
@@ -89,9 +91,9 @@
 	
 	
 	<!-- 강사정보 수정  -->
-	<update id="teaInfoUpd" parameterType="mybatis01.AcaTeacherDTO">
-		UPDATE acateacher SET teaimage=#{teaimage}, teaname=#{teaname}, teaintro=#{teaintro}, subject=#{subject}
-		WHERE teaidx=#{teaidx} 
+	<update id="teaInfoUpd" >
+		UPDATE acateacher SET teaimage=#{param1}, teaimageuu=#{param2}, teaname=#{param3}, teaintro=#{param4}, subject=#{param5}
+		WHERE teaidx=#{param6}
 	</update>
 	
 	<!-- 강의정보 수정  -->

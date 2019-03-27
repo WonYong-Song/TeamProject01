@@ -408,15 +408,15 @@
                   </div>
                   <p class="pull-right" ><small></small></p>
                	  <c:choose>
-							<c:when test="${isflag eq 0 }">
-							<div style=" padding-top: 6%;padding-left:1%; height: 100px;">
-								 <p><small style="color: #64A19D;font-weight: bold">수강신청을 하시면 <br />후기작성 하기 버튼이 <br />생성됩니다☆</small></p>
-							</div>
-							</c:when>
-							<c:otherwise>
-								<button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">후기작성</button>
-							</c:otherwise>
-						</c:choose>
+					<c:when test="${isflag eq 0 }">
+					<div style=" padding-top: 6%;padding-left:1%; height: 100px;">
+						 <p><small style="color: #64A19D;font-weight: bold">수강신청을 하시면 <br />후기작성 하기 버튼이 <br />생성됩니다☆</small></p>
+					</div>
+					</c:when>
+					<c:otherwise>
+						<button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">후기작성</button>
+					</c:otherwise>
+				</c:choose>
                   
            
                 </div>

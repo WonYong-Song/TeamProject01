@@ -11,8 +11,23 @@
 	
 	<select id="review" resultType="mybatis01.ReviewWriteDTO"
 			parameterType="mybatis01.ParamDTO">
-		
 		SELECT * FROM (
+	        SELECT Tb.*, rownum rNum FROM (
+	            SELECT A.* ,(select count(*) from reviewlike where reviewidx=A.reviewidx group by A.reviewidx) AS countlike
+	            FROM reviewwrite A
+	            <choose>
+					<when test="!keyString.equals('') and keyString!=null">
+						WHERE ${keyField} like '%'||#{keyString}||'%' and ACAIDX=${acaidx}
+				   	</when> 
+				   	<otherwise>
+				  		WHERE ACAIDX=${acaidx}		  			
+				  	</otherwise>
+			   	</choose>
+	            ORDER BY REVIEWIDX DESC
+	        ) Tb
+	    )
+	    WHERE rNum BETWEEN ${start} AND ${end}
+		<!-- SELECT * FROM (
 			SELECT Tb.*, rownum rNum FROM (
 				SELECT * FROM reviewwrite 
 				<choose>
@@ -26,7 +41,7 @@
 				ORDER BY REVIEWIDX DESC
 			) Tb
 		)
-		WHERE rNum BETWEEN ${start} AND ${end} 
+		WHERE rNum BETWEEN ${start} AND ${end}  -->
 	</select>
 	<!-- 댓글 쓰기 -->
 	<insert id="reviewWrite">

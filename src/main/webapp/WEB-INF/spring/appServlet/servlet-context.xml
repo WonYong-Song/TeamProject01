@@ -66,10 +66,7 @@
 	<!-- <beans:bean id="uploadPath" class="java.lang.String">
 		<beans:constructor-arg value="D:\\SpringUploadRepo\\upload"></beans:constructor-arg>
 	</beans:bean> -->
-	
-	
-	
-	
+		
 	
 	
 	

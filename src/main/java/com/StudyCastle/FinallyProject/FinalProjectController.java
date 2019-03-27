@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,7 @@ import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
 import impl.MypageImpl;
 import impl.PaymentImpl;
+import impl.ReviewLikeImpl;
 import impl.example;
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
@@ -39,6 +41,7 @@ import mybatis01.ClassInfoDTO;
 import mybatis01.MemberDTO;
 
 import mybatis01.ParamDTO;
+import mybatis01.ReviewLikeDTO;
 import mybatis01.ReviewWriteDTO;
 import mybatis01.idsDTO;
 
@@ -75,13 +78,13 @@ public class FinalProjectController {
 		return "01Main/Login";
 	}
 	//로그아웃
-		@RequestMapping("/catle/Logout.do")
-		public String logout(HttpServletRequest req, HttpSession session,
-				HttpServletResponse resp) {
-			session.removeAttribute("USER_ID");
+	@RequestMapping("/catle/Logout.do")
+	public String logout(HttpServletRequest req, HttpSession session,
+			HttpServletResponse resp) {
+		session.removeAttribute("USER_ID");
 
-			return "01Main/main";
-		}
+		return "01Main/main";
+	}
 	//로그인 처리
 	@RequestMapping("/catle/LoginAction.do")
 	public void LoginAction(MembersDTO membersDTO,
@@ -274,6 +277,21 @@ public class FinalProjectController {
 		System.out.println(dto1.getScore());
 		System.out.println(dto1.getId());
 		System.out.println(dto1.getStarRaiting());
+		//아이디값이 있을뗴에만 글에대한 리뷰 유무를 판별
+		if((String)session.getAttribute("USER_ID")!=null) {
+			int reviewFlag=sqlSession.getMapper(ReviewLikeImpl.class).likeidentefy((String)session.getAttribute("USER_ID"),dto1.getReviewidx());
+			System.out.println("reviewFlag="+reviewFlag);
+			dto1.setReviewgroup(reviewFlag);
+		}
+		//아이디가없을때는  그룹을 2로줌으로서 로그인하라는 메세지가 나타나게 하려는 그룹값.
+		else {
+			dto1.setReviewgroup(2);
+		}
+		//널값일 경우에 좋아요수를 0으로 바꿔주는 로직
+		if(dto1.getcountlike()==null) {
+			dto1.setcountlike("0");
+		}
+		
 	}
 	model.addAttribute("USER_ID",(String)session.getAttribute("USER_ID"));
 	model.addAttribute("reviewDTO", reviewDTO);
@@ -760,7 +778,42 @@ public class FinalProjectController {
 		return "01Main/AcaSearchMap";
 	}
 	
-	
+	@RequestMapping("/catle/reviewLike.do")
+	public String reviewLike(HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
+		//세션에서 로그인된아이디 가져오기
+		String user_id =(String) session.getAttribute("USER_ID");
+		//json object 생성
+		JSONObject obj =new JSONObject();
+		//좋아요를 타고온건지, 좋아요 취소를 타고온건지 체크
+		String group = req.getParameter("group");
+		String reviewidx = req.getParameter("reviewidx");
+		System.out.println("group="+group);
+		System.out.println("userid="+user_id);
+		System.out.println("reviewidx="+reviewidx);
+
+		//스트링 타입의 리스트 생성
+		String msgs;
+		System.out.println("111111111111111111111111111111111111111111111111111111111111111");
+		int reviewFlag=sqlSession.getMapper(ReviewLikeImpl.class).likeidentefy(user_id,reviewidx);
+		System.out.println("reviewFlag="+reviewFlag);
+		if(group.equals("like") && reviewFlag==0) {
+			//좋아요 체크하는 mybatis
+			sqlSession.getMapper(ReviewLikeImpl.class).like_check(user_id,reviewidx);
+			msgs ="좋아요";
+			System.out.println(msgs);
+		}
+		else {
+			//좋아요 취소하는 mybatis
+			sqlSession.getMapper(ReviewLikeImpl.class).like_cancel(user_id,reviewidx);
+			msgs="좋아요 취소";
+			System.out.println(msgs);
+		}
+		obj.put("msgs", msgs);
+		obj.put("reviewFlag", reviewFlag);
+		System.out.println("111111111111111111111111111111111111111111111111111111111111111");
+		
+		return obj.toJSONString();
+	}
 	
 }
 
