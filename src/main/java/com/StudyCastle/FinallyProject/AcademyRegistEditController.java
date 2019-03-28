@@ -41,7 +41,7 @@ import mybatis01.AcaTeacherDTO;
 import mybatis01.ClassInfoDTO;
 
 @Controller
-public class AcademyRegistEditContoller {
+public class AcademyRegistEditController {
 	
 	@Autowired
 	private SqlSession sqlSession;
