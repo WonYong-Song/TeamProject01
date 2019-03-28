@@ -291,4 +291,19 @@ public class AppController {
 		jsonObject2.put("result", result);
 		return jsonObject2;
 	}
+	
+	@RequestMapping("catle/AppLoginIDCheck.do")
+	@ResponseBody
+	public JSONObject LoginIDCheck(HttpServletRequest req) {
+		JSONObject object = new JSONObject();
+		
+		String id = req.getParameter("id");
+		
+		int result = 0;
+		result = sqlSession.getMapper(AppImpl.class).idCheck(id);
+		
+		object.put("result", result);
+		System.out.println(result);
+		return object;
+	}
 }

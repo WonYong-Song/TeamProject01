@@ -40,4 +40,7 @@ public interface AppImpl {
 	
 	//회원정보 변경처리
 	public int myInfoModifyAction(MembersDTO membersDTO);
+	
+	//회원가입 시 아이디 체크
+	public int idCheck(String id);
 }

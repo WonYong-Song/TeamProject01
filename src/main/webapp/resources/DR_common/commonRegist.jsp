@@ -409,10 +409,14 @@ $(function(){
 	$('#id').keyup(function(){
 		//아이디 공백제거
 		$('#id').val($('#id').val().replace(/ /g, ''));
+		
+		//입력된 내용이 없는경우
 		if(document.registFrm.id.value.length==0){
 			$('#display').html(' ');
 			$('#overFlag').val(0);
 		}
+		
+		//입력된 내용이 있는 경우
 		else{
 			$.ajax({
 				url:"../catle/MemberIdCheck.do",
