@@ -219,8 +219,8 @@ function registFrmCheck()
 {   
    var fn = document.registFrm;
    
-   var frmArray = ["id", "pass", "passcheck", "name", "emailid","emaildomain",
-               "phonenumber1","phonenumber2","phonenumber3","interest[0]"];
+   var frmArray = ["id", "pass", "passcheck", "name", "emailId","emailDomain",
+               "mobile1","mobile2","mobile3","interest[0]"];
    var txtArray = ["아이디", "패스워드", "패스워드확인", "이름", "이메일", "이메일도메인",
                "휴대전화번호1","휴대전화번호2","휴대전화번호3","관심분야"];
    
@@ -275,8 +275,8 @@ function registFrmCheck()
    //패스워드1,2 일치 여부 확인
    if(fn.pass.value!=fn.passcheck.value){
 	   alert("비밀번호가 일치하지 않습니다.");
-	   fn.user_pw2.value="";
-	   fn.user_pw1.focus();
+	   fn.passcheck.value="";
+	   fn.pass.focus();
 	   return false;
    }
    
@@ -409,10 +409,14 @@ $(function(){
 	$('#id').keyup(function(){
 		//아이디 공백제거
 		$('#id').val($('#id').val().replace(/ /g, ''));
+		
+		//입력된 내용이 없는경우
 		if(document.registFrm.id.value.length==0){
 			$('#display').html(' ');
 			$('#overFlag').val(0);
 		}
+		
+		//입력된 내용이 있는 경우
 		else{
 			$.ajax({
 				url:"../catle/MemberIdCheck.do",
@@ -504,7 +508,7 @@ $(function(){
                <option value="naver.com">네이버</option>
                <option value="hanmail.net">다음</option>
                <option value="gmail.com">구글G메일</option>
-               <option value="yahoo.com">야후</option>
+               <option value="nate.com">네이트</option>
                <option value="direct_input">-직접입력-</option>
             </select>
          </td>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="impl.ReviewLikeImpl">    
+	<insert id ="like_check">
+	insert into ReviewLike (idx,id,reviewidx)
+		values(ReviewLike_req.nextval,#{param1},#{param2})
+	</insert>
+	<insert id ="like_cancel">
+	DELETE FROM ReviewLike where id=#{param1}  and reviewidx=#{param2}
+	</insert>
+	<select id="likeidentefy" resultType="int" >
+		select count(*) from ReviewLike where id=#{param1}  and reviewidx=#{param2}
+	</select>
+</mapper>

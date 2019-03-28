@@ -7,8 +7,11 @@ import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.type.IntegerTypeHandler;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -197,5 +200,159 @@ public class AppController {
 		System.out.println("강사정보까지 진행후 : " + jsonResult.toJSONString());
 		
 		return jsonResult;
+	}
+	
+	@RequestMapping("catle/AppLoginAction.do")
+	@ResponseBody
+	public JSONObject loginAction1(HttpServletRequest req) {
+		JSONObject jsonObject = new JSONObject();
+		
+		String id = req.getParameter("id");
+		String pass = req.getParameter("pass");
+		
+		MembersDTO dto = sqlSession.getMapper(AppImpl.class).loginAction(id,pass);
+	
+		if(dto!=null) {
+			jsonObject.put("id", dto.getId());
+			jsonObject.put("name", dto.getName());
+		}
+		
+		return jsonObject;
+	}
+	
+	@RequestMapping("catle/AppMyInfo.do")
+	@ResponseBody
+	public JSONObject myInfo(HttpServletRequest req) {
+		JSONObject jsonObject = new JSONObject();
+		
+		String id = req.getParameter("id");
+		
+		MembersDTO dto = sqlSession.getMapper(AppImpl.class).myInfo(id);
+		if(dto!=null) {
+			jsonObject.put("id", dto.getId());
+			jsonObject.put("pass", dto.getPass());
+			jsonObject.put("emailid", dto.getEmailId());
+			jsonObject.put("emaildomain", dto.getEmailDomain());
+			jsonObject.put("mobile1", dto.getMobile1());
+			jsonObject.put("mobile2", dto.getMobile2());
+			jsonObject.put("mobile3", dto.getMobile3());
+			jsonObject.put("name", dto.getName());
+			jsonObject.put("interest", dto.getInterest());
+		
+		}
+		
+		return jsonObject;
+	}
+	
+	@RequestMapping("catle/AppMyInfoModifyAction.do")
+	@ResponseBody
+	public JSONObject myInfoModifyAction(HttpServletRequest req) {
+		String info = req.getParameter("info");
+		System.out.println("info : " + info);
+		
+		int result = 0;
+		
+		JSONParser parser = new JSONParser();
+		Object object1, object2;
+		JSONObject jsonObject = null;
+		JSONArray jsonArray = null;
+		try {
+			object1 = parser.parse(info);
+			jsonObject = (JSONObject)object1;
+			object2 = parser.parse(jsonObject.get("interest").toString());
+			jsonArray =  (JSONArray)object2;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println("jsonObject : "+jsonObject.toJSONString()+", jsonArray : "+jsonArray.toJSONString());
+		
+		
+		MembersDTO dto = new MembersDTO();
+		//jsonObject파싱
+		dto.setId(jsonObject.get("id").toString());
+		System.out.println(jsonObject.get("id").toString());
+		dto.setPass(jsonObject.get("pass").toString());
+		dto.setName(jsonObject.get("name").toString());
+		dto.setEmailId(jsonObject.get("emailid").toString());
+		dto.setEmailDomain(jsonObject.get("emaildomain").toString());
+		dto.setMobile1(jsonObject.get("mobile1").toString());
+		dto.setMobile2(jsonObject.get("mobile2").toString());
+		dto.setMobile3(jsonObject.get("mobile3").toString());
+		String interest = "";
+		for(Object obj : jsonArray) {
+			interest += ","+obj.toString();
+		}
+		System.out.println("interest:"+interest.substring(1, interest.length()));
+		dto.setInterest(interest.substring(1, interest.length()));
+		
+		result = sqlSession.getMapper(AppImpl.class).myInfoModifyAction(dto);
+		
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("result", result);
+		return jsonObject2;
+	}
+	
+	@RequestMapping("catle/AppLoginIDCheck.do")
+	@ResponseBody
+	public JSONObject loginIDCheck(HttpServletRequest req) {
+		JSONObject object = new JSONObject();
+		
+		String id = req.getParameter("id");
+		
+		int result = 0;
+		result = sqlSession.getMapper(AppImpl.class).idCheck(id);
+		
+		object.put("result", result);
+		System.out.println(result);
+		return object;
+	}
+	
+	@RequestMapping("catle/AppMemberJoinAction.do")
+	@ResponseBody
+	public JSONObject memberJoinAction(HttpServletRequest req) {
+		String info = req.getParameter("info");
+		System.out.println("info : " + info);
+		
+		int result = 0;
+		
+		JSONParser parser = new JSONParser();
+		Object object1, object2;
+		JSONObject jsonObject = null;
+		JSONArray jsonArray = null;
+		try {
+			object1 = parser.parse(info);
+			jsonObject = (JSONObject)object1;
+			object2 = parser.parse(jsonObject.get("interest").toString());
+			jsonArray =  (JSONArray)object2;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		System.out.println("jsonObject : "+jsonObject.toJSONString()+", jsonArray : "+jsonArray.toJSONString());
+		
+		MembersDTO dto = new MembersDTO();
+		//jsonObject파싱
+		dto.setId(jsonObject.get("id").toString());
+		System.out.println(jsonObject.get("id").toString());
+		dto.setPass(jsonObject.get("pass").toString());
+		dto.setName(jsonObject.get("name").toString());
+		dto.setEmailId(jsonObject.get("emailid").toString());
+		dto.setEmailDomain(jsonObject.get("emaildomain").toString());
+		dto.setMobile1(jsonObject.get("mobile1").toString());
+		dto.setMobile2(jsonObject.get("mobile2").toString());
+		dto.setMobile3(jsonObject.get("mobile3").toString());
+		String interest = "";
+		for(Object obj : jsonArray) {
+			interest += ","+obj.toString();
+		}
+		System.out.println("interest:"+interest.substring(1, interest.length()));
+		dto.setInterest(interest.substring(1, interest.length()));
+		
+		
+		result = sqlSession.getMapper(AppImpl.class).memberjoin(dto);
+		
+		
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("result", result);
+		return jsonObject2;
 	}
 }

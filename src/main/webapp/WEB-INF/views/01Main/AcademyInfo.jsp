@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,6 @@
 		text-align: left;
 		vertical-align: middle; 
 	}
-
     .nav-tabs li a {
         color: #777;
     }
@@ -62,30 +62,20 @@
   <%-- <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>  --%>
 <body id="page-top">
 
-
-  <!-- Nav Bar -->
-
-  <!-- Nav Bar -->
   <!-- Header -->
 
-
-	
-
-
-
 <!-- 학원 정보 등록 페이지  s -->
-<section id="mainImage" class="about-section text-center" style="padding-bottom:5%;background-image: url('../resources/img/bg-signup.jpg');">
-
-<div class="container "style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px;">
-
-	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:auto;">
-    <div class="container">
+<section id="mainImage" class="about-section text-center" style="padding-bottom:5%; background: linear-gradient(to bottom, rgba(22, 22, 22, .1) 0,rgba(22, 22, 22, .5) 75%, #161616 100%), url(../resources/img/back.jpg);">
+<div class="container" style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px; ">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:auto;">
+    <div class="container" >
+    <a class="navbar-brand js-scroll-trigger" href="helloCastle.do"><img src="../resources/Images/스터디캐슬 로고3.png" alt=""style="height: 70px;width: 210px;" /></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
       </button>
-	<div class="tab" style="padding: -10% 30px 0% 30px;margin:0 0 0 2.3%;">
-	<div style="padding-top: -53%;padding-left:52%; text-align: center;">
+	<div class="tab" style="padding: 0 0 0 20px;margin:0;">
+	<div style="padding-top: -53%; padding-left:0%; text-align: center; ">
 		<ul class="navbar-nav ml-auto">
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="main.do" style="color: #64A19D">메인으로</a>
@@ -139,30 +129,22 @@
 	</div>
 <% if(session.getAttribute("USER_ID")==null){ %> 
 	 <ul class="navbar-nav ml-auto" style="margin-top: -4%">
-		
-
-          <li class="nav-item">
-		  <!-- <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info05">캐슬소개</a></li>
-		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info06">강사진</a></li>
+           <!--<li class="nav-item">
+		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
+		   <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#page-top">기본정보</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬소개</a></li>
+		  <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info06">강사진</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
-		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
+		  <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info09">캐슬링후기</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info10">공유하기</a></li>
      </ul>
 <% }else { %>
 	 <ul class="navbar-nav ml-auto" style="margin-top: -11%">
-		
-
-          <li class="nav-item">
-		  <!-- <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info02">캐슬이름</a></li>
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info03">캐슬번호</a></li>
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬위치</a></li>
-		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info05">캐슬소개</a></li>
+          <!-- <li class="nav-item">
+		  <a class="nav-link js-scroll-trigger" href="#info01">카테고리</a></li> -->
+		   <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#page-top">기본정보</a></li>
+		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info04">캐슬소개</a></li>
 		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info06">강사진</a></li>
 		  <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info07">오시는길</a></li>
 		 <li class="nav-item"> <a class="nav-link js-scroll-trigger" href="#info08">수강신청</a></li>
@@ -237,7 +219,6 @@
 				</div>
 				</c:forEach>
 				<!--  -->
-				
 			  </div>
 			</td>
 		</tr>
@@ -265,7 +246,16 @@
 						<col width="11%"/>
 						<col width="auto"/>
 					</colgroup>
-					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }</h6>
+					<h6 style="color: #64A19D">수강정보${loopStatus.index+1 }-
+						<c:choose>
+							<c:when test="${row3.classmembers eq row3.numberofparticipants }">
+								<span style="color: #F15041">신청불가</sapn>
+							</c:when>
+							<c:otherwise>
+								<span style="color: #2556C9">신청가능</sapn>
+							</c:otherwise>
+						</c:choose>
+					</h6>
 					<tr>
 						<th style="vertical-align: middle">강의명</th>
 						<th style="vertical-align: middle">강사명</th>
@@ -274,7 +264,6 @@
 						<th style="vertical-align: middle">수강인원 <br /> <small>(단위:명)</small></th>
 						<th style="vertical-align: middle">수강료 <br /> <small>(단위:원)</small></th>
 						<th style="vertical-align: middle">결제 <br /> <small></small></th>
-						
 					</tr>
 					<tr><div id="paypal-button-container"></div>
 						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
@@ -282,17 +271,25 @@
 						<td style="vertical-align: middle">${row3.teaname }</td>
 						<td style="vertical-align: middle">${row3.acastartdate }~<br />${row3.acaenddate }</td>
 						<td style="vertical-align: middle">매주&nbsp;${row3.acaday }&nbsp;&nbsp;${row3.acastarttime }~${row3.acaendtime }</td>
-						<td style="vertical-align: middle">${row3.numberofparticipants } <br /> </td>
-						<td style="vertical-align: middle"> ${row3.pay } </td>
-						<td  rowspan="2" style="text-align: center;vertical-align: middle"
-						><input type="image" name="submit" border="0" 
-						src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
-						alt="PayPal - The safer, easier way to pay online"></td>
+						<td style="vertical-align: middle">${row3.classmembers}/${row3.numberofparticipants } <br /> </td>
+						<td style="vertical-align: middle"><fmt:formatNumber value="${row3.pay }" /></td>
+						<td  rowspan="2" style="text-align: center;vertical-align: middle;color:#F15041 ">
+						<c:choose>
+							<c:when test="${row3.classmembers eq row3.numberofparticipants }">
+								모집종료
+							</c:when>
+							<c:otherwise>
+								<input type="image" name="submit" border="0" 
+									src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
+									alt="PayPal - The safer, easier way to pay online">
+							</c:otherwise>
+						</c:choose>
+						</td>
 						<input type="hidden" name="cmd" value="_xclick">
 						<input type="hidden" name="business" value="beholderstar-facilitator@gmail.com">
 						<input type="hidden" name="custom" value="${dto.idx }">
 						<input type="hidden" name="charset" value="UTF-8">
-						<input type="hidden" name="item_name" value="${user_id}">
+						<input type="hidden" name="item_name" value="${dto.idx}">
 						<input type="hidden" name="item_number" value="${row3.classidx }">
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="amount" value="${row3.pay/1132.71 }">
@@ -303,8 +300,6 @@
 				<hr class="my-4">
 				</c:forEach>
 		<!-- 수강신청 n-->		
-
-				
 			</td>
 		</tr>
 		<tr id="info09">
@@ -346,20 +341,28 @@
 			}
 			/* 폼값 전송 */
 			function writeValidate2(){
-			    /* document.getElementById('btn').onclick = function() {
-			        
-			    }; */
+				if (confirm("정말 수정 하시겠습니까??") == true){    //확인
+					document.getElementById("editF").submit();
+				}else{   //취소
+				    return;
+				}
 			    
-			    document.getElementById("editF").submit();
-		        return false;
 			};
 			</script>
 			
-			
-			<tr><td colspan="4">
+			<tr>
+			<td colspan="4">
 			<!-- 학원 후기 댓글 폼 -->
+		  <c:choose>
+			<c:when test="${isflag eq 0 }">
+			<!-- <div style=" padding-top: 6%;padding-left:1%; height: 100px;"> -->
+				<br /><br />
+				 <p><small style="color: #64A19D;font-weight: bold;font-size: 2em">수강신청을 하시면 후기작성 하기 버튼이 생성됩니다☆</small></p>
+			<!-- </div> -->
+			</c:when>
+			<c:otherwise>
 			<div id="editR">
-			<form name="writeFrm" method="post" 
+			<form name="writeFrm" method="post"  id="reviewForm"
 				onsubmit="return writeValidate(this);"
 				action="reviewAction.do" >
 				
@@ -388,60 +391,27 @@
                     <p><small style="color: #64A19D">꺠끗하고 정확한 후기는 다른회원들의 캐슬 선택에 많이 도움이 됩니다.</small></p>
                   </div>
                   <p class="pull-right" ><small></small></p>
-                  <button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">
-                  후기작성</button>
+
+						<button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">후기작성</button>
+					</c:otherwise>
+				</c:choose>
                 </div>
-                
-                
-                
             </form> 
             </div>
-            </td></tr>
-
-            <!-- 학원 후기 댓글 폼 -->	
-		
+            </td>
+            </tr>
+            <!-- 학원 후기 댓글 폼 -->			
 	</table>
 		<%@ include file="/../resources/DR_common/commonShareSNS.jsp" %>
-		<br />
+
 		<a href="#page-top"><button type = "button"  class="btn btn-info " style="margin:10px;width:auto;height:auto;vertical-align: middle;background-color: #699F9B;margin-left: 3.3%">위로가기</button></a>
-	<!-- Tab content
-	<div id="London" class="tabcontent">
-	  <h3>London</h3>
-	  <p>London is the capital city of England.</p>
-	</div>
-	
-	<div id="Paris" class="tabcontent">
-	  <h3>Paris</h3>
-	  <p>Paris is the capital of France.</p> 
-	</div>
-	
-	<div id="Tokyo" class="tabcontent">
-	  <h3>Tokyo</h3>
-	  <p>Tokyo is the capital of Japan.</p>
-	</div> -->
 	</div>
 	
 </section>
 
-<!-- 학원 정보 등록 페이지  e -->
-  <!-- About Section -->
-  <!-- <section id="about" class="about-section text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2 class="text-white mb-4">Built with Bootstrap 4</h2>
-          <p class="text-white-50">Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-            <a href="http://startbootstrap.com/template-overviews/grayscale/">the preview page</a>. The theme is open source, and you can use it for any purpose, personal or commercial.</p>
-        </div>
-      </div>
-      <img src="img/ipad.png" class="img-fluid" alt="">
-    </div>
-  </section> -->
   <!-- Footer -->
   <footer class="bg-black small text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Your Website 2019
-    </div>
+    <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
   <!-- 추가s -->
 
@@ -454,7 +424,6 @@
   <script src="/FinallyProject/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for this template -->
-<<<<<<< HEAD
   <script src="js/grayscale.min.js"></script>
   
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ec06b0333644bd4771e72d23ed5395f&libraries=services"></script>
@@ -465,41 +434,27 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표입니다!!adasd
         level: 3 // 지도의 확대 레벨
     };  
-
 // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption); 
-
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new daum.maps.services.Geocoder();
-
-var adress = 
-	document.getElementById("adress").value;
-// 주소로 좌표를 검색합니다
+var adress = document.getElementById("adress").value;
 geocoder.addressSearch(adress, function(result, status) {
-
-    // 정상적으로 검색이 완료됐으면 
      if (status === daum.maps.services.Status.OK) {
 
         var coords = new daum.maps.LatLng(result[0].y, result[0].x);
-
-        // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new daum.maps.Marker({
             map: map,
             position: coords
         });
-
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new daum.maps.InfoWindow({
             content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.name }</div>'
         });
         infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
 });    
 </script>
-=======
   <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
 
 </body>

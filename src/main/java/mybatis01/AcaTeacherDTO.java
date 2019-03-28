@@ -13,7 +13,7 @@ public class AcaTeacherDTO {
 	public AcaTeacherDTO() {
 	}
 
-	public AcaTeacherDTO(String id, String subject, String teaidx, String teaimage, String teaintro, String teaname) {
+	public AcaTeacherDTO(String id, String subject, String teaidx, String teaimage, String teaintro, String teaname, String teaimageuu) {
 
 		this.id = id;
 		this.subject = subject;
@@ -21,6 +21,7 @@ public class AcaTeacherDTO {
 		this.teaimage = teaimage;
 		this.teaintro = teaintro;
 		this.teaname = teaname;
+		this.teaimageuu = teaimageuu;
 	}
 
 	public String getId() {

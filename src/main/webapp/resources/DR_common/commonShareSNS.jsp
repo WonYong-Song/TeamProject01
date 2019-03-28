@@ -83,7 +83,7 @@ snsArray['google'] = "https://plus.google.com/share?url=" + encodeURIComponent(s
 	</tr>
 	<tr style="text-align: center;width: 100%; margin-top: -5%">
 		<td><a href="javascript:toSNS('facebook','공유제목!','${FULLURL}')" title="페이스북으로 가져가기"><img  class="iimg" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Facebook_icon.jpg"></a></td>
-		<td><a href="javascript:toSNS('twitter','공유제목!','${FULLURL}')" title="트위터로 가져가기"><img class="iimg" src="https://cdn.pixabay.com/photo/2017/08/23/11/30/twitter-2672572_960_720.jpg"></a></td>
+		<td><a href="javascript:toSNS('twitter','공유제목!','${FULLURL}')" title="트위터로 가져가기"><img class="iimg" src="http://img.hani.co.kr/imgdb/resize/2018/0504/00501429_20180504.JPG"></a></td>
 		<td><a href="javascript:toSNS('line','공유제목!','${FULLURL}')" title="라인으로 가져가기"><img class="iimg" src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c523.png"></a></td>
 		<td><a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img class="iimg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Kakao_logo.jpg/220px-Kakao_logo.jpg"></a></td>
 		<td><a href="javascript:shareStory();" title="카카오스토리로 가져가기"><img class="iimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF7CSchfsMjCHmUds5ZRGx_3pEefQtvmzSNpFaMiio7_WK8UhGMw"></a></td>

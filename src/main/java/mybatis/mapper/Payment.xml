@@ -22,4 +22,9 @@
 			on A.classidx = B.classidx
 		where A.CLASSIDX=#{param1}
 	</select>-->
+	<update id="numberplus" >
+		update  acaclass set 
+			numberofapplicants=numberofapplicants+1
+		WHERE classidx=#{param1}
+	</update>
 </mapper>

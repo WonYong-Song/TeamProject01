@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONObject;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,11 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import dto.AcaClassDTO;
 import dto.MembersDTO;
 import impl.AcademyInfoImpl;
 import impl.AcademyListImpl;
 import impl.MypageImpl;
 import impl.PaymentImpl;
+import impl.ReviewLikeImpl;
 import impl.example;
 import mybatis01.AcaTeacherDTO;
 import mybatis01.AcademyMemberDTO;
@@ -38,7 +41,10 @@ import mybatis01.ClassInfoDTO;
 import mybatis01.MemberDTO;
 
 import mybatis01.ParamDTO;
+import mybatis01.ReviewLikeDTO;
 import mybatis01.ReviewWriteDTO;
+import mybatis01.idsDTO;
+
 
 
 @Controller
@@ -56,10 +62,12 @@ public class FinalProjectController {
 	//케슬 메인
 	@RequestMapping("/catle/main.do")
 	public String main(HttpServletRequest req, Model model) {
-		String num =req.getParameter("param");
-		if(req.getParameter("param")==null) {
-			System.out.println(num+"여기까지 왔니??");
-		}
+		/* 공유를 위한 url받기*/
+		StringBuffer URL=req.getRequestURL();
+		System.out.println("URL="+URL);
+		String FULLURL =String.format("%s", URL);
+		model.addAttribute("FULLURL",FULLURL);
+
 		
 		return "01Main/main";
 	}
@@ -70,13 +78,13 @@ public class FinalProjectController {
 		return "01Main/Login";
 	}
 	//로그아웃
-		@RequestMapping("/catle/Logout.do")
-		public String logout(HttpServletRequest req, HttpSession session,
-				HttpServletResponse resp) {
-			session.removeAttribute("USER_ID");
+	@RequestMapping("/catle/Logout.do")
+	public String logout(HttpServletRequest req, HttpSession session,
+			HttpServletResponse resp) {
+		session.removeAttribute("USER_ID");
 
-			return "01Main/main";
-		}
+		return "01Main/main";
+	}
 	//로그인 처리
 	@RequestMapping("/catle/LoginAction.do")
 	public void LoginAction(MembersDTO membersDTO,
@@ -121,8 +129,6 @@ public class FinalProjectController {
 	String cateB = req.getParameter("cateB");
 	System.out.println("카테고리="+cateB);
 	
-		
-		
 	/* 학원 평점 들고오기 s	*/
 	/*ArrayList<ReviewWriteDTO> reviewList =sqlSession.getMapper(AcademyListImpl.class)getReview();*/
 	/* 학원 평점 들고오기 e	*/
@@ -165,7 +171,6 @@ public class FinalProjectController {
 	//검색처리위한 추가부분
 	paramDTO.setStart(start);
 	paramDTO.setEnd(end);
-	System.out.println("11111111111111111111111111111");
 	ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaList(paramDTO);
 	System.out.println("카테고리="+cateB);
 	//페이지 처리를 위한 처리부분
@@ -173,13 +178,10 @@ public class FinalProjectController {
 			pageSize, blockPage, nowPage,
 			req.getContextPath()+"/catle/list.do?"+addQueryString+"cateB="+cateB+"&");
 	model.addAttribute("pagingImg", pagingImg);
-	System.out.println("11111111111111111111111111111");
-	//줄바꿈처리
+	//줄바꿈처리 및 평균 삽입 부분
 	for(AcademyMemberDTO dto : acaList)
 	{
-		
-		String temp =Util.RatingUtil.ratingImg((int) dto.getAvg());
-				
+		String temp =Util.RatingUtil.ratingImg((int) dto.getAvg());		
 			System.out.println(temp);
 		dto.setRatingStar(temp);
 		dto.setAvg((int) dto.getAvg());
@@ -191,9 +193,8 @@ public class FinalProjectController {
 	model.addAttribute("acaList", acaList);
 	model.addAttribute("cateB",cateB);
 	
-		return "01Main/list";
+	return "01Main/list";
 	}
-	
 /////////////////////////////////////////////////////////////////////////
 	//학원정보 등록 창 바로가기
 	@RequestMapping("/catle/updateAcademyInfo.do")
@@ -248,14 +249,12 @@ public class FinalProjectController {
 		paramDTO.setEnd(end);
 		
 	ArrayList<ReviewWriteDTO> reviewDTO = sqlSession.getMapper(AcademyInfoImpl.class).review(paramDTO);
-	System.out.println("11111111111111111111111111111");
 	//페이지 처리를 위한 처리부분
 			String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
 					pageSize, blockPage, nowPage,
 					req.getContextPath()+"/catle/academyInfo.do?acaIdx="+acaIdx+"&"+addQueryString);
 			model.addAttribute("pagingImg", pagingImg);
-		System.out.println("22222222222222222222222222");
-	//줄바꿈처리
+	// 리뷰리스트를 원하는 형태로 가공 및 별점,좋아요값 삽입
 	for(ReviewWriteDTO dto1 : reviewDTO)
 	{	
 		System.out.println(dto1.getReviewcontents());
@@ -269,7 +268,23 @@ public class FinalProjectController {
 		System.out.println(dto1.getScore());
 		System.out.println(dto1.getId());
 		System.out.println(dto1.getStarRaiting());
+		//아이디값이 있을뗴에만 글에대한 리뷰 유무를 판별
+		if((String)session.getAttribute("USER_ID")!=null) {
+			int reviewFlag=sqlSession.getMapper(ReviewLikeImpl.class).likeidentefy((String)session.getAttribute("USER_ID"),dto1.getReviewidx());
+			System.out.println("reviewFlag="+reviewFlag);
+			dto1.setReviewgroup(reviewFlag);
+		}
+		//아이디가없을때는  그룹을 2로줌으로서 로그인하라는 메세지가 나타나게 하려는 그룹값.
+		else {
+			dto1.setReviewgroup(2);
+		}
+		//널값일 경우에 좋아요수를 0으로 바꿔주는 로직
+		if(dto1.getcountlike()==null) {
+			dto1.setcountlike("0");
+		}
+		
 	}
+	model.addAttribute("USER_ID",(String)session.getAttribute("USER_ID"));
 	model.addAttribute("reviewDTO", reviewDTO);
 	model.addAttribute("pagingImg", pagingImg);
 	
@@ -296,9 +311,10 @@ public class FinalProjectController {
 	/* 학원 소개 가져오기 e*/
 	
 	/* 강의 목록 가져오기 S*/
-	ArrayList<ClassInfoDTO> classIntroDTO = sqlSession.getMapper(AcademyInfoImpl.class).classIntro(acaId);
+	ArrayList<AcaClassDTO> classIntroDTO = sqlSession.getMapper(AcademyInfoImpl.class).classIntro(acaIdx);
+	System.out.println("acaidx="+acaIdx);
 	model.addAttribute("classInfo", classIntroDTO);
-	for(ClassInfoDTO dto : classIntroDTO)
+	/*for(AcaClassDTO dto : classIntroDTO)
 	{
 		String startD = dto.getAcastartdate().substring(0,10);
 		String endD = dto.getAcaenddate().substring(0,10);
@@ -309,7 +325,7 @@ public class FinalProjectController {
 		dto.setAcaenddate(endD);
 		dto.setAcastarttime(startT);
 		dto.setAcaendtime(endT);
-	}
+	}*/
 	/* 강의 목록 가져오기 E*/
 	
 	System.out.println(acaMemberDTO.getAddress());
@@ -323,6 +339,21 @@ public class FinalProjectController {
 	/* 강사 목록 받기*/			  
 	/*AcaTeacherDTO acaTeacherDTO = sqlSession.getMapper(AcademyInfoImpl.class).AcaInfo();*/
 	/* 강사 목록 받기*/
+	/*MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
+	memberInfo.getId();*/
+	
+	ArrayList<MembersDTO> ids = sqlSession.getMapper(AcademyInfoImpl.class).reviewIdentify(acaIdx);
+	System.out.println("111111111111111111111111111111111111111111111111111111111111111111111");
+	int isflag =0;
+	for(MembersDTO dto : ids) {
+		if(dto.getId().equals(user_id)) {
+			isflag=1;
+			
+		}
+	}
+	System.out.println("isflag="+isflag);
+	model.addAttribute("isflag",isflag);
+	
 	/* 공유를 위한 url받기*/
 	StringBuffer URL=req.getRequestURL();
 	System.out.println("URL="+URL);
@@ -346,24 +377,27 @@ public class FinalProjectController {
 		System.out.println("acaScore="+acaScore);
 		System.out.println("memberId="+memberId);
 		System.out.println("reviewContents="+reviewContents);
-		/*if(session.getAttribute("siteUserInfo")==null)
-		{
-			return "redirect:login.do";
-		}*/
-		//Mybatis 사용
-		/*sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				req.getParameter("name"),req.getParameter("contents"),
-				((MemberDTO)session.getAttribute("siteUserInfo")).getMemberId());*/
 		
-		sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
-				acaidx,memberId,acaScore,reviewContents);
+		
+		boolean isflag=true;
+		//int flag = sqlSession.getMapper(AcademyInfoImpl.class).reviewIdentify(memberId);
+		if(isflag==true) {
+			//수강신청한 적 있는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,2);
+			System.out.println("수강신청 한적있는 리뷰 작성 완료");
+		}
+		else{
+			//수강신청한 적 없는 사람의 댓글 입력 처리
+			sqlSession.getMapper(AcademyInfoImpl.class).reviewWrite(
+					acaidx,memberId,acaScore,reviewContents,1);
+			System.out.println("수강신청 한적없는 리뷰 작성 완료");
+		}		
 		 
-		
 		/*return "redirect:academyInfo.do";*/
 		return "redirect:academyInfo.do?acaIdx="+acaidx;
 		
 	}
-	
 /////////////////////////////////////////////////////////////////////////	
 	//수정하기
 	@RequestMapping("/mybatis/modify.do")
@@ -472,7 +506,6 @@ public class FinalProjectController {
       
 		return "redirect:/catle/academyInfo.do?";
 	}
-	
 	// 댓글 삭제하기
 	@RequestMapping("/catle/delete.do")
 	public String delete(HttpServletRequest req, Model model,
@@ -494,12 +527,16 @@ public class FinalProjectController {
 		return "redirect:academyInfo.do?acaIdx="+acaIdx;
 	}
 	
+	
 	//결제 완료창 띄우기
 	@RequestMapping("/catle/paymentAction.do")
 	public String paymentAction(Model model, HttpServletRequest req, HttpSession session) {
 	System.out.println("----------------결제과정 시작----------------");
     //넘어오는 user_id(어쩔수없이 이 네임으로 아이디를 받음)
-	String user_id = req.getParameter("item_name");
+	//String user_id = req.getParameter("item_name");
+	String acaidx = req.getParameter("item_name");
+	String user_id=(String) session.getAttribute("USER_ID");
+	System.out.println("acaidx="+acaidx);
 	System.out.println("세로 생성해야할 아이디="+user_id);
 	//세로운 세션생성을 위해 reLogin
 	MembersDTO membersDTO = sqlSession.getMapper(PaymentImpl.class).reLogin(user_id);
@@ -521,12 +558,12 @@ public class FinalProjectController {
 	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number);
 	System.out.println("결제가 완료된 아이디="+user_id);
 	System.out.println("결제완료된 과목 idx="+item_number);
-	System.out.println("111111111111111111111111111111111111");
+	
 	//결제된 과목의 정보를 가져오는 Mybatis!
 	ClassInfoDTO classDTO = sqlSession.getMapper(PaymentImpl.class).classInfo(item_number);
 	System.out.println(classDTO.getAcaclassname());
 	System.out.println(classDTO.getPay());
-	System.out.println("111111111111111111111111111111111111");
+
 	if(affected ==1) {
 		System.out.println("결제완료");
 	}
@@ -600,14 +637,12 @@ public class FinalProjectController {
 		paramDTO.setEnd(end);
 		//수강신청한 강의정보 들고오기
 		ArrayList<ClassInfoDTO> classIntroDTO =sqlSession.getMapper(MypageImpl.class).myclass(paramDTO);
-		
+		//수강정보 들고오기 및 문자열 처리
 		MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
 		int virtualNum = 0;
 		int countNum = 0;
 		for(ClassInfoDTO dto : classIntroDTO)
 		{
-			
-			
 			virtualNum = totalRecordCount
 				- (((nowPage-1)*pageSize) + countNum++);
 			dto.setSetVirtualNum(virtualNum);
@@ -650,7 +685,7 @@ public class FinalProjectController {
 			System.out.println("1111111111111111111111111111111111111111111");
 			return "redirect:MemberModifyP.do";
 		}
-
+		
 		System.out.println("22222222222222222222222222222222222222222");
 		String msg = "비밀번호가 일치하지 않습니다.";
 		model.addAttribute("msg",msg);
@@ -687,7 +722,7 @@ public class FinalProjectController {
 		System.out.println("totalRecordCount="+totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 2;
+		int pageSize = 6;
 		int blockPage = 5;
 		
 		//전체페이지수계산하기
@@ -729,8 +764,41 @@ public class FinalProjectController {
 		
 		return "01Main/AcaSearchMap";
 	}
-	
-	
+	//좋아요 처리 컨트롤러
+	@RequestMapping("/catle/reviewLike.do")
+	public String reviewLike(HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
+		//세션에서 로그인된아이디 가져오기
+		String user_id =(String) session.getAttribute("USER_ID");
+		//json object 생성
+		JSONObject obj =new JSONObject();
+		//좋아요를 타고온건지, 좋아요 취소를 타고온건지 체크
+		String group = req.getParameter("group");
+		String reviewidx = req.getParameter("reviewidx");
+		System.out.println("group="+group);
+		System.out.println("userid="+user_id);
+		System.out.println("reviewidx="+reviewidx);
+
+		//스트링 타입의 리스트 생성
+		String msgs;
+		int reviewFlag=sqlSession.getMapper(ReviewLikeImpl.class).likeidentefy(user_id,reviewidx);
+		System.out.println("reviewFlag="+reviewFlag);
+		if(group.equals("like") && reviewFlag==0) {
+			//좋아요 체크하는 mybatis
+			sqlSession.getMapper(ReviewLikeImpl.class).like_check(user_id,reviewidx);
+			msgs ="좋아요";
+			System.out.println(msgs);
+		}
+		else {
+			//좋아요 취소하는 mybatis
+			sqlSession.getMapper(ReviewLikeImpl.class).like_cancel(user_id,reviewidx);
+			msgs="좋아요 취소";
+			System.out.println(msgs);
+		}
+		obj.put("msgs", msgs);
+		obj.put("reviewFlag", reviewFlag);
+		
+		return obj.toJSONString();
+	}
 	
 }
 

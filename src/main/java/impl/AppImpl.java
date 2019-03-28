@@ -31,4 +31,20 @@ public interface AppImpl {
 	public List<AcaTeacherDTO> detail2(String idx);
 	//학원상세정보페이지3
 	public List<AcaClassDTO> detail3(String idx);
+	
+	//로그인처리
+	public MembersDTO loginAction(String id, String pass);
+	
+	//회원정보 가져오기
+	public MembersDTO myInfo(String id);
+	
+	//회원정보 변경처리
+	public int myInfoModifyAction(MembersDTO membersDTO);
+	
+	//회원가입 시 아이디 체크
+	public int idCheck(String id);
+	
+	//회원가입 처리
+	public int memberjoin(MembersDTO membersDTO);
+	
 }

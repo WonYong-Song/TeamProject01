@@ -5,7 +5,9 @@ DROP TABLE EnrollClass CASCADE CONSTRAINTS;
 DROP TABLE AcaClass CASCADE CONSTRAINTS;
 DROP TABLE AcaIntroduce CASCADE CONSTRAINTS;
 DROP TABLE AcaTeacher CASCADE CONSTRAINTS;
+DROP TABLE admins CASCADE CONSTRAINTS;
 DROP TABLE Category CASCADE CONSTRAINTS;
+DROP TABLE ReviewLike CASCADE CONSTRAINTS;
 DROP TABLE ReviewWrite CASCADE CONSTRAINTS;
 DROP TABLE Members CASCADE CONSTRAINTS;
 
@@ -78,6 +80,21 @@ CREATE TABLE AcaTeacher
 );
 
 
+-- 관리자테이블
+CREATE TABLE admins
+(
+	-- 관리자 아이디
+	id varchar2(300) NOT NULL,
+	-- 관리자 비밀번호
+	pass varchar2(300) NOT NULL,
+	-- 관리자 이름
+	name varchar2(300) NOT NULL,
+	-- 가입일
+	regidate date DEFAULT sysdate NOT NULL,
+	PRIMARY KEY (id)
+);
+
+
 -- 학원의카테고리
 CREATE TABLE Category
 (
@@ -141,6 +158,21 @@ CREATE TABLE Members
 );
 
 
+-- 좋아요
+CREATE TABLE ReviewLike
+(
+	-- 좋아요의고유번호
+	idx number NOT NULL,
+	-- 좋아요갯수
+	countlike number DEFAULT 0,
+	-- 아이디
+	id varchar2(300) NOT NULL,
+	-- 리뷰의고유번호
+	ReviewIdx number NOT NULL,
+	PRIMARY KEY (idx)
+);
+
+
 -- 리뷰작성
 CREATE TABLE ReviewWrite
 (
@@ -155,7 +187,8 @@ CREATE TABLE ReviewWrite
 	-- 학원의고유번호
 	acaidx number NOT NULL,
 	-- 리뷰의고유번호
-	ReviewIdx number NOT NULL
+	ReviewIdx number NOT NULL,
+	PRIMARY KEY (ReviewIdx)
 );
 
 
@@ -192,9 +225,21 @@ ALTER TABLE EnrollClass
 ;
 
 
+ALTER TABLE ReviewLike
+	ADD FOREIGN KEY (id)
+	REFERENCES Members (id)
+;
+
+
 ALTER TABLE ReviewWrite
 	ADD FOREIGN KEY (id)
 	REFERENCES Members (id)
+;
+
+
+ALTER TABLE ReviewLike
+	ADD FOREIGN KEY (ReviewIdx)
+	REFERENCES ReviewWrite (ReviewIdx)
 ;
 
 
@@ -226,6 +271,11 @@ COMMENT ON COLUMN AcaTeacher.Subject IS '강의과목';
 COMMENT ON COLUMN AcaTeacher.TeaIdx IS '강사고유번호';
 COMMENT ON COLUMN AcaTeacher.id IS '아이디';
 COMMENT ON COLUMN AcaTeacher.TeaImageUU IS '강사이미지UUID';
+COMMENT ON TABLE admins IS '관리자테이블';
+COMMENT ON COLUMN admins.id IS '관리자 아이디';
+COMMENT ON COLUMN admins.pass IS '관리자 비밀번호';
+COMMENT ON COLUMN admins.name IS '관리자 이름';
+COMMENT ON COLUMN admins.regidate IS '가입일';
 COMMENT ON TABLE Category IS '학원의카테고리';
 COMMENT ON COLUMN Category.MainCategory IS '대분류';
 COMMENT ON COLUMN Category.MiddleCategory IS '중분류';
@@ -251,6 +301,11 @@ COMMENT ON COLUMN Members.mobile2 IS '휴대폰번호2';
 COMMENT ON COLUMN Members.mobile3 IS '휴대폰번호3';
 COMMENT ON COLUMN Members.telephone2 IS '학원전화번호2';
 COMMENT ON COLUMN Members.telephone3 IS '학원전화번호3';
+COMMENT ON TABLE ReviewLike IS '좋아요';
+COMMENT ON COLUMN ReviewLike.idx IS '좋아요의고유번호';
+COMMENT ON COLUMN ReviewLike.countlike IS '좋아요갯수';
+COMMENT ON COLUMN ReviewLike.id IS '아이디';
+COMMENT ON COLUMN ReviewLike.ReviewIdx IS '리뷰의고유번호';
 COMMENT ON TABLE ReviewWrite IS '리뷰작성';
 COMMENT ON COLUMN ReviewWrite.ReviewContents IS '리뷰내용';
 COMMENT ON COLUMN ReviewWrite.Score IS '별점';
