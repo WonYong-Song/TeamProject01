@@ -65,7 +65,7 @@
   <!-- Header -->
 
 <!-- 학원 정보 등록 페이지  s -->
-<section id="mainImage" class="about-section text-center" style="padding-bottom:5%; background: linear-gradient(to bottom, rgba(22, 22, 22, .1) 0,rgba(22, 22, 22, .5) 75%, #161616 100%), url('../img/back2.jpg'');">
+<section id="mainImage" class="about-section text-center" style="padding-bottom:5%; background: linear-gradient(to bottom, rgba(22, 22, 22, .1) 0,rgba(22, 22, 22, .5) 75%, #161616 100%), url(../resources/img/back.jpg);">
 <div class="container" style="background-color: white;margin-top: 0px;border-radius:5px;padding-bottom: 30px;width:auto;padding-top: 15px; ">
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="height:auto;">
     <div class="container" >
@@ -277,7 +277,7 @@
 						<td  rowspan="2" style="text-align: center;vertical-align: middle;color:#F15041 ">
 						<c:choose>
 							<c:when test="${row3.classmembers eq row3.numberofparticipants }">
-								수강만원
+								모집종료
 							</c:when>
 							<c:otherwise>
 								<input type="image" name="submit" border="0" 

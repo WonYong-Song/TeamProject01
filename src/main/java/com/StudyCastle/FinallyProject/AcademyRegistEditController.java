@@ -56,8 +56,7 @@ public class AcademyRegistEditController {
 	 
 	//학원등록 및 수정페이지 바로가기
 	@RequestMapping("/catle/acaInfoRegiEdit.do")
-	public String acaInfoRegiEdit(Model model, HttpSession session, HttpServletRequest req) throws UnsupportedEncodingException {
-		
+	public String acaInfoRegiEdit(Model model, HttpSession session, HttpServletRequest req) {		
 		//학원정보 불러오기
 		String id = (String) session.getAttribute("USER_ID");
 		AcaInfoRegiEditDTO acaRegiEditDTO = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoLoad(id);
@@ -95,7 +94,7 @@ public class AcademyRegistEditController {
 
 	//학원정보수정 
 	@RequestMapping("/catle/AcaInfoUpdate.do")
-	public String AcaInfoUpdate(Model model, HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
+	public String AcaInfoUpdate(HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
 		
 		String id = (String) session.getAttribute("USER_ID");
 		
@@ -153,7 +152,7 @@ public class AcademyRegistEditController {
 	
 	//강사정보 입력
 	@RequestMapping("/catle/teaInfoInsert.do")
-	public String teaInfoInsert(Model model, HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
+	public String teaInfoInsert(HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
 		
 		req.setCharacterEncoding("UTF-8");
 		String id = (String) session.getAttribute("USER_ID");
@@ -200,7 +199,7 @@ public class AcademyRegistEditController {
 	
 	//강의정보 입력
 	@RequestMapping("/catle/classInfoInsert.do")
-	public String classInfoInsert(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public String classInfoInsert(AcaClassDTO acaClassDTO, HttpSession session, HttpServletRequest req) {
 	
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassRegi(acaClassDTO);
 		
@@ -315,7 +314,7 @@ public class AcademyRegistEditController {
 	//강의정보수정
 	@RequestMapping("/catle/classInfoUpdate.do")
 	@ResponseBody
-	public void classInfoUpdate(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void classInfoUpdate(AcaClassDTO acaClassDTO, HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classInfoUpd(acaClassDTO);
 		resp.setContentType("text/html; charset=UTF-8");
@@ -332,7 +331,7 @@ public class AcademyRegistEditController {
 	//강사정보삭제
 	@RequestMapping(value="/catle/teaInfoDelete/{teaidx}", method = RequestMethod.GET)
 	@ResponseBody
-	public void teaInfoDelete(AcaTeacherDTO acaTeacherDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public void teaInfoDelete(AcaTeacherDTO acaTeacherDTO, HttpSession session, HttpServletRequest req) {
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).teaInfoDel(acaTeacherDTO);
 		
@@ -341,7 +340,7 @@ public class AcademyRegistEditController {
 	//강의정보삭제
 	@RequestMapping(value="/catle/classDelete/{classidx}", method = RequestMethod.GET )
 	@ResponseBody
-	public void classDelete(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public void classDelete(AcaClassDTO acaClassDTO, HttpSession session, HttpServletRequest req) {
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classDel(acaClassDTO);
 	

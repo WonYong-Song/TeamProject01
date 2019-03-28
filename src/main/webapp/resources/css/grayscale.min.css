@@ -43,8 +43,8 @@
 		padding-bottom: 0;
 		border-bottom: none;
 		background-color: transparent;
-		-webkit-transition: background-color .3s ease-in-out;
-		transition: background-color .3s ease-in-out
+		-webkit-transition: background-color .2s ease-in-out;
+		transition: background-color .2s ease-in-out;
 	}
 	#mainNav .navbar-brand {
 		padding: .5rem 0;
