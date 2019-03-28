@@ -129,6 +129,12 @@
 		where
 		    id = #{id}
 	</update>
+	
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(*)
+		from members
+		where id = #{0} and grade = 1
+	</select>
 </mapper>
 
    
