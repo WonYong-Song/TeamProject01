@@ -48,31 +48,21 @@
 <body id="page-top">
 
   <!-- Nav Bar -->
-  <%@ include file="/../resources/DR_common/commonNavTop2.jsp" %>
+  <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
   <!-- Nav Bar -->
   <!-- Header -->
-  <header class="masthead">
+  <header class="masthead" >
     <div class="container d-flex h-100 align-items-center">
-      <div class="mx-auto text-center" style="width:auto; height:auto;background-color: white;margin-top:450px;;border-radius: 5px;  ">
+      <div class="mx-auto text-center" style="width:auto; height:auto;background-color: white;margin-top:250px;;border-radius: 5px;  ">
         <%@ include file="/../resources/DR_common/commonServiceTerms.jsp" %>
       </div>
     </div>
   </header>
-  <section>
-  <!-- About Section -->
-  <section id="about" class="about-section text-center">
-    <div class="container">
-     
-      <img src="img/ipad.png" class="img-fluid" alt="">
-    </div>
-  </section>
+  
   <!-- Footer -->
-  <footer class="bg-black small text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Your Website 2019
-    </div>
-  </footer>
-  </section>
+	<footer class="bg-black small text-center text-white-50" >
+     
+   	</footer>
   <!-- Bootstrap core JavaScript -->
   <script src="/FinallyProject/resources/vendor/jquery/jquery.min.js"></script>
   <script src="/FinallyProject/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

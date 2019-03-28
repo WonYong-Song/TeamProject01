@@ -33,6 +33,9 @@ function teaRegiValidate(t) {
 	}
 	
 	if(t.teaimage.value==""){
+		if(t.teaimgOrigin.value!=""){		
+			return true;
+		}
 		alert("강사사진을 첨부해 주세요");
 		return false;
 	}
@@ -73,13 +76,15 @@ $(function(){
 	<form name="teachFrm" action="teaInfoUpdate.do" method="post" onsubmit="return teaRegiValidate(this)" enctype="multipart/form-data">
 		<div>
 			<hr />
+			<input type="hidden" name="teaimgOriuu" value="${teaDTO.teaimageuu }"/>
+			<input type="hidden" name="teaimgOrigin" value="${teaDTO.teaimage }"/>
 			<input type="hidden" name="teaidx" value="${teaDTO.teaidx }" />
 			<table class="table" style="width:100%; background-color: #EEEEEE;">
 				<tr><th colspan="2" style="font-size: 1.5em;">- 강사 등록</th></tr>
 				<tr>
 					<th>강사이미지</th>
 					<td>
-					파일명 : ${teaDTO.teaimage }<input type="file" name="teaimage"/>
+					파일명 : ${teaDTO.teaimage }<input type="file" name="teaimage" />
 					</td>
 				</tr>
 				<tr>

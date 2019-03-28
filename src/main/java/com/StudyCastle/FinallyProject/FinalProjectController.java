@@ -780,7 +780,6 @@ public class FinalProjectController {
 
 		//스트링 타입의 리스트 생성
 		String msgs;
-		System.out.println("111111111111111111111111111111111111111111111111111111111111111");
 		int reviewFlag=sqlSession.getMapper(ReviewLikeImpl.class).likeidentefy(user_id,reviewidx);
 		System.out.println("reviewFlag="+reviewFlag);
 		if(group.equals("like") && reviewFlag==0) {
@@ -797,7 +796,6 @@ public class FinalProjectController {
 		}
 		obj.put("msgs", msgs);
 		obj.put("reviewFlag", reviewFlag);
-		System.out.println("111111111111111111111111111111111111111111111111111111111111111");
 		
 		return obj.toJSONString();
 	}
