@@ -7,7 +7,8 @@
 	<!-- 마이페이지 뿌려줄떄 아이디에 맞는 강의정보 가져오기 -->
 	<select id="myclass" resultType="mybatis01.ClassInfoDTO" parameterType="mybatis01.ParamDTO">
 		select * from(
-			SELECT ACASTARTDATE,ACADAY,ACAENDDATE,teaname,ACASTARTTIME,ACAENDTIME,ACACLASSNAME,NUMBEROFPARTICIPANTS,pay ,id,rownum rNum FROM (
+			SELECT ACASTARTDATE,ACADAY,ACAENDDATE,teaname,ACASTARTTIME,ACAENDTIME,
+					ACACLASSNAME,NUMBEROFPARTICIPANTS,pay ,id,rownum rNum FROM (
                 SELECT A.*, B.*, (select teaname from acateacher where TEAIDX=B.teaidx
                     ) teaname FROM 
                     enrollclass A inner join acaclass B
