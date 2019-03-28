@@ -129,8 +129,6 @@ public class FinalProjectController {
 	String cateB = req.getParameter("cateB");
 	System.out.println("카테고리="+cateB);
 	
-		
-		
 	/* 학원 평점 들고오기 s	*/
 	/*ArrayList<ReviewWriteDTO> reviewList =sqlSession.getMapper(AcademyListImpl.class)getReview();*/
 	/* 학원 평점 들고오기 e	*/
@@ -173,7 +171,6 @@ public class FinalProjectController {
 	//검색처리위한 추가부분
 	paramDTO.setStart(start);
 	paramDTO.setEnd(end);
-	System.out.println("11111111111111111111111111111");
 	ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaList(paramDTO);
 	System.out.println("카테고리="+cateB);
 	//페이지 처리를 위한 처리부분
@@ -181,13 +178,10 @@ public class FinalProjectController {
 			pageSize, blockPage, nowPage,
 			req.getContextPath()+"/catle/list.do?"+addQueryString+"cateB="+cateB+"&");
 	model.addAttribute("pagingImg", pagingImg);
-	System.out.println("11111111111111111111111111111");
-	//줄바꿈처리
+	//줄바꿈처리 및 평균 삽입 부분
 	for(AcademyMemberDTO dto : acaList)
 	{
-		
-		String temp =Util.RatingUtil.ratingImg((int) dto.getAvg());
-				
+		String temp =Util.RatingUtil.ratingImg((int) dto.getAvg());		
 			System.out.println(temp);
 		dto.setRatingStar(temp);
 		dto.setAvg((int) dto.getAvg());
@@ -199,9 +193,8 @@ public class FinalProjectController {
 	model.addAttribute("acaList", acaList);
 	model.addAttribute("cateB",cateB);
 	
-		return "01Main/list";
+	return "01Main/list";
 	}
-	
 /////////////////////////////////////////////////////////////////////////
 	//학원정보 등록 창 바로가기
 	@RequestMapping("/catle/updateAcademyInfo.do")
@@ -256,14 +249,12 @@ public class FinalProjectController {
 		paramDTO.setEnd(end);
 		
 	ArrayList<ReviewWriteDTO> reviewDTO = sqlSession.getMapper(AcademyInfoImpl.class).review(paramDTO);
-	System.out.println("11111111111111111111111111111");
 	//페이지 처리를 위한 처리부분
 			String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
 					pageSize, blockPage, nowPage,
 					req.getContextPath()+"/catle/academyInfo.do?acaIdx="+acaIdx+"&"+addQueryString);
 			model.addAttribute("pagingImg", pagingImg);
-		System.out.println("22222222222222222222222222");
-	//줄바꿈처리
+	// 리뷰리스트를 원하는 형태로 가공 및 별점,좋아요값 삽입
 	for(ReviewWriteDTO dto1 : reviewDTO)
 	{	
 		System.out.println(dto1.getReviewcontents());
@@ -567,14 +558,12 @@ public class FinalProjectController {
 	int affected = sqlSession.getMapper(PaymentImpl.class).payment(user_id,item_number);
 	System.out.println("결제가 완료된 아이디="+user_id);
 	System.out.println("결제완료된 과목 idx="+item_number);
-	/*//결제된 과목의 수강인원을 1회 높여주는 마이바티스
-	sqlSession.getMapper(PaymentImpl.class).numberplus(item_number);*/
-	System.out.println("111111111111111111111111111111111111");
+	
 	//결제된 과목의 정보를 가져오는 Mybatis!
 	ClassInfoDTO classDTO = sqlSession.getMapper(PaymentImpl.class).classInfo(item_number);
 	System.out.println(classDTO.getAcaclassname());
 	System.out.println(classDTO.getPay());
-	System.out.println("111111111111111111111111111111111111");
+
 	if(affected ==1) {
 		System.out.println("결제완료");
 	}
@@ -648,14 +637,12 @@ public class FinalProjectController {
 		paramDTO.setEnd(end);
 		//수강신청한 강의정보 들고오기
 		ArrayList<ClassInfoDTO> classIntroDTO =sqlSession.getMapper(MypageImpl.class).myclass(paramDTO);
-		
+		//수강정보 들고오기 및 문자열 처리
 		MembersDTO memberInfo = sqlSession.getMapper(MypageImpl.class).memberInfo(user_id);
 		int virtualNum = 0;
 		int countNum = 0;
 		for(ClassInfoDTO dto : classIntroDTO)
 		{
-			
-			
 			virtualNum = totalRecordCount
 				- (((nowPage-1)*pageSize) + countNum++);
 			dto.setSetVirtualNum(virtualNum);
@@ -735,7 +722,7 @@ public class FinalProjectController {
 		System.out.println("totalRecordCount="+totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 2;
+		int pageSize = 6;
 		int blockPage = 5;
 		
 		//전체페이지수계산하기
@@ -777,7 +764,7 @@ public class FinalProjectController {
 		
 		return "01Main/AcaSearchMap";
 	}
-	
+	//좋아요 처리 컨트롤러
 	@RequestMapping("/catle/reviewLike.do")
 	public String reviewLike(HttpServletRequest req, HttpSession session, HttpServletResponse resp) {
 		//세션에서 로그인된아이디 가져오기

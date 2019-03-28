@@ -284,7 +284,6 @@
 						<th style="vertical-align: middle">수강인원 <br /> <small>(단위:명)</small></th>
 						<th style="vertical-align: middle">수강료 <br /> <small>(단위:원)</small></th>
 						<th style="vertical-align: middle">결제 <br /> <small></small></th>
-						
 					</tr>
 					<tr><div id="paypal-button-container"></div>
 						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
@@ -294,8 +293,7 @@
 						<td style="vertical-align: middle">매주&nbsp;${row3.acaday }&nbsp;&nbsp;${row3.acastarttime }~${row3.acaendtime }</td>
 						<td style="vertical-align: middle">${row3.classmembers}/${row3.numberofparticipants } <br /> </td>
 						<td style="vertical-align: middle"><fmt:formatNumber value="${row3.pay }" /></td>
-						<td  rowspan="2" style="text-align: center;vertical-align: middle;color:#F15041 "
-						>
+						<td  rowspan="2" style="text-align: center;vertical-align: middle;color:#F15041 ">
 						<c:choose>
 							<c:when test="${row3.classmembers eq row3.numberofparticipants }">
 								수강만원
@@ -377,6 +375,14 @@
 			
 			<tr><td colspan="4">
 			<!-- 학원 후기 댓글 폼 -->
+		  <c:choose>
+			<c:when test="${isflag eq 0 }">
+			<!-- <div style=" padding-top: 6%;padding-left:1%; height: 100px;"> -->
+				<br /><br />
+				 <p><small style="color: #64A19D;font-weight: bold;font-size: 2em">수강신청을 하시면 후기작성 하기 버튼이 생성됩니다☆</small></p>
+			<!-- </div> -->
+			</c:when>
+			<c:otherwise>
 			<div id="editR">
 			<form name="writeFrm" method="post"  id="reviewForm"
 				onsubmit="return writeValidate(this);"
@@ -407,13 +413,8 @@
                     <p><small style="color: #64A19D">꺠끗하고 정확한 후기는 다른회원들의 캐슬 선택에 많이 도움이 됩니다.</small></p>
                   </div>
                   <p class="pull-right" ><small></small></p>
-               	  <c:choose>
-					<c:when test="${isflag eq 0 }">
-					<div style=" padding-top: 6%;padding-left:1%; height: 100px;">
-						 <p><small style="color: #64A19D;font-weight: bold">수강신청을 하시면 <br />후기작성 하기 버튼이 <br />생성됩니다☆</small></p>
-					</div>
-					</c:when>
-					<c:otherwise>
+               
+					
 						<button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">후기작성</button>
 					</c:otherwise>
 				</c:choose>

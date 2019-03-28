@@ -70,14 +70,6 @@ function like_func(m,ri){
 			var msg ='';
 			msg+=data.msg
 			location.reload();
-			 alert(msg);
-			alert(data.reviewFlag);			
-			if(data.reviewFlag==1){
-				$('.liketoggle').html('좋아요 취소');
-			}
-			else{
-				$('.liketoggle').html('좋아요');
-			} 
 		},
 		error:function(errorData){
 			 location.reload(); 
