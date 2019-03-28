@@ -61,28 +61,11 @@
   </header>
 
   <!-- About Section -->
-  <section id="about" class="about-section text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-        </div>
-      </div>
-      <img src="img/ipad.png" class="img-fluid" alt="">
-    </div>
-  </section>
+
   <!-- Footer -->
-  <footer class="bg-black small text-center text-white-50" >
-	<div class="row">
-    	<div class="col-lg-2">
- 			<img src="../resources/Images/스터디캐슬로고4.png" alt=""style="height: 70px;width: 210px;" />
-    	</div>
-    	<div class="col-lg-8">
-    		 <p>주)미라클포포 서울시 금천구 가산동 426-5 월드메르디앙 2차 410호<br /></p>
-	 	 	<p>대표이사 : 송원용 사업자등록번호 : 000-00-00000  TEL : 02-0000-0000 FAX : 02-0000-0000 E-mail : beholderstar@gmail.com</p>
-	  		<p>Copyright &copy; MiraclePoPo 2019. All rights reserved.</p>
-    	</div>
-    	<div class="col-lg-2"></div>
-    </div>
+  
+  <footer class="bg-black small text-center text-white-50">
+     <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
 
   <!-- Bootstrap core JavaScript -->

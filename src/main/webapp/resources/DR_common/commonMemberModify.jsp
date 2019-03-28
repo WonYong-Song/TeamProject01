@@ -12,7 +12,6 @@
     <title>oh gu, oh good!</title>
 	
     <link rel="stylesheet" href="../resources/css/join.css">
-    <link rel="stylesheet" href="../resources/css/base.css">
     <link rel="stylesheet" href="../resources/css/pdsr.css">
     <link rel="stylesheet" href="../resources/css/button.css">
 
@@ -48,14 +47,20 @@ input[type=text], input[type=password] {
   display: inline-block;
   border: none;
   background: #f1f1f1;
+  font-size: 13px;
+	font-family: 'NanumBarunGothic',Arial,sans-serif;
+	z-index: 0;
 }
 input[type=checkbox]{
-	margin-top: 20px; margin-bottom:10px  
+	margin-top: 20px; margin-bottom:10px; 
 }
 
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
+  font-size: 13px;
+	font-family: 'NanumBarunGothic',Arial,sans-serif;
+	z-index: 0;
 }
 
 hr {
@@ -117,6 +122,9 @@ table tr td{
 }
 #Column{
 	text-align: left;
+	font-size: 13px;
+	font-family: 'NanumBarunGothic',Arial,sans-serif;
+	z-index: 0;
 }
 #extra{
 	width:100px
@@ -216,15 +224,18 @@ table tr td{
 strong{
 
 }
-
+label{
+font-size: 14px; 
+font-family: 'NanumBarunGothic',Arial,sans-serif;"
+}
 </style>
 <script>
 function registFrmCheck()
 {   
    var fn = document.registFrm;
    
-   var frmArray = ["id", "pass", "passcheck", "name", "emailid","emaildomain",
-               "phonenumber1","phonenumber2","phonenumber3","interest[0]"];
+   var frmArray = ["id", "pass", "passcheck", "name", "emailId","emailDomain",
+       "mobile1","mobile2","mobile3","interest[0]"];
    var txtArray = ["아이디", "패스워드", "패스워드확인", "이름", "이메일", "이메일도메인",
                "휴대전화번호1","휴대전화번호2","휴대전화번호3","관심분야"];
    
@@ -274,8 +285,8 @@ function registFrmCheck()
    //패스워드1,2 일치 여부 확인
    if(fn.pass.value!=fn.passcheck.value){
 	   alert("비밀번호가 일치하지 않습니다.");
-	   fn.user_pw2.value="";
-	   fn.user_pw1.focus();
+	   fn.passcheck.value="";
+	   fn.pass.focus();
 	   return false;
    }
    
@@ -507,7 +518,7 @@ for(String in : interest){
         </td>
       	<td>
       		<input type="checkbox" id="music" name="interest" value="음악" <%=checkInter.get("음악") %> />
-            <label for="music">음악</label>
+            <label for="music" style="font-size: 14px; font-family: 'NanumBarunGothic',Arial,sans-serif;">음악</label>
       	</td>
       	<td>
       		<input type="checkbox" id="art" name="interest" value="미술" <%=checkInter.get("미술") %> />
@@ -546,7 +557,7 @@ for(String in : interest){
       </button> -->
    </p>
 
-<br><br>
+<br>
 	<table>
 	<tr>
 		<td style="font-size: 1em;vertical-align: middle;">

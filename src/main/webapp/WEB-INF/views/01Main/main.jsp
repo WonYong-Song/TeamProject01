@@ -37,7 +37,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Grayscale - Start Bootstrap Theme</title>
+  <title>Study Castle 2019</title>
 
   <!-- Bootstrap core CSS -->
   <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -54,16 +54,15 @@
 <body id="page-top">
 
   <!-- Nav Bar -->
+  <header class="masthead" >
   <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
-  <!-- Nav Bar -->
-
-   <!-- Signup Section -->
-  <section id="signup" class="signup-section" style="height:300px;">
-    <div class="container">
+  <div class="container">
       <div class="row">
-        <div class="col-md-12 col-lg-10 mx-auto text-center" style="margin-top: -5%;">
-          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-          <h2 class="text-white mb-5">' 배움의 품격을 높이다 '</h2>
+        <div class="col-md-10 col-lg-8 mx-auto text-center" style="padding-top:25%; margin-top: -5%; ">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white" >
+          <h1></h1>
+          <h2 class="text-white">' 배움의 품격을 높이다 '</h2>
+          </i>
 			<!-- 지역기반 검색 폼 -->
 			<form class="form-inline d-flex" name="SearchMap" 
 				method="post"  action="acaSearchMap.do">
@@ -74,17 +73,61 @@
 					<!-- <option value="contents">이름+위치</option> -->
 				</select>
 				<input type="hidden" value="${cateB }" name="cateB"/>
-	            <input type="text" name="keyString"  class="form-control" placeholder="이곳에 입력하시면 지도에서 보여집니다."  
-	            	style="width:400px;"/> <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
+	            <input type="text" name="keyString"  class="form-control"  placeholder="이곳에 입력하시면 지도에서 보여집니다."  
+	            	style="width:400px; height:59px;"/> <button type="submit" class="btn btn-primary mx-auto">캐슬찾기</button>
 	            </div>
           </form>
         </div>
       </div>
     </div>
-  </section>
+    <div class="container"  style="padding-top:10%;">
+      <div class="row">
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100" style="background-image: url('../resources/img/edu.jpg');">
+          	<a href="list.do?cateB=입시&">
+            <div class="card-body text-center">
+              <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+              <h4 style="color: #6E6E6E; padding-top: 8px;"><b>대 입</b></h4>
+              <hr class="my-3">
+              </a>
+            </div>
+            <div class="text-center" style="font-weight:bold; color:#6E6E6E ;">
+             	<b>수학, 영어, 종합, 보습 등</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100" style="background-image: url('../resources/img/ye.jpg');">
+          	<a href="list.do?cateB=예체능&">
+            <div class="card-body text-center">
+              <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
+              <h4 style="color: #6E6E6E; padding-top: 8px;"><b>예 체 능</b></h4>
+              <hr class="my-3">
+              </a>
+            </div>
+            <div class="text-center" style="font-weight:bold; color:#6E6E6E ;"><b>스포츠, 체대입시, 무용, 음악 등</b></div>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3 mb-md-0">
+          <div class="card py-4 h-100" style="background-image: url('../resources/img/other3.jpg');">
+          	<a href="list.do?cateB=기타&">
+            <div class="card-body text-center">
+              <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
+              <h4 style="color: #6E6E6E; padding-top: 8px;"><b>기 타</b></h4>
+              <hr class="my-3">
+              </a>
+            </div>
+             <div class="text-center" style="font-weight:bold; color:#6E6E6E ;"><b>컴퓨터,바리스타,<br />제과제빵,기타직업교육</b></div>
+          </div>
+        </div>
+    </div>
+  </header>
+  <!-- Nav Bar -->
 
   <!-- Contact Section -->
-  <section class="contact-section bg-black">
+  <!-- <section class="contact-section bg-black">
     <div class="container">
       <div class="row">
         <div class="col-md-4 mb-3 mb-md-0">
@@ -126,7 +169,7 @@
           </div>
         </div>
     </div>
-  </section>
+  </section>  -->
 
     <section class="contact-section bg-black">
     <!-- SNS공유 스크립트  s-->
@@ -257,16 +300,7 @@
   </section>
   <!-- Footer S-->
   <footer class="bg-black small text-center text-white-50" >
-    <div class="container">
-    	<div>
-    	Copyright &copy; 2019
-    	</div>
-    		
-    		<img src="../resources/Images/스터디캐슬 로고.png" alt="" style="height: 80px;width: 350px;"/>
-    	
-      
-     
-    </div>
+    <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
   <!-- Footer E-->
   <!-- Bootstrap core JavaScript -->

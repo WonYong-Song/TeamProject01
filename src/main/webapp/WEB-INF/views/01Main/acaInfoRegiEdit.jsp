@@ -38,6 +38,7 @@
         list-style-type: none;
         display: block;
         text-align: center;
+        color : #EEE;
         border: 1px solid #fff;
         position: relative;
         border-right: none;
@@ -46,10 +47,12 @@
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
     }
     #vtab > ul > li.selected {
+        font-weight :bold;
+        color : #000;
         opacity: 1;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-        border: 1px solid #ddd;
+        border: 2px solid #000;
         border-right: none;
         z-index: 10;
         background-color: #FFFFFF !important;
@@ -66,7 +69,7 @@
     }
     #vtab > div {
         margin-left: 150px;
-        border: 1px solid #ddd;
+        border: 2px solid #ddd;
         height: 100%;         
         padding: 12px;
         position: relative;
@@ -275,11 +278,13 @@ function classRegiValidate(c) {
         </ul>
     
         <!-- 학원소개 등록  -->  
-       	<div style="border-color: #ffffff; background-color: #ffffff;">
+       	<div style="border: 2px solid #000000; background-color: #ffffff; border-radius: 0 10px 10px 10px;">
 		<!-- 학원사진등록  -->
 		<form name="fileFrm" method="post" action="AcaInfoUpdate.do" enctype="multipart/form-data"  onsubmit="return introValidate(this)">
+			<input type="hidden" name="acaimgOrigin" value="${RegiEditdto.acaintrophoto }" />
+			<input type="hidden" name="acaimgOriuu" value="${RegiEditdto.acaintrophotouu }" />
 			<input type="hidden" name="id" value="${RegiEditdto.id }" />
-			<table class="table" style="width:100%; background-color: #ffffff;" id="example">
+			<table class="table" style="width:100%; background-color: #ffffff;  id="example">
 			<thead>
 				<tr> 
 					<th colspan="4" style="font-size: 1.5em;"> - 학원사진등록 </th>
@@ -297,7 +302,7 @@ function classRegiValidate(c) {
 			</table>
 
 			<!-- 학원 간략 프로필 등록  -->
-			<table class="table table-bordered" style="width:100%; background-color: #ffffff;">
+			<table class="table table-bordered" style="width:100%; background-color: #ffffff; ">
 				<tr><th colspan="4" style="font-size: 1.5em;"> - 학원프로필(간략) </th></tr>
 				<tr style="padding: 10px;">
 					<th>학원명:</th>
@@ -339,16 +344,16 @@ function classRegiValidate(c) {
 				<tr><th style="font-size: 1.5em;"> - 학원소개 </th></tr>
 				<tr style="padding: 10px; border:1px solid #DDE1E5;">
 					<td>
-						<textarea name="introduce" cols="30" rows="10" style="width: 100%;">${RegiEditdto.introduce }</textarea>
+						<textarea name="introduce" cols="30" rows="8" style="width: 100%;">${RegiEditdto.introduce }</textarea>
 						</td>
 					</tr>
 			</table>
-				 <p style="text-align: right"><button type="submit" >확인</button></p>
+				 <p style="text-align: right"><button type="submit" class="btn btn-info">확인</button></p>
 		</form>
    		</div >
    		
         <!-- 강사진 수정  -->
-		<div style="border-color: #ffffff; background-color: #ffffff;" class="div2" align="center">
+		<div style="border: 2px solid #000000; background-color: #ffffff; border-radius: 0 10px 10px 10px;" class="div2" align="center">
 			<table class="table"><tr><th colspan="2" style="font-size: 1.5em;">- 등록 강사 목록</th></tr></table>
 			<table class="table table-bordered" style="max-width: 600px; background-color: #ffffff;">
 			<colgroup>
@@ -415,13 +420,13 @@ function classRegiValidate(c) {
 							</td>
 						</tr> 
 					</table>
-					<p style="text-align: right"><button type="submit">등록</button></p>
+					<p style="text-align: right"><button type="submit" class="btn btn-info">등록</button></p>
 				</div>  
 			</form>
 		</div>
         
         <!-- 강의 및 시간표 등록  -->
-   		<div style=" border-color: #ffffff; background-color: #ffffff;">
+   		<div style=" border: 2px solid #000000; background-color: #ffffff; border-radius: 0 10px 10px 10px;">
        		<table class="table"><tr><th colspan="2" style="font-size: 1.5em;">- 등록 강의 목록</th></tr></table>
        		<table class="table table-bordered" style="width: 100%; background-color: #ffffff;">
 		        <colgroup>
@@ -474,8 +479,8 @@ function classRegiValidate(c) {
 	     		<table class="table table-bordered" style="width:100%; background-color: #ffffff;">
 	              <colgroup>
 	                  <col width="55%"/>
-	                  <col width="35%"/>
-	                  <col width="10%"/>
+	                  <col width="30%"/>
+	                  <col width="15%"/>
 	  				  </colgroup>
 	              <tr>
 				  <th colspan ="3" style="font-size: 1.5em;">- 강의정보입력</th>
@@ -484,7 +489,7 @@ function classRegiValidate(c) {
 	                 <td>강의일자 : <input type="date" name="acastartdate"/>~<input type="date" name="acaenddate"/> <br /><br />	
 	                 <td>강의명 : <input type="text" name="acaclassname"/>
 	                 <td rowspan="4" style="text-align: center;vertical-align: middle">
-	                 <button type="submit">등록</button> </td>
+	                 <button type="submit" class="btn btn-info">등록</button> </td>
 	              </tr>
 	              <tr>
 	              	<td>
@@ -528,9 +533,7 @@ function classRegiValidate(c) {
   <!-- Footer -->
   
   <footer class="bg-black small text-center text-white-50">
-    <div class="container">
-      Copyright &copy; Your Website 2019
-    </div>
+    <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
 
   <!-- Bootstrap core JavaScript -->

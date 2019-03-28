@@ -41,7 +41,7 @@ import mybatis01.AcaTeacherDTO;
 import mybatis01.ClassInfoDTO;
 
 @Controller
-public class AcademyRegistEditContoller {
+public class AcademyRegistEditController {
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -56,8 +56,7 @@ public class AcademyRegistEditContoller {
 	 
 	//학원등록 및 수정페이지 바로가기
 	@RequestMapping("/catle/acaInfoRegiEdit.do")
-	public String acaInfoRegiEdit(Model model, HttpSession session, HttpServletRequest req) throws UnsupportedEncodingException {
-		
+	public String acaInfoRegiEdit(Model model, HttpSession session, HttpServletRequest req) {		
 		//학원정보 불러오기
 		String id = (String) session.getAttribute("USER_ID");
 		AcaInfoRegiEditDTO acaRegiEditDTO = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoLoad(id);
@@ -93,9 +92,9 @@ public class AcademyRegistEditContoller {
 	   return "01Main/acaInfoRegiEdit";
 	}
 
-
+	//학원정보수정 
 	@RequestMapping("/catle/AcaInfoUpdate.do")
-	public String AcaInfoUpdate(Model model, HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
+	public String AcaInfoUpdate(HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
 		
 		String id = (String) session.getAttribute("USER_ID");
 		
@@ -109,7 +108,8 @@ public class AcademyRegistEditContoller {
 		String telephone3 = req.getParameter("telephone3");
 		String introduce = req.getParameter("introduce");
 		String category = req.getParameter("category");	
-		
+		String acaimgOrigin = req.getParameter("acaimgOrigin");
+		String acaimgOriuu = req.getParameter("acaimgOriuu");
 		
 		String path = req.getSession().getServletContext().getRealPath("/resources/acaUpload");
 		String originalName = "";
@@ -123,26 +123,27 @@ public class AcademyRegistEditContoller {
 		MultipartFile mpf = mtfRequest.getFile(files.next());
 		
 		if(mpf == null || mpf.getSize()<=0) {
-			
+			originalName = acaimgOrigin;
+			serverFullName = acaimgOriuu;	
 		}
-		List<MultipartFile> fileList = mtfRequest.getFiles("acaintrophoto");
-	
-		for(MultipartFile filePart : fileList) {
-			originalName = filePart.getOriginalFilename();//원본파일
-			String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
-			serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
-			directory = new File(path +File.separator+ serverFullName);
-			if(!originalName.equals("")) {
-				try {
-					filePart.transferTo(directory);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
+		else{
+			List<MultipartFile> fileList = mtfRequest.getFiles("acaintrophoto");
+			
+			for(MultipartFile filePart : fileList) {
+				originalName = filePart.getOriginalFilename();//원본파일
+				String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
+				serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
+				directory = new File(path +File.separator+ serverFullName);
+				if(!originalName.equals("")) {
+					try {
+						filePart.transferTo(directory);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
-		
-		 
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit(address,detailaddress,acaname,telephone1,telephone2,telephone3,id);
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).AcaInfoRegiEdit2(introduce,category,originalName,serverFullName,id);
 
@@ -151,7 +152,7 @@ public class AcademyRegistEditContoller {
 	
 	//강사정보 입력
 	@RequestMapping("/catle/teaInfoInsert.do")
-	public String teaInfoInsert(Model model, HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
+	public String teaInfoInsert(HttpSession session, HttpServletRequest req, MultipartHttpServletRequest mtfRequest) throws UnsupportedEncodingException {
 		
 		req.setCharacterEncoding("UTF-8");
 		String id = (String) session.getAttribute("USER_ID");
@@ -188,6 +189,7 @@ public class AcademyRegistEditContoller {
 					e.printStackTrace();
 				}
 			}
+			
 		}
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).TeacherRegi(originalName,serverFullName ,teaname,teaintro,subject,id);
@@ -197,7 +199,7 @@ public class AcademyRegistEditContoller {
 	
 	//강의정보 입력
 	@RequestMapping("/catle/classInfoInsert.do")
-	public String classInfoInsert(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public String classInfoInsert(AcaClassDTO acaClassDTO, HttpSession session, HttpServletRequest req) {
 	
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassRegi(acaClassDTO);
 		
@@ -256,6 +258,8 @@ public class AcademyRegistEditContoller {
 		String teaintro  = req.getParameter("teaintro");
 		String subject = req.getParameter("subject");
 		String teaidx = req.getParameter("teaidx");
+		String teaimgOrigin = req.getParameter("teaimgOrigin"); 
+		String teaimgOriuu = req.getParameter("teaimgOriuu");
 		
 		String path = req.getSession().getServletContext().getRealPath("/resources/acaUpload");
 		String originalName = "";
@@ -269,24 +273,29 @@ public class AcademyRegistEditContoller {
 		MultipartFile mpf = mtfRequest.getFile(files.next());
 		
 		if(mpf == null || mpf.getSize()<=0) {
-			
+			originalName = teaimgOrigin;
+			serverFullName = teaimgOriuu;	
 		}
-		List<MultipartFile> fileList = mtfRequest.getFiles("teaimage");
-	
-		for(MultipartFile filePart : fileList) {
-			originalName = filePart.getOriginalFilename();//원본파일
-			String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
-			serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
-			directory = new File(path +File.separator+ serverFullName);
-			if(!originalName.equals("")) {
-				try {
-					filePart.transferTo(directory);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
+		else{
+			List<MultipartFile> fileList = mtfRequest.getFiles("teaimage");
+			
+			for(MultipartFile filePart : fileList) {
+				originalName = filePart.getOriginalFilename();//원본파일
+				String ext = originalName.substring(originalName.lastIndexOf("."));//확장자 구분
+				serverFullName = getUuid()+ ext; //서버에 저장될 UUID형식 파일명
+				directory = new File(path +File.separator+ serverFullName);
+				if(!originalName.equals("")) {
+					try {
+						filePart.transferTo(directory);
+					}
+					catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
+	
+		
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).teaInfoUpd(originalName,serverFullName ,teaname,teaintro,subject,teaidx);
 		
@@ -305,7 +314,7 @@ public class AcademyRegistEditContoller {
 	//강의정보수정
 	@RequestMapping("/catle/classInfoUpdate.do")
 	@ResponseBody
-	public void classInfoUpdate(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void classInfoUpdate(AcaClassDTO acaClassDTO, HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classInfoUpd(acaClassDTO);
 		resp.setContentType("text/html; charset=UTF-8");
@@ -322,7 +331,7 @@ public class AcademyRegistEditContoller {
 	//강사정보삭제
 	@RequestMapping(value="/catle/teaInfoDelete/{teaidx}", method = RequestMethod.GET)
 	@ResponseBody
-	public void teaInfoDelete(AcaTeacherDTO acaTeacherDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public void teaInfoDelete(AcaTeacherDTO acaTeacherDTO, HttpSession session, HttpServletRequest req) {
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).teaInfoDel(acaTeacherDTO);
 		
@@ -331,7 +340,7 @@ public class AcademyRegistEditContoller {
 	//강의정보삭제
 	@RequestMapping(value="/catle/classDelete/{classidx}", method = RequestMethod.GET )
 	@ResponseBody
-	public void classDelete(AcaClassDTO acaClassDTO, Model model, HttpSession session, HttpServletRequest req) {
+	public void classDelete(AcaClassDTO acaClassDTO, HttpSession session, HttpServletRequest req) {
 		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classDel(acaClassDTO);
 	
