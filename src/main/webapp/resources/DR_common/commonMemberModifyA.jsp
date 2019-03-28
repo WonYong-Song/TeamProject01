@@ -7,7 +7,6 @@
     <title>oh gu, oh good!</title>
 	
     <link rel="stylesheet" href="../resources/css/join.css">
-    <link rel="stylesheet" href="../resources/css/base.css">
     <link rel="stylesheet" href="../resources/css/pdsr.css">
     <link rel="stylesheet" href="../resources/css/button.css">
 
@@ -43,14 +42,23 @@ input[type=text], input[type=password] {
   display: inline-block;
   border: none;
   background: #f1f1f1;
+  font-size: 13px;
+  font-family: 'NanumBarunGothic',Arial,sans-serif;
+  z-index: 0;
 }
 input[type=checkbox]{
-	margin-top: 20px; margin-bottom:10px  
+	margin-top: 20px; margin-bottom:10px;
+	font-size: 13px;
+	font-family: 'NanumBarunGothic',Arial,sans-serif;
+	z-index: 0;  
 }
 
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
+  font-size: 13px;
+  font-family: 'NanumBarunGothic',Arial,sans-serif;
+  z-index: 0;
 }
 
 hr {
@@ -112,6 +120,9 @@ table tr td{
 }
 #Column{
 	text-align: left;
+	font-size: 13px;
+	font-family: 'NanumBarunGothic',Arial,sans-serif;
+	z-index: 0;
 }
 #extra{
 	width:100px

@@ -108,7 +108,7 @@ height: 100%;
       <div class="row">
         <div class="col-md-10 col-lg-10 mx-auto text-center" style="margin-bottom: -45px;">
          
-         <a href="academyInfo.do?acaIdx=${row.idx }" target="_blank">
+         <a href="academyInfo.do?acaIdx=${row.idx }" >
           <div class="card py-4 h-60" style="width:900px;height:185px;">
           	<div style="padding: 0px 6px 0px 6px">
              <table class="table table-bordered " style="margin-bottom: 30px; margin-top: -2%; border-top: none;">
