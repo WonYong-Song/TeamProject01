@@ -344,7 +344,7 @@ function classRegiValidate(c) {
 				<tr><th style="font-size: 1.5em;"> - 학원소개 </th></tr>
 				<tr style="padding: 10px; border:1px solid #DDE1E5;">
 					<td>
-						<textarea name="introduce" cols="30" rows="10" style="width: 100%;">${RegiEditdto.introduce }</textarea>
+						<textarea name="introduce" cols="30" rows="8" style="width: 100%;">${RegiEditdto.introduce }</textarea>
 						</td>
 					</tr>
 			</table>
