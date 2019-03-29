@@ -60,6 +60,9 @@ height: 100%;
 #holder::placeholder {
 	color: red;
 }
+.checked {
+  color: orange;
+}
 </style>
 <!-- 다음지도 스타일 s-->
 <style>
@@ -129,12 +132,13 @@ height: 100%;
 				<col width="*"/>
 				<col width="15%"/>
 				<col width="15%"/>
+				<col width="*"/>
 				<col width="15%"/>
 			</colgroup>
 			<thead>
 			          <!-- <h2 class="text-white mb-5" style="color: blue">Subscribe to receive updates!</h2> -->
 			<tr>
-				<th colspan="5" style="font-size: 1.5em; height: 30px; text-align: center;">
+				<th colspan="6" style="font-size: 1.5em; height: 30px; text-align: center;">
 				<br />
 				 검색된 캐슬 목록<br />
 				 <div class="text-right" style="width:100%;height:auto;margin-right: 30%">
@@ -145,10 +149,11 @@ height: 100%;
 			</tr>
 			<tr class="default">
 				<th class="text-center">번호</th>
-				<th class="text-center">학원주소</th>
-				<th class="text-center">학원전화번호</th>
-				<th class="text-center">학원카테고리</th>
-				<th class="text-center">학원카테고리</th>
+				<th class="text-center">캐슬이름</th>
+				<th class="text-center">캐슬주소</th>
+				<th class="text-center">캐슬번호</th>
+				<th class="text-center">캐슬평점</th>
+				<th class="text-center">상세보기</th>
 			</tr>
 			</thead>	
 			<tbody>
@@ -165,9 +170,17 @@ height: 100%;
 						<!-- 리스트반복 시작 -->
 						<tr style="text-align:center;vertical-align: middle;">
 							<td class="text-center" style="text-align:center;vertical-align: middle;">${loop.index+1}</td>
-							<td class="text-left" style="vertical-align:middle;"><span class="maps" id="MapList${loop.index }">${row.address }</span></td>
 							<td class="text-center" style="text-align:center;vertical-align: middle;">${row.acaname }</td>
-						 	<td class="text-center" style="text-align:center;vertical-align: middle;">${row.mobile1 }-${row.mobile2 }-${row.mobile3 }</td>
+							<td class="text-left" style="vertical-align:middle;"><span class="maps" id="MapList${loop.index }">${row.address }</span></td>
+							<td class="text-center" style="text-align:center;vertical-align: middle;">${row.mobile1 }-${row.mobile2 }-${row.mobile3 }</td>
+							<c:choose>
+								<c:when test="${not empty row.ratingStar }">
+									<td class="text-center" style="text-align:center;vertical-align: middle;">${row.ratingStar }</td>
+								</c:when>
+								<c:otherwise>
+									<td><span style="color: #2556C9">평점이 없습니다<br />첫 평점을 남겨주세요! </sapn></td>
+								</c:otherwise>
+							</c:choose>
 						 	<td class="text-center" style="text-align:center;vertical-align: middle;">
 						 		<a href="academyInfo.do?acaIdx=${row.idx } " target="_blank"><button type="submit" class="btn btn-primary mx-auto">상세보기</button></a>
 						 	</td>
@@ -217,18 +230,23 @@ var mapContainer = document.getElementById('map'),
         center: new daum.maps.LatLng(33.450701, 126.570667),
         level: 9
     };     
+  
 var map = new daum.maps.Map(mapContainer, mapOption); 
 var geocoder = new daum.maps.services.Geocoder();
 <%
+
 ArrayList<AcademyMemberDTO> acaList = (ArrayList<AcademyMemberDTO>)request.getAttribute("acaList");
 String[] array = new String[acaList.size()];
 for(int i=0; i<acaList.size(); i++){
 	  array[i] = acaList.get(i).getAcaname();
 }%>
 <%
+
 String[] array2 = new String[acaList.size()];
+String[] array3 = new String[acaList.size()];
 for(int i=0; i<acaList.size(); i++){
 	  array2[i] = acaList.get(i).getAddress();
+	  array3[i] = acaList.get(i).getRatingStar();
 }%>
 <%for(int i=0; i<acaList.size(); i++){%>
 geocoder.addressSearch('<%=array2[i] %>', function(result, status) {
