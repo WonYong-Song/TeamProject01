@@ -55,19 +55,32 @@ public class FinalProjectController {
 	
 	//헬로 케슬
 	@RequestMapping("/catle/helloCastle.do")
-	public String helloCastle() {
-		
+	public String helloCastle(Model model,HttpServletRequest req,HttpSession session) {
+		/* 리턴페이지를 위한 url 설정 s*/
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = returnUrl.substring(15);
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		/* 리턴페이지를 위한 url 설정 e*/
 		return "01Main/helloCastle";
 	}
 	//케슬 메인
 	@RequestMapping("/catle/main.do")
-	public String main(HttpServletRequest req, Model model) {
+	public String main(HttpServletRequest req, Model model,HttpSession session) {
 		/* 공유를 위한 url받기*/
 		StringBuffer URL=req.getRequestURL();
 		System.out.println("URL="+URL);
 		String FULLURL =String.format("%s", URL);
 		model.addAttribute("FULLURL",FULLURL);
-
+		
+		/* 리턴페이지를 위한 url 설정 s*/
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = returnUrl.substring(15);
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		/* 리턴페이지를 위한 url 설정 e*/
 		
 		return "01Main/main";
 	}
@@ -79,20 +92,41 @@ public class FinalProjectController {
 	}
 	//로그아웃
 	@RequestMapping("/catle/Logout.do")
-	public String logout(HttpServletRequest req, HttpSession session,
+	public String logout(HttpServletRequest req, HttpSession session,Model model,
 			HttpServletResponse resp) {
 		session.removeAttribute("USER_ID");
+		String returnPage =req.getParameter("returnPage");
+		String[] cateB=returnPage.split("=");
+		if(returnPage!=""&& !cateB[0].equals("/catle/list.do?cateB")) {
+			System.out.println("1111111111111111111111111111");
+			return "redirect:"+returnPage;  
+		}
+		
+		if(cateB[1].equals("입시")||cateB[1].equals("예체능")||cateB[1].equals("기타")) {
+			System.out.println("2222222222222222222222222222");
+			String cate =cateB[1];
+			model.addAttribute("cateB",cate);
+			return "redirect:/catle/list.do";  
+		}
+		if(returnPage==null || returnPage=="") {
+			System.out.println("333333333333333333333333333");
+			return "redirect:/catle/main.do";
+		}
 
-		return "01Main/main";
+		return "redirect:/catle/main.do?";  
 	}
 	//로그인 처리
 	@RequestMapping("/catle/LoginAction.do")
-	public void LoginAction(MembersDTO membersDTO,
+	public String LoginAction(MembersDTO membersDTO,Model model,
 			HttpServletRequest req,HttpServletResponse resp, HttpSession session) throws ServletException, IOException{
-		
+		String returnPage =req.getParameter("returnPage");
+		System.out.println("로그인페이지로온 리턴 URL="+returnPage);
 		membersDTO =
 				sqlSession.getMapper(AcademyInfoImpl.class).memberLogin(membersDTO);
-				
+		
+		
+
+		
 		if(membersDTO==null) {
 			//로그인실패
 			
@@ -100,20 +134,57 @@ public class FinalProjectController {
 
 				req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
 			}*/
+			String NG ="아이디/패스워드가 틀렸습니다.</br>확인후 로그인해주세요.";
+			String[] cateB=returnPage.split("=");
+			model.addAttribute("NG",NG);
+			if(returnPage!=null && !cateB[0].equals("/catle/list.do?cateB")){
+				System.out.println("111111111113333333333333333333");
+				return "redirect:/catle/Login.do?returnPage="+returnPage;
+			}
 			
-			req.getRequestDispatcher("/catle/Login.do").forward(req, resp);
+			if(cateB[1].equals("입시")||cateB[1].equals("예체능")||cateB[1].equals("기타")) {
+				String cate =cateB[1];
+				model.addAttribute("cateB",cate);
+				model.addAttribute("returnPage",returnPage);
+				System.out.println("111111111111222222222222222");
+				return "redirect:/catle/Login.do?";  
+			}
+			if(returnPage==null) {
+				System.out.println("1111111111111111111111111111");
+				return "redirect:/catle/Login.do?";
+				
+			}
+			
 		}
 		else {
 			//로그인 성공
 			//세션에 ID값 저장
+			if(returnPage==null || returnPage=="") {
+				return "redirect:/catle/main.do";
+			}
+			String[] cateB=returnPage.split("=");
+			System.out.println(cateB[0]);
 			session.setAttribute("USER_ID", membersDTO.getId());
 			session.setAttribute("GRADE", membersDTO.getGrade());
+			if(returnPage!=""&& !cateB[0].equals("/catle/list.do?cateB")) {
+				System.out.println("2222222222222222222222222222");
+				return "redirect:"+returnPage;  
+			}
 			
-			req.getRequestDispatcher("/catle/main.do").forward(req, resp);
+			if(cateB[1].equals("입시")||cateB[1].equals("예체능")||cateB[1].equals("기타")) {
+				String cate =cateB[1];
+				model.addAttribute("cateB",cate);
+				return "redirect:/catle/list.do";  
+			}
 			
+			
+			
+			
+			
+			
+
 		}
-		
-		//return memberMap;
+		return "redirect:/catle/main.do";
 	}
 	
 	/*//회원가입 타입 구분 바로가기
@@ -125,7 +196,6 @@ public class FinalProjectController {
 	//리스트로 가기
 	@RequestMapping("/catle/list.do")
 	public String list(Model model,HttpSession session, HttpServletRequest req) {
-	
 	String cateB = req.getParameter("cateB");
 	System.out.println("카테고리="+cateB);
 	
@@ -192,7 +262,23 @@ public class FinalProjectController {
 	/* 별점처리를 위한 부분 e */
 	model.addAttribute("acaList", acaList);
 	model.addAttribute("cateB",cateB);
+	/* 리턴페이지를 위한 url 설정 s*/
+	String returnPage1=req.getRequestURI();
+	String returnUrl = null;
+	if(cateB.equals("입시")) {
+		returnUrl =String.format("%s?cateB=%s&", returnPage1,cateB);
+	}
+	if(cateB.equals("예체능")) {
+		returnUrl =String.format("%s?cateB=%s&", returnPage1,cateB);
+	}
+	if(cateB.equals("기타")) {
+		returnUrl =String.format("%s?cateB=%s&", returnPage1,cateB);
+	}
 	
+	String returnPage = returnUrl.substring(15);
+	System.out.println("returnPage="+returnPage);
+	model.addAttribute("returnPage",returnPage);
+	/* 리턴페이지를 위한 url 설정 e*/
 	return "01Main/list";
 	}
 /////////////////////////////////////////////////////////////////////////
@@ -360,7 +446,13 @@ public class FinalProjectController {
 	String FULLURL =String.format("%s?acaIdx=%s", URL,acaIdx);
 	model.addAttribute("FULLURL",FULLURL);
 	model.addAttribute("naver","http://naver.com");
-	
+	/* 리턴페이지를 위한 url 설정 s*/
+	String returnPage1=req.getRequestURI();
+	String returnUrl =String.format("%s?acaIdx=%s", returnPage1,acaIdx);
+	String returnPage = returnUrl.substring(15);
+	System.out.println("returnPage="+returnPage);
+	model.addAttribute("returnPage",returnPage);
+	/* 리턴페이지를 위한 url 설정 e*/
 		return "01Main/AcademyInfo";
 	}
 /////////////////////////////////////////////////////////////////////////
@@ -760,7 +852,13 @@ public class FinalProjectController {
 		req.setAttribute("score", checkMap);
 		/* 별점처리를 위한 부분 e */
 		model.addAttribute("acaList", acaList);
-	
+		/* 리턴페이지를 위한 url 설정 s*/
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s?keyField=%s&keyString%s", returnPage1,keyField,keyString);
+		String returnPage = returnUrl.substring(15);
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		/* 리턴페이지를 위한 url 설정 e*/
 		
 		return "01Main/AcaSearchMap";
 	}

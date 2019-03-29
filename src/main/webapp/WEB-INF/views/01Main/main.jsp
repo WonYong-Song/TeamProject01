@@ -63,6 +63,8 @@
           <h1></h1>
           <h2 class="text-white">' 배움의 품격을 높이다 '</h2>
           </i>
+          <input type="hidden" value="main" name="main"/>
+          	
 			<!-- 지역기반 검색 폼 -->
 			<form class="form-inline d-flex" name="SearchMap" 
 				method="post"  action="acaSearchMap.do">
