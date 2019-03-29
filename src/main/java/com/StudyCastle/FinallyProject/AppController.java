@@ -134,6 +134,7 @@ public class AppController {
 		JSONArray jsonArray2 = new JSONArray();
 		JSONArray jsonArray3 = new JSONArray();
 		
+		
 		//파라미터 받기
 		String idx = (req.getParameter("idx")==null) ? "" : req.getParameter("idx");
 		System.out.println(idx);
