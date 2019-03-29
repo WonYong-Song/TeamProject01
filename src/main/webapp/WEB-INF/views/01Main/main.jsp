@@ -67,7 +67,7 @@
           	
 			<!-- 지역기반 검색 폼 -->
 			<form class="form-inline d-flex" name="SearchMap" 
-				method="post"  action="acaSearchMap.do">
+				method="post"  action="acaSearchMap.do" ,target="_blank">
 				<div style="width:1000px;">
 				<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
 					<option value="ACANAME">캐슬 이름</option>
@@ -86,7 +86,7 @@
       <div class="row">
         <div class="col-md-4 mb-3 mb-md-0">
           <div class="card py-4 h-100" style="background-image: url('../resources/img/edu.jpg');">
-          	<a href="list.do?cateB=입시&">
+          	<a href="list.do?cateB=입시&" ,target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2"></i>
               <h4 style="color: #6E6E6E; padding-top: 8px;"><b>대 입</b></h4>
@@ -101,7 +101,7 @@
 
         <div class="col-md-4 mb-3 mb-md-0">
           <div class="card py-4 h-100" style="background-image: url('../resources/img/ye.jpg');">
-          	<a href="list.do?cateB=예체능&">
+          	<a href="list.do?cateB=예체능&" ,target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
               <h4 style="color: #6E6E6E; padding-top: 8px;"><b>예 체 능</b></h4>
@@ -114,7 +114,7 @@
 
         <div class="col-md-4 mb-3 mb-md-0">
           <div class="card py-4 h-100" style="background-image: url('../resources/img/other3.jpg');">
-          	<a href="list.do?cateB=기타&">
+          	<a href="list.do?cateB=기타&" ,target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
               <h4 style="color: #6E6E6E; padding-top: 8px;"><b>기 타</b></h4>

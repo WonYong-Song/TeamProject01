@@ -205,8 +205,8 @@
 				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
 					<tr style="width:80px;">
 						<td style="padding:3px;height:170px;width:70px;text-align: center;">
-		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"
-		             		alt="엑스박스" />
+		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"alt="엑스박스" />
+		             		<%-- <img src="../resources/teaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" /> --%>
              			</td>
 					</tr>
 				 	<tr style="width:100px;text-align: center;">
@@ -278,6 +278,9 @@
 							<c:when test="${row3.classmembers eq row3.numberofparticipants }">
 								모집종료
 							</c:when>
+							<c:when test="${empty USER_ID  }">
+								로그인하세요.
+							</c:when>
 							<c:otherwise>
 								<input type="image" name="submit" border="0" 
 									src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" 
@@ -345,8 +348,7 @@
 					document.getElementById("editF").submit();
 				}else{   //취소
 				    return;
-				}
-			    
+				}		    
 			};
 			</script>
 			
@@ -357,11 +359,11 @@
 			<c:when test="${isflag eq 0 }">
 			<!-- <div style=" padding-top: 6%;padding-left:1%; height: 100px;"> -->
 				<br /><br />
-				 <p><small style="color: #64A19D;font-weight: bold;font-size: 2em">수강신청을 하시면 후기작성 하기 버튼이 생성됩니다☆</small></p>
+				 <p id="info10"><small style="color: #64A19D;font-weight: bold;font-size: 2em">수강신청을 하시면 후기작성 하기 버튼이 생성됩니다☆</small></p>
 			<!-- </div> -->
 			</c:when>
 			<c:otherwise>
-			<div id="editR">
+			<div id="editR" ">
 			<form name="writeFrm" method="post"  id="reviewForm"
 				onsubmit="return writeValidate(this);"
 				action="reviewAction.do" >

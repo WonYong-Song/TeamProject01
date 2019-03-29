@@ -318,8 +318,8 @@ public class FinalProjectController {
 	System.out.println("댓글 totalRecordCount="+totalRecordCount);
 	
 	//페이지 처리를 위한 설정값
-		int pageSize = 4;
-		int blockPage = 2;
+		int pageSize = 5;
+		int blockPage = 10;
 		
 		//전체페이지수계산하기
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
@@ -336,7 +336,7 @@ public class FinalProjectController {
 		
 	ArrayList<ReviewWriteDTO> reviewDTO = sqlSession.getMapper(AcademyInfoImpl.class).review(paramDTO);
 	//페이지 처리를 위한 처리부분
-			String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
+			String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
 					pageSize, blockPage, nowPage,
 					req.getContextPath()+"/catle/academyInfo.do?acaIdx="+acaIdx+"&"+addQueryString);
 			model.addAttribute("pagingImg", pagingImg);
@@ -535,7 +535,7 @@ public class FinalProjectController {
 				"                    <textarea rows=\"10\" class=\"form-control\" style=\"width:100%;height: 100%\" name=\"reviewContents\">"+reviewModify.getReviewcontents()+"</textarea>\r\n" + 
 				"                    </div>\r\n" + 
 			
-				"                    <p><small><a onclick=\"writeValidate2();\" style=\"cursor:pointer;color:#839997;\">수정하기</a> - <a href=\"\">돌아가기</a></small></p>\r\n" + 
+				"                    <p><small><a onclick=\"writeValidate2();\" style=\"cursor:pointer;color:#699F9B;\">수정하기</a> - <a href=\"#info08\">돌아가기</a></small></p>\r\n" + 
 				"                  </div>\r\n" + 
 				"                  <p class=\"pull-right\" ><small></small></p>\r\n" + 
 				
@@ -710,8 +710,8 @@ public class FinalProjectController {
 		System.out.println("totalRecordCount="+ totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 2;
-		int blockPage = 5;
+		int pageSize = 5;
+		int blockPage = 10;
 		
 		//전체페이지수계산하기
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
@@ -758,7 +758,13 @@ public class FinalProjectController {
 		model.addAttribute("myClass",classIntroDTO);
 		model.addAttribute("memberInfo",memberInfo);
 		model.addAttribute("pagingImg",pagingImg);
-		
+		//리턴페이지를 위한 url 설정 s
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+				//리턴페이지를 위한 url 설정 e
 		model.addAttribute("msg",msg);
 		return "01Main/memberMyPage";
 	}

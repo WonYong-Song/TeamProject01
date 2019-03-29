@@ -36,7 +36,7 @@
         <div style="margin-top: -8%">
 	        <h2 class="text-white-50 mx-auto mt-2 mb-5">' 배움의 품격을 높이다 ,</h2>
 	        <div style="margin-left: -1%">
-	        	<a href="main.do?" class="btn btn-primary js-scroll-trigger" style="font-size:1em;margin-top: -2%">캐슬 시작하기</a>
+	        	<a href="main.do?" ,target="_blank" class="btn btn-primary js-scroll-trigger" style="font-size:1em;margin-top: -2%">캐슬 시작하기</a>
         	</div>
       	</div>
       </div>

@@ -43,4 +43,8 @@ public interface AppImpl {
 	
 	//회원가입 시 아이디 체크
 	public int idCheck(String id);
+	
+	//회원가입 처리
+	public int memberjoin(MembersDTO membersDTO);
+	
 }

@@ -135,6 +135,15 @@
 		from members
 		where id = #{0} and grade = 1
 	</select>
+	
+	<insert id="memberjoin" parameterType="dto.MembersDTO">    	
+    	
+    	insert into members
+		(id,pass,emailid,emaildomain,mobile1,mobile2,mobile3,name,idx,grade,interest)
+		VALUES
+		(#{id},#{pass},#{emailId},#{emailDomain},#{mobile1},#{mobile2},#{mobile3},#{name},MEMBERS_SEQ.nextval,1,#{interest})
+		    	
+	</insert>
 </mapper>
 
    
