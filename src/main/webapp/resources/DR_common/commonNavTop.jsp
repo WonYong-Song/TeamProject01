@@ -19,7 +19,7 @@
       <!-- 로그인전 -->
           <li class="nav-item">
 
-           <a class="nav-link js-scroll-trigger"  href="Login.do" style="cursor: pointer;">로그인</a>
+           <a class="nav-link js-scroll-trigger"  href="Login.do?returnPage=${returnPage}" style="cursor: pointer;">로그인</a>
 
           </li>
           <li class="nav-item">
@@ -40,7 +40,7 @@
          </li>
          
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="Logout.do">로그아웃</a>
+            <a class="nav-link js-scroll-trigger" href="Logout.do?returnPage=${returnPage}">로그아웃</a>
          </li>
 <% }else { %>
       <!--개인 회원 로그인후 -->
@@ -55,7 +55,7 @@
          </li>
          
          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="Logout.do">로그아웃</a>
+            <a class="nav-link js-scroll-trigger" href="Logout.do?returnPage=${returnPage}">로그아웃</a>
          </li>
 <% } %>         
           

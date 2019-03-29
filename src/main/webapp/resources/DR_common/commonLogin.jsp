@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <style>
@@ -91,11 +92,22 @@ button:hover {
 	<%-- <input type="hid den" name="returnPage" value="<%=request.getParameter("returnPage")%>" /> --%>
 	<div id="Regist_form">
 		<div id="Regist_title" >
+		<input type="hid_den" name="returnPage" value="<%=request.getParameter("returnPage")%>" />
 		    <h2 style="color:black;font-size:2em; 2em;text-align:center;padding: 5px;">로그인</h1>
-		    <p>회원 가입을 완료하고 로그인해주세요.</p>
+
+			<% 
+			if(request.getParameter("NG")==null){
+			%>
+				<p>회원 가입을 완료하고 로그인해주세요.</p>
+			<%}else{ 
+			%>
+			<p style="color: red;"><%=request.getParameter("NG") %></p>
+			<%} %>
 		    <hr>
 	    </div>
 	    <div style="text-align:left;width:420px">
+	  
+
 	    <label for="id"><b style="text-align: left;">아이디</b></label>
 	    </div>
 	    <input type="text" placeholder="User ID" name="id" required>
