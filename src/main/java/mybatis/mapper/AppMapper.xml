@@ -102,6 +102,13 @@
 		        on a.teaidx = b.teaidx
 		    where m.idx = #{0}
 		) z
+		where z.acastartdate > sysdate
+	</select>
+	<select id="detail4" resultType="mybatis01.ReviewWriteDTO">
+		select score, id, reviewcontents, TO_CHAR(writetime,'yyyy-mm-dd hh24:mi') writetime
+		from REVIEWWRITE
+		where acaidx = #{0}
+		order by writetime desc
 	</select>
 	
 	<select id="loginAction" resultType="dto.MembersDTO">

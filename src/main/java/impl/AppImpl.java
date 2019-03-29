@@ -5,6 +5,7 @@ import java.util.List;
 import dto.AcaClassDTO;
 import dto.MembersDTO;
 import mybatis01.AcaTeacherDTO;
+import mybatis01.ReviewWriteDTO;
 
 public interface AppImpl {
 
@@ -31,6 +32,8 @@ public interface AppImpl {
 	public List<AcaTeacherDTO> detail2(String idx);
 	//학원상세정보페이지3
 	public List<AcaClassDTO> detail3(String idx);
+	//학원상세정보페이지4
+	public List<ReviewWriteDTO> detail4(String idx);
 	
 	//로그인처리
 	public MembersDTO loginAction(String id, String pass);

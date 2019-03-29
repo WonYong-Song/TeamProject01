@@ -85,15 +85,15 @@
     <div class="container"  style="padding-top:10%;">
       <div class="row">
         <div class="col-md-4 mb-3 mb-md-0">
-          <div class="card py-4 h-100" style="background-image: url('../resources/img/edu.jpg');">
+          <div class="card py-4 h-100" style="background-image: url('../resources/img/edu2.jpg');">
           	<a href="list.do?cateB=입시&" ,target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 style="color: #6E6E6E; padding-top: 8px;"><b>대 입</b></h4>
+              <h4 style="color: #2D2D2D; padding-top: 8px;"><b>대 입</b></h4>
               <hr class="my-3">
               </a>
             </div>
-            <div class="text-center" style="font-weight:bold; color:#6E6E6E ;">
+            <div class="text-center" style="font-weight:bold; color:#2D2D2D ;">
              	<b>수학, 영어, 종합, 보습 등</b>
             </div>
           </div>
@@ -104,24 +104,24 @@
           	<a href="list.do?cateB=예체능&" ,target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
-              <h4 style="color: #6E6E6E; padding-top: 8px;"><b>예 체 능</b></h4>
+              <h4 style="color: #2D2D2D; padding-top: 8px;"><b>예 체 능</b></h4>
               <hr class="my-3">
               </a>
             </div>
-            <div class="text-center" style="font-weight:bold; color:#6E6E6E ;"><b>스포츠, 체대입시, 무용, 음악 등</b></div>
+            <div class="text-center" style="font-weight:bold; color:#2D2D2D ;"><b>스포츠, 체대입시, 무용, 음악 등</b></div>
           </div>
         </div>
 
         <div class="col-md-4 mb-3 mb-md-0">
-          <div class="card py-4 h-100" style="background-image: url('../resources/img/other3.jpg');">
+          <div class="card py-4 h-100" style="background-image: url('../resources/img/other2.jpg');">
           	<a href="list.do?cateB=기타&" ,target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2" ></i>
-              <h4 style="color: #6E6E6E; padding-top: 8px;"><b>기 타</b></h4>
+              <h4 style="color: #2D2D2D; padding-top: 8px;"><b>기 타</b></h4>
               <hr class="my-3">
               </a>
             </div>
-             <div class="text-center" style="font-weight:bold; color:#6E6E6E ;"><b>컴퓨터,바리스타,<br />제과제빵,기타직업교육</b></div>
+             <div class="text-center" style="font-weight:bold; color:#2D2D2D ;"><b>컴퓨터,바리스타,<br />제과제빵,기타직업교육</b></div>
           </div>
         </div>
     </div>

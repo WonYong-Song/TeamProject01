@@ -23,6 +23,7 @@ import dto.AcaClassDTO;
 import dto.MembersDTO;
 import impl.AppImpl;
 import mybatis01.AcaTeacherDTO;
+import mybatis01.ReviewWriteDTO;
 
 @Controller
 public class AppController {
@@ -133,6 +134,8 @@ public class AppController {
 		JSONArray jsonArray1 = new JSONArray();
 		JSONArray jsonArray2 = new JSONArray();
 		JSONArray jsonArray3 = new JSONArray();
+		JSONArray jsonArray4 = new JSONArray();
+		
 		
 		//파라미터 받기
 		String idx = (req.getParameter("idx")==null) ? "" : req.getParameter("idx");
@@ -142,6 +145,7 @@ public class AppController {
 		List<MembersDTO> list1 = new Vector<MembersDTO>();
 		List<AcaTeacherDTO> list2 = new Vector<AcaTeacherDTO>();
 		List<AcaClassDTO> list3 = new Vector<AcaClassDTO>();
+		List<ReviewWriteDTO> list4 = new Vector<ReviewWriteDTO>();
 		
 		//1.학원사진명, 카테테고리, 학원명, 학원전화번호, 학원주소, 학원소개의 정보를 가져옴
 		list1 = sqlSession.getMapper(AppImpl.class).detail1(idx);
@@ -198,6 +202,20 @@ public class AppController {
 		}
 		jsonResult.put("강의정보", jsonArray3);
 		System.out.println("강사정보까지 진행후 : " + jsonResult.toJSONString());
+		
+		//리뷰 데이터 가져오기
+		list4 = sqlSession.getMapper(AppImpl.class).detail4(idx);
+		for(ReviewWriteDTO s : list4) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", s.getId());
+			jsonObject.put("score", s.getScore());
+			jsonObject.put("reviewcontents", s.getReviewcontents());
+			jsonObject.put("writetime", s.getWritetime());
+			
+			jsonArray4.add(jsonObject);
+		}
+		jsonResult.put("리뷰", jsonArray4);
+		System.out.println("리뷰까지 진행후 : " + jsonResult.toJSONString());
 		
 		return jsonResult;
 	}
