@@ -102,7 +102,7 @@
 		        on a.teaidx = b.teaidx
 		    where m.idx = #{0}
 		) z
-		where z.acastartdate > sysdate;
+		where z.acastartdate > sysdate
 	</select>
 	<select id="detail4" resultType="mybatis01.ReviewWriteDTO">
 		select score, id, reviewcontents, TO_CHAR(writetime,'yyyy-mm-dd hh24:mi') writetime

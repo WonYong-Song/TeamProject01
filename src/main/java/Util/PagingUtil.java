@@ -22,11 +22,11 @@ public class PagingUtil {
 		if(intTemp != 1){
 			pagingStr += "<li>"
 					+"<a href='"+page+"nowPage=1'>"
-					+"<span class='glyphicon glyphicon-fast-backward'></span></a></li>";
+					+"<span ></span></a></li>";
 			//pagingStr += "&nbsp;";
 			pagingStr += "<li>"
 					+"<a href='"+page+"nowPage="+(intTemp-blockPage)+"'>"
-					+"<span class='glyphicon glyphicon-step-backward'></span></a></li>";
+					+"<span></span></a></li>";
 		}
 		
 		//페이지표시 제어를 위한 변수
@@ -38,7 +38,7 @@ public class PagingUtil {
 			//현제페이지인 경우
 			if(intTemp==nowPage){
 				pagingStr
-					+="<li class='active'><a href='#'>"+intTemp+"</a></li>";
+					+="<li><a href='#'>"+intTemp+"</a></li>";
 			}
 			else{
 				pagingStr
@@ -52,10 +52,10 @@ public class PagingUtil {
 		//다음 및 마지막 페이지를 위한 로직
 		if(intTemp <= totalPage){
 			pagingStr+="<li><a href='"+page+"nowPage="+intTemp+"'>"
-				+ "<span class='glyphicon glyphicon-step-forward'></span></a></li>";		
+				+ "<span ></span></a></li>";		
 			//pagingStr+="&nbsp;";		
 			pagingStr+="<li><a href='"+page+"nowPage="+totalPage+"'>"
-				+ "<span class='glyphicon glyphicon-fast-forward'></span></a></li>";
+				+ "<span ></span></a></li>";
 		}
 		
 		return pagingStr;

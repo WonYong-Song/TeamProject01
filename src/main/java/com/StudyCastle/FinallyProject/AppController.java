@@ -134,6 +134,7 @@ public class AppController {
 		JSONArray jsonArray1 = new JSONArray();
 		JSONArray jsonArray2 = new JSONArray();
 		JSONArray jsonArray3 = new JSONArray();
+		JSONArray jsonArray4 = new JSONArray();
 		
 		
 		//파라미터 받기
@@ -204,6 +205,17 @@ public class AppController {
 		
 		//리뷰 데이터 가져오기
 		list4 = sqlSession.getMapper(AppImpl.class).detail4(idx);
+		for(ReviewWriteDTO s : list4) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", s.getId());
+			jsonObject.put("score", s.getScore());
+			jsonObject.put("reviewcontents", s.getReviewcontents());
+			jsonObject.put("writetime", s.getWritetime());
+			
+			jsonArray4.add(jsonObject);
+		}
+		jsonResult.put("리뷰", jsonArray4);
+		System.out.println("리뷰까지 진행후 : " + jsonResult.toJSONString());
 		
 		return jsonResult;
 	}
