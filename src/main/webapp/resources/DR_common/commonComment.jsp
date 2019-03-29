@@ -70,14 +70,6 @@ function like_func(m,ri){
 			var msg ='';
 			msg+=data.msg
 			location.reload();
-			 alert(msg);
-			alert(data.reviewFlag);			
-			if(data.reviewFlag==1){
-				$('.liketoggle').html('좋아요 취소');
-			}
-			else{
-				$('.liketoggle').html('좋아요');
-			} 
 		},
 		error:function(errorData){
 			 location.reload(); 
@@ -134,16 +126,16 @@ function like_func(m,ri){
 
 						</c:when>
 						<c:otherwise>
-							<img style="width:50px;height:50px;" src="../resources/img/heartjpg.jpg" alt="" />
+							<img style="width:25px;height:25px;" src="../resources/img/heartjpg.jpg" alt="" />
 							
 						</c:otherwise>
 					</c:choose>
                     </h4>
                     ${row.reviewcontents }
-                    <div>
-                    ${row.starRaiting }
+                    <div style="color: #839997">
+                    ${row.starRaiting } &nbsp; 좋아요 - ${row.countlike }
                     
-                    </div>좋아요 수${row.countlike }
+                    </div>
                     <c:choose>
 						<c:when test="${row.reviewgroup eq 0 }">
 							<p><small><a onclick="like_func('like','${row.reviewidx }')" class="liketoggle" style="cursor: pointer;color: #839997">좋아요</a></small></p>

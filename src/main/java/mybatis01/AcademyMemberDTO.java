@@ -3,7 +3,7 @@ package mybatis01;
 public class AcademyMemberDTO {
 	private String id; 
 	private String pass;
-	private String regidate; 
+	private String regidate;
 	private String emailid;
 	private String emaildomain; 
 	private String mobile1; 
@@ -11,7 +11,7 @@ public class AcademyMemberDTO {
 	private String idx;
 	private String grade;
 	private String telephone1;
-	private String address; 
+	private String address;
 	private String detailaddress;
 	private String interest; 
 	private String acaname;

@@ -102,6 +102,13 @@
 		        on a.teaidx = b.teaidx
 		    where m.idx = #{0}
 		) z
+		where z.acastartdate > sysdate;
+	</select>
+	<select id="detail4" resultType="mybatis01.ReviewWriteDTO">
+		select score, id, reviewcontents, TO_CHAR(writetime,'yyyy-mm-dd hh24:mi') writetime
+		from REVIEWWRITE
+		where acaidx = #{0}
+		order by writetime desc
 	</select>
 	
 	<select id="loginAction" resultType="dto.MembersDTO">
@@ -135,6 +142,15 @@
 		from members
 		where id = #{0} and grade = 1
 	</select>
+	
+	<insert id="memberjoin" parameterType="dto.MembersDTO">    	
+    	
+    	insert into members
+		(id,pass,emailid,emaildomain,mobile1,mobile2,mobile3,name,idx,grade,interest)
+		VALUES
+		(#{id},#{pass},#{emailId},#{emailDomain},#{mobile1},#{mobile2},#{mobile3},#{name},MEMBERS_SEQ.nextval,1,#{interest})
+		    	
+	</insert>
 </mapper>
 
    
