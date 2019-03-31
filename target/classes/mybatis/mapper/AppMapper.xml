@@ -102,6 +102,13 @@
 		        on a.teaidx = b.teaidx
 		    where m.idx = #{0}
 		) z
+		where z.acastartdate > sysdate
+	</select>
+	<select id="detail4" resultType="mybatis01.ReviewWriteDTO">
+		select score, id, reviewcontents, TO_CHAR(writetime,'yyyy-mm-dd hh24:mi') writetime
+		from REVIEWWRITE
+		where acaidx = #{0}
+		order by writetime desc
 	</select>
 	
 	<select id="loginAction" resultType="dto.MembersDTO">
@@ -144,6 +151,117 @@
 		(#{id},#{pass},#{emailId},#{emailDomain},#{mobile1},#{mobile2},#{mobile3},#{name},MEMBERS_SEQ.nextval,1,#{interest})
 		    	
 	</insert>
+	
+	<select id="appBuyClassList" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastartdate,'yy-mm-dd') acastartdate, TO_CHAR(c.acaenddate,'yy-mm-dd') acaenddate,
+		    c.acaday, TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime,
+		    c.acaclassname, c.pay, t.teaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on t.teaidx = c.teaidx
+		where e.id = #{0}
+		order by c.acastartdate desc
+	</select>
+	
+	<select id="schedule1" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime, c.acaclassname, m.acaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on c.teaidx = t.teaidx
+		    inner join members m
+		    on t.id = m.id
+		<![CDATA[
+		where e.id = #{0} and c.acaday like '%월%' 
+		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
+		]]>
+		order by c.acastarttime asc
+	</select>
+	<select id="schedule2" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime, c.acaclassname, m.acaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on c.teaidx = t.teaidx
+		    inner join members m
+		    on t.id = m.id
+		<![CDATA[
+		where e.id = #{0} and c.acaday like '%화%' 
+		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
+		]]>
+		order by c.acastarttime asc
+	</select>
+	<select id="schedule3" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime, c.acaclassname, m.acaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on c.teaidx = t.teaidx
+		    inner join members m
+		    on t.id = m.id
+		<![CDATA[
+		where e.id = #{0} and c.acaday like '%수%' 
+		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
+		]]>
+		order by c.acastarttime asc
+	</select>
+	<select id="schedule4" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime, c.acaclassname, m.acaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on c.teaidx = t.teaidx
+		    inner join members m
+		    on t.id = m.id
+		<![CDATA[
+		where e.id = #{0} and c.acaday like '%목%' 
+		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
+		]]>
+		order by c.acastarttime asc
+	</select>
+	<select id="schedule5" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime, c.acaclassname, m.acaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on c.teaidx = t.teaidx
+		    inner join members m
+		    on t.id = m.id
+		<![CDATA[
+		where e.id = #{0} and c.acaday like '%금%' 
+		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
+		]]>
+		order by c.acastarttime asc
+	</select>
+	<select id="schedule6" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime, c.acaclassname, m.acaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on c.teaidx = t.teaidx
+		    inner join members m
+		    on t.id = m.id
+		<![CDATA[
+		where e.id = #{0} and c.acaday like '%토%' 
+		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
+		]]>
+		order by c.acastarttime asc
+	</select>
+	<select id="schedule7" resultType="dto.AcaClassDTO">
+		select TO_CHAR(c.acastarttime,'hh24:mi') acastarttime, TO_CHAR(c.acaendtime,'hh24:mi') acaendtime, c.acaclassname, m.acaname
+		from enrollclass e inner join acaclass c
+		    on e.classidx = c.classidx
+		    inner join acateacher t
+		    on c.teaidx = t.teaidx
+		    inner join members m
+		    on t.id = m.id
+		<![CDATA[
+		where e.id = #{0} and c.acaday like '%일%' 
+		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
+		]]>
+		order by c.acastarttime asc
+	</select>
 </mapper>
 
    

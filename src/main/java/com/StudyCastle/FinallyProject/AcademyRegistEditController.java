@@ -87,8 +87,14 @@ public class AcademyRegistEditController {
 				   fileMap.put(f.getName(), (int)Math.ceil(f.length()/1024.0));
 			   }
 			   model.addAttribute("fileName",fileMap);
-		   }
-
+		 }
+		//리턴페이지를 위한 url 설정 s
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		//리턴페이지를 위한 url 설정 e
 	   return "01Main/acaInfoRegiEdit";
 	}
 
@@ -226,7 +232,13 @@ public class AcademyRegistEditController {
 		   }
 		   model.addAttribute("fileName",fileMap);
 		}   
-		
+		//리턴페이지를 위한 url 설정 s
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		//리턴페이지를 위한 url 설정 e
 
 		return "02sub/teacherInfoView";
 	}
@@ -242,7 +254,13 @@ public class AcademyRegistEditController {
 		
 		ArrayList<AcaTeacherDTO> tealists = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).TeacherList(id);
 		model.addAttribute("tealists",tealists);
-		
+		//리턴페이지를 위한 url 설정 s
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		//리턴페이지를 위한 url 설정 e
 		return "02sub/classInfoView";
 	}
 	

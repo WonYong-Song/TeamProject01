@@ -17,25 +17,8 @@
 
     <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-	<script src="../resources/jquery/jquery-3.3.1.min.js"></script>   
-  </head>
-
-  <body> 
-    <center>
-  <table width=960px align=center>
-    <tr>
-    <td align=center>
-      <center><div class="stepLine">
-        <div title="이용약관" class="stepDot"></div>
-        <div title="정보입력" class="stepDot activeStep"></div>
-        <div title="가입완료" class="stepDot"></div>
-      </div>
-      </center><br><br><br>
-    </td>
-    </tr>
-
-
-    <style>
+	<script src="../resources/jquery/jquery-3.3.1.min.js"></script>
+	<style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box}
 
@@ -122,7 +105,7 @@ table tr td{
 }
 #Column{
 	text-align: left;
-	font-size: 13px;
+	font-size: 20px;
 	font-family: 'NanumBarunGothic',Arial,sans-serif;
 	z-index: 0;
 }
@@ -133,102 +116,22 @@ strong{
 
 }
 
-</style>
+</style>   
 
-
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box}
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 20px 10px 20px 10px;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-input[type=checkbox]{
-   margin-top: 20px; margin-bottom:10px  
-}
-
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-button:hover {
-  opacity:1;
-}
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-  padding: 14px 20px;
-  background-color: #f44336;
-}
-
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
-  float: left;
-  width: 50%;
-}
-
-/* Add padding to container elements */
-.container {
-  padding: 16px;
-}
-
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
-     width: 100%;
-  }
-}
-
-table tr td{
-   align:center;
-   /* border:1px solid red; */
-   margin-right: 100px
-}
-#Column{
-   text-align: left;
-}
-#extra{
-   width:100px
-}
-strong{
-
-}
-label{
-font-size: 14px; 
-font-family: 'NanumBarunGothic',Arial,sans-serif;"
-}
-</style>
+<body> 
+    <center>
+  <table width=960px align=center>
+    <tr>
+    <td align=center>
+      <div class="stepLine">
+        <div title="이용약관" class="stepDot"></div>
+        <div title="정보입력" class="stepDot activeStep"></div>
+        <div title="가입완료" class="stepDot"></div>
+      </div>
+      </center><br><br><br>
+    </td>
+    </tr>
+</head>
 <script>
 function registFrmCheck()
 {   
@@ -281,7 +184,9 @@ function registFrmCheck()
    }
    
    //패스워드 유효성 검사
-   fnCheckPassword(fn.id.value, fn.pass.value);
+   if(fnCheckPassword(fn.id.value, fn.pass.value)==false){
+	   return false;
+   }
    //패스워드1,2 일치 여부 확인
    if(fn.pass.value!=fn.passcheck.value){
 	   alert("비밀번호가 일치하지 않습니다.");
@@ -428,7 +333,6 @@ $(function(){
 	});
 });
 </script>
-</head>
 <body>
 <%
 MembersDTO dto = (MembersDTO)request.getAttribute("dto");

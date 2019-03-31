@@ -1,7 +1,7 @@
 package mybatis01;
 
 public class AcademyMemberDTO {
-	private String id;
+	private String id; 
 	private String pass;
 	private String regidate;
 	private String emailid;

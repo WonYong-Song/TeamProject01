@@ -7,31 +7,14 @@
     <title>oh gu, oh good!</title>
 	
     <link rel="stylesheet" href="../resources/css/join.css">
-    <link rel="stylesheet" href="../resources/css/base.css">
     <link rel="stylesheet" href="../resources/css/pdsr.css">
     <link rel="stylesheet" href="../resources/css/button.css">
 
     <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <script src="/FinallyProject/resources/jquery/jquery-3.3.1.min.js"></script>
-  </head>
-
-  <body> 
-    <center>
-  <table width=960px align=center>
-    <tr>
-    <td align=center>
-      <center><div class="stepLine">
-        <div title="이용약관" class="stepDot"></div>
-        <div title="정보입력" class="stepDot activeStep"></div>
-        <div title="가입완료" class="stepDot"></div>
-      </div>
-      </center><br><br><br>
-    </td>
-    </tr>
-
-
-    <style>
+   	<script src="/FinallyProject/resources/jquery/jquery-3.3.1.min.js"></script>
+   	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+ <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box}
 
@@ -43,14 +26,23 @@ input[type=text], input[type=password] {
   display: inline-block;
   border: none;
   background: #f1f1f1;
+  font-size: 13px;
+  font-family: 'NanumBarunGothic',Arial,sans-serif;
+  z-index: 0;
 }
 input[type=checkbox]{
-	margin-top: 20px; margin-bottom:10px  
+	margin-top: 20px; margin-bottom:10px; 
+	font-size: 13px;
+  font-family: 'NanumBarunGothic',Arial,sans-serif;
+  z-index: 0;
 }
 
 input[type=text]:focus, input[type=password]:focus {
   background-color: #ddd;
   outline: none;
+  font-size: 13px;
+  font-family: 'NanumBarunGothic',Arial,sans-serif;
+  z-index: 0;
 }
 
 hr {
@@ -112,6 +104,9 @@ table tr td{
 }
 #Column{
 	text-align: left;
+	font-size: 20px;
+  font-family: 'NanumBarunGothic',Arial,sans-serif;
+  z-index: 0;
 }
 #extra{
 	width:100px
@@ -119,100 +114,20 @@ table tr td{
 strong{
 
 }
-
 </style>
-
-
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-* {box-sizing: border-box}
-
-/* Full-width input fields */
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 15px;
-  margin: 20px 10px 20px 10px;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
-}
-input[type=checkbox]{
-   margin-top: 20px; margin-bottom:10px  
-}
-
-input[type=text]:focus, input[type=password]:focus {
-  background-color: #ddd;
-  outline: none;
-}
-
-hr {
-  border: 1px solid #f1f1f1;
-  margin-bottom: 25px;
-}
-
-/* Set a style for all buttons */
-button {
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-button:hover {
-  opacity:1;
-}
-
-/* Extra styles for the cancel button */
-.cancelbtn {
-  padding: 14px 20px;
-  background-color: #f44336;
-}
-
-/* Float cancel and signup buttons and add an equal width */
-.cancelbtn, .signupbtn {
-  float: left;
-  width: 50%;
-}
-
-/* Add padding to container elements */
-.container {
-  padding: 16px;
-}
-
-/* Clear floats */
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-  .cancelbtn, .signupbtn {
-     width: 100%;
-  }
-}
-
-table tr td{
-   align:center;
-   /* border:1px solid red; */
-   margin-right: 100px
-}
-#Column{
-   text-align: left;
-}
-#extra{
-   width:100px
-}
-strong{
-
-}
-
-</style>
+ <center>
+  <table width=960px align=center>
+    <tr>
+    <td align=center>
+     <div class="stepLine">
+        <div title="이용약관" class="stepDot"></div>
+        <div title="정보입력" class="stepDot activeStep"></div>
+        <div title="가입완료" class="stepDot"></div>
+      </div>
+      </center><br><br><br>
+    </td>
+    </tr>
+</head>
 <script>
 function registFrmCheck()
 {   
@@ -272,7 +187,9 @@ function registFrmCheck()
    }
    
    //패스워드 유효성 검사
-   fnCheckPassword(fn.id.value, fn.pass.value);
+   if(fnCheckPassword(fn.id.value, fn.pass.value)==false){
+	   return false;
+   }
    //패스워드1,2 일치 여부 확인
    if(fn.pass.value!=fn.passcheck.value){
 	   alert("비밀번호가 일치하지 않습니다.");
@@ -386,10 +303,10 @@ function fnCheckPassword(uid, upw){
 	var chk_num = upw.search(/[0-9]/g); 
 	var chk_eng = upw.search(/[a-z]/ig);
 	
-	if(chk_num < 0 || chk_eng < 0){ 
+	/* if(chk_num < 0 || chk_eng < 0){ 
 	    alert('비밀번호는 숫자와 영문자를 혼용하여야 합니다.'); 
 	    return false;
-	}
+	} */
 	
 	if(/(\w)\1\1\1/.test(upw)){
 	    alert('비밀번호에 같은 문자를 4번 이상 사용하실 수 없습니다.'); 
@@ -457,7 +374,7 @@ $(function(){
 	});
 });
 </script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 <script>
 function postOpen()
 {
@@ -476,11 +393,10 @@ function postOpen()
     }).open();
 }
 </script>
-</head>
 <body>
   
 <form name="registFrm" action="./acaregistFinish.do" method="post" onsubmit="return registFrmCheck();">
-   <input type="hid-den" id="overFlag" name="overFlag" value="0" />
+   <input type="hidden" id="overFlag" name="overFlag" value="0" />
    <table width ="1000" 
       style="border-spacing:20px; width:900px;margin-left: 9%">
       <tr>

@@ -5,6 +5,7 @@ import java.util.List;
 import dto.AcaClassDTO;
 import dto.MembersDTO;
 import mybatis01.AcaTeacherDTO;
+import mybatis01.ReviewWriteDTO;
 
 public interface AppImpl {
 
@@ -31,6 +32,8 @@ public interface AppImpl {
 	public List<AcaTeacherDTO> detail2(String idx);
 	//학원상세정보페이지3
 	public List<AcaClassDTO> detail3(String idx);
+	//학원상세정보페이지4
+	public List<ReviewWriteDTO> detail4(String idx);
 	
 	//로그인처리
 	public MembersDTO loginAction(String id, String pass);
@@ -46,5 +49,23 @@ public interface AppImpl {
 	
 	//회원가입 처리
 	public int memberjoin(MembersDTO membersDTO);
+	
+	//등록한 수강내역
+	public List<AcaClassDTO> appBuyClassList(String id);
+	
+	//시간표 - 월요일
+	public List<AcaClassDTO> schedule1(String id);
+	//시간표 - 화요일
+	public List<AcaClassDTO> schedule2(String id);
+	//시간표 - 수요일
+	public List<AcaClassDTO> schedule3(String id);
+	//시간표 - 목요일
+	public List<AcaClassDTO> schedule4(String id);
+	//시간표 - 금요일
+	public List<AcaClassDTO> schedule5(String id);
+	//시간표 - 토요일
+	public List<AcaClassDTO> schedule6(String id);
+	//시간표 - 일요일
+	public List<AcaClassDTO> schedule7(String id);
 	
 }
