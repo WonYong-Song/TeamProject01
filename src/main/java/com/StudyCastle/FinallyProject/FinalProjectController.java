@@ -387,6 +387,7 @@ public class FinalProjectController {
 		System.out.println(dto.getId());
 		System.out.println(dto.getSubject());
 		System.out.println(dto.getTeaname());
+		System.out.println(dto.getTeaimageuu());
 	}
 	model.addAttribute("teachers", acaTeacherDTO);
 	/* 강사진 가져오기 e*/
@@ -394,6 +395,7 @@ public class FinalProjectController {
 	/* 학원 소개 가져오기 s*/
 	AcaiIntroduceDTO acaIntroDTO = sqlSession.getMapper(AcademyInfoImpl.class).acaIntro(acaId);
 	model.addAttribute("intro", acaIntroDTO);
+	System.out.println("유유아이디="+acaIntroDTO.getAcaintrophotouu());
 	/* 학원 소개 가져오기 e*/
 	
 	/* 강의 목록 가져오기 S*/

@@ -166,9 +166,18 @@
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
 				전체>${intro.category } </td>
 			<td rowspan="4" style="height:400px;">
-				<div class="container" style="margin-left: -2%;">
-				<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
-			    </div>
+			<c:choose>
+				<c:when test="${not empty intro.acaintrophotouu }">
+					<img src="../resources/acaUpload/${intro.acaintrophotouu }" style="width:100%;height:100%"alt="엑스박스" />
+				</c:when>
+				<c:otherwise>
+					<div class="container" style="margin-left: -2%;">
+						<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
+			   		 </div>
+				</c:otherwise>
+			</c:choose>
+			
+				
 			</td>
 		</tr>
 		<tr id="info02">
@@ -205,7 +214,16 @@
 				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
 					<tr style="width:80px;">
 						<td style="padding:3px;height:170px;width:70px;text-align: center;">
-		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"alt="엑스박스" />
+							<c:choose>
+								<c:when test="${not empty row2.teaimageuu }">
+									<img src="../resources/acaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" />
+								</c:when>
+								<c:otherwise>
+										<img src="../resources/img/teadefault.jpg" style="width:100%;height:100%"alt="엑스박스" />
+		
+								</c:otherwise>
+							</c:choose>
+		             		
 		             		<%-- <img src="../resources/teaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" /> --%>
              			</td>
 					</tr>
@@ -324,7 +342,8 @@
 					<li><a href="#">5</a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-fast-forward"></span>></a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-hand-right"></span>>></a></li>
-				</ul>	 -->${pagingImg }
+				</ul>	 		
+				-->${pagingImg }
 			</div>
 					</td>
 			</tr>

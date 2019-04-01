@@ -120,8 +120,17 @@ height: 100%;
 			</colgroup>
              <tr>
              	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px;">
-             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:113%"
-             		alt="엑스박스" /> 
+            		<c:choose>
+						<c:when test="${not empty row.acaintrophotouu }">
+							<img src="../resources/acaUpload/${row.acaintrophotouu }" style="width:100%;height:100%"alt="엑스박스" />
+						</c:when>
+						<c:otherwise>
+							<div class="container" style="margin-left: -2%;">
+								<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:113%" alt="엑스박스" /> 
+					   		 </div>
+						</c:otherwise>
+					</c:choose>
+             	</td>
              	<td>분류</td>
              	<td colspan="3" style="text-align: left">전체>학원>${cateB }</td>
              </tr>

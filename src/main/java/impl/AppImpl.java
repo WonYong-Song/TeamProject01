@@ -50,4 +50,22 @@ public interface AppImpl {
 	//회원가입 처리
 	public int memberjoin(MembersDTO membersDTO);
 	
+	//등록한 수강내역
+	public List<AcaClassDTO> appBuyClassList(String id);
+	
+	//시간표 - 월요일
+	public List<AcaClassDTO> schedule1(String id);
+	//시간표 - 화요일
+	public List<AcaClassDTO> schedule2(String id);
+	//시간표 - 수요일
+	public List<AcaClassDTO> schedule3(String id);
+	//시간표 - 목요일
+	public List<AcaClassDTO> schedule4(String id);
+	//시간표 - 금요일
+	public List<AcaClassDTO> schedule5(String id);
+	//시간표 - 토요일
+	public List<AcaClassDTO> schedule6(String id);
+	//시간표 - 일요일
+	public List<AcaClassDTO> schedule7(String id);
+	
 }

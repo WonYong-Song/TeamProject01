@@ -19,6 +19,7 @@ public class AcaClassDTO {
 	private String startt;
 	private String endt;
 	
+	private String acaname; //app에서 사용을하기위한 변수
 	private String classmembers;//원용이가 만든 맴버변수 - app에서 사용하며 맵퍼에서 현재수강인원을 가져오기위해서 사용함 
 	
 	public AcaClassDTO() {}
@@ -210,6 +211,12 @@ public class AcaClassDTO {
 		this.classmembers = classmembers;
 	}
 
-	
+	public String getAcaname() {
+		return acaname;
+	}
+
+	public void setAcaname(String acaname) {
+		this.acaname = acaname;
+	}
 }
 	

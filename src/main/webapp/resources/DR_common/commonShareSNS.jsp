@@ -16,14 +16,14 @@ String str = "Hello JSP~~!";
     function sendKakaoTalk()
     {
     Kakao.Link.sendTalkLink({
-      label: '공유 제목',
+      label: '${dto.acaname }',
       image: {
         src: 'http://이미지경로',
         width: '300',
         height: '200'
       },
       webButton: {
-        text: '공유제목',
+        text: '${dto.acaname }',
         url: '${FULLURL}' // 앱 설정의 웹 플랫폼에 등록한 도메인의 URL이어야 합니다.
       }
     });
@@ -82,16 +82,16 @@ snsArray['google'] = "https://plus.google.com/share?url=" + encodeURIComponent(s
 		</td>
 	</tr>
 	<tr style="text-align: center;width: 100%; margin-top: -5%">
-		<td><a href="javascript:toSNS('facebook','공유제목!','${FULLURL}')" title="페이스북으로 가져가기"><img  class="iimg" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Facebook_icon.jpg"></a></td>
-		<td><a href="javascript:toSNS('twitter','공유제목!','${FULLURL}')" title="트위터로 가져가기"><img class="iimg" src="http://img.hani.co.kr/imgdb/resize/2018/0504/00501429_20180504.JPG"></a></td>
-		<td><a href="javascript:toSNS('line','공유제목!','${FULLURL}')" title="라인으로 가져가기"><img class="iimg" src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c523.png"></a></td>
+		<td><a href="javascript:toSNS('facebook','${dto.acaname }','${FULLURL}')" title="페이스북으로 가져가기"><img  class="iimg" src="https://upload.wikimedia.org/wikipedia/commons/8/82/Facebook_icon.jpg"></a></td>
+		<td><a href="javascript:toSNS('twitter','${dto.acaname }','${FULLURL}')" title="트위터로 가져가기"><img class="iimg" src="http://img.hani.co.kr/imgdb/resize/2018/0504/00501429_20180504.JPG"></a></td>
+		<td><a href="javascript:toSNS('line','${dto.acaname }','${FULLURL}')" title="라인으로 가져가기"><img class="iimg" src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c523.png"></a></td>
 		<td><a href="javascript:sendKakaoTalk();" title="카카오톡으로 가져가기"><img class="iimg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Kakao_logo.jpg/220px-Kakao_logo.jpg"></a></td>
 		<td><a href="javascript:shareStory();" title="카카오스토리로 가져가기"><img class="iimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF7CSchfsMjCHmUds5ZRGx_3pEefQtvmzSNpFaMiio7_WK8UhGMw"></a></td>
-		<td><a href="javascript:toSNS('pholar','공유제목!','${FULLURL}')" title="폴라로 가져가기"><img class="iimg" src="https://t1.daumcdn.net/cfile/tistory/215D3A4C55E414FF31"></a></td>
-		<td><a href="javascript:toSNS('pinterest','공유제목!','${FULLURL}')" title="핀터레스트로 가져가기"><img class="iimg" src="http://innolinx.kr/wp-content/uploads/2019/02/pinterest-logo-CA98998DCB-seeklogo.com_.png"></a></td>
-		<td><a href="javascript:toSNS('band','공유제목!','${FULLURL}')" title="밴드로 가져가기"><img class="iimg" src="http://www.nqoon.kr/files/attach/images/272/494/dce2751b9c29ec7115037d41e4c8aab7.jpg"></a></td>
-		<td><a href="javascript:toSNS('google','공유제목!','${FULLURL}')" title="구글플러스로 가져가기"><img class="iimg" src="http://www.snsnews1.com/news/photo/201810/2464_3024_1452.jpg"></a></td>
-		<td><a href="javascript:toSNS('blog','공유제목!','${FULLURL}')" title="네이버블로그로 가져가기"><img class="iimg" src="https://cdn.smehost.net/sonymusiccokr-45pressprod/wp-content/uploads/2017/03/Blog_96.png"></a></td>
+		<td><a href="javascript:toSNS('pholar','${dto.acaname }','${FULLURL}')" title="폴라로 가져가기"><img class="iimg" src="https://t1.daumcdn.net/cfile/tistory/215D3A4C55E414FF31"></a></td>
+		<td><a href="javascript:toSNS('pinterest','${dto.acaname }','${FULLURL}')" title="핀터레스트로 가져가기"><img class="iimg" src="http://innolinx.kr/wp-content/uploads/2019/02/pinterest-logo-CA98998DCB-seeklogo.com_.png"></a></td>
+		<td><a href="javascript:toSNS('band','${dto.acaname }','${FULLURL}')" title="밴드로 가져가기"><img class="iimg" src="http://www.nqoon.kr/files/attach/images/272/494/dce2751b9c29ec7115037d41e4c8aab7.jpg"></a></td>
+		<td><a href="javascript:toSNS('google','${dto.acaname }','${FULLURL}')" title="구글플러스로 가져가기"><img class="iimg" src="http://www.snsnews1.com/news/photo/201810/2464_3024_1452.jpg"></a></td>
+		<td><a href="javascript:toSNS('blog','${dto.acaname }','${FULLURL}')" title="네이버블로그로 가져가기"><img class="iimg" src="https://cdn.smehost.net/sonymusiccokr-45pressprod/wp-content/uploads/2017/03/Blog_96.png"></a></td>
 	</tr>
 	<tr >
 		<td colspan="10" style="text-align: center; padding:3% 0% 0% 3%">
