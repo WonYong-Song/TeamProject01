@@ -63,7 +63,9 @@ $(function(){
 $(function(){
 	$('#teaup').click(function(){
 		if(confirm("수정하시겠습니까?")){
-			
+		}
+		else{
+			return false;
 		}
 	});
 });

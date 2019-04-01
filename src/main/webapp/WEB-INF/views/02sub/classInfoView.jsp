@@ -67,12 +67,13 @@ function classRegiValidate(c) {
 		return false;
 	}
 	
-	var chk = false
-	for(var i =0; c.acaday.index; i++){
-	    if(c.acaday[i].checked){   
+	var chk = false;
+	for(var i= 0; i<c.acaday.length; i++){
+    	if(c.acaday[i].checked==true){   
 	        chk=true;
+	        break;
 	    }
-	    if(!chk){
+	    else if(chk==false){
 	    	alert("강의요일을 선택해주세요");
 			return false;
 	    }
@@ -103,6 +104,9 @@ $(function(){
 	$('#clsup').click(function(){
 		if(confirm("수정하시겠습니까?")){
 			
+		}
+		else{
+			return false;
 		}
 	});
 });

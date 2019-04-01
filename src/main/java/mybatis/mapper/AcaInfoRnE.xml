@@ -114,4 +114,21 @@
 	<delete id="classDel" parameterType="dto.AcaClassDTO">
 		DELETE FROM acaclass WHERE classidx = #{classidx} 
 	</delete>
+	
+	
+	
+	<!-- 아이디정보찾기  -->
+	<select id="findId" resultType="dto.MembersDTO"> 
+		SELECT id FROM members WHERE name = #{param1} and emailid = #{param2} and emaildomain =#{param3}
+	</select>
+	
+	<!-- 패스워드 발급자 확인  -->
+	<select id="findPass" resultType="dto.MembersDTO">
+		SELECT pass FROM members WHERE id = #{param1} and name = #{param2} and emailid = #{param3} and emaildomain = #{param4}
+	</select>
+	
+	<!-- 임시패스워드 발급  -->
+	<update id="tempPassAdd" parameterType="String">
+		UPDATE members SET pass=#{param1} WHERE id=#{param2}
+	</update>
 </mapper>

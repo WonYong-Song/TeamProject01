@@ -38,11 +38,11 @@
         list-style-type: none;
         display: block;
         text-align: center;
-        color : #EEE;
-        border: 1px solid #fff;
+        color : #fff;
+        border: 1px solid #000;
         position: relative;
         border-right: none;
-        opacity: .3;
+        /*opacity: .3;*/
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
         filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
     }
@@ -239,7 +239,6 @@ function classRegiValidate(c) {
 		c.teaidx.focus();
 		return false;
 	}
-	
 	if(c.pay.value==""){
 		alert("수강료를 입력해주세요");
 		c.pay.focus();
@@ -251,12 +250,14 @@ function classRegiValidate(c) {
 		return false;
 	}
 	
-	var chk = false
-	for(var i =0; c.acaday.index; i++){
-	    if(c.acaday[i].checked){   
+	
+	var chk = false;
+	for(var i= 0; i<c.acaday.length; i++){
+    	if(c.acaday[i].checked==true){   
 	        chk=true;
+	        break;
 	    }
-	    if(!chk){
+	    else if(chk==false){
 	    	alert("강의요일을 선택해주세요");
 			return false;
 	    }
@@ -284,7 +285,7 @@ function classRegiValidate(c) {
 			<input type="hidden" name="acaimgOrigin" value="${RegiEditdto.acaintrophoto }" />
 			<input type="hidden" name="acaimgOriuu" value="${RegiEditdto.acaintrophotouu }" />
 			<input type="hidden" name="id" value="${RegiEditdto.id }" />
-			<table class="table" style="width:100%; background-color: #ffffff;  id="example">
+			<table class="table" style="width:100%; background-color: #ffffff;" id="example">
 			<thead>
 				<tr> 
 					<th colspan="4" style="font-size: 1.5em;"> - 학원사진등록 </th>

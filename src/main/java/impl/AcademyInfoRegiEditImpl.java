@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import dto.AcaClassDTO;
 import dto.AcaInfoRegiEditDTO;
 import dto.CategoryDTO;
+import dto.MembersDTO;
 import mybatis01.AcaTeacherDTO;
 import mybatis01.ClassInfoDTO;
 
@@ -50,7 +51,14 @@ public interface AcademyInfoRegiEditImpl {
 	//강의정보 삭제
 	public void classDel(AcaClassDTO acaClassDTO);
 
+	//아이디 찾기
+	public MembersDTO findId(String name, String emailid, String emaildomain);
 	
+	//임시패스워드 발급자 확인
+	public MembersDTO findPass(String id,String name, String emailid, String emaildomain);
+	
+	//임시패스워드 발급
+	public int tempPassAdd(String pass, String id);
 	
 	
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import dto.AcaClassDTO;
 import dto.AcaInfoRegiEditDTO;
 import dto.CategoryDTO;
+import dto.MembersDTO;
 import impl.AcademyInfoImpl;
 import impl.AcademyInfoRegiEditImpl;
 import mybatis01.AcaTeacherDTO;
@@ -53,7 +55,24 @@ public class AcademyRegistEditController {
 	   uuid = uuid.replaceAll("-", "");
 	   return uuid;
 	}
-	 
+	//임시비밀번호 랜덤
+	public static String randomPassword(int length) {
+		int index = 0;		
+		char[] charSet = new char[] {
+			'0','1','2','3','4','5','6','7','8','9'
+		,'A','B','C','D','E','F','G','H','I','J','K','L','M',
+		'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+		,'a','b','c','d','e','f','g','h','i','j','k','l','m',
+		'n','o','p','q','r','s','t','u','v','w','x','y','z',
+		};
+		StringBuffer sb = new StringBuffer();
+		for(int i=0; i<length; i++) {
+			index = (int) (charSet.length * Math.random());
+			sb.append(charSet[index]);
+		}
+		return sb.toString();
+	}
+	
 	//학원등록 및 수정페이지 바로가기
 	@RequestMapping("/catle/acaInfoRegiEdit.do")
 	public String acaInfoRegiEdit(Model model, HttpSession session, HttpServletRequest req) {		
@@ -363,5 +382,68 @@ public class AcademyRegistEditController {
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).classDel(acaClassDTO);
 	
 	}
+	
+	//아이디찾기 페이지
+	@RequestMapping("/catle/findId.do")
+	public String findId() {
+		
+		return "02sub/findId";
+	}
+	
+	//아이디찾기
+	@RequestMapping("/catle/findIdAction.do")
+	public String findIdAction(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		resp.setContentType("text/html; charset=UTF-8");
+		
+		String name = req.getParameter("name");
+		String emailid = req.getParameter("emailId");
+		String emaildomain = req.getParameter("emailDomain");
+		
+		
+		MembersDTO dto = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).findId(name,emailid,emaildomain);
+		System.out.println(dto);
+		if(dto!=null) {
+			model.addAttribute("fiddto", dto);		
+		}
+		else {
+			resp.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.println("<script>alert('입력하신 정보로는 찾을 수 없습니다.'); history.go(-1);</script>");
+            out.flush();
+		}	
+		return "02sub/findIdsuc";
+	}
 
+	//비밀번호 찾기 페이지
+	@RequestMapping("/catle/findPass.do")
+	public String findPass() {
+		
+		return "02sub/findPass";
+	}
+	
+	//임시비밀번호 발급
+	@RequestMapping("/catle/findPassAction.do")
+	public String findPassAction(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		resp.setContentType("text/html; charset=UTF-8");
+		
+		String id = req.getParameter("id");
+		String name = req.getParameter("name");
+		String emailid = req.getParameter("emailId");
+		String emaildomain = req.getParameter("emailDomain");
+		MembersDTO dto = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).findPass(id,name,emailid,emaildomain);
+		
+		if(dto!=null) {
+			String pass = randomPassword(10);
+			sqlSession.getMapper(AcademyInfoRegiEditImpl.class).tempPassAdd(pass,id);
+			model.addAttribute("tempPass",pass);
+		}
+		else {
+			resp.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = resp.getWriter();
+            out.println("<script>alert('입력하신 정보를 찾을 수 없습니다. 다시입력해주세요'); history.go(-1);</script>");
+            out.flush();
+		}	
+		return "02sub/findPassSuc";
+	}
+	
 }
