@@ -53,9 +53,23 @@
   <!-- Header -->
   <header class="masthead">
     <div class="container d-flex h-100 align-items-center">
-      <div class="mx-auto text-center" style="width:550px; height:700px;background-color: white;margin-top:50px;;border-radius: 5px;padding-top: 85px;padding-bottom: 50px; ">
+      <div class="mx-auto text-center" style="width:550px; height:730px;background-color: white;margin-top:50px;;border-radius: 5px;padding-top: 60px;padding-bottom: 50px; ">
        <!--결제창 컨텐츠  -->
        <%@ include file="/../resources/DR_common/commonPaymentAction.jsp" %>
+       <script>
+		function f_print(){
+		    var initBody = document.body.innerHTML;
+		    window.onbeforeprint = function(){
+		        // print_area는 인쇄하고자 하는 영역의 ID를 말합니다.( 필수 )
+		        document.body.innerHTML = document.getElementById("info").innerHTML;
+		    }
+		    window.onafterprint = function(){
+		        document.body.innerHTML = initBody;
+		    }
+		    window.print();
+		}
+		</script>
+		<div style="text-align: right;font-weight: bold;padding-right: 10px;"><a href="javascript:f_print()()" title="페이스북으로 가져가기"><img src="../resources/img/프린트.png" alt="" style="width:30px;height: 30px;"/>&nbsp;&nbsp;&nbsp;수강정보 인쇄하기</a></div>
        <!--결제창 컨텐츠  -->
       </div>
     </div>

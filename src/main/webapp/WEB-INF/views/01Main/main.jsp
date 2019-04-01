@@ -58,16 +58,14 @@
   <%@ include file="/../resources/DR_common/commonNavTop.jsp" %>
   <div class="container">
       <div class="row">
-        <div class="col-md-10 col-lg-8 mx-auto text-center" style="padding-top:25%; margin-top: -5%; ">
+        <div class="col-md-10 col-lg-8 mx-auto text-center" style="padding-top:25%; margin-top: -10%; ">
           <i class="far fa-paper-plane fa-2x mb-2 text-white" >
           <h1></h1>
-          <h2 class="text-white">' 배움의 품격을 높이다 '</h2>
+          <h2 class="text-white" style="padding-bottom: 32%">' 배움의 품격을 높이다 '</h2>
           </i>
           <input type="hidden" value="main" name="main"/>
-          	
 			<!-- 지역기반 검색 폼 -->
-			<form class="form-inline d-flex" name="SearchMap" 
-				method="post"  action="acaSearchMap.do" ,target="_blank">
+			<form class="form-inline d-flex" name="SearchMap" method="post"  action="acaSearchMap.do" ,target="_blank">
 				<div style="width:1000px;">
 				<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
 					<option value="ACANAME">캐슬 이름</option>
@@ -82,7 +80,7 @@
         </div>
       </div>
     </div>
-    <div class="container"  style="padding-top:10%;">
+    <div class="container"  style="padding-top:6%;">
       <div class="row">
         <div class="col-md-4 mb-3 mb-md-0">
           <div class="card py-4 h-100" style="background-image: url('../resources/img/edu2.jpg');">

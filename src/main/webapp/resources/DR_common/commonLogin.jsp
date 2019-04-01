@@ -95,7 +95,7 @@ button:hover {
 		<div id="Regist_title" >
 		<input type="hidden" name="returnPage" value="<%=request.getParameter("returnPage")%>" />
 		    <h2 style="color:black;font-size:2em; 2em;text-align:center;padding: 5px;">로그인</h1>
-
+			
 			<% 
 			if(request.getParameter("NG")==null){
 			%>
