@@ -173,7 +173,7 @@
 		    inner join members m
 		    on t.id = m.id
 		<![CDATA[
-		where e.id = #{0} and c.acaday like '%월%' 
+		where e.id = #{0} and c.acaday like '%월요일%' 
 		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
 		]]>
 		order by c.acastarttime asc
@@ -187,7 +187,7 @@
 		    inner join members m
 		    on t.id = m.id
 		<![CDATA[
-		where e.id = #{0} and c.acaday like '%화%' 
+		where e.id = #{0} and c.acaday like '%화요일%' 
 		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
 		]]>
 		order by c.acastarttime asc
@@ -201,7 +201,7 @@
 		    inner join members m
 		    on t.id = m.id
 		<![CDATA[
-		where e.id = #{0} and c.acaday like '%수%' 
+		where e.id = #{0} and c.acaday like '%수요일%' 
 		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
 		]]>
 		order by c.acastarttime asc
@@ -215,7 +215,7 @@
 		    inner join members m
 		    on t.id = m.id
 		<![CDATA[
-		where e.id = #{0} and c.acaday like '%목%' 
+		where e.id = #{0} and c.acaday like '%목요일%' 
 		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
 		]]>
 		order by c.acastarttime asc
@@ -229,7 +229,7 @@
 		    inner join members m
 		    on t.id = m.id
 		<![CDATA[
-		where e.id = #{0} and c.acaday like '%금%' 
+		where e.id = #{0} and c.acaday like '%금요일%' 
 		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
 		]]>
 		order by c.acastarttime asc
@@ -243,7 +243,7 @@
 		    inner join members m
 		    on t.id = m.id
 		<![CDATA[
-		where e.id = #{0} and c.acaday like '%토%' 
+		where e.id = #{0} and c.acaday like '%토요일%' 
 		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
 		]]>
 		order by c.acastarttime asc
@@ -257,7 +257,7 @@
 		    inner join members m
 		    on t.id = m.id
 		<![CDATA[
-		where e.id = #{0} and c.acaday like '%일%' 
+		where e.id = #{0} and c.acaday like '%일요일%' 
 		    and c.acastartdate<=sysdate and c.acaenddate >=sysdate
 		]]>
 		order by c.acastarttime asc

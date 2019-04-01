@@ -429,7 +429,7 @@ public class AppController {
 			jsonObject.put("classname", s.getAcaclassname());
 			jsonObject.put("acaname", s.getAcaname());
 			
-			array1.add(jsonObject);
+			array2.add(jsonObject);
 		}
 		object.put("화요일", array2);
 		//수요일 시간표
