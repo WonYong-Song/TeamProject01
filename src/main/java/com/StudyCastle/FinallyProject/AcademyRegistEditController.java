@@ -408,7 +408,7 @@ public class AcademyRegistEditController {
 		else {
 			resp.setContentType("text/html; charset=UTF-8");
             PrintWriter out = resp.getWriter();
-            out.println("<script>alert('입력하신 정보로는 찾을 수 없습니다.'); history.go(-1);</script>");
+            out.println("<script>alert('입력하신 정보로는 찾을 수 없습니다.다시입력해주세요.'); history.go(-1);</script>");
             out.flush();
 		}	
 		return "02sub/findIdsuc";
@@ -440,7 +440,7 @@ public class AcademyRegistEditController {
 		else {
 			resp.setContentType("text/html; charset=UTF-8");
             PrintWriter out = resp.getWriter();
-            out.println("<script>alert('입력하신 정보를 찾을 수 없습니다. 다시입력해주세요'); history.go(-1);</script>");
+            out.println("<script>alert('입력하신 정보를 찾을 수 없습니다. 다시입력해주세요.'); history.go(-1);</script>");
             out.flush();
 		}	
 		return "02sub/findPassSuc";
