@@ -107,7 +107,6 @@ height: 100%;
     <div class="container">
       <div class="row">
         <div class="col-md-10 col-lg-10 mx-auto text-center" style="margin-bottom: -45px;">
-         
          <a href="academyInfo.do?acaIdx=${row.idx }",target="_blank" >
           <div class="card py-4 h-60" style="width:900px;height:185px;">
           	<div style="padding: 0px 6px 0px 6px">
@@ -121,30 +120,32 @@ height: 100%;
 			</colgroup>
              <tr>
              	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px;">
-             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"
+             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:113%"
              		alt="엑스박스" /> 
              	<td>분류</td>
-             	<td colspan="3">전체>학원>${cateB }</td>
+             	<td colspan="3" style="text-align: left">전체>학원>${cateB }</td>
              </tr>
              <tr>
              	<td>캐슬 이름</td>
-             	<td>${row.acaname }</td>
+             	<td style="text-align: left">${row.acaname }</td>
              	<td>캐슬 평점</td>
-             	
-             	<td>	
-             		${row.ratingStar }
+             		<c:choose>
+						<c:when test="${not empty row.ratingStar }">
+							<td class="text-center" style="text-align:center;vertical-align: middle;">${row.ratingStar }&nbsp;&nbsp;<span style="color: #FFA500;">${row.avg }/5.0</span></td>
+						</c:when>
+						<c:otherwise>
+							<td><span style="color: #315684">평점이 없습니다</sapn></td>
+						</c:otherwise>
+					</c:choose>
              		<!-- <span class="fa fa-star checked" ></span>
 					<span class="fa fa-star checked"></span>
 					<span class="fa fa-star checked"></span>
 					<span class="fa fa-star"></span>
 					<span class="fa fa-star"></span> -->
-					
-					&nbsp;&nbsp;${row.avg }/5.0
-             	</td>
              </tr>
              <tr>
              	<td>캐슬 주소</td>
-             	<td colspan="3">${row.address }&nbsp;${row.detailaddress }</td>
+             	<td colspan="3" style="text-align: left">${row.address }&nbsp;${row.detailaddress }</td>
              </tr>
              </table>
              </div>

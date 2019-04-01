@@ -41,7 +41,7 @@
 	<table>
 	<tr>
 		<td style="font-size: 1em;vertical-align: middle;">
-			<a href="Login.do"><button type = "button"  class="btn_order" style="margin:10px;width:auto;vertical-align: middle">로그인 하기</button></a>
+			<a href="Login.do?returnPage=${returnPage }"><button type = "button"  class="btn_order" style="margin:10px;width:auto;vertical-align: middle">로그인 하기</button></a>
 	  		<a href="helloCastle.do"><button type = "button"  class="btn_cancel1" style="margin:10px;width:auto;vertical-align: middle">홈으로 하기</button></a>
 		</td>
 	</tr>

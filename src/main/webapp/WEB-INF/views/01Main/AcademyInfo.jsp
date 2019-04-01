@@ -166,9 +166,18 @@
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
 				전체>${intro.category } </td>
 			<td rowspan="4" style="height:400px;">
-				<div class="container" style="margin-left: -2%;">
-				<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
-			    </div>
+			<c:choose>
+				<c:when test="${not empty intro.acaintrophotouu }">
+					<img src="../resources/acaUpload/${intro.acaintrophotouu }" style="width:100%;height:100%"alt="엑스박스" />
+				</c:when>
+				<c:otherwise>
+					<div class="container" style="margin-left: -2%;">
+						<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
+			   		 </div>
+				</c:otherwise>
+			</c:choose>
+			
+				
 			</td>
 		</tr>
 		<tr id="info02">
