@@ -77,8 +77,8 @@ height: 100%;
           <form class="form-inline d-flex" >
 			<div style="width:1000px;">
 			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
-				<option value="ACANAME">캐슬 위치</option>
-				<option value="address" >캐슬 이름</option>
+				<option value="address">캐슬 위치</option>
+				<option value="acaname" >캐슬 이름</option>
 				<!-- <option value="contents">이름+위치</option> -->
 			</select>
 			<input type="hidden" value="${cateB }" name="cateB"/>
@@ -122,12 +122,16 @@ height: 100%;
              	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px;">
             		<c:choose>
 						<c:when test="${not empty row.acaintrophotouu }">
-							<img src="../resources/acaUpload/${row.acaintrophotouu }" style="width:100%;height:100%"alt="엑스박스" />
+							<img src="../resources/acaUpload/${row.acaintrophotouu }" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
+						</c:when>
+						<c:when test="${empty row.acaintrophotouu and row.category eq '입시' }">
+							<img src="../resources/img/입시.jpg" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
+						</c:when>
+						<c:when test="${empty row.acaintrophotouu and row.category eq '예체능' }">
+							<img src="../resources/img/예체능.jpg" style="width:100%;height:113%;border-radius:5px;  "alt="엑스박스" />
 						</c:when>
 						<c:otherwise>
-							<div class="container" style="margin-left: -2%;">
-								<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:113%" alt="엑스박스" /> 
-					   		 </div>
+							<img src="../resources/img/직업교육.jpg" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
 						</c:otherwise>
 					</c:choose>
              	</td>

@@ -86,7 +86,9 @@ public class FinalProjectController {
 	}
 	//로그인 하기
 	@RequestMapping("/catle/Login.do")
-	public String Login() {
+	public String Login(HttpServletRequest req, HttpSession session,Model model,
+			HttpServletResponse resp) {
+
 		
 		return "01Main/Login";
 	}

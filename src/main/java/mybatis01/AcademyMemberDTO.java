@@ -19,6 +19,7 @@ public class AcademyMemberDTO {
 	private String mobile3;
 	private String telephone2;
 	private String telephone3;
+	private String category;
 	
 
 	
@@ -85,6 +86,35 @@ public class AcademyMemberDTO {
 	public AcademyMemberDTO(String id, String pass, String regidate, String emailid, String emaildomain, String mobile1,
 			String name, String idx, String grade, String telephone1, String address, String detailaddress,
 			String interest, String acaname, String mobile2, String mobile3, String telephone2, String telephone3,
+			String category, double avg, String ratingStar, String acaintrophotouu) {
+		super();
+		this.id = id;
+		this.pass = pass;
+		this.regidate = regidate;
+		this.emailid = emailid;
+		this.emaildomain = emaildomain;
+		this.mobile1 = mobile1;
+		this.name = name;
+		this.idx = idx;
+		this.grade = grade;
+		this.telephone1 = telephone1;
+		this.address = address;
+		this.detailaddress = detailaddress;
+		this.interest = interest;
+		this.acaname = acaname;
+		this.mobile2 = mobile2;
+		this.mobile3 = mobile3;
+		this.telephone2 = telephone2;
+		this.telephone3 = telephone3;
+		this.category = category;
+		Avg = avg;
+		RatingStar = ratingStar;
+		this.acaintrophotouu = acaintrophotouu;
+	}
+
+	public AcademyMemberDTO(String id, String pass, String regidate, String emailid, String emaildomain, String mobile1,
+			String name, String idx, String grade, String telephone1, String address, String detailaddress,
+			String interest, String acaname, String mobile2, String mobile3, String telephone2, String telephone3,
 			double avg, String ratingStar, String acaintrophotouu) {
 		super();
 		this.id = id;
@@ -110,6 +140,14 @@ public class AcademyMemberDTO {
 		this.acaintrophotouu = acaintrophotouu;
 	}
 	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public String getAcaintrophotouu() {
 		return acaintrophotouu;
 	}

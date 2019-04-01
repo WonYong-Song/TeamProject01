@@ -15,8 +15,9 @@
 		    SELECT Tb.*, rownum rNum FROM (
 		        select A.*, 
 		        
-		           (select avg(score) from reviewWrite where acaidx=A.IDX group by A.idx) AS avg
-		           , (select ACAINTROPHOTOUU from acaintroduce where id=A.ID ) AS acaintrophotouu
+		           (select avg(score) from reviewWrite where acaidx=A.IDX group by A.idx) AS avg ,
+		           (select ACAINTROPHOTOUU from acaintroduce where id=A.ID ) AS acaintrophotouu ,
+		           (select category from acaintroduce where id=A.ID ) AS category
 		        
 		        from members A  inner join acaintroduce B         
                          	on A.id = B.id 

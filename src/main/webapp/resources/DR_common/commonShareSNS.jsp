@@ -96,9 +96,9 @@ snsArray['google'] = "https://plus.google.com/share?url=" + encodeURIComponent(s
 	<tr >
 		<td colspan="10" style="text-align: center; padding:3% 0% 0% 3%">
 			<!-- <input type="text" value="http://도메인"> -->
-			<a href="javascript:copy_clip('${FULLURL}')" style="color:#64A19D ">URL 복사하기</a>
+			<a href="javascript:copy_clip('${FULLURL}')" style="color:#64A19D ">-URL 복사하기-</a>
 			<!-- <a href="javascript:copy_clip('http://도메인')" style="color:#64A19D ">URL 복사하기</a> -->
-			<input type="text" value="${FULLURL}"/>
+			<%-- <input type="text" value="${FULLURL}"/> --%>
 		</td>
 	</tr>
 	

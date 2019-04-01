@@ -183,7 +183,7 @@ height: 100%;
 							<td class="text-center">${row.acastartdate }~${row.acaenddate }&nbsp;매주&nbsp;${row.acaday }</td>
 							<td class="text-center">${row.acastarttime }~${row.acaendtime }</td>
 							<td class="text-center">${row.teaname }</td>
-							<c:if test="${today <= row.acastartdate}">
+							<c:if test="${today < row.acastartdate}">
 							<td class="text-center" style="color:#F8C600;font-weight: bold">수강대기</td>
 							</c:if>
 							<c:if test="${today >= row.acastartdate and today < row.acaenddate}">
