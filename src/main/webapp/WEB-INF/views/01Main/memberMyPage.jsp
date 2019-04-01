@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -121,6 +122,7 @@ height: 100%;
 				<col width="25%"/>
 				<col width="15%"/>
 				<col width="10%"/>
+				<col width="*"/>
 			</colgroup>
 			<thead>
 
@@ -128,7 +130,7 @@ height: 100%;
 			
 
 			<tr>
-				<th colspan="5" style="font-size: 1.5em; height: 30px; text-align: center;">
+				<th colspan="6" style="font-size: 1.5em; height: 30px; text-align: center;">
 				<br />
 				 등록한 수강목록<br /><br /><br />
 				 <div class="text-right" style="width:100%;height:auto;margin-right: 30%">
@@ -158,13 +160,16 @@ height: 100%;
 				<th class="text-center">수강일자</th>
 				<th class="text-center">수강시간</th>
 				<th class="text-center">강사명</th>
+				<th class="text-center">상태</th>
 			</tr>
 			</thead>	
 			<tbody>
+			<jsp:useBean id="now" class="java.util.Date" />
+			<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
 			<c:choose>
 				<c:when test="${empty myClass }">
 					<tr>
-						<td colspan="5" class="text-center">
+						<td colspan="6" class="text-center">
 							수강중인 강의가 없습니다.
 						</td>
 					</tr>
@@ -175,9 +180,18 @@ height: 100%;
 						<tr>
 							<td class="text-center">${row.setVirtualNum}</td>
 							<td class="text-left">${row.acaclassname }</td>
-							<td class="text-center">${row.acastartdate }~${row.acaenddate }</td>
+							<td class="text-center">${row.acastartdate }~${row.acaenddate }&nbsp;매주&nbsp;${row.acaday }</td>
 							<td class="text-center">${row.acastarttime }~${row.acaendtime }</td>
 							<td class="text-center">${row.teaname }</td>
+							<c:if test="${today <= row.acastartdate}">
+							<td class="text-center" style="color:#F8C600;font-weight: bold">수강대기</td>
+							</c:if>
+							<c:if test="${today >= row.acastartdate and today < row.acaenddate}">
+							<td class="text-center" style="color:#3295F8;font-weight: bold">수강중</td>
+							</c:if>
+							<c:if test="${today >= row.acaenddate}">
+							<td class="text-center" style="color:#F80000;font-weight: bold">수강만료</td>
+							</c:if>
 						</tr>
 						<!-- 리스트반복 끝 -->
 					</c:forEach>

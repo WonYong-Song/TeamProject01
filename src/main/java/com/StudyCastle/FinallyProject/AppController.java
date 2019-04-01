@@ -23,6 +23,7 @@ import dto.AcaClassDTO;
 import dto.MembersDTO;
 import impl.AppImpl;
 import mybatis01.AcaTeacherDTO;
+import mybatis01.ReviewWriteDTO;
 
 @Controller
 public class AppController {
@@ -133,6 +134,8 @@ public class AppController {
 		JSONArray jsonArray1 = new JSONArray();
 		JSONArray jsonArray2 = new JSONArray();
 		JSONArray jsonArray3 = new JSONArray();
+		JSONArray jsonArray4 = new JSONArray();
+		
 		
 		//파라미터 받기
 		String idx = (req.getParameter("idx")==null) ? "" : req.getParameter("idx");
@@ -142,6 +145,7 @@ public class AppController {
 		List<MembersDTO> list1 = new Vector<MembersDTO>();
 		List<AcaTeacherDTO> list2 = new Vector<AcaTeacherDTO>();
 		List<AcaClassDTO> list3 = new Vector<AcaClassDTO>();
+		List<ReviewWriteDTO> list4 = new Vector<ReviewWriteDTO>();
 		
 		//1.학원사진명, 카테테고리, 학원명, 학원전화번호, 학원주소, 학원소개의 정보를 가져옴
 		list1 = sqlSession.getMapper(AppImpl.class).detail1(idx);
@@ -198,6 +202,20 @@ public class AppController {
 		}
 		jsonResult.put("강의정보", jsonArray3);
 		System.out.println("강사정보까지 진행후 : " + jsonResult.toJSONString());
+		
+		//리뷰 데이터 가져오기
+		list4 = sqlSession.getMapper(AppImpl.class).detail4(idx);
+		for(ReviewWriteDTO s : list4) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", s.getId());
+			jsonObject.put("score", s.getScore());
+			jsonObject.put("reviewcontents", s.getReviewcontents());
+			jsonObject.put("writetime", s.getWritetime());
+			
+			jsonArray4.add(jsonObject);
+		}
+		jsonResult.put("리뷰", jsonArray4);
+		System.out.println("리뷰까지 진행후 : " + jsonResult.toJSONString());
 		
 		return jsonResult;
 	}
@@ -354,5 +372,134 @@ public class AppController {
 		JSONObject jsonObject2 = new JSONObject();
 		jsonObject2.put("result", result);
 		return jsonObject2;
+	}
+	
+	@RequestMapping("catle/AppBuyClassList.do")
+	@ResponseBody
+	public JSONArray appBuyClassList(HttpServletRequest req) {
+		String id = req.getParameter("id");
+		System.out.println(id);
+		JSONArray jsonArray = new JSONArray();
+		
+		List<AcaClassDTO> list = sqlSession.getMapper(AppImpl.class).appBuyClassList(id);
+		for(AcaClassDTO s : list) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("startdate", s.getAcastartdate());
+			jsonObject.put("enddate", s.getAcaenddate());
+			jsonObject.put("day", s.getAcaday());
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("pay", s.getPay());
+			jsonObject.put("teaname", s.getTeaname());
+			
+			jsonArray.add(jsonObject);
+		}
+		System.out.println("구매내역 : "+jsonArray.toJSONString());
+		return jsonArray;
+	}
+	
+	@RequestMapping("catle/AppClassSchedule.do")
+	@ResponseBody
+	public JSONObject appClassSchedule(HttpServletRequest req) {
+		String id = req.getParameter("id");
+		
+		JSONObject object = new JSONObject();
+		
+		//월요일 시간표
+		JSONArray array1 = new JSONArray();
+		List<AcaClassDTO> list1 = sqlSession.getMapper(AppImpl.class).schedule1(id);
+		for(AcaClassDTO s : list1) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("acaname", s.getAcaname());
+			
+			array1.add(jsonObject);
+		}
+		object.put("월요일", array1);
+		//화요일 시간표
+		JSONArray array2 = new JSONArray();
+		List<AcaClassDTO> list2 = sqlSession.getMapper(AppImpl.class).schedule2(id);
+		for(AcaClassDTO s : list2) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("acaname", s.getAcaname());
+			
+			array1.add(jsonObject);
+		}
+		object.put("화요일", array2);
+		//수요일 시간표
+		JSONArray array3 = new JSONArray();
+		List<AcaClassDTO> list3 = sqlSession.getMapper(AppImpl.class).schedule3(id);
+		for(AcaClassDTO s : list3) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("acaname", s.getAcaname());
+			
+			array3.add(jsonObject);
+		}
+		object.put("수요일", array3);
+		//목요일 시간표
+		JSONArray array4= new JSONArray();
+		List<AcaClassDTO> list4 = sqlSession.getMapper(AppImpl.class).schedule4(id);
+		for(AcaClassDTO s : list4) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("acaname", s.getAcaname());
+			
+			array4.add(jsonObject);
+		}
+		object.put("목요일", array4);
+		//금요일 시간표
+		JSONArray array5 = new JSONArray();
+		List<AcaClassDTO> list5 = sqlSession.getMapper(AppImpl.class).schedule5(id);
+		for(AcaClassDTO s : list5) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("acaname", s.getAcaname());
+			
+			array5.add(jsonObject);
+		}
+		object.put("금요일", array5);
+		//토요일 시간표
+		JSONArray array6 = new JSONArray();
+		List<AcaClassDTO> list6 = sqlSession.getMapper(AppImpl.class).schedule6(id);
+		for(AcaClassDTO s : list6) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("acaname", s.getAcaname());
+			
+			array6.add(jsonObject);
+		}
+		object.put("토요일", array6);
+		//일요일 시간표
+		JSONArray array7 = new JSONArray();
+		List<AcaClassDTO> list7 = sqlSession.getMapper(AppImpl.class).schedule7(id);
+		for(AcaClassDTO s : list7) {
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("starttime", s.getAcastarttime());
+			jsonObject.put("endtime", s.getAcaendtime());
+			jsonObject.put("classname", s.getAcaclassname());
+			jsonObject.put("acaname", s.getAcaname());
+			
+			array7.add(jsonObject);
+		}
+		object.put("일요일", array7);
+		
+		System.out.println("시간표 내 요일별 정보 : "+object.toJSONString());
+		
+		return object;
 	}
 }

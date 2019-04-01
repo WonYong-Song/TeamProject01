@@ -45,8 +45,14 @@ public class MemberJoinController {
 	
 	//회원가입 처리 
 	@RequestMapping("/catle/registAction.do")
-	public String registAction() {
-		
+	public String registAction(Model model,HttpServletRequest req) {
+		//리턴페이지를 위한 url 설정 s
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		//리턴페이지를 위한 url 설정 e
 		return "01Main/RegistAction";
 	}
 	
@@ -57,7 +63,7 @@ public class MemberJoinController {
 		//리턴페이지를 위한 url 설정 s
 		String returnPage1=req.getRequestURI();
 		String returnUrl =String.format("%s", returnPage1);
-		String returnPage = returnUrl.substring(15);
+		String returnPage = "/catle/main.do";
 		System.out.println("returnPage="+returnPage);
 		model.addAttribute("returnPage",returnPage);
 		//리턴페이지를 위한 url 설정 e
@@ -66,27 +72,39 @@ public class MemberJoinController {
 	
 	//일반회원 가입 완료 처리
 	@RequestMapping("/catle/registFinish.do")
-	public String registFinish(MembersDTO dto, HttpServletRequest req) {
+	public String registFinish(MembersDTO dto, HttpServletRequest req, Model model) {
 		
 		sqlSession.getMapper(MemberJoinImpl.class).normalmemberjoin(dto); 
-		
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
 		return "01Main/registFinish";
 	}
 	
 	//학원회원가입창 띄우기
 	@RequestMapping("/catle/registA.do")
-	public String registA() {
-	
+	public String registA(Model model,HttpServletRequest req) {
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
 	return "01Main/registA";
 	}
 	
 	//학원회원 가입 완료 처리
 	@RequestMapping("/catle/acaregistFinish.do")
-	public String acaregistFinish(MembersDTO dto) {
+	public String acaregistFinish(MembersDTO dto,Model model,HttpServletRequest req) {
 		
 		sqlSession.getMapper(MemberJoinImpl.class).acamemberjoin(dto); 
 		sqlSession.getMapper(MemberJoinImpl.class).introset(dto.getId()); 
-		
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
 		return "01Main/registFinish";
 	}
 }
