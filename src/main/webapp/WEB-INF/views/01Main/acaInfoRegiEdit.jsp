@@ -207,7 +207,10 @@ function teaRegiValidate(t) {
 		return false;
 	}
 }
-function classRegiValidate(c) {
+
+
+
+function classRegiValidate() {
 	
 	var c = document.classFrm
 	
@@ -249,19 +252,17 @@ function classRegiValidate(c) {
 		c.numberofparticipants.focus();
 		return false;
 	}
-	
-	
 	var chk = false;
 	for(var i= 0; i<c.acaday.length; i++){
-    	if(c.acaday[i].checked==true){   
-	        chk=true;
-	        break;
-	    }
-	    else if(chk==false){
-	    	alert("강의요일을 선택해주세요");
-			return false;
+    	if(c.acaday[i].checked==true){  
+    		chk = true;
+    		break;
 	    }
 	}
+	if(chk == false){
+    	alert("강의요일을 선택해주세요");
+		return false;
+    }
 }
 </script>
 </head>
@@ -396,7 +397,7 @@ function classRegiValidate(c) {
 			</tbody>	
 			</table>		
 			<!-- 강사정보추가  -->
-			<form name="teachFrm" action="teaInfoInsert.do" method="post" onsubmit="return teaRegiValidate(this)" enctype="multipart/form-data" >
+			<form name="teachFrm" action="teaInfoInsert.do" method="post" onsubmit="return teaRegiValidate(this);" enctype="multipart/form-data" >
 				<div>
 					<table class="table" style="width:100%; background-color: #ffffff;">
 						<tr><th colspan="2" style="font-size: 1.5em;">- 강사 등록</th></tr>
@@ -476,7 +477,7 @@ function classRegiValidate(c) {
 				</tbody>	
 			</table>		
          	<hr />
-           <form name="classFrm" action="classInfoInsert.do" method="post" onsubmit="return classRegiValidate(this)">
+           <form name="classFrm" action="classInfoInsert.do" method="post" onsubmit="return classRegiValidate(this);">
 	     		<table class="table table-bordered" style="width:100%; background-color: #ffffff;">
 	              <colgroup>
 	                  <col width="55%"/>
