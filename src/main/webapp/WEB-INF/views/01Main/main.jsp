@@ -87,7 +87,7 @@
           	<a href="list.do?cateB=입시&" ,target="_blank">
             <div class="card-body text-center">
               <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-              <h4 style="color: #2D2D2D; padding-top: 8px;"><b>대 입</b></h4>
+              <h4 style="color: #2D2D2D; padding-top: 8px;"><b>입 시</b></h4>
               <hr class="my-3">
               </a>
             </div>
