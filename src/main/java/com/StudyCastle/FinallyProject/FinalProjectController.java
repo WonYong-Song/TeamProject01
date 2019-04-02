@@ -86,7 +86,16 @@ public class FinalProjectController {
 	}
 	//로그인 하기
 	@RequestMapping("/catle/Login.do")
-	public String Login() {
+	public String Login(HttpServletRequest req, HttpSession session,Model model,
+			HttpServletResponse resp) {
+		
+		/* 리턴페이지를 위한 url 설정 s*/
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		/* 리턴페이지를 위한 url 설정 e*/
 		
 		return "01Main/Login";
 	}
@@ -387,6 +396,7 @@ public class FinalProjectController {
 		System.out.println(dto.getId());
 		System.out.println(dto.getSubject());
 		System.out.println(dto.getTeaname());
+		System.out.println(dto.getTeaimageuu());
 	}
 	model.addAttribute("teachers", acaTeacherDTO);
 	/* 강사진 가져오기 e*/

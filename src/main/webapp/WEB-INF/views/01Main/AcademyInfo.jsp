@@ -155,7 +155,8 @@
 	</div>
 	</div>
 	</nav>
-	<table class="table table-bordered" style="height: auto">
+	<div id="info">
+	<table class="table table-bordered" style="height: auto" >
 		<colgroup>
 			<col width="200px"/>
 			<col width="350px"/>
@@ -166,17 +167,21 @@
 			<td style="vertical-align: middle;text-align: left;height:auto;padding: 30px;">
 				전체>${intro.category } </td>
 			<td rowspan="4" style="height:400px;">
+
 			<c:choose>
 				<c:when test="${not empty intro.acaintrophotouu }">
-					<img src="../resources/acaUpload/${intro.acaintrophotouu }" style="width:100%;height:100%"alt="엑스박스" />
+					<img src="../resources/acaUpload/${intro.acaintrophotouu }" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
+				</c:when>
+				<c:when test="${empty row.acaintrophotouu and intro.category eq '입시' }">
+					<img src="../resources/img/입시.jpg" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
+				</c:when>
+				<c:when test="${empty row.acaintrophotouu and intro.category eq '예체능' }">
+					<img src="../resources/img/예체능.jpg" style="width:100%;height:113%;border-radius:5px;  "alt="엑스박스" />
 				</c:when>
 				<c:otherwise>
-					<div class="container" style="margin-left: -2%;">
-						<%@ include file="/../resources/DR_common/commonPhotoSlide.jsp" %>
-			   		 </div>
+					<img src="../resources/img/직업교육.jpg" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
 				</c:otherwise>
 			</c:choose>
-			
 				
 			</td>
 		</tr>
@@ -214,7 +219,16 @@
 				<table class="table" style="width:150px;margin:5px 15px 10px 0px;">
 					<tr style="width:80px;">
 						<td style="padding:3px;height:170px;width:70px;text-align: center;">
-		             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:100%"alt="엑스박스" />
+							<c:choose>
+								<c:when test="${not empty row2.teaimageuu }">
+									<img src="../resources/acaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" />
+								</c:when>
+								<c:otherwise>
+										<img src="../resources/img/teadefault.jpg" style="width:100%;height:100%"alt="엑스박스" />
+		
+								</c:otherwise>
+							</c:choose>
+		             		
 		             		<%-- <img src="../resources/teaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" /> --%>
              			</td>
 					</tr>
@@ -333,7 +347,8 @@
 					<li><a href="#">5</a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-fast-forward"></span>></a></li>&nbsp;
 					<li><a href="#"><span class="glyphicon glyphicon-hand-right"></span>>></a></li>
-				</ul>	 -->${pagingImg }
+				</ul>	 		
+				-->${pagingImg }
 			</div>
 					</td>
 			</tr>
@@ -413,9 +428,46 @@
             </tr>
             <!-- 학원 후기 댓글 폼 -->			
 	</table>
+	</div>
 		<%@ include file="/../resources/DR_common/commonShareSNS.jsp" %>
+		<!-- <script type="text/javascript">
+		  var win=null;
+		  function printIt(printThis)
+		  {
+		    win = window.open();
+		    self.focus();
+		    win.document.open();
+		    win.document.write('<'+'html'+'><'+'head'+'><'+'style'+'>');
+		    win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+		    win.document.write('<'+'/'+'style'+'><'+'/'+'head'+'><'+'body'+'>');
+		    win.document.write(printThis);
+		    win.document.write('<'+'/'+'body'+'><'+'/'+'html'+'>');
+		    win.document.close();
+		    win.print();
+		    win.close();
+		  }
+		</script>
+		<a href="javascript:printIt(document.getElementById('printme').innerHTML)" >인쇄하기</a>
+		<div id="printme">
 
+		</div> -->
+		<script>
+		function f_print(){
+		    var initBody = document.body.innerHTML;
+		    window.onbeforeprint = function(){
+		        // print_area는 인쇄하고자 하는 영역의 ID를 말합니다.( 필수 )
+		        document.body.innerHTML = document.getElementById("info").innerHTML;
+		    }
+		    window.onafterprint = function(){
+		        document.body.innerHTML = initBody;
+		    }
+		    window.print();
+		}
+		</script>
+		
+	
 		<a href="#page-top"><button type = "button"  class="btn btn-info " style="margin:10px;width:auto;height:auto;vertical-align: middle;background-color: #699F9B;margin-left: 3.3%">위로가기</button></a>
+		<div style="text-align: right;font-weight: bold;"><a href="javascript:f_print()()" title="페이스북으로 가져가기"><img src="../resources/img/프린트.png" alt="" style="width:30px;height: 30px;"/>&nbsp;&nbsp;페이지 인쇄하기</a></div>
 	</div>
 	
 </section>
@@ -433,7 +485,7 @@
 
   <!-- Plugin JavaScript -->
   <script src="/FinallyProject/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
+  
   <!-- Custom scripts for this template -->
   <script src="js/grayscale.min.js"></script>
   

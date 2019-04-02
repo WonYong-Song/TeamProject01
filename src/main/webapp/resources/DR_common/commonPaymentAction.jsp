@@ -53,8 +53,8 @@
 		</tr>
 		<tr>
 		<td style="font-size: 1em;vertical-align: middle;" colspan="2">
-			<br />
 			<br /><br />
+			<img src="../resources/img/도장.png" alt="" style="width:100;height: 50"/>
 			<a href="memberMyPage.do"><button type = "button"  class="btn_order" style="margin:10px;width:auto;vertical-align: middle">마이페이지</button></a>
 	  		<a href="helloCastle.do"><button type = "button"  class="btn_cancel1" style="margin:10px;width:auto;vertical-align: middle">홈으로</button></a>
 		</td>

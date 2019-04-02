@@ -252,21 +252,27 @@ for(int i=0; i<acaList.size(); i++){
 geocoder.addressSearch('<%=array2[i] %>', function(result, status) {
      if (status === daum.maps.services.Status.OK) {
         var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+        var yyy = result[0].y;
+        var xxx = result[0].x;
         var marker = new daum.maps.Marker({
             map: map,
             position: coords    
         });
-        var iwContent = '<div style="padding:5px;"><div style="padding-bottom:5px;margin-left:15%">&nbsp;<%=array[i]%> <br /></div> &nbsp;&nbsp;&nbsp;<a href="#MapList<%=i%>" style="color:#64A19D" target="_blank">정보보기</a> - <a href="http://map.daum.net/link/to/<%=array[i]%>,33.450701,126.570667" style="color:#64A19D" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var iwContent = '<div style="padding:5px;"><div style="padding-bottom:5px;margin-left:15%">&nbsp;<%=array[i]%> <br /></div> &nbsp;&nbsp;&nbsp;<a href="#MapList<%=i%>" style="color:#64A19D" target="_blank">정보보기</a> - <a href="http://map.daum.net/link/to/<%=array[i]%>,'+yyy+','+xxx+'" style="color:#64A19D" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         iwPosition = new daum.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
     var infowindow = new daum.maps.InfoWindow({
         position : iwPosition, 
         content : iwContent 
     });
+
+        
     infowindow.open(map, marker); 
     } 
 })
-<%}%>  
+<%}%>
+
 </script>
+
   <!-- 다음지도 관련 스크립트 e -->	
 </body>
 

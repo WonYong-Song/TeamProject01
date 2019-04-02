@@ -73,8 +73,8 @@ function like_func(m,ri){
 		},
 		error:function(errorData){
 			 location.reload(); 
-			 alert("오류발생:"+errorData.status+":"
-				+errorData.statusText); 
+			/*  alert("오류발생:"+errorData.status+":"
+				+errorData.statusText);  */
 		}
 	});
 }

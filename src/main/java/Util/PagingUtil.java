@@ -22,11 +22,11 @@ public class PagingUtil {
 		if(intTemp != 1){
 			pagingStr += "<li>"
 					+"<a href='"+page+"nowPage=1'>"
-					+"<span ></span></a></li>";
+					+"<span ><img src='../resources/img/paging1.gif'style='border-radius:4px; padding-right: 5px;'/></span></a></li>";
 			//pagingStr += "&nbsp;";
 			pagingStr += "<li>"
 					+"<a href='"+page+"nowPage="+(intTemp-blockPage)+"'>"
-					+"<span></span></a></li>";
+					+"<span><img src='../resources/img/paging2.gif' style='border-radius:4px; padding-right: 5px;'/></span></a></li>";
 		}
 		
 		//페이지표시 제어를 위한 변수
@@ -52,10 +52,10 @@ public class PagingUtil {
 		//다음 및 마지막 페이지를 위한 로직
 		if(intTemp <= totalPage){
 			pagingStr+="<li><a href='"+page+"nowPage="+intTemp+"'>"
-				+ "<span ></span></a></li>";		
+				+ " <span><img src='../resources/img/paging3.gif' style='border-radius:4px; padding-left: 5px;'/></span></a></li>";		
 			//pagingStr+="&nbsp;";		
 			pagingStr+="<li><a href='"+page+"nowPage="+totalPage+"'>"
-				+ "<span ></span></a></li>";
+				+ "<span ><img src='../resources/img/paging4.gif'style='border-radius:4px;  padding-left: 5px;'/></span></a></li>";
 		}
 		
 		return pagingStr;

@@ -9,7 +9,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null
 			) m
@@ -18,7 +18,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null and b.category=#{0}
 			) m
@@ -27,7 +27,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null and a.acaname like '%'||#{0}||'%'
 			) m
@@ -36,7 +36,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null and a.address like '%'||#{0}||'%'
 			) m
@@ -45,7 +45,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null and (a.address like '%'||#{0}||'%' or a.acaname like '%'||#{0}||'%')
 			) m
@@ -54,7 +54,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null and b.category=#{1} and a.acaname like '%'||#{0}||'%'
 			) m
@@ -63,7 +63,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null and b.category=#{1} and a.address like '%'||#{0}||'%'
 			) m
@@ -72,7 +72,7 @@
 		select m.*,(select avg(score) from reviewwrite where acaidx=m.idx group by m.idx) score
 		from
 		(
-			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto
+			select a.idx,a.acaname,a.address,a.detailaddress,b.category,b.acaintrophoto,b.acaintrophotouu
 			from members a inner join acaintroduce b on a.id=b.id
 			where b.category is not null and b.category=#{1} and (a.address like '%'||#{0}||'%' or a.acaname like '%'||#{0}||'%')
 			) m

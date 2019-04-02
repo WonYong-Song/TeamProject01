@@ -77,8 +77,8 @@ height: 100%;
           <form class="form-inline d-flex" >
 			<div style="width:1000px;">
 			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
-				<option value="ACANAME">캐슬 위치</option>
-				<option value="address" >캐슬 이름</option>
+				<option value="address">캐슬 위치</option>
+				<option value="acaname" >캐슬 이름</option>
 				<!-- <option value="contents">이름+위치</option> -->
 			</select>
 			<input type="hidden" value="${cateB }" name="cateB"/>
@@ -108,9 +108,9 @@ height: 100%;
       <div class="row">
         <div class="col-md-10 col-lg-10 mx-auto text-center" style="margin-bottom: -45px;">
          <a href="academyInfo.do?acaIdx=${row.idx }",target="_blank" >
-          <div class="card py-4 h-60" style="width:900px;height:185px;">
+          <div class="card py-4 h-60" style="width:900px;height:auto;">
           	<div style="padding: 0px 6px 0px 6px">
-             <table class="table table-bordered " style="margin-bottom: 30px; margin-top: -2%; border-top: none;">
+             <table class="table table-bordered " style="margin-top: -2%; border-top: none;">
              <colgroup>
 					<col width="120px"/>
 					<col width="60px"/>
@@ -119,9 +119,22 @@ height: 100%;
 					<col width="120px"/>
 			</colgroup>
              <tr>
-             	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px;">
-             		<img src="../resources/img/bg-masthead.jpg" style="width:100%;height:113%"
-             		alt="엑스박스" /> 
+             	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px; border: 2px solid red;">
+            		<c:choose>
+						<c:when test="${not empty row.acaintrophotouu }">
+							<img src="../resources/acaUpload/${row.acaintrophotouu }" style="width:100%;height:auto%;border-radius:5px; border: 2px solid blue;"alt="엑스박스" />
+						</c:when>
+						<c:when test="${empty row.acaintrophotouu and row.category eq '입시' }">
+							<img src="../resources/img/입시.jpg" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
+						</c:when>
+						<c:when test="${empty row.acaintrophotouu and row.category eq '예체능' }">
+							<img src="../resources/img/예체능.jpg" style="width:100%;height:113%;border-radius:5px;  "alt="엑스박스" />
+						</c:when>
+						<c:otherwise>
+							<img src="../resources/img/직업교육.jpg" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />
+						</c:otherwise>
+					</c:choose>
+             	</td>
              	<td>분류</td>
              	<td colspan="3" style="text-align: left">전체>학원>${cateB }</td>
              </tr>
@@ -167,7 +180,7 @@ height: 100%;
     </div>
    </section>
   <!-- Footer -->
-  
+ 
   <footer class="bg-black small text-center text-white-50">
     <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
   </footer>
