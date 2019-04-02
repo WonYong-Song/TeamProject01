@@ -93,7 +93,7 @@ button:hover {
 	<%-- <input type="hid den" name="returnPage" value="<%=request.getParameter("returnPage")%>" /> --%>
 	<div id="Regist_form">
 		<div id="Regist_title" >
-		<input type="hidden" name="returnPage" value="<%=request.getParameter("returnPage")%>" />
+		<input type="hid_den" name="returnPage" value="<%=request.getParameter("returnPage")%>" />
 		    <h2 style="color:black;font-size:2em; 2em;text-align:center;padding: 5px;">로그인</h1>
 			
 			<% 

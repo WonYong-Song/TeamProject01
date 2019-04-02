@@ -88,7 +88,14 @@ public class FinalProjectController {
 	@RequestMapping("/catle/Login.do")
 	public String Login(HttpServletRequest req, HttpSession session,Model model,
 			HttpServletResponse resp) {
-
+		
+		/* 리턴페이지를 위한 url 설정 s*/
+		String returnPage1=req.getRequestURI();
+		String returnUrl =String.format("%s", returnPage1);
+		String returnPage = "/catle/main.do";
+		System.out.println("returnPage="+returnPage);
+		model.addAttribute("returnPage",returnPage);
+		/* 리턴페이지를 위한 url 설정 e*/
 		
 		return "01Main/Login";
 	}
