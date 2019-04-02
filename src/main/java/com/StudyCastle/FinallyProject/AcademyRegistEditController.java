@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -421,7 +422,7 @@ public class AcademyRegistEditController {
 		return "02sub/findPass";
 	}
 	
-	//임시비밀번호 발급
+	/*//임시비밀번호 페이지 발급
 	@RequestMapping("/catle/findPassAction.do")
 	public String findPassAction(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		resp.setContentType("text/html; charset=UTF-8");
@@ -444,6 +445,76 @@ public class AcademyRegistEditController {
             out.flush();
 		}	
 		return "02sub/findPassSuc";
-	}
+	}*/
+	
+	
+	
+	
+	//임시비밀번호 이메일 발급
+		@RequestMapping("/catle/findPassEmailAction.do")
+		@ResponseBody
+		public void findPassEmailAction(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+			resp.setContentType("text/html; charset=UTF-8");
+			
+			String id = req.getParameter("id");
+			String name = req.getParameter("name");
+			String emailid = req.getParameter("emailId");
+			String emaildomain = req.getParameter("emailDomain");
+			MembersDTO dto = sqlSession.getMapper(AcademyInfoRegiEditImpl.class).findPass(id,name,emailid,emaildomain);
+			
+			if(dto!=null) {
+				String pass = randomPassword(10);
+				sqlSession.getMapper(AcademyInfoRegiEditImpl.class).tempPassAdd(pass,id);
+				
+				String charSet = "utf-8";
+				String hostSMTP = "smtp.naver.com";
+				String hostSMTPid = "chaplode21";
+				String hostSMTPpwd = "!#@$#Q@W!E1324";
+
+				String fromEmail = "chaplode21@naver.com";
+				String fromName = "StudyCastle Homepage";
+				String subject = "";
+				String msg = "";
+				
+				subject = "StudyCastle Homepage 임시비밀번호 발급 메일입니다.";
+				msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+				msg += "<h3>";
+				msg += id + "님의 임시비밀번호는</h3>";
+				msg += "<h3 style='color: blue;'>'"+pass +"' 입니다.</h3>";
+				msg += "<div style='font-size: 130%'>";
+				
+				String mail = emailid+"@"+emaildomain;
+				System.out.println(mail);
+				try {
+					HtmlEmail email = new HtmlEmail();
+					email.setDebug(true);
+					email.setCharset(charSet);
+					email.setSSL(true);
+					email.setHostName(hostSMTP);
+					email.setSmtpPort(587);
+
+					email.setAuthentication(hostSMTPid, hostSMTPpwd);
+					email.setTLS(true);
+					email.addTo(mail, charSet);
+					email.setFrom(fromEmail, fromName, charSet);
+					email.setSubject(subject);
+					email.setHtmlMsg(msg);
+					email.send();
+				} catch (Exception e) {
+					System.out.println("메일발송 실패 : " + e);
+				}
+				 PrintWriter out = resp.getWriter();
+				 out.println("<script>alert('입력하신 메일로 임시비밀번호를 발송하였습니다.'); window.close();</script>");
+		         out.flush();
+			}
+			else {
+				resp.setContentType("text/html; charset=UTF-8");
+	            PrintWriter out = resp.getWriter();
+	            out.println("<script>alert('입력하신 정보를 찾을 수 없습니다. 다시입력해주세요.'); history.go(-1);</script>");
+	            out.flush();
+			}	
+		}
+	
+	
 	
 }
