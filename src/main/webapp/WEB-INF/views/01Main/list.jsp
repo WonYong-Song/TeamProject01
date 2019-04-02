@@ -59,6 +59,11 @@ height: 100%;
   color: orange;
 }
 
+ul.pagination li a:hover, ul.pagination li a:focus {
+	color:#fff;
+	border:1px solid #f40;
+	background-color:#f40;
+}
 </style>
 
 <body id="page-top">
@@ -75,7 +80,7 @@ height: 100%;
           <h2 class="text-white mb-5">'변화는 모든 배움의 마지막 결과이다.'</h2>
 			
           <form class="form-inline d-flex" >
-			<div style="width:1000px;">
+			<div style="width:1000px; ">
 			<select name="keyField" class="form-control" style="height:59px;padding-right: 10px;">
 				<option value="address">캐슬 위치</option>
 				<option value="acaname" >캐슬 이름</option>
@@ -173,7 +178,7 @@ height: 100%;
 	<section class="contact-section bg-black">
     <div class="container">
       <div class="row">
-			<ul class="pagination" style="margin-left: 49%">
+			<ul class="pagination" style="margin-left: 40% ">
 				${pagingImg }
 			</ul>
       </div>
