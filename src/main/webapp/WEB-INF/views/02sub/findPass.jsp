@@ -67,7 +67,7 @@ function infoRegiValidate(p) {
 </head>
 <body>
 <div class="container" style="padding-top:40px;" >
-	<form name="findPassFrm" action="findPassAction.do" method="post" onsubmit="return infoRegiValidate(this);">
+	<form name="findPassFrm" action="findPassEmailAction.do" method="post" onsubmit="return infoRegiValidate(this);">
 	<table>
        <tr>
       	<th style="width: 50px;">아이디</th>
