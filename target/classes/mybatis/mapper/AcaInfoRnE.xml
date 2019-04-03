@@ -71,7 +71,7 @@
 	
 	<!-- 새창에 강사뷰 불러오기  -->
 	<select id="teacherView" resultType="mybatis01.AcaTeacherDTO">
-		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id
+		SELECT m.id, teaimage, teaname, teaintro, subject, teaidx, a.id, teaimageuu
 			FROM members m inner join AcaTeacher a
 				on m.id = a.id
 			WHERE teaidx = #{teaidx}
