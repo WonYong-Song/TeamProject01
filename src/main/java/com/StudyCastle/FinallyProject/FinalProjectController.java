@@ -350,7 +350,7 @@ public class FinalProjectController {
 		
 	ArrayList<ReviewWriteDTO> reviewDTO = sqlSession.getMapper(AcademyInfoImpl.class).review(paramDTO);
 	//페이지 처리를 위한 처리부분
-			String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+			String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
 					pageSize, blockPage, nowPage,
 					req.getContextPath()+"/catle/academyInfo.do?acaIdx="+acaIdx+"&"+addQueryString);
 			model.addAttribute("pagingImg", pagingImg);
