@@ -152,18 +152,18 @@ for(String in : acaday){
 	          <col width="10%"/>
 	</colgroup>
 	      <tr>
-			<th class="line" colspan="3" style="font-size: 1.5em;">- 수강정보입력</th>
+			<th class="line" colspan="3" style="font-size: 1.5em;">강의정보수정</th>
 	      </tr>
 	      <tr>
-	         <td class="line2"style="padding-top: 20px; ">강의일자 : <input type="date" name="acastartdate" value="${classDTO.startd}"/>~<input type="date" name="acaenddate" value="${classDTO.endd}"/> <br /><br />	
-	         <td class="line2">강의명 : <input type="text" name="acaclassname" value="${classDTO.acaclassname}"/>
+	         <td class="line2"style="padding-top: 20px;"><span style="font-weight: bold;">강의일자 :</span> <input type="date" name="acastartdate" value="${classDTO.startd}"/>~<input type="date" name="acaenddate" value="${classDTO.endd}"/> <br /><br />	
+	         <td class="line2"><span style="font-weight: bold;">강의명 :</span> <input type="text" name="acaclassname" value="${classDTO.acaclassname}"/>
 	         <td rowspan="3" style="text-align: center;vertical-align: middle">
 	         <button type="submit" id="clsup">수정</button><br /><br />
 	         <button type="button" id="delete">삭제</button></td>
 	      </tr>
 	      <tr>
 	      	<td class="line2">
-	      	 강의요일 <br />
+	      	 <span style="font-weight: bold;">강의요일</span> <br />
 	 		<input type="checkbox" id="exercise"name="acaday" value="월요일" <%=checkAcaday.get("월요일") %>/>
 	 		<label for="mon">월</label>
 	 		<input type="checkbox" id="music" name="acaday" value="화요일" <%=checkAcaday.get("화요일") %>/>
@@ -180,7 +180,7 @@ for(String in : acaday){
 	       <label for="sun">일</label>
 	        	 </td>
 	        	 <td class="line2">
-	   		강사명: 
+	   		<span style="font-weight: bold;">강사명:</span> 
 	   			<c:if test="${!empty tealists}">
 					<select id="selbox" style="width:100px;" onchange="document.getElementById('teaName').value= this.options[this.selectedIndex].value">					
 			   			<option value="">선택</option>
@@ -193,8 +193,8 @@ for(String in : acaday){
         		</td>
 	        </tr>
 	        <tr>
-	           <td class="line3">강의시간 : <br /><input type="time" name="acastarttime" value="${classDTO.startt}"/> ~ <input type="time" name="acaendtime" value="${classDTO.endt}"/></td>
-	           <td class="line3">수강료 : <input type="number" name="pay" style="width: 100px;" value="${classDTO.pay}"/><br /><br />수강인원 : <input type="number" name="numberofparticipants" style="width: 100px;" value="${classDTO.numberofparticipants}"/></td>
+	           <td class="line3"><span style="font-weight: bold;">강의시간 :</span> <br /><input type="time" name="acastarttime" value="${classDTO.startt}"/> ~ <input type="time" name="acaendtime" value="${classDTO.endt}"/></td>
+	           <td class="line3"><span style="font-weight: bold;">수강료 :</span> <input type="number" name="pay" style="width: 100px;" value="${classDTO.pay}"/><br /><br /><span style="font-weight: bold;">수강인원 :</span> <input type="number" name="numberofparticipants" style="width: 100px;" value="${classDTO.numberofparticipants}"/></td>
 	      </tr>
 		</table>
 	  </form>

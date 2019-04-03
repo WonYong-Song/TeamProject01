@@ -226,7 +226,7 @@ public class AcademyRegistEditController {
 	//강의정보 입력
 	@RequestMapping("/catle/classInfoInsert.do")
 	public String classInfoInsert(AcaClassDTO acaClassDTO, HttpSession session, HttpServletRequest req) {
-	
+		
 		sqlSession.getMapper(AcademyInfoRegiEditImpl.class).ClassRegi(acaClassDTO);
 		
 		return "redirect:acaInfoRegiEdit.do";

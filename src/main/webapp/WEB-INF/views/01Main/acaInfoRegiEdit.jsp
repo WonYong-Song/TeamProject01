@@ -327,11 +327,14 @@ function classRegiValidate() {
 			<tbody>
 				<tr>
 					<th>학원사진</th>
+					<td style=" width: 20%;">
+						<input type="file" id="imgInp1" name="acaintrophoto" /><br />				
+					</td>
 					<td>
-						<input type="file" id="imgInp1" name="acaintrophoto" />
-						<img id="blah1" src="#" alt="your image" />
-						등록 파일 : ${RegiEditdto.acaintrophoto }
-						
+					<c:if test="${not empty RegiEditdto.acaintrophotouu }">
+						등록 파일 : <br />
+						<img id="blah1" src="../resources/acaUpload/${RegiEditdto.acaintrophotouu }" style="width:300px;height:250px;border-radius:5px;"alt="엑스박스" />
+						</c:if>		
 					</td>
 				</tr>
 			</tbody>	
@@ -392,69 +395,74 @@ function classRegiValidate() {
         <!-- 강사진 수정  -->
 		<div style="border: 2px solid #000000; background-color: #ffffff; border-radius: 0 10px 10px 10px;" class="div2" align="center">
 			<table class="table"><tr><th colspan="2" style="font-size: 1.5em;">- 등록 강사 목록</th></tr></table>
-			<table class="table table-bordered" style="max-width: 600px; background-color: #ffffff;">
-			<colgroup>
-				<col width="20%;"/>
-				<col width="30%;"/>
-				<col width="30%;"/>
-			</colgroup>
-			<thead>
-				<tr class="success">
-					<th class="text-center">번호</th>
-					<th class="text-center">강사명</th>
-					<th class="text-center">강의과목</th>
-				</tr>
-			</thead>
-			<tbody>
-			<c:choose>
-				<c:when test="${empty tealists }">
-					<tr>
-						<td colspan="4" class="text-center" >
-							등록된 강사가 없습니다.
-						</td>
-					</tr>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${tealists }" var="row" varStatus="loop">
-						<tr>
-							<td class="text-center">
-								${loop.index+1 }					
-							</td>
-							<td class="text-center">
-								<a href="teacherInfoView.do?teaidx=${row.teaidx }" 
-								onClick="window.open(this.href, '', 'width=600, height=430'); return false;">${row.teaname }</a>
-							</td>
-							<td class="text-center">${row.subject }</td>	
-						</tr>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-			</tbody>	
+			<table style="max-width: 900px; background-color: #ffffff;">
+			<tr>
+				<td>
+					<c:choose>
+						<c:when test="${empty tealists }">
+							<tr>
+								<td colspan="4" class="text-center" >
+									등록된 강사가 없습니다.
+								</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+						<div class="row" style="padding-left: 30px;">
+						 	<c:forEach items="${tealists }" var="row" varStatus="loop">
+								<table style="width:150px; margin:5px 15px 10px 0px;">
+									<tr style="width:80px; border: 1px solid #DDE1E5;">
+										<td style="padding:3px; height:170px; width:70px; text-align: center;">
+											<c:choose>
+												<c:when test="${not empty row.teaimageuu }">
+													<img src="../resources/teaUpload/${row.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" />
+												</c:when>
+												<c:otherwise>
+														<img src="../resources/img/teadefault.jpg" style="width:100%;height:100%"alt="엑스박스" />
+												</c:otherwise>
+											</c:choose>
+										</td>
+									</tr>
+								 	<tr style="width:100px;text-align: center;">
+								 		<td style="border: 1px solid #DDE1E5;"><a href="teacherInfoView.do?teaidx=${row.teaidx }" 
+										onClick="window.open(this.href, '', 'location=no,width=630, height=750'); return false;">${row.teaname }</a></td>
+								 	</tr>
+								 	<tr style="width:100px; text-align: center;">
+								 		<td style="border: 1px solid #DDE1E5;">${row.subject }</td>
+								 	</tr>
+								</table>
+							</c:forEach>
+						</div>
+						</c:otherwise>
+					</c:choose>
+				</td>
+			</tr>
 			</table>		
 			<!-- 강사정보추가  -->
 			<form name="teachFrm" action="teaInfoInsert.do" method="post" onsubmit="return teaRegiValidate(this);" enctype="multipart/form-data" >
 				<div>
 					<table class="table" style="width:100%; background-color: #ffffff;">
-						<tr><th colspan="2" style="font-size: 1.5em;">- 강사 등록</th></tr>
+						<tr><th colspan="3" style="font-size: 1.5em;">- 강사 등록</th></tr>
 						<tr style="border: 1px solid #DDE1E5;">
 							<th>강사이미지</th>
 							<td>
 							<input type="file" id="imgInp" name="teaimage"/>
+							</td>
+							<td style="border-right: 1px solid #DDE1E5;">
 							<!-- 이미지 표기를 위해  -->
-							<img id="blah" src="#" alt="your image" />
+							<img id="blah" src="#" alt="your image" style="width:200px;height:150px;border-radius:5px;" />
 							</td>
 						</tr>
 						<tr style="border: 1px solid #DDE1E5;">
 							<th> 강사명 </th>
-							<td><input type="text" name="teaname" placeholder="강사이름"></td>
+							<td colspan="3"><input type="text" name="teaname" placeholder="강사이름"></td>
 						</tr>
 						<tr style="border: 1px solid #DDE1E5;">
 							<th>강의과목</th>
-							<td><input type="text" name="subject" placeholder="과목명, 과목명 ..."></td>
+							<td colspan="3"><input type="text" name="subject" placeholder="과목명, 과목명 ..."></td>
 						</tr>
-						<tr ><th style="text-align: center" colspan="2">강사소개</th></tr>
+						<tr ><th style="text-align: center" colspan="3">강사소개</th></tr>
 						<tr style="border: 1px solid #DDE1E5;">
-							<td colspan="2">
+							<td colspan="3">
 							<textarea name="teaintro" cols="30" rows="10" style="width:100%"></textarea>
 							</td>
 						</tr> 
