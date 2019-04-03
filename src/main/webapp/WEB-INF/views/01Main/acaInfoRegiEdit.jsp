@@ -331,7 +331,8 @@ function classRegiValidate() {
 						<th>학원분류</th>
 						<td >
 							<c:if test="${!empty categorytList}">
-							  <select id="categoryBox" style="width:80px;" onchange="document.getElementById('category').value= this.options[this.selectedIndex].value">					
+							  <select id="categoryBox" style="width:80px;" onchange="document.getElementById('category').value= this.options[this.selectedIndex].value">		
+							  		<option value="">선택</option>			
 							     <c:forEach var="categorytList" items="${categorytList }" >		
 							        <option value="${categorytList.maincategory  }">${categorytList.maincategory }</option>
 							     </c:forEach>
