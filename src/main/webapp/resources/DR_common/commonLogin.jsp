@@ -140,7 +140,7 @@ button:hover {
 	    <div class="clearfix">
 	    <!--   <button type="button" class="cancelbtn" onclick="">Cancel</button> -->
 	      <button type="submit" style="background-color: #F1F1F1;"><img src="../resources/Images/로그인2.png" style="width:80px;height:20px;"/></button>
-	   	  <a href="naverLogin"><img src="http://static.nid.naver.com/oauth/big_w.PNG" alt="" style="width: 100%;height: 55px;"/></a>
+	   	  <a href="naverLogin"><img src="http://static.nid.naver.com/oauth/big_w.PNG" alt="" style="width: 100%;height: 50px;"/></a>
 	    </div>
 	</div>
 </form>

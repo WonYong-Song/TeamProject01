@@ -22,11 +22,11 @@ public class PagingUtil2 {
 		if(intTemp != 1){
 			pagingStr += "<li>"
 					+"<a href='"+page+"nowPage=1'>"
-					+"<span class='glyphicon glyphicon-fast-backward'></span></a></li>";
+					+"<span><img src='../resources/img/epaging1.gif'style='border-radius:4px; padding-right: 5px;'/></span></a></li>";
 			//pagingStr += "&nbsp;";
 			pagingStr += "<li>"
 					+"<a href='"+page+"nowPage="+(intTemp-blockPage)+"'>"
-					+"<span class='glyphicon glyphicon-step-backward'></span></a></li>";
+					+"<span><img src='../resources/img/epaging2.gif' style='border-radius:4px; padding-right: 5px;'/></span></a></li>";
 		}
 		
 		//페이지표시 제어를 위한 변수
@@ -52,10 +52,10 @@ public class PagingUtil2 {
 		//다음 및 마지막 페이지를 위한 로직
 		if(intTemp <= totalPage){
 			pagingStr+="<li><a href='"+page+"nowPage="+intTemp+"'>"
-				+ "<span class='glyphicon glyphicon-step-forward'></span></a></li>";		
+				+ "<span><img src='../resources/img/epaging3.gif' style='border-radius:4px; padding-left: 5px;'/></span></a></li>";		
 			//pagingStr+="&nbsp;";		
 			pagingStr+="<li><a href='"+page+"nowPage="+totalPage+"'>"
-				+ "<span class='glyphicon glyphicon-fast-forward'></span></a></li>";
+				+ "<span><img src='../resources/img/epaging4.gif'style='border-radius:4px;  padding-left: 5px;'/></span></a></li>";
 		}
 		
 		return pagingStr;

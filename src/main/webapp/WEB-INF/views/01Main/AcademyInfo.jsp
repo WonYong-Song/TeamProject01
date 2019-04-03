@@ -225,10 +225,8 @@
 								</c:when>
 								<c:otherwise>
 										<img src="../resources/img/teadefault.jpg" style="width:100%;height:100%"alt="엑스박스" />
-		
 								</c:otherwise>
 							</c:choose>
-		             		
 		             		<%-- <img src="../resources/teaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" /> --%>
              			</td>
 					</tr>
@@ -417,7 +415,6 @@
                     <p><small style="color: #64A19D">꺠끗하고 정확한 후기는 다른회원들의 캐슬 선택에 많이 도움이 됩니다.</small></p>
                   </div>
                   <p class="pull-right" ><small></small></p>
-
 						<button type="submit" class="btn btn-danger" style="margin-top: 5%;margin-left: 2%;background: #699F9B">후기작성</button>
 					</c:otherwise>
 				</c:choose>
@@ -471,7 +468,7 @@
 	</div>
 	
 </section>
-
+  
   <!-- Footer -->
   <footer class="bg-black small text-center text-white-50">
     <%@ include file="/../resources/DR_common/commonBottom.jsp" %>
@@ -519,6 +516,5 @@ geocoder.addressSearch(adress, function(result, status) {
 });    
 </script>
   <script src="/FinallyProject/resources/js/grayscale.min.js"></script>
-
 </body>
 </html>
