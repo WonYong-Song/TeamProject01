@@ -511,7 +511,7 @@ geocoder.addressSearch(adress, function(result, status) {
             position: coords
         });
         var infowindow = new daum.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.name }</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">${dto.acaname }</div>'
         });
         infowindow.open(map, marker);
         map.setCenter(coords);
