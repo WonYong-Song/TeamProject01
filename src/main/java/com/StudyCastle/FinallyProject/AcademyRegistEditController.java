@@ -299,7 +299,7 @@ public class AcademyRegistEditController {
 		String teaimgOrigin = req.getParameter("teaimgOrigin"); 
 		String teaimgOriuu = req.getParameter("teaimgOriuu");
 		
-		String path = req.getSession().getServletContext().getRealPath("/resources/acaUpload");
+		String path = req.getSession().getServletContext().getRealPath("/resources/teaUpload");
 		String originalName = "";
 		String serverFullName ="";
 		

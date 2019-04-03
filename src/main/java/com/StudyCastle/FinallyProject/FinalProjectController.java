@@ -236,7 +236,7 @@ public class FinalProjectController {
 	
 	//페이지 처리를 위한 설정값
 	int pageSize = 4;
-	int blockPage = 2;
+	int blockPage = 5;
 	
 	//전체페이지수계산하기
 	int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
