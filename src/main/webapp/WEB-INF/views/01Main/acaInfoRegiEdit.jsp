@@ -388,7 +388,7 @@ function classRegiValidate() {
 							</td>
 							<td class="text-center">
 								<a href="teacherInfoView.do?teaidx=${row.teaidx }" 
-								onClick="window.open(this.href, '', 'width=400, height=430'); return false;">${row.teaname }</a>
+								onClick="window.open(this.href, '', 'width=600, height=430'); return false;">${row.teaname }</a>
 							</td>
 							<td class="text-center">${row.subject }</td>	
 						</tr>

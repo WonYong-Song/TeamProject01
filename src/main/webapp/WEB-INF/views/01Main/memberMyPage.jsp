@@ -59,6 +59,12 @@ height: 100%;
 #holder::placeholder {
 	color: red;
 }
+
+ul.pagination li a:hover, ul.pagination li a:focus {
+	color:#fff;
+	border:1px solid #f40;
+	background-color:#f40;
+}
 </style>
 
 <body id="page-top">

@@ -38,6 +38,12 @@
     .tablinks{
     	padding-right: 20px;
     }
+    
+    ul.pagination li a:hover, ul.pagination li a:focus {
+	color:#fff;
+	border:1px solid #f40;
+	background-color:#f40;
+}
   </style> 
   
   <!-- 끌어온 스킨의 것 -->
@@ -335,20 +341,12 @@
 			<%@ include file="/../resources/DR_common/commonComment.jsp" %>
 			</div>
 			
-			<div class="row text-center" style="padding-left: 44%;margin:auto;">
+			<div class="row text-center" style="padding-left: 40%;margin:auto;">
 				<!-- 페이지번호 부분 -->
-				<!-- <ul class="pagination" style="text-align: center; ">	
-					<li><a href="#"><span class="glyphicon glyphicon-hand-left"></span><<</a></li>&nbsp;
-					<li><a href="#"><span class="glyphicon glyphicon-fast-backward"></span><</a></li>&nbsp;
-					<li><a href="#">1</a></li>&nbsp;		
-					<li class="active"><a href="#">2</a></li>&nbsp;
-					<li><a href="#">3</a></li>&nbsp;
-					<li><a href="#">4</a></li>&nbsp;	
-					<li><a href="#">5</a></li>&nbsp;
-					<li><a href="#"><span class="glyphicon glyphicon-fast-forward"></span>></a></li>&nbsp;
-					<li><a href="#"><span class="glyphicon glyphicon-hand-right"></span>>></a></li>
+				<ul class="pagination" style="text-align: center; ">	
+					${pagingImg }
 				</ul>	 		
-				-->${pagingImg }
+				
 			</div>
 					</td>
 			</tr>

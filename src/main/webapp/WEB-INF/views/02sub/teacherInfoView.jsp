@@ -78,9 +78,9 @@ $(function(){
 	<form name="teachFrm" action="teaInfoUpdate.do" method="post" onsubmit="return teaRegiValidate(this)" enctype="multipart/form-data">
 		<div>
 			<hr />
-			<input type="hidden" name="teaimgOriuu" value="${teaDTO.teaimageuu }"/>
-			<input type="hidden" name="teaimgOrigin" value="${teaDTO.teaimage }"/>
-			<input type="hidden" name="teaidx" value="${teaDTO.teaidx }" />
+			<input type="hid den" name="teaimgOriuu" value="${teaDTO.teaimageuu }"/>
+			<input type="hid den" name="teaimgOrigin" value="${teaDTO.teaimage }"/>
+			<input type="hid den" name="teaidx" value="${teaDTO.teaidx }" />
 			<table class="table" style="width:100%; background-color: #EEEEEE;">
 				<tr><th colspan="2" style="font-size: 1.5em;">- 강사 등록</th></tr>
 				<tr>
@@ -95,8 +95,8 @@ $(function(){
 				</tr>
 				<tr><th style="text-align: center" colspan="2">강사소개</th></tr>
 				<tr>
-					<td colspan="2">
-					<textarea name="teaintro" cols="30" rows="10" style="width:100%">${teaDTO.teaintro }</textarea>
+					<td colspan="2" style="padding-right: 10px;">
+					<textarea name="teaintro" cols="20" rows="10" style="width:100%">${teaDTO.teaintro }</textarea>
 					</td>
 				</tr> 
 				<tr>

@@ -63,6 +63,12 @@ height: 100%;
 .checked {
   color: orange;
 }
+
+ul.pagination li a:hover, ul.pagination li a:focus {
+	color:#fff;
+	border:1px solid #f40;
+	background-color:#f40;
+}
 </style>
 <!-- 다음지도 스타일 s-->
 <style>
@@ -191,7 +197,7 @@ height: 100%;
 				</c:choose>
 			</tbody>
 			</table>
-			<section class="contact-section bg-white" style="margin-left: 49%">
+			<section class="contact-section bg-white" style="margin-left: 44%">
 		    <div class="container" >
 		      <div class="text-center " >
 					<ul class="pagination">

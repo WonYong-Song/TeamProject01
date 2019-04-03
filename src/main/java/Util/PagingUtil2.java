@@ -20,13 +20,13 @@ public class PagingUtil2 {
 		
 				//처음페이지 & 이전페이지를 위한 로직
 		if(intTemp != 1){
-			pagingStr += "<li>"
+			pagingStr += "<li class='paging'>"
 					+"<a href='"+page+"nowPage=1'>"
-					+"<span class='glyphicon glyphicon-fast-backward'></span></a></li>";
+					+"<span ><img src='../resources/img/epaging1.gif'style='border-radius:4px; padding-right: 5px;'/></span></a></li>";
 			//pagingStr += "&nbsp;";
-			pagingStr += "<li>"
+			pagingStr += "<li class='paging'>"
 					+"<a href='"+page+"nowPage="+(intTemp-blockPage)+"'>"
-					+"<span class='glyphicon glyphicon-step-backward'></span></a></li>";
+					+"<span><img src='../resources/img/epaging2.gif' style='border-radius:4px; padding-right: 5px;'/></span></a></li>";
 		}
 		
 		//페이지표시 제어를 위한 변수
@@ -38,11 +38,15 @@ public class PagingUtil2 {
 			//현제페이지인 경우
 			if(intTemp==nowPage){
 				pagingStr
-					+="<li class='active'><a href='#'>"+intTemp+"</a></li>";
+					+="<li style='float:left;'>"
+							+ "<a href='#' style='float:inherit; padding:4px; margin-right:3px; width:20px;"
+							+ " color:#000000; font:bold 15px tahoma;  border:1px solid #000000; text-align:center; text-decoration:none;'>"+intTemp+"&nbsp;</a></li>";
 			}
 			else{
 				pagingStr
-					+="<li><a href='"+page+"nowPage="+intTemp+"'>"+intTemp+"</a></li>";
+					+="<li style='float:left;'>"
+							+ "<a href='"+page+"nowPage="+intTemp+"' style='float:inherit; padding:4px; margin-right:3px; width:20px; "
+							+ " color:#000000; font:bold 15px tahoma;  border:1px solid #000000; text-align:center; text-decoration:none;'>"+intTemp+"&nbsp;</a></li>";
 			}
 		
 			intTemp = intTemp + 1;
@@ -51,11 +55,11 @@ public class PagingUtil2 {
 		
 		//다음 및 마지막 페이지를 위한 로직
 		if(intTemp <= totalPage){
-			pagingStr+="<li><a href='"+page+"nowPage="+intTemp+"'>"
-				+ "<span class='glyphicon glyphicon-step-forward'></span></a></li>";		
+			pagingStr+="<li class='paging'><a href='"+page+"nowPage="+intTemp+"'>"
+				+ " <span><img src='../resources/img/epaging3.gif' style='border-radius:4px; padding-left: 5px;'/></span></a></li>";		
 			//pagingStr+="&nbsp;";		
-			pagingStr+="<li><a href='"+page+"nowPage="+totalPage+"'>"
-				+ "<span class='glyphicon glyphicon-fast-forward'></span></a></li>";
+			pagingStr+="<li class='paging'><a href='"+page+"nowPage="+totalPage+"'>"
+				+ "<span ><img src='../resources/img/epaging4.gif'style='border-radius:4px;  padding-left: 5px;'/></span></a></li>";
 		}
 		
 		return pagingStr;
