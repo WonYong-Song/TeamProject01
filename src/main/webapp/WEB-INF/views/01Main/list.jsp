@@ -111,23 +111,23 @@ ul.pagination li a:hover, ul.pagination li a:focus {
   <section class="contact-section bg-black">
     <div class="container">
       <div class="row">
-        <div class="col-md-10 col-lg-10 mx-auto text-center" style="margin-bottom: -45px;">
-         <a href="academyInfo.do?acaIdx=${row.idx }",target="_blank" >
-          <div class="card py-4 h-60" style="width:900px;height:auto;">
+        <div class="col-md-10 col-lg-10 mx-auto text-center" style="margin-bottom: -45px;height:auto;">
+         <a href="academyInfo.do?acaIdx=${row.idx }" target="_blank"style="width:900px;height:auto;" >
+          <div class="card py-4 h-60"  style="height: auto;">
           	<div style="padding: 0px 6px 0px 6px">
-             <table class="table table-bordered " style="margin-top: -2%; border-top: none;">
+             <table class="table table-bordered " style="margin-top: 1%; border-top: none;">
              <colgroup>
 					<col width="120px"/>
-					<col width="60px"/>
+					<col width="50px"/>
 					<col width="100px"/>
-					<col width="60px"/>
+					<col width="50px"/>
 					<col width="120px"/>
 			</colgroup>
              <tr>
-             	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px; border: 2px solid red;">
+             	<td rowspan="3" style="padding: 3px;height:150px;wieth:200px;">
             		<c:choose>
 						<c:when test="${not empty row.acaintrophotouu }">
-							<img src="../resources/acaUpload/${row.acaintrophotouu }" style="width:100%;height:auto%;border-radius:5px; border: 2px solid blue;"alt="엑스박스" />
+							<img src="../resources/acaUpload/${row.acaintrophotouu }" style="width:100%;height:113%;"alt="엑스박스" />
 						</c:when>
 						<c:when test="${empty row.acaintrophotouu and row.category eq '입시' }">
 							<img src="../resources/img/입시.jpg" style="width:100%;height:113%;border-radius:5px;"alt="엑스박스" />

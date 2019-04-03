@@ -727,7 +727,7 @@ public class FinalProjectController {
 		
 		//페이지 처리를 위한 설정값
 		int pageSize = 10;
-		int blockPage = 10;
+		int blockPage = 5;
 		
 		//전체페이지수계산하기
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
@@ -836,8 +836,8 @@ public class FinalProjectController {
 		System.out.println("totalRecordCount="+totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 6;
-		int blockPage = 5;
+		int pageSize = 10;
+		int blockPage = 10;
 		
 		//전체페이지수계산하기
 		int totalPage = (int)Math.ceil((double)totalRecordCount/pageSize);
@@ -854,7 +854,7 @@ public class FinalProjectController {
 		System.out.println("11111111111111111111111111111");
 		ArrayList<AcademyMemberDTO> acaList= sqlSession.getMapper(AcademyListImpl.class).AcaListM(paramDTO);
 		//페이지 처리를 위한 처리부분
-		String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+		String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
 				pageSize, blockPage, nowPage,
 				req.getContextPath()+"/catle/acaSearchMap.do?"+addQueryString);
 		model.addAttribute("pagingImg", pagingImg);
