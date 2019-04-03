@@ -79,6 +79,14 @@
 </style>  
 <script>
 $(function() {
+	
+	$("#imgInp").on('change', function(){
+        readURL(this);
+    });
+	$("#imgInp1").on('change', function(){
+        readURL1(this);
+    });
+	
      var $items = $('#vtab>ul>li');
      $items.click (function() {
          $items.removeClass('selected');
@@ -87,6 +95,30 @@ $(function() {
          $('#vtab>div').hide().eq(index).show();
      }).eq(0).click ();
  });
+
+function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+            $('#blah').attr('src', e.target.result);
+        }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+}
+function readURL1(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+            $('#blah1').attr('src', e.target.result);
+        }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+}
+
 $(function(){
 	$('#telephone').keyup(function(){
 		$('#telephone').val($('#telephone').val().replace(/ /g, ''));
@@ -296,8 +328,10 @@ function classRegiValidate() {
 				<tr>
 					<th>학원사진</th>
 					<td>
-						<input type="file" name="acaintrophoto" />
+						<input type="file" id="imgInp1" name="acaintrophoto" />
+						<img id="blah1" src="#" alt="your image" />
 						등록 파일 : ${RegiEditdto.acaintrophoto }
+						
 					</td>
 				</tr>
 			</tbody>	
@@ -331,7 +365,8 @@ function classRegiValidate() {
 						<th>학원분류</th>
 						<td >
 							<c:if test="${!empty categorytList}">
-							  <select id="categoryBox" style="width:80px;" onchange="document.getElementById('category').value= this.options[this.selectedIndex].value">					
+							  <select id="categoryBox" style="width:80px;" onchange="document.getElementById('category').value= this.options[this.selectedIndex].value">		
+							  		<option value="">선택</option>			
 							     <c:forEach var="categorytList" items="${categorytList }" >		
 							        <option value="${categorytList.maincategory  }">${categorytList.maincategory }</option>
 							     </c:forEach>
@@ -404,7 +439,9 @@ function classRegiValidate() {
 						<tr style="border: 1px solid #DDE1E5;">
 							<th>강사이미지</th>
 							<td>
-							<input type="file" name="teaimage"/>
+							<input type="file" id="imgInp" name="teaimage"/>
+							<!-- 이미지 표기를 위해  -->
+							<img id="blah" src="#" alt="your image" />
 							</td>
 						</tr>
 						<tr style="border: 1px solid #DDE1E5;">

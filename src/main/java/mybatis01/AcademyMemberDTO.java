@@ -6,7 +6,7 @@ public class AcademyMemberDTO {
 	private String regidate;
 	private String emailid;
 	private String emaildomain; 
-	private String mobile1; 
+	private String mobile1;  
 	private String name; 
 	private String idx;
 	private String grade;
