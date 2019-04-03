@@ -221,7 +221,7 @@
 						<td style="padding:3px;height:170px;width:70px;text-align: center;">
 							<c:choose>
 								<c:when test="${not empty row2.teaimageuu }">
-									<img src="../resources/acaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" />
+									<img src="../resources/teaUpload/${row2.teaimageuu }" style="width:100%;height:100%"alt="엑스박스" />
 								</c:when>
 								<c:otherwise>
 										<img src="../resources/img/teadefault.jpg" style="width:100%;height:100%"alt="엑스박스" />

@@ -721,7 +721,7 @@ public class FinalProjectController {
 		System.out.println("totalRecordCount="+ totalRecordCount);
 		
 		//페이지 처리를 위한 설정값
-		int pageSize = 5;
+		int pageSize = 10;
 		int blockPage = 10;
 		
 		//전체페이지수계산하기
