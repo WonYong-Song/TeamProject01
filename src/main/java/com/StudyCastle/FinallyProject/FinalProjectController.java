@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
 import dto.AcaClassDTO;
 import dto.MembersDTO;
 import impl.AcademyInfoImpl;
@@ -44,6 +46,9 @@ import mybatis01.ParamDTO;
 import mybatis01.ReviewLikeDTO;
 import mybatis01.ReviewWriteDTO;
 import mybatis01.idsDTO;
+import naver.JsonParser;
+import naver.NaverLoginBO;
+import user.UserDTO;
 
 
 
@@ -235,7 +240,7 @@ public class FinalProjectController {
 	
 	
 	//페이지 처리를 위한 설정값
-	int pageSize = 4;
+	int pageSize = 10;
 	int blockPage = 5;
 	
 	//전체페이지수계산하기
@@ -761,7 +766,7 @@ public class FinalProjectController {
 			dto.setAcaendtime(endT);
 		}
 		//페이지 처리를 위한 처리부분
-		String pagingImg = Util.PagingUtil.pagingImg(totalRecordCount,
+		String pagingImg = Util.PagingUtil2.pagingImg(totalRecordCount,
 				pageSize, blockPage, nowPage,
 				req.getContextPath()+"/catle/memberMyPage.do?"+addQueryString);
 		model.addAttribute("pagingImg", pagingImg);
@@ -913,6 +918,38 @@ public class FinalProjectController {
 		obj.put("reviewFlag", reviewFlag);
 		
 		return obj.toJSONString();
+	}
+	
+	//소셜 로그인
+	NaverLoginBO naverLoginBO=new NaverLoginBO();
+	
+	@RequestMapping(value = "/catle/naverLogin", method = RequestMethod.GET)
+	public ModelAndView naverLogin(HttpSession session) {
+		/* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		System.out.println("1단계진입");
+
+		return new ModelAndView("01Main/naverLogin", "url", naverAuthUrl);
+	}
+
+	@RequestMapping(value = "/callback", method = RequestMethod.GET)
+	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model, UserDTO userDTO) throws Exception {
+		/* 네아로 인증이 성공적으로 완료되면 code 파라미터가 전달되며 이를 통해 access token을 발급 */
+
+		JsonParser json = new JsonParser();
+
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
+		String apiResult = naverLoginBO.getUserProfile(oauthToken);
+		userDTO = json.changeJson(apiResult); // dto에 userEmail저장
+		System.out.println("User Uid : " + userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")));
+        System.out.println("User Name : " + userDTO.getName());
+        System.out.println("User Email : " + userDTO.getEmail());
+				
+		//sqlSession.getMapper(UserImpl.class).regiUser(userDTO);
+		//session.setAttribute("login", inputSocialUser(userDTO.getEmail().substring(0, userDTO.getEmail().indexOf("@")), userDTO.getName(), userDTO.getEmail(), "naver"));
+		session.setAttribute("USER_ID", userDTO.getEmail() );
+		session.setAttribute("GRADE", 1);
+		return "01Main/callback";
 	}
 	
 }

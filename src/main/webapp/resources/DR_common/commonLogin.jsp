@@ -123,20 +123,24 @@ button:hover {
 	    <label>
 	      <div style="text-align:right;width:350px">
 	      
-	      <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px;">아이디 저장
+	      <!-- <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px;">아이디 저장 -->
 	      </div>
 	    </label>
 	    
-	    <p>회원이 아니시라면 <a href="registGroup.do" style="color:dodgerblue">이곳을 눌려주세요</a>.</p>
+	   <!--  <p>회원이 아니시라면 <a href="registGroup.do" style="color:dodgerblue">이곳을 눌려주세요</a>.</p> -->
 		<p id="Fid">
 			<a href="findId.do" onclick="window.open(this.href, '아이디찾기', 'width=550, height=160, left= 650, top= 500,toolbar=no, menubar=no, scrollbars=no, resizable=no'); return false;">
 			아이디찾기
 			</a>&nbsp;&nbsp;&nbsp;
+			
 			<a href="findPass.do"onclick="window.open(this.href, '비밀번호찾기', 'width=550, height=160, left= 650, top= 500,toolbar=no, menubar=no, scrollbars=no, resizable=no'); return false;">비밀번호찾기</a>
+			&nbsp;&nbsp;&nbsp;
+			<a href="registGroup.do" style="color:#62A2B7">회원가입하기</a>
 		</p>
 	    <div class="clearfix">
 	    <!--   <button type="button" class="cancelbtn" onclick="">Cancel</button> -->
 	      <button type="submit" style="background-color: #F1F1F1;"><img src="../resources/Images/로그인2.png" style="width:80px;height:20px;"/></button>
+	   	  <a href="naverLogin"><img src="http://static.nid.naver.com/oauth/big_w.PNG" alt="" style="width: 100%;height: 55px;"/></a>
 	    </div>
 	</div>
 </form>
