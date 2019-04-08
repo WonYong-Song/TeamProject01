@@ -1,2 +1,2 @@
-# TeamProject01
-처음 만드는 원격저장소
+# StudyCastl
+학원종합정보제공 웹어플리케이션
